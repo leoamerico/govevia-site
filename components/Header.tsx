@@ -20,7 +20,6 @@ export default function Header() {
     { name: 'Plataforma', href: '/plataforma' },
     { name: 'Publicações', href: '/blog' },
     { name: 'Sobre', href: '/sobre' },
-    { name: 'Contato', href: '#contato' },
   ]
 
   return (
