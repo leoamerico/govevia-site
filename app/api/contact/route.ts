@@ -148,10 +148,12 @@ export async function POST(request: Request) {
     allowedOrigins.add(new URL(request.url).origin)
 
     // Permitir same-origin automaticamente (útil em previews *.vercel.app)
-    const host = request.headers.get('x-forwarded-host') || request.headers.get('host')
-    const proto = request.headers.get('x-forwarded-proto') || 'https'
-    if (host) {
-      allowedOrigins.add(`${proto}://${host}`)
+    const forwardedHostRaw = request.headers.get('x-forwarded-host') || request.headers.get('host')
+    const forwardedHost = forwardedHostRaw?.split(',')[0]?.trim()
+    const proto = (request.headers.get('x-forwarded-proto') || 'https').split(',')[0].trim()
+    if (forwardedHost) {
+      const sameOrigin = toOrigin(`${proto}://${forwardedHost}`)
+      if (sameOrigin) allowedOrigins.add(sameOrigin)
     }
 
     const requestOrigin = toOrigin(origin) || toOrigin(referer)
