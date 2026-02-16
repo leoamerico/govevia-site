@@ -29,6 +29,9 @@ yarn-error.log*
 .env
 govevia.env
 
+# local scratch files
+support@envneo.com.br.txt
+
 # vercel
 .vercel
 
