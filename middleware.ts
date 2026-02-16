@@ -3,11 +3,23 @@ import type { NextRequest } from 'next/server'
 
 function toOrigin(value: string | null): string | null {
   if (!value) return null
-  try {
-    return new URL(value).origin
-  } catch {
-    return null
+
+  const trimmed = value.trim()
+  const candidates: string[] = [trimmed]
+  // Permite values como "www.govevia.com.br" (sem protocolo) em env vars
+  if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(trimmed)) {
+    candidates.push(`https://${trimmed.replace(/^\/\//, '')}`)
   }
+
+  for (const candidate of candidates) {
+    try {
+      return new URL(candidate).origin
+    } catch {
+      // tentar próximo candidato
+    }
+  }
+
+  return null
 }
 
 function getAllowedOrigins(): Set<string> {
@@ -55,7 +67,7 @@ export function middleware(request: NextRequest) {
     allowedOrigins.add(request.nextUrl.origin)
 
     // Permitir same-origin automaticamente (útil em previews *.vercel.app)
-    const host = request.headers.get('host')
+    const host = request.headers.get('x-forwarded-host') || request.headers.get('host')
     const proto = request.headers.get('x-forwarded-proto') || 'https'
     if (host) {
       allowedOrigins.add(`${proto}://${host}`)
