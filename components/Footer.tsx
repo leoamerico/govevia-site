@@ -53,8 +53,62 @@ export default function Footer() {
             </div>
             <div className="text-xs text-gray-500 md:text-right">
               <p className="mb-1">Conformidade Regulatória:</p>
-              <p>Lei 9.784/99 · Lei 14.129/2021 · LGPD</p>
-              <p>Lei 14.133/2021 · LAI · ICP-Brasil</p>
+              <p>
+                <a
+                  href="https://www.planalto.gov.br/ccivil_03/leis/l9784.htm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-light transition-colors"
+                >
+                  Lei 9.784/99
+                </a>{' '}
+                ·{' '}
+                <a
+                  href="https://www2.camara.leg.br/legin/fed/lei/2021/lei-14129-29-marco-2021-791203-publicacaooriginal-162567-pl.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-light transition-colors"
+                >
+                  Lei 14.129/2021
+                </a>{' '}
+                ·{' '}
+                <a
+                  href="https://www2.camara.leg.br/legin/fed/lei/2018/lei-13709-14-agosto-2018-787077-normaatualizada-pl.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-light transition-colors"
+                >
+                  LGPD
+                </a>
+              </p>
+              <p>
+                <a
+                  href="https://www.mpu.mp.br/contratacoes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-light transition-colors"
+                >
+                  Lei 14.133/2021
+                </a>{' '}
+                ·{' '}
+                <a
+                  href="https://www.faifsul.org/lei-de-acesso-a-informacao-lei-12-527-2011/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-light transition-colors"
+                >
+                  LAI
+                </a>{' '}
+                ·{' '}
+                <a
+                  href="http://www.comprasnet.gov.br/legislacao/medidas/2200.htm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-light transition-colors"
+                >
+                  ICP-Brasil
+                </a>
+              </p>
             </div>
           </div>
         </div>
