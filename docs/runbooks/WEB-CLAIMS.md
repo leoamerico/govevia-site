@@ -3,6 +3,11 @@
 ## Objetivo
 Executar localmente o verificador de claims do site (anti-overclaim) e gerar o relatório público de evidências.
 
+O verificador também aplica salvaguardas para claims de IA (AI-first):
+
+- Permite inventariar claims com `domain`, `risk_level` e `ai_pattern`.
+- Falha automaticamente se detectar frases de overclaim típicas de IA em qualquer copy pública (ex.: "decide automaticamente", "sem viés", "sem erro").
+
 ## Comandos
 
 ```bash

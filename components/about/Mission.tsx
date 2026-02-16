@@ -50,6 +50,11 @@ export default function Mission() {
                 implementação e configuração no órgão). Em vez de depender apenas de alertas, o objetivo 
                 é apoiar controles preventivos e rastreabilidade operacional.
               </p>
+              <p>
+                Em uma abordagem GovTech AI-first, modelos de IA podem sugerir enquadramentos normativos e
+                apoiar a análise, mas a consolidação de atos depende de validação determinística e de revisão humana
+                registrada. Nenhuma decisão administrativa é tomada exclusivamente por IA.
+              </p>
               <p className="font-semibold text-institutional-navy text-xl">
                 Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser 
                 documentada para ser executada.

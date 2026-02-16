@@ -1,6 +1,52 @@
 {
   "claims": [
     {
+      "id": "WEB-AI-MISS-001",
+      "page_path": "components/about/Mission.tsx",
+      "statement": "Em uma abordagem GovTech AI-first, modelos de IA podem sugerir enquadramentos normativos e\n                apoiar a análise, mas a consolidação de atos depende de validação determinística e de revisão humana\n                registrada.",
+      "domain": ["ai", "normas", "seguranca"],
+      "risk_level": "high",
+      "ai_pattern": {
+        "assistive_only": true,
+        "human_in_the_loop": true,
+        "explainability_required": true
+      },
+      "claim_type": "AI_ASSISTIVE",
+      "required_proof": "ADR",
+      "status": "UNKNOWN",
+      "evidence": [
+        {
+          "path": "docs/public/evidence/adr/ADR-002-ai-assistiva-guardrails.md",
+          "description": "ADR com postura de IA assistiva (não decisória) + humano-no-circuito + linguagem permitida"
+        }
+      ],
+      "reproduce": [],
+      "copy_fix": "Se não houver implementação/garantias, reescrever para um escopo puramente conceitual e remover qualquer menção a IA na missão."
+    },
+    {
+      "id": "WEB-AI-MISS-002",
+      "page_path": "components/about/Mission.tsx",
+      "statement": "Nenhuma decisão administrativa é tomada exclusivamente por IA.",
+      "domain": ["ai", "seguranca"],
+      "risk_level": "high",
+      "ai_pattern": {
+        "assistive_only": true,
+        "human_in_the_loop": true,
+        "explainability_required": true
+      },
+      "claim_type": "AI_GUARDRAIL",
+      "required_proof": "ADR",
+      "status": "UNKNOWN",
+      "evidence": [
+        {
+          "path": "docs/public/evidence/adr/ADR-002-ai-assistiva-guardrails.md",
+          "description": "ADR declarando humano-no-circuito e proibição de decisão exclusivamente por IA"
+        }
+      ],
+      "reproduce": [],
+      "copy_fix": "Remover a afirmação se o produto vier a operar com decisões totalmente automatizadas; manter linguagem de IA assistiva + revisão humana registrada."
+    },
+    {
       "id": "WEB-HOME-HERO-001",
       "page_path": "components/home/Hero.tsx",
       "statement": "O sistema impede atos fora de conformidade e registra evidência verificável do que foi feito,\n              por quem e sob qual regra.",
