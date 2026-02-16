@@ -87,6 +87,42 @@ function validateInput(body: Record<string, unknown>): string | null {
   return null
 }
 
+function toOrigin(value: string | null): string | null {
+  if (!value) return null
+  try {
+    return new URL(value).origin
+  } catch {
+    return null
+  }
+}
+
+function getAllowedOrigins(): Set<string> {
+  const origins = new Set<string>()
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://govevia.com.br'
+  const siteOrigin = toOrigin(siteUrl)
+  if (siteOrigin) {
+    origins.add(siteOrigin)
+
+    const hostname = new URL(siteOrigin).hostname
+    const protocol = new URL(siteOrigin).protocol
+    if (hostname.startsWith('www.')) {
+      origins.add(`${protocol}//${hostname.replace(/^www\./, '')}`)
+    } else {
+      origins.add(`${protocol}//www.${hostname}`)
+    }
+  }
+
+  origins.add('http://localhost:3000')
+
+  const vercelUrl = process.env.VERCEL_URL
+  if (vercelUrl) {
+    origins.add(`https://${vercelUrl}`)
+  }
+
+  return origins
+}
+
 export async function POST(request: Request) {
   try {
     // ============================================================
@@ -94,13 +130,10 @@ export async function POST(request: Request) {
     // ============================================================
     const origin = request.headers.get('origin')
     const referer = request.headers.get('referer')
-    const allowedOrigins = [
-      process.env.NEXT_PUBLIC_SITE_URL || 'https://govevia.com.br',
-      'http://localhost:3000',
-    ]
+    const allowedOrigins = getAllowedOrigins()
 
-    const requestOrigin = origin || (referer ? new URL(referer).origin : null)
-    if (!requestOrigin || !allowedOrigins.some(o => requestOrigin.startsWith(o))) {
+    const requestOrigin = toOrigin(origin) || toOrigin(referer)
+    if (!requestOrigin || !allowedOrigins.has(requestOrigin)) {
       return NextResponse.json(
         { message: 'Requisição não autorizada.' },
         { status: 403 }
