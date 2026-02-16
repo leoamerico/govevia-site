@@ -132,6 +132,13 @@ export async function POST(request: Request) {
     const referer = request.headers.get('referer')
     const allowedOrigins = getAllowedOrigins()
 
+    // Permitir same-origin automaticamente (útil em previews *.vercel.app)
+    const host = request.headers.get('host')
+    const proto = request.headers.get('x-forwarded-proto') || 'https'
+    if (host) {
+      allowedOrigins.add(`${proto}://${host}`)
+    }
+
     const requestOrigin = toOrigin(origin) || toOrigin(referer)
     if (!requestOrigin || !allowedOrigins.has(requestOrigin)) {
       return NextResponse.json(

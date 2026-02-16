@@ -51,6 +51,13 @@ export function middleware(request: NextRequest) {
     const requestOrigin = toOrigin(origin) || toOrigin(referer)
     const allowedOrigins = getAllowedOrigins()
 
+    // Permitir same-origin automaticamente (útil em previews *.vercel.app)
+    const host = request.headers.get('host')
+    const proto = request.headers.get('x-forwarded-proto') || 'https'
+    if (host) {
+      allowedOrigins.add(`${proto}://${host}`)
+    }
+
     if (!requestOrigin || !allowedOrigins.has(requestOrigin)) {
       return NextResponse.json(
         { message: 'Requisição não autorizada.' },
