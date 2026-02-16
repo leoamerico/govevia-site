@@ -11,6 +11,7 @@ export interface BlogPost {
   slug: string
   title: string
   date: string
+  lastModified: string
   description: string
   author: string
   tags: string[]
@@ -22,6 +23,7 @@ export interface BlogPostMeta {
   slug: string
   title: string
   date: string
+  lastModified: string
   description: string
   author: string
   tags: string[]
@@ -49,10 +51,18 @@ export function getPostMeta(slug: string): BlogPostMeta | null {
   const { data, content } = matter(fileContents)
   const stats = readingTime(content)
 
+  let lastModified = new Date().toISOString()
+  try {
+    lastModified = fs.statSync(fullPath).mtime.toISOString()
+  } catch {
+    // Keep default lastModified
+  }
+
   return {
     slug,
     title: data.title || '',
     date: data.date || '',
+    lastModified,
     description: data.description || '',
     author: data.author || 'ENV-NEO LTDA',
     tags: data.tags || [],
@@ -68,6 +78,13 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const { data, content } = matter(fileContents)
   const stats = readingTime(content)
 
+  let lastModified = new Date().toISOString()
+  try {
+    lastModified = fs.statSync(fullPath).mtime.toISOString()
+  } catch {
+    // Keep default lastModified
+  }
+
   const processedContent = await remark()
     .use(html, { sanitize: false })
     .process(content)
@@ -76,6 +93,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     slug,
     title: data.title || '',
     date: data.date || '',
+    lastModified,
     description: data.description || '',
     author: data.author || 'ENV-NEO LTDA',
     tags: data.tags || [],

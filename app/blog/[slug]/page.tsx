@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.lastModified,
       authors: [post.author],
       tags: post.tags,
     },
@@ -43,6 +44,7 @@ export default async function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
+    dateModified: post.lastModified,
     author: {
       '@type': 'Organization',
       name: post.author,
