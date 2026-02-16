@@ -156,10 +156,12 @@ export async function POST(request: Request) {
 
     const requestOrigin = toOrigin(origin) || toOrigin(referer)
     if (!requestOrigin || !allowedOrigins.has(requestOrigin)) {
-      return NextResponse.json(
+      const response = NextResponse.json(
         { message: 'Requisição não autorizada.' },
         { status: 403 }
       )
+      response.headers.set('x-govevia-csrf-block', 'route')
+      return response
     }
 
     // ============================================================

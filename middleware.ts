@@ -74,10 +74,12 @@ export function middleware(request: NextRequest) {
     }
 
     if (!requestOrigin || !allowedOrigins.has(requestOrigin)) {
-      return NextResponse.json(
+      const response = NextResponse.json(
         { message: 'Requisição não autorizada.' },
         { status: 403 }
       )
+      response.headers.set('x-govevia-csrf-block', 'middleware')
+      return response
     }
   }
 
