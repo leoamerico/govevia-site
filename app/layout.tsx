@@ -74,7 +74,7 @@ const schemaOrg = {
       '@id': 'https://govevia.com.br/#organization',
       name: 'ENV-NEO LTDA',
       url: 'https://govevia.com.br',
-      logo: 'https://govevia.com.br/logo.png',
+      logo: 'https://govevia.com.br/brand/envneo-on-white.png',
       description: 'Tecnologia para Governança Pública',
       address: {
         '@type': 'PostalAddress',
