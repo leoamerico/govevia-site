@@ -1,52 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '', position: '', entity: '', email: '', message: '', honeypot: '',
-  })
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [errorMessage, setErrorMessage] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (formData.honeypot) return
-
-    setStatus('loading')
-    setErrorMessage('')
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name, position: formData.position,
-          entity: formData.entity, email: formData.email, message: formData.message,
-        }),
-      })
-
-      if (response.ok) {
-        setStatus('success')
-        setFormData({ name: '', position: '', entity: '', email: '', message: '', honeypot: '' })
-      } else {
-        const data = await response.json()
-        setErrorMessage(data.message || 'Erro ao enviar mensagem. Tente novamente.')
-        setStatus('error')
-      }
-    } catch {
-      setErrorMessage('Erro ao enviar mensagem. Verifique sua conexão e tente novamente.')
-      setStatus('error')
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
-  const inputClass = "w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all font-sans text-sm"
-
   return (
     <section className="py-24 bg-white" id="contato">
       <div className="container-custom">
@@ -66,51 +22,16 @@ export default function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-institutional-graphite mb-2 font-sans">Nome Completo *</label>
-                <input type="text" id="name" name="name" required maxLength={200} value={formData.name} onChange={handleChange} className={inputClass} placeholder="Seu nome completo" />
-              </div>
-              <div>
-                <label htmlFor="position" className="block text-sm font-semibold text-institutional-graphite mb-2 font-sans">Cargo *</label>
-                <input type="text" id="position" name="position" required maxLength={200} value={formData.position} onChange={handleChange} className={inputClass} placeholder="Ex: Controlador Interno, Procurador Municipal, Secretário" />
-              </div>
-              <div>
-                <label htmlFor="entity" className="block text-sm font-semibold text-institutional-graphite mb-2 font-sans">Município/Órgão *</label>
-                <input type="text" id="entity" name="entity" required maxLength={200} value={formData.entity} onChange={handleChange} className={inputClass} placeholder="Ex: Prefeitura Municipal de..., TCE/..." />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-institutional-graphite mb-2 font-sans">E-mail Institucional *</label>
-                <input type="email" id="email" name="email" required maxLength={254} value={formData.email} onChange={handleChange} className={inputClass} placeholder="seu.email@institucional.gov.br" />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-institutional-graphite mb-2 font-sans">Mensagem *</label>
-                <textarea id="message" name="message" required rows={5} maxLength={5000} value={formData.message} onChange={handleChange} className={`${inputClass} resize-none`} placeholder="Descreva brevemente suas necessidades técnicas ou dúvidas sobre conformidade..." />
-              </div>
-
-              {/* Honeypot */}
-              <input type="text" name="honeypot" value={formData.honeypot} onChange={handleChange} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-
-              {status === 'success' && (
-                <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md">
-                  <p className="text-sm font-medium font-sans">Mensagem enviada com sucesso! Retornaremos em breve.</p>
-                </div>
-              )}
-              {status === 'error' && (
-                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
-                  <p className="text-sm font-medium font-sans">{errorMessage}</p>
-                </div>
-              )}
-
-              <button type="submit" disabled={status === 'loading'} className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
-                {status === 'loading' ? 'Enviando...' : 'Enviar Mensagem'}
-              </button>
-
-              <p className="text-xs text-institutional-silver mt-4 font-sans">
-                * Campos obrigatórios. Seus dados serão tratados conforme a LGPD.{' '}
-                <a href="/politica-privacidade" className="text-primary hover:underline">Política de Privacidade</a>
+            <div className="bg-institutional-offwhite p-8 rounded-lg border border-gray-200">
+              <h3 className="font-serif font-semibold text-xl text-institutional-navy mb-4">Aviso</h3>
+              <p className="text-institutional-slate text-sm leading-relaxed font-sans">
+                Formulário temporariamente indisponível. Utilize o e-mail institucional para contato.
               </p>
-            </form>
+              <div className="mt-6">
+                <p className="text-sm font-semibold text-institutional-navy mb-2 font-sans">E-mail</p>
+                <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline text-sm font-sans">govevia@govevia.com.br</a>
+              </div>
+            </div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="space-y-8">
