@@ -42,6 +42,9 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
+            // Security note (2026-02-16): keep CSP restrictive; Next.js uses inline scripts/styles, so we allow
+            // 'unsafe-inline' (and 'unsafe-eval' for compatibility). External hosts are limited to GA/GTM + Google Fonts.
+            // Rollback: remove the extra hosts or tighten directives, then run `npm run security:verify`.
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",

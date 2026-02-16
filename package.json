@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "validate:claims": "node scripts/validate-claims.mjs"
+    "validate:claims": "node scripts/validate-claims.mjs",
+    "security:csp": "node scripts/verify-csp-allowlist.mjs",
+    "security:verify": "npm run security:csp && npm run build"
   },
   "dependencies": {
     "next": "14.2.28",
