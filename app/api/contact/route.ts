@@ -111,6 +111,10 @@ function toOrigin(value: string | null): string | null {
 function getAllowedOrigins(): Set<string> {
   const origins = new Set<string>()
 
+  // Canonical domains (evita depender de NEXT_PUBLIC_SITE_URL estar correto na Vercel)
+  origins.add('https://govevia.com.br')
+  origins.add('https://www.govevia.com.br')
+
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://govevia.com.br'
   const siteOrigin = toOrigin(siteUrl)
   if (siteOrigin) {
