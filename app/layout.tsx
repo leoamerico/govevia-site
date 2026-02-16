@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     'administração municipal',
     'compliance público',
     'enforcement normativo',
-    'evidência imutável',
+    'evidência verificável',
     'auditoria pública',
     'Lei 14.129/2021',
     'LGPD setor público',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: 'https://govevia.com.br',
     title: 'Govevia | Governança Executável para Administração Pública',
-    description: 'Plataforma de governança para administração pública municipal com enforcement normativo automático e evidência imutável.',
+    description: 'Plataforma de governança para administração pública municipal com enforcement normativo automático e evidência verificável.',
     siteName: 'Govevia',
   },
   twitter: {
@@ -92,7 +92,7 @@ const schemaOrg = {
       name: 'Govevia',
       applicationCategory: 'GovernmentApplication',
       operatingSystem: 'Web',
-      description: 'Plataforma de governança executável para administração pública municipal com enforcement normativo automático e evidência imutável.',
+      description: 'Plataforma de governança executável para administração pública municipal com enforcement normativo automático e evidência verificável.',
       author: { '@id': 'https://govevia.com.br/#organization' },
       offers: {
         '@type': 'Offer',

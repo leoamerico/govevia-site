@@ -6,7 +6,7 @@ import ModulesDetail from '@/components/platform/ModulesDetail'
 
 export const metadata: Metadata = {
   title: 'Plataforma | Detalhamento Técnico',
-  description: 'Detalhamento técnico dos módulos Govevia: enforcement normativo, evidência imutável, assinatura digital ICP-Brasil e conformidade regulatória para administração pública municipal.',
+  description: 'Detalhamento técnico dos módulos Govevia: enforcement normativo, evidência verificável, assinatura eletrônica e controles de conformidade para administração pública municipal.',
   keywords: [
     'plataforma govtech', 'módulos governança pública', 'enforcement normativo',
     'assinatura digital municipal', 'auditoria pública automatizada', 'conformidade LGPD setor público'

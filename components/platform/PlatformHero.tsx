@@ -24,12 +24,12 @@ export default function PlatformHero() {
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
             Arquitetura de governança onde cada módulo implementa regras institucionais 
-            como restrições técnicas verificáveis por órgãos de controle.
+            como restrições técnicas verificáveis em auditoria.
           </p>
           
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-8 py-4 rounded-lg">
             <p className="text-sm font-semibold text-primary-light">
-              Enforcement por design • Evidência imutável • Conformidade nativa
+              Enforcement por design • Evidência verificável • Controles de conformidade
             </p>
           </div>
         </motion.div>

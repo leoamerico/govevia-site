@@ -39,7 +39,7 @@
 
 ### Artigo Inaugural
 - `content/blog/regras-sem-enforcement-sao-invalidas.md`
-- ~1.500 palavras, indexável para termos: "enforcement normativo", "evidência imutável", "versionamento temporal", "auditoria municipal"
+- ~1.500 palavras, indexável para termos: "enforcement normativo", "evidência verificável", "versionamento temporal", "auditoria municipal"
 - Tags: Enforcement Normativo, Governança Digital, Tribunais de Contas, Conformidade Municipal
 
 ### Dependências Adicionadas

@@ -52,9 +52,9 @@ Quando um sistema de gestão permite que atos irregulares sejam praticados, o ge
 
 O sistema que não implementa enforcement não protege o gestor — transfere para ele toda a responsabilidade que deveria ser compartilhada com a infraestrutura tecnológica.
 
-## Evidência imutável: o complemento necessário
+## Evidência verificável: o complemento necessário
 
-Enforcement normativo impede a violação. Mas auditoria exige mais do que prevenção — exige **prova de conformidade**. É aqui que entra o conceito de evidência imutável.
+Enforcement normativo impede a violação. Mas auditoria exige mais do que prevenção — exige **prova de conformidade**. É aqui que entra o conceito de evidência verificável e resistente a adulteração.
 
 Uma trilha de auditoria completa deve permitir reconstruir, para cada ato administrativo:
 
@@ -62,11 +62,11 @@ Uma trilha de auditoria completa deve permitir reconstruir, para cada ato admini
 2. **O quê** foi executado (tipificação do ato e seus parâmetros)
 3. **Com base em qual regra** (dispositivo normativo aplicável)
 4. **Em qual versão** da norma (vigência temporal do parâmetro)
-5. **Quando** (timestamp com não-repúdio)
+5. **Quando** (carimbo de tempo quando aplicável, com validação reprodutível)
 
-Se qualquer desses elementos está ausente, a evidência é incompleta. Se os registros podem ser alterados retroativamente, a evidência é inválida.
+Se qualquer desses elementos está ausente, a evidência é incompleta. Se registros podem ser alterados retroativamente sem trilha, a evidência fica frágil.
 
-O padrão técnico mínimo para evidência auditável é o registro **append-only** com **hash criptográfico encadeado**. Isso significa que cada registro é adicionado à cadeia sem possibilidade de alteração ou exclusão, e qualquer tentativa de adulteração invalida toda a sequência posterior.
+Um padrão técnico comum para evidência auditável é registrar eventos preservando histórico (sem sobrescrita silenciosa), com **integridade criptográfica** e trilha de auditoria reprodutível. Na prática, isso permite detectar adulterações e reconstruir contexto sem depender de memória humana.
 
 ## Versionamento temporal: o problema que quase ninguém resolve
 
@@ -86,7 +86,7 @@ Se você é controlador interno, procurador municipal, ou auditor de controle ex
 
 1. **O sistema impede tecnicamente a prática de atos em desacordo com normas configuradas, ou apenas alerta?** Se apenas alerta, a proteção institucional é zero.
 
-2. **Os registros de auditoria são append-only com integridade criptográfica, ou podem ser alterados?** Se podem ser alterados, não constituem evidência.
+2. **Os registros de auditoria preservam histórico com integridade criptográfica, ou podem ser alterados sem trilha?** Se podem ser alterados sem trilha, não constituem evidência.
 
 3. **Os parâmetros normativos são versionados temporalmente, ou atualizações sobrescrevem versões anteriores?** Se sobrescrevem, o contexto normativo de atos passados é irrecuperável.
 

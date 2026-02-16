@@ -6,9 +6,9 @@ import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = {
   title: 'Publicações | Governança Digital Municipal',
-  description: 'Artigos técnicos sobre enforcement normativo, evidência imutável, conformidade regulatória e governança executável para administração pública municipal.',
+  description: 'Artigos técnicos sobre enforcement normativo, evidência verificável, controles de conformidade e governança executável para administração pública municipal.',
   keywords: [
-    'governança digital municipal', 'enforcement normativo', 'evidência imutável',
+    'governança digital municipal', 'enforcement normativo', 'evidência verificável',
     'compliance público', 'auditoria pública digital', 'LGPD setor público',
   ],
 }

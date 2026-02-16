@@ -15,7 +15,7 @@ export default function Principles() {
     },
     {
       title: 'Ausência de evidência equivale à inexistência do ato',
-      description: 'Atos administrativos que não geram trilha de evidência imutável, auditável e verificável por órgãos de controle são juridicamente vulneráveis. Defendibilidade institucional exige evidência técnica, não apenas documental.',
+      description: 'Atos administrativos que não geram trilha de evidência verificável e resistente a adulteração são institucionalmente vulneráveis. Defendibilidade exige evidência técnica e contexto normativo, não apenas documentação.',
       icon: (
         <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -83,8 +83,8 @@ export default function Principles() {
         >
           <div className="inline-block bg-primary/20 border border-primary-light/30 px-8 py-6 rounded-lg">
             <p className="text-lg text-gray-200">
-              Esses princípios não são aspiracionais. São requisitos arquiteturais implementados 
-              em cada linha de código de Govevia.
+              Esses princípios não são aspiracionais. Eles orientam a arquitetura e a evolução do produto,
+              com políticas, evidências e testes automatizados onde aplicável.
             </p>
           </div>
         </motion.div>

@@ -33,9 +33,10 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <p className="text-xl md:text-2xl text-institutional-slate mb-12 max-w-4xl mx-auto leading-relaxed font-sans">
-              Plataforma onde regras da administração pública deixam de ser documentos
-              e passam a ser código executável. Enforcement normativo automático com evidência
-              imutável para controle externo.
+              Governança pública que vira rotina executável — e reduz risco do gestor.
+              Regras institucionais deixam de ser “manual” e passam a ser restrições técnicas com trilha auditável.
+              O sistema impede atos fora de conformidade e registra evidência verificável do que foi feito,
+              por quem e sob qual regra.
             </p>
           </motion.div>
 
@@ -61,7 +62,7 @@ export default function Hero() {
             className="mt-16 pt-12 border-t border-gray-200"
           >
             <p className="text-sm text-institutional-slate font-medium mb-4 font-sans">
-              Conformidade nativa incorporada na arquitetura
+              Controles de conformidade incorporados
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-xs text-institutional-silver font-sans">
               <span>Lei 9.784/99</span>

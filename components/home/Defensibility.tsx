@@ -3,11 +3,11 @@
 import { motion } from 'framer-motion'
 
 const auditTrail = [
-  { label: 'Quem', value: 'Agente público identificado', description: 'Com certificado ICP-Brasil' },
+  { label: 'Quem', value: 'Agente público identificado', description: 'Identidade e contexto do ato' },
   { label: 'O quê', value: 'Ato administrativo praticado', description: 'Tipificação e parâmetros' },
   { label: 'Base legal', value: 'Regra normativa aplicada', description: 'Dispositivo legal específico' },
   { label: 'Versão', value: 'Vigência temporal da norma', description: 'Contexto normativo do ato' },
-  { label: 'Quando', value: 'Timestamp criptográfico', description: 'Não-repúdio temporal' },
+  { label: 'Quando', value: 'Carimbo de tempo', description: 'Quando aplicável, com validação reprodutível' },
 ]
 
 export default function Defensibility() {
@@ -25,8 +25,8 @@ export default function Defensibility() {
             Construído para resistir à auditoria
           </h2>
           <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-sans">
-            O sistema gera trilha de evidência estruturada suficiente para responder
-            a TCE, TCU e CGU. Cada ato administrativo produz prova técnica de conformidade.
+            O sistema estrutura trilha de evidência para auditoria e controles internos.
+            Cada ato administrativo registra contexto, regra aplicada e evidência verificável do que ocorreu.
           </p>
         </motion.div>
 
@@ -91,9 +91,9 @@ export default function Defensibility() {
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
         >
           {[
-            { title: 'Hash Criptográfico', desc: 'Cada registro protegido por hash SHA-256. Qualquer alteração invalida a cadeia.', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
-            { title: 'Registro Append-Only', desc: 'Dados nunca são deletados ou sobrescritos. Apenas adição de novos registros.', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
-            { title: 'Exportação Estruturada', desc: 'Trilha auditável exportável em formato legível por sistemas de órgãos de controle.', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
+            { title: 'Integridade Criptográfica', desc: 'Registros incluem mecanismos de integridade para detecção de adulteração e auditoria reprodutível.', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+            { title: 'Trilha Auditável', desc: 'Histórico preservado com contexto, versão normativa e evidência do que foi feito e por quem.', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+            { title: 'Exportação para Auditoria', desc: 'Exportação estruturada e documentação de evidências para auditorias e controles internos.', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
           ].map((item, i) => (
             <div key={i} className="text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">

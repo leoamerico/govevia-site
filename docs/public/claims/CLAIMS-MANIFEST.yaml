@@ -1,0 +1,58 @@
+claims:
+  - id: GOV-001
+    title: "Governança pública que vira rotina executável — e reduz risco do gestor"
+    status: GA
+    website_sections:
+      - home.hero
+    evidence:
+      adr:
+        - docs/public/evidence/adr/ADR-001-claims-governance.md
+      policy:
+        - docs/public/evidence/policies/POL-001-claims.md
+      code:
+        - components/home/Hero.tsx
+      tests:
+        - scripts/validate-claims.mjs
+      copy_assertions:
+        - file: components/home/Hero.tsx
+          mustContain: "Governança pública que vira rotina executável"
+
+  - id: EVI-001
+    title: "Evidência verificável e trilha auditável"
+    status: GA
+    website_sections:
+      - home.platform
+      - home.defensibility
+    evidence:
+      adr:
+        - docs/public/evidence/adr/ADR-001-claims-governance.md
+      policy:
+        - docs/public/evidence/policies/POL-001-claims.md
+      code:
+        - components/home/Platform.tsx
+        - components/home/Defensibility.tsx
+      tests:
+        - scripts/validate-claims.mjs
+      copy_assertions:
+        - file: components/home/Platform.tsx
+          mustContain: "Evidência Verificável"
+
+  - id: SIG-001
+    title: "Assinatura eletrônica com evolução governada para ICP-Brasil"
+    status: GA
+    website_sections:
+      - home.platform
+      - platform.signature
+    evidence:
+      adr:
+        - docs/public/evidence/adr/ADR-001-claims-governance.md
+      policy:
+        - docs/public/evidence/policies/POL-001-claims.md
+      code:
+        - components/home/Platform.tsx
+        - components/platform/ModulesDetail.tsx
+      tests:
+        - scripts/validate-claims.mjs
+      copy_assertions:
+        - file: components/home/Platform.tsx
+          mustContain: "Evolução governada"

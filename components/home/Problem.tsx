@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 const problems = [
   {
     title: 'Atos administrativos sem evidência auditável',
-    description: 'Decisões registradas sem cadeia de custódia digital verificável. Quando o TCE audita, não há como comprovar integridade e não-repúdio dos atos.',
+    description: 'Decisões registradas sem cadeia de custódia digital verificável. Em auditoria, não há como comprovar integridade e contexto do ato de forma reprodutível.',
   },
   {
     title: 'Regras urbanísticas que dependem de memória humana',
@@ -80,6 +80,9 @@ export default function Problem() {
           <div className="inline-block bg-institutional-navy text-white px-8 py-4 rounded-lg">
             <p className="font-serif font-semibold text-lg">
               A ausência de evidência equivale à inexistência do ato
+            </p>
+            <p className="mt-2 text-sm text-gray-300 font-sans">
+              Sem evidência técnica reprodutível, a defesa institucional fica frágil.
             </p>
           </div>
         </motion.div>

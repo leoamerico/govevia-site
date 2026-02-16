@@ -24,19 +24,19 @@ export default function ModulesDetail() {
       title: 'Gestão de Processos Administrativos',
       subtitle: 'Tramitação digital com enforcement de prazos e competências',
       functional: 'Permite criação, tramitação, despacho e arquivamento de processos administrativos com controle automatizado de prazos legais, validação de competências e preservação de cadeia de custódia digital de cada documento.',
-      normative: 'Implementa os requisitos da Lei 9.784/99 quanto a prazos processuais, princípios de contraditório e ampla defesa, publicidade de atos, e necessidade de fundamentação. Incorpora ainda as exigências da Lei 14.129/2021 para tramitação 100% digital.',
-      enforcement: 'O sistema bloqueia tecnicamente: (1) tramitação para setores sem competência legal; (2) despachos sem assinatura digital válida; (3) prazos processuais vencidos sem justificativa registrada; (4) arquivamento sem cumprimento de todas as etapas obrigatórias. Cada violação gera log imutável com identificação do agente que tentou praticá-la.',
+      normative: 'Implementa controles técnicos alinhados a requisitos recorrentes de processo administrativo (prazos, publicidade, fundamentação e competência) e a práticas de tramitação digital. O objetivo é reduzir risco e produzir evidência operacional para auditoria.',
+      enforcement: 'O sistema bloqueia tecnicamente: (1) tramitação para setores sem competência configurada; (2) despachos sem assinatura eletrônica válida; (3) prazos processuais vencidos sem justificativa registrada; (4) arquivamento sem cumprimento de etapas obrigatórias. Cada tentativa gera registro de evidência com trilha auditável.',
       legalBasis: [
         'Lei 9.784/99 - Arts. 2º, 22, 24, 29, 38, 49 e 59',
         'Lei 14.129/2021 - Arts. 3º, 4º e 5º',
         'LGPD - Arts. 37 a 41 (Relatório de Impacto)',
       ],
       technicalFeatures: [
-        'Assinatura digital ICP-Brasil em todos os despachos',
+        'Integração com assinatura eletrônica (evolução governada para ICP-Brasil)',
         'Versionamento temporal de documentos com hash SHA-256',
         'Alertas automáticos de prazos com escalonamento hierárquico',
-        'Registro append-only de toda tramitação',
-        'Exportação de processos em PDF/A para arquivamento permanente',
+        'Registro de eventos de tramitação com trilha auditável',
+        'Exportação de processos e evidências para auditoria e arquivamento',
       ],
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,22 +71,21 @@ export default function ModulesDetail() {
     },
     {
       id: 'assinatura',
-      title: 'Assinatura Digital e Não-Repúdio',
-      subtitle: 'ICP-Brasil com elevação automática de nível',
-      functional: 'Integra assinatura digital com certificados ICP-Brasil (níveis AD-RB, AD-RT, AD-RV e AD-RC) em todos os atos administrativos que exigem identificação inequívoca do agente público. Permite assinatura em lote, assinatura de processos completos, e validação de cadeia de certificação.',
-      normative: 'Implementa os requisitos da MP 2.200-2/2001 (ICP-Brasil), Lei 14.063/2020 (assinaturas eletrônicas) e Lei 14.129/2021 (governo digital). Cada tipo de ato administrativo possui nível mínimo de assinatura exigido por configuração institucional (ex: contratos > R$ 80.000 exigem AD-RC).',
-      enforcement: 'O sistema bloqueia tecnicamente: (1) publicação de ato sem assinatura digital válida; (2) uso de certificado com cadeia de certificação inválida; (3) assinatura por agente sem competência para aquele tipo de ato; (4) tentativa de alterar documento já assinado (gera novo registro versionado). A plataforma valida certificados em tempo real junto às Autoridades Certificadoras da ICP-Brasil.',
+      title: 'Assinatura Digital',
+      subtitle: 'Assinatura eletrônica com evolução governada',
+      functional: 'Integra assinatura eletrônica para atos e documentos, com trilha de evidência e validações conforme políticas institucionais. Suporta evolução governada para requisitos compatíveis com ICP-Brasil, conforme tipologia do ato.',
+      normative: 'Alinha-se a requisitos legais aplicáveis (assinaturas eletrônicas, governo digital e regras internas). A política de níveis e exigências por tipo de ato é governada institucionalmente e evolui com evidência.',
+      enforcement: 'O sistema bloqueia tecnicamente: (1) publicação de ato sem assinatura válida; (2) assinatura por agente sem competência para aquele tipo de ato (quando configurado); (3) tentativa de alterar documento já assinado (gera novo registro versionado).',
       legalBasis: [
         'MP 2.200-2/2001 - Art. 10 (validade jurídica)',
         'Lei 14.063/2020 - Arts. 4º a 6º (níveis de assinatura)',
         'Lei 14.129/2021 - Art. 5º (governo digital)',
       ],
       technicalFeatures: [
-        'Validação de cadeia de certificação em tempo real',
-        'Elevação automática de nível de assinatura por tipo de ato',
-        'Timestamp criptográfico (RFC 3161)',
-        'Registro imutável de hash do documento + certificado + timestamp',
+        'Validação de assinatura conforme política institucional',
+        'Registro de evidência do documento + assinatura + contexto',
         'Exportação de pacote de evidência para auditoria',
+        'Evolução governada para ICP-Brasil conforme escopo e tipologia',
       ],
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,21 +96,21 @@ export default function ModulesDetail() {
     {
       id: 'auditoria',
       title: 'Auditoria e Trilha de Evidências',
-      subtitle: 'Registro imutável de atos para controle externo',
-      functional: 'Gera automaticamente trilha de auditoria completa de todos os atos administrativos praticados no sistema, com registro de quem praticou, o quê foi praticado, com base em qual regra, sob qual versão normativa, e quando (timestamp criptográfico). Permite exportação estruturada para órgãos de controle.',
-      normative: 'Atende às exigências dos órgãos de controle externo (TCE/TCU) quanto à rastreabilidade de atos administrativos. Implementa as normas ISSAI (International Standards of Supreme Audit Institutions) quanto a evidência de auditoria suficiente, relevante e confiável.',
-      enforcement: 'O sistema garante tecnicamente: (1) impossibilidade de deletar ou alterar registros de auditoria; (2) cada registro possui hash criptográfico encadeado (blockchain-like); (3) qualquer tentativa de adulteração invalida toda a cadeia; (4) exportação de dados em formato legível por sistemas de TCE/TCU/CGU. Logs de auditoria são append-only e armazenados em storage imutável.',
+      subtitle: 'Trilha auditável com evidência verificável',
+      functional: 'Gera trilha de auditoria de atos administrativos praticados no sistema, com registro de quem praticou, o quê foi praticado, com base em qual regra, sob qual versão normativa, e quando. Permite exportação estruturada para auditoria.',
+      normative: 'Implementa controles de rastreabilidade e evidência alinhados a boas práticas de auditoria e controle, com foco em reprodutibilidade e consistência de registros.',
+      enforcement: 'O sistema aplica controles para preservar trilha auditável e integridade de registros, com mecanismos de evidência e versionamento que permitem detecção de adulteração e reconstrução de contexto.',
       legalBasis: [
         'Lei 8.443/92 - Arts. 38 e 39 (competências do TCU)',
         'Decisão Normativa TCU 170/2018 (auditoria de TI)',
         'LGPD - Art. 37 (relatório de impacto)',
       ],
       technicalFeatures: [
-        'Registro append-only com hash SHA-256 encadeado',
-        'Timestamp criptográfico em cada registro',
-        'Exportação em formato JSON estruturado para órgãos de controle',
+        'Registro de eventos com integridade criptográfica',
+        'Carimbo de tempo quando aplicável',
+        'Exportação em formatos estruturados para auditoria',
         'Dashboard de auditoria com filtros por agente, tipo de ato, período',
-        'Geração automática de relatório para resposta a TCE/TCU',
+        'Geração de relatórios para auditoria e controle interno',
       ],
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +124,7 @@ export default function ModulesDetail() {
       subtitle: 'Conformidade por arquitetura, não por configuração',
       functional: 'Gerencia ciclo de vida de dados pessoais com registro de finalidade, base legal, consentimento quando aplicável, e controles de acesso granulares. Permite atendimento a solicitações de titulares (direito de acesso, retificação, eliminação) e geração de Relatório de Impacto à Proteção de Dados (RIPD).',
       normative: 'Implementa os princípios da LGPD (finalidade, adequação, necessidade, transparência, segurança) como requisitos arquiteturais. Cada dado pessoal possui metadado estruturado com: base legal, finalidade, prazo de retenção, e log de acessos. Isolamento de dados por Row-Level Security garante que dados de um município nunca são acessíveis por outro.',
-      enforcement: 'O sistema bloqueia tecnicamente: (1) coleta de dados sem base legal registrada; (2) acesso a dados sem finalidade justificada; (3) retenção de dados além do prazo legal; (4) transferência de dados entre municípios (multi-tenancy com isolamento rígido). Todos os acessos geram log imutável com justificativa, atendendo ao Art. 37 da LGPD.',
+      enforcement: 'O sistema bloqueia tecnicamente: (1) coleta de dados sem base legal registrada; (2) acesso a dados sem finalidade justificada; (3) retenção de dados além do prazo configurado; (4) transferência de dados entre municípios (multi-tenancy com isolamento rígido). Todos os acessos geram registro de evidência com justificativa e trilha auditável.',
       legalBasis: [
         'LGPD - Arts. 6º (princípios), 7º (bases legais), 37 (relatório de impacto)',
         'LGPD - Arts. 46 a 52 (responsabilização e boas práticas)',

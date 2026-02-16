@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "validate:claims": "node scripts/validate-claims.mjs"
   },
   "dependencies": {
     "next": "14.2.28",
@@ -30,6 +31,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
-    "eslint-config-next": "14.2.28"
+    "eslint-config-next": "14.2.28",
+    "js-yaml": "^4.1.0"
   }
 }
