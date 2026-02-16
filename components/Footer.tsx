@@ -33,7 +33,6 @@ export default function Footer() {
             <h4 className="font-sans font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Contato</h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li><a href="mailto:govevia@govevia.com.br" className="hover:text-primary-light transition-colors">govevia@govevia.com.br</a></li>
-              <li><a href="mailto:leonardo@govevia.com.br" className="hover:text-primary-light transition-colors">leonardo@govevia.com.br</a></li>
               <li className="pt-2">
                 <p className="text-xs text-gray-500">
                   Av. Palmeira Imperial, 165 / 302<br />

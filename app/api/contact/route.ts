@@ -201,7 +201,6 @@ export async function POST(request: Request) {
     const mailOptions = {
       from: `"Govevia - Formulário de Contato" <${process.env.SMTP_USER}>`,
       to: 'govevia@govevia.com.br',
-      cc: 'leonardo@govevia.com.br',
       subject: `[Govevia] Nova mensagem de ${safe.name} - ${safe.entity}`,
       html: `
         <!DOCTYPE html>

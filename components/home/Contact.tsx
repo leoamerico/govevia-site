@@ -122,7 +122,6 @@ export default function Contact() {
                   <div>
                     <p className="font-semibold text-institutional-navy mb-1">E-mail</p>
                     <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline text-sm">govevia@govevia.com.br</a><br />
-                    <a href="mailto:leonardo@govevia.com.br" className="text-primary hover:underline text-sm">leonardo@govevia.com.br</a>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -145,7 +144,6 @@ export default function Contact() {
             <div className="bg-institutional-navy text-white p-8 rounded-lg">
               <h4 className="font-sans font-semibold text-sm uppercase tracking-wider text-gray-400 mb-3">CEO &amp; Founder</h4>
               <p className="text-xl font-serif font-bold mb-2">Leonardo Américo José Ribeiro</p>
-              <a href="mailto:leonardo@govevia.com.br" className="text-primary-light hover:underline text-sm font-sans">leonardo@govevia.com.br</a>
             </div>
           </motion.div>
         </div>
