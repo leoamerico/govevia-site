@@ -1,0 +1,312 @@
+# =============================================================================
+# WEB-CLAIMS-REGISTRY.yaml — Govevia Claims Registry (Phase 1: Hardening)
+# =============================================================================
+#
+# Purpose:
+#   Single source of truth for every public-facing claim about the Govevia
+#   platform. No claim goes to the site, pitch deck, or procurement pack
+#   without an entry here. No entry exists without evidence.
+#
+# NOTE (repo-scope):
+#   This repository is the public website (`govevia-site`). Product hardening
+#   artifacts (DB migrations, backend middleware, integration tests) are not
+#   present here. Therefore, Phase-1 product hardening claims are tracked as
+#   `planned` in this repo until evidence paths exist in the same workspace.
+#
+# Taxonomy:
+#   domain:     normas | prova | seguranca | privacidade | ai | arquitetura
+#   risk_level: high | medium | low
+#   status:     proven | partial | planned
+#   audience:   tecnico | gestor | juridico | controle_interno | publico
+#
+# Versioning:
+#   version: 1.0.0 (Phase 1 — Hardening only)
+#   date: 2026-02-16
+#
+# =============================================================================
+
+meta:
+  version: "1.0.0"
+  phase: "1-hardening"
+  date: "2026-02-16"
+  owner: "Leo Américo"
+  review_cadence: "on each phase delivery"
+  policy: >
+    No claim with status != "proven" may appear on govevia.com.br,
+    pitch decks, procurement packs, or any client-facing material.
+    Violation of this policy is a reputational risk event.
+
+# =============================================================================
+# Claims
+# =============================================================================
+
+claims:
+  # ---------------------------------------------------------------------------
+  # 6 claims PROVEN (publishable now) — tracked as PLANNED in this repo scope
+  # ---------------------------------------------------------------------------
+
+  - id: CLAIM-PROVA-001
+    domain: prova
+    risk_level: high
+    status: planned
+    audience: [controle_interno, juridico, tecnico]
+    claim_pt: >
+      Toda ação no sistema gera registro de auditoria imutável, com
+      cadeia criptográfica verificável (SHA-256) que detecta qualquer
+      tentativa de adulteração.
+    publishable_copy: null
+    depends_on:
+      - "Migrations/testes/policies do produto no mesmo repositório (hash-chain + verificador)"
+      - "Script operacional reprodutível para verificação (15 min)"
+    boundaries:
+      - "Requer escopo e implementação no produto (não presente neste repositório de site)."
+    evidence: []
+
+  - id: CLAIM-PROVA-002
+    domain: prova
+    risk_level: medium
+    status: planned
+    audience: [controle_interno, juridico]
+    claim_pt: >
+      Registros de auditoria são append-only: não podem ser editados
+      ou excluídos.
+    publishable_copy: null
+    depends_on:
+      - "Migrations/testes do produto (append-only no nível do banco + testes)"
+    boundaries:
+      - "Requer implementação no produto (não presente neste repositório de site)."
+    evidence: []
+
+  - id: CLAIM-SEG-001
+    domain: seguranca
+    risk_level: high
+    status: planned
+    audience: [tecnico, controle_interno, juridico]
+    claim_pt: >
+      Dados de cada município são isolados no nível do banco de dados
+      (RLS), com enforcement fora da aplicação.
+    publishable_copy: null
+    depends_on:
+      - "Migrations RLS + middleware/tenant context + testes de isolamento"
+    boundaries:
+      - "Requer implementação no produto (não presente neste repositório de site)."
+    evidence: []
+
+  - id: CLAIM-SEG-002
+    domain: seguranca
+    risk_level: medium
+    status: planned
+    audience: [tecnico, gestor]
+    claim_pt: >
+      O sistema opera com falha segura: sem contexto de município,
+      nenhum dado é acessível (deny-by-default).
+    publishable_copy: null
+    depends_on:
+      - "Policies fail-closed no nível do banco + testes de sessão sem tenant"
+    boundaries:
+      - "Requer implementação no produto (não presente neste repositório de site)."
+    evidence: []
+
+  - id: CLAIM-ARQ-001
+    domain: arquitetura
+    risk_level: medium
+    status: planned
+    audience: [tecnico, gestor, juridico]
+    claim_pt: >
+      Arquitetura projetada especificamente para requisitos de
+      auditabilidade, conformidade e transparência do regime
+      jurídico-administrativo brasileiro.
+    publishable_copy: null
+    depends_on:
+      - "RFC/ADR do produto com threat model + critérios de aceitação"
+      - "Demonstração client-facing (15 min)"
+    boundaries:
+      - "Requer artefatos do produto; este repositório cobre apenas o site e a governança de claims."
+    evidence: []
+
+  - id: CLAIM-ARQ-002
+    domain: arquitetura
+    risk_level: low
+    status: partial
+    audience: [tecnico]
+    claim_pt: >
+      Governança do sistema é documentada como código: decisões,
+      políticas e procedimentos são versionados no repositório.
+    publishable_copy: >
+      Governança como código: decisões, políticas e procedimentos vivem
+      no repositório, versionados e auditáveis.
+    boundaries:
+      - "No site: aplica-se à governança de claims e políticas deste repositório."
+      - "No produto: requer RFC/ADR/Policies operacionais equivalentes."
+    evidence:
+      - type: policy
+        path: docs/public/evidence/policies/POL-001-claims.md
+        what_it_proves: "Política governada para claims no site"
+      - type: adr
+        path: docs/public/evidence/adr/ADR-001-claims-governance.md
+        what_it_proves: "Decisão de governança de claims como contrato"
+      - type: gate
+        path: scripts/validate-claims.mjs
+        what_it_proves: "Validador executável (policy-as-code)"
+      - type: gate
+        path: tools/claims/verify_web_claims.py
+        what_it_proves: "Gate determinístico anti-overclaim + IA-first"
+    client_verification: >
+      Rodar os gates do repositório (validate:claims e verify_web_claims)
+      e inspecionar a evidência gerada.
+
+  # ---------------------------------------------------------------------------
+  # 6 claims PLANNED (não publicáveis)
+  # ---------------------------------------------------------------------------
+
+  - id: CLAIM-NORMA-001
+    domain: normas
+    risk_level: high
+    status: planned
+    audience: [gestor, controle_interno, juridico]
+    claim_pt: >
+      Regras de conformidade são codificadas e executadas automaticamente
+      sobre publicações oficiais, com detecção de riscos por severidade.
+    publishable_copy: null
+    target_phase: "2-compliance-shield-core"
+    depends_on:
+      - "Motor de regras definido e implementado"
+      - "Pipeline de ingestão/hunter operacional"
+      - "Testes com dados reais + métricas de qualidade"
+
+  - id: CLAIM-NORMA-002
+    domain: normas
+    risk_level: high
+    status: planned
+    audience: [gestor, controle_interno]
+    claim_pt: >
+      O sistema gera relatórios operacionais com métricas de diligência
+      e adoção do processo de revisão.
+    publishable_copy: null
+    target_phase: "2-compliance-shield-core"
+    depends_on:
+      - "Métricas implementadas e populadas por pipeline real"
+      - "Pelo menos 1 piloto com dados reais"
+
+  - id: CLAIM-AI-001
+    domain: ai
+    risk_level: high
+    status: planned
+    audience: [gestor, controle_interno, juridico, tecnico]
+    claim_pt: >
+      Modelos de IA sugerem enquadramentos normativos, mas cada
+      recomendação só é consolidada após validação determinística
+      e revisão humana registrada.
+    publishable_copy: null
+    target_phase: "3-ai-assisted"
+    ai_pattern:
+      assistive_only: true
+      human_in_the_loop: true
+      explainability_required: true
+      autonomous_action: false
+    depends_on:
+      - "Workflow de validação humana integrado"
+      - "Teste E2E recomendação → decisão → audit trail"
+      - "Pelo menos 1 piloto municipal concluído"
+
+  - id: CLAIM-AI-002
+    domain: ai
+    risk_level: high
+    status: planned
+    audience: [controle_interno, juridico]
+    claim_pt: >
+      Nenhuma decisão administrativa é tomada exclusivamente por IA;
+      toda recomendação gera trilha de revisão com identificação do
+      responsável e base normativa consultada.
+    publishable_copy: null
+    target_phase: "3-ai-assisted"
+    ai_pattern:
+      assistive_only: true
+      human_in_the_loop: true
+      explainability_required: true
+      autonomous_action: false
+    depends_on:
+      - "decision_package com decision_owner"
+      - "Audit trail recomendação → decisão → responsável"
+
+  - id: CLAIM-AI-003
+    domain: ai
+    risk_level: high
+    status: planned
+    audience: [gestor, tecnico]
+    claim_pt: >
+      Em caso de incerteza do modelo, o sistema escala para revisão
+      humana em vez de prosseguir automaticamente.
+    publishable_copy: null
+    target_phase: "3-ai-assisted"
+    ai_pattern:
+      assistive_only: true
+      human_in_the_loop: true
+      autonomous_action: false
+    depends_on:
+      - "Threshold de confiança definido"
+      - "Teste: input ambíguo → finding HIGH → awaiting_decision"
+
+  - id: CLAIM-PRIV-001
+    domain: privacidade
+    risk_level: high
+    status: planned
+    audience: [juridico, controle_interno]
+    claim_pt: >
+      Município é controlador; Govevia atua como operador com
+      portabilidade total e eliminação segura verificável ao término
+      do contrato.
+    publishable_copy: null
+    target_phase: "2-lgpd-package"
+    depends_on:
+      - "DPA/contrato + export manifest + destroy service"
+      - "RIPD template preenchível"
+
+# =============================================================================
+# Verification Protocol
+# =============================================================================
+
+verification:
+  automated:
+    description: >
+      CI MUST enforce forbidden language gate and validate registry structure.
+      Product-evidence tests are only enforceable once those artifacts exist in
+      the same repository.
+    command: |
+      node scripts/validate-web-claims-registry.mjs
+
+  manual:
+    description: >
+      On each phase delivery, the claim owner reviews claims in that phase,
+      verifies evidence paths exist and tests pass, and updates status.
+
+  client_facing:
+    description: >
+      Any claim marked proven MUST be demonstrable to a client within 15 minutes.
+      If special setup is required, a runbook MUST exist.
+
+# =============================================================================
+# Anti-patterns (claims that MUST NEVER appear)
+# =============================================================================
+
+forbidden_language:
+  - pattern: "imunidade"
+    reason: "Promessa de resultado jurídico."
+  - pattern: "blindagem"
+    reason: "Promessa de resultado jurídico."
+  - pattern: "garantia de conformidade"
+    reason: "Nenhum sistema garante conformidade; sistemas reduzem risco."
+  - pattern: "sem viés"
+    reason: "Overclaim em IA; todo modelo tem viés."
+  - pattern: "sem erro"
+    reason: "Overclaim técnico; todo sistema tem taxa de erro."
+  - pattern: "decide automaticamente"
+    reason: "Contradiz human-in-the-loop; IA é assistiva."
+  - pattern: "substitui parecer"
+    reason: "O sistema não substitui parecer jurídico."
+  - pattern: "proteção total"
+    reason: "Nenhum sistema oferece proteção total."
+  - pattern: "100%"
+    reason: "Promessa absoluta; evitar em claims."
+  - pattern: "à prova de"
+    reason: "Promessa absoluta; preferir 'resistente a' ou 'detecta'."

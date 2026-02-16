@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "validate:claims": "node scripts/validate-claims.mjs",
+    "validate:web-claims-registry": "node scripts/validate-web-claims-registry.mjs",
     "security:csp": "node scripts/verify-csp-allowlist.mjs",
     "security:verify": "npm run security:csp && npm run build"
   },
