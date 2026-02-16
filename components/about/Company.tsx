@@ -116,8 +116,8 @@ export default function Company() {
                   </div>
                   <div>
                     <p className="font-semibold text-institutional-navy mb-2">Telefone</p>
-                    <a href="tel:+5594228457" className="text-primary hover:underline">
-                      +55 (94) 2284-8457
+                    <a href="tel:+55 (34)98422-8457" className="text-primary hover:underline">
+                      +55 (34) 9 8422-8457
                     </a>
                   </div>
                 </div>
