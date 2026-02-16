@@ -132,6 +132,9 @@ export async function POST(request: Request) {
     const referer = request.headers.get('referer')
     const allowedOrigins = getAllowedOrigins()
 
+    // Permitir a origem real da requisição (mais confiável em Vercel)
+    allowedOrigins.add(new URL(request.url).origin)
+
     // Permitir same-origin automaticamente (útil em previews *.vercel.app)
     const host = request.headers.get('host')
     const proto = request.headers.get('x-forwarded-proto') || 'https'

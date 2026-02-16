@@ -51,6 +51,9 @@ export function middleware(request: NextRequest) {
     const requestOrigin = toOrigin(origin) || toOrigin(referer)
     const allowedOrigins = getAllowedOrigins()
 
+    // Permitir a origem real da requisição (mais confiável em Vercel)
+    allowedOrigins.add(request.nextUrl.origin)
+
     // Permitir same-origin automaticamente (útil em previews *.vercel.app)
     const host = request.headers.get('host')
     const proto = request.headers.get('x-forwarded-proto') || 'https'
