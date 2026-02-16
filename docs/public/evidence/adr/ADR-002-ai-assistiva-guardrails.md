@@ -21,6 +21,8 @@ Quando o site mencionar IA:
 2. A consolidação de qualquer ato/decisão é descrita como dependente de **validação determinística** (regras/checagens técnicas) e **revisão humana registrada**.
 3. Não usar linguagem de overclaim (ex.: “decide automaticamente”, “sem viés”, “sem erro”, “erro zero”).
 
+4. Em caso de dúvida ou baixa confiança, o desenho deve privilegiar postura conservadora (ex.: exigir validação humana antes de prosseguir), conforme configuração do órgão e do fluxo.
+
 ## Consequências
 - O verificador de WEB claims passa a suportar metadados de IA (`domain=ai`, `risk_level`, `ai_pattern`) e bloqueia frases proibidas no site.
 - Textos de IA no site devem permanecer compatíveis com o padrão “IA assistiva + humano-no-circuito”.

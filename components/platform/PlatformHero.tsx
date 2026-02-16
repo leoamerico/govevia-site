@@ -25,6 +25,10 @@ export default function PlatformHero() {
           <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
             Arquitetura de governança onde cada módulo é descrito com foco em requisitos normativos e controles desejados, para discussão técnica e planejamento de implantação.
           </p>
+
+          <p className="text-base md:text-lg text-gray-300 mb-10 leading-relaxed">
+            Em uma abordagem GovTech AI-first, modelos de IA podem sugerir enquadramentos normativos e apoiar a análise, mas a consolidação de atos depende de validação determinística e de revisão humana registrada. Em caso de dúvida, o fluxo pode exigir validação antes de prosseguir.
+          </p>
           
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-8 py-4 rounded-lg">
             <p className="text-sm font-semibold text-primary-light">
