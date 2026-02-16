@@ -11,6 +11,12 @@ cp .env.example .env.local
 npm run dev
 ```
 
+## Verificações de segurança (CSP)
+
+```bash
+npm run security:verify
+```
+
 ## Deploy (Vercel)
 
 1. Conectar este repo ao Vercel (auto-detecta Next.js)
