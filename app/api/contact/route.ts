@@ -140,6 +140,8 @@ function getAllowedOrigins(): Set<string> {
 }
 
 export async function POST(request: Request) {
+  const requestId = globalThis.crypto?.randomUUID?.() || `req_${Date.now()}_${Math.random().toString(16).slice(2)}`
+
   try {
     // ============================================================
     // CSRF: Verificar Origin/Referer
@@ -163,10 +165,11 @@ export async function POST(request: Request) {
     const requestOrigin = toOrigin(origin) || toOrigin(referer)
     if (!requestOrigin || !allowedOrigins.has(requestOrigin)) {
       const response = NextResponse.json(
-        { message: 'Requisição não autorizada.' },
+        { message: 'Requisição não autorizada.', requestId },
         { status: 403 }
       )
       response.headers.set('x-govevia-csrf-block', 'route')
+      response.headers.set('x-govevia-request-id', requestId)
       return response
     }
 
@@ -177,10 +180,12 @@ export async function POST(request: Request) {
     const ip = forwarded ? forwarded.split(',')[0].trim() : 'unknown'
 
     if (!checkRateLimit(ip)) {
-      return NextResponse.json(
-        { message: 'Muitas requisições. Tente novamente em 1 hora.' },
+      const response = NextResponse.json(
+        { message: 'Muitas requisições. Tente novamente em 1 hora.', requestId },
         { status: 429 }
       )
+      response.headers.set('x-govevia-request-id', requestId)
+      return response
     }
 
     // ============================================================
@@ -189,7 +194,12 @@ export async function POST(request: Request) {
     const body = await request.json()
     const validationError = validateInput(body)
     if (validationError) {
-      return NextResponse.json({ message: validationError }, { status: 400 })
+      const response = NextResponse.json(
+        { message: validationError, requestId },
+        { status: 400 }
+      )
+      response.headers.set('x-govevia-request-id', requestId)
+      return response
     }
 
     const { name, position, entity, email, message } = body as Record<string, string>
@@ -198,11 +208,18 @@ export async function POST(request: Request) {
     // ENV: Fail explicitly if SMTP not configured
     // ============================================================
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.error('ERRO: Variáveis SMTP não configuradas (SMTP_HOST, SMTP_USER, SMTP_PASS)')
-      return NextResponse.json(
-        { message: 'Serviço de e-mail temporariamente indisponível.' },
+      console.error('[contact] SMTP env missing', {
+        requestId,
+        hasHost: Boolean(process.env.SMTP_HOST),
+        hasUser: Boolean(process.env.SMTP_USER),
+        hasPass: Boolean(process.env.SMTP_PASS),
+      })
+      const response = NextResponse.json(
+        { message: 'Serviço de e-mail temporariamente indisponível.', requestId },
         { status: 503 }
       )
+      response.headers.set('x-govevia-request-id', requestId)
+      return response
     }
 
     // ============================================================
@@ -303,15 +320,35 @@ IP: ${ip}
 
     await transporter.sendMail(mailOptions)
 
-    return NextResponse.json(
-      { message: 'Mensagem enviada com sucesso!' },
+    const response = NextResponse.json(
+      { message: 'Mensagem enviada com sucesso!', requestId },
       { status: 200 }
     )
+    response.headers.set('x-govevia-request-id', requestId)
+    return response
   } catch (error) {
-    console.error('Erro ao enviar email:', error)
-    return NextResponse.json(
-      { message: 'Erro ao enviar mensagem. Tente novamente mais tarde.' },
+    const err = error as {
+      name?: string
+      message?: string
+      code?: string
+      responseCode?: number
+      command?: string
+    }
+
+    console.error('[contact] sendMail failed', {
+      requestId,
+      name: err?.name,
+      message: err?.message,
+      code: err?.code,
+      responseCode: err?.responseCode,
+      command: err?.command,
+    })
+
+    const response = NextResponse.json(
+      { message: 'Erro ao enviar mensagem. Tente novamente mais tarde.', requestId },
       { status: 500 }
     )
+    response.headers.set('x-govevia-request-id', requestId)
+    return response
   }
 }
