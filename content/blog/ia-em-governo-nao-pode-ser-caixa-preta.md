@@ -1,0 +1,67 @@
+---
+title: "Por que IA em governo não pode ser ‘caixa preta’"
+date: "2026-02-16"
+description: "Como usar IA de forma responsável no setor público: escopo assistivo, humano-no-circuito, validação determinística e trilha de evidência para auditoria."
+author: "ENV-NEO LTDA"
+tags:
+  - GovTech
+  - IA aplicada
+  - Governança Digital
+  - Auditoria
+  - Controle Interno
+---
+
+## O problema: automação sem responsabilidade vira risco institucional
+
+No setor público, a pergunta central não é apenas “o modelo acertou?”. É: **quem responde pelo ato**, **com base em qual norma** e **qual evidência sustenta a decisão**.
+
+Quando uma recomendação de IA vira decisão sem critérios claros, a organização cria vulnerabilidade:
+
+- Dificuldade de reconstituir o contexto (dados, norma, premissa e responsável)
+- Fragilidade em auditoria e controle interno
+- Risco de padronizar erro operacional em escala
+
+## IA assistiva, não decisória
+
+Em sistemas de gestão pública, a IA pode ser valiosa como suporte: leitura, triagem, sugestão de enquadramento e redação técnica. Mas isso não deve substituir as camadas de governança.
+
+Uma postura segura começa por um princípio simples:
+
+Nenhuma decisão administrativa deve ser tomada exclusivamente por IA.
+
+Isso significa que recomendações precisam de:
+
+- Revisão humana registrada (identificação do responsável)
+- Base normativa consultada ou utilizada como referência
+- Critérios determinísticos de validação (regras e checagens técnicas)
+
+## “Falha segura” aplicada a IA
+
+IA não elimina incerteza. O que muda é como o sistema reage quando há dúvida.
+
+Uma postura de falha segura, em termos práticos, significa:
+
+- Se faltar requisito essencial, o fluxo pode exigir validação antes de prosseguir
+- Se a norma exigir documento/parecer/assinatura, o sistema deve impedir consolidação sem a etapa
+- Se houver conflito entre recomendação e regra determinística, prevalece a regra
+
+## O que é auditável em IA no setor público
+
+Para ser auditável, o sistema precisa produzir evidência operacional suficiente para reconstrução do ato. Em cenários com IA, isso inclui (quando aplicável):
+
+- Versão do modelo e do prompt/política utilizada
+- Entrada considerada relevante (com proteção de dados e minimização)
+- Saída gerada e o que foi aceito/alterado pelo responsável
+- Regra/checagem determinística aplicada e resultado
+
+## Como a Govevia posiciona IA (claim governável)
+
+Na Govevia, modelos de IA podem sugerir enquadramentos normativos e apoiar a análise, mas a consolidação de atos depende de validação determinística e de revisão humana registrada.
+
+Nenhuma decisão administrativa é tomada exclusivamente por IA.
+
+Em caso de dúvida, o fluxo pode exigir validação antes de prosseguir.
+
+---
+
+*Este texto tem caráter técnico-informativo e não substitui parecer jurídico ou orientação específica de órgãos de controle.*
