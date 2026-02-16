@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     default: 'Govevia | Governança Executável para Administração Pública',
     template: '%s | Govevia'
   },
-  description: 'Plataforma de governança para administração pública municipal onde regras institucionais deixam de ser documentos e passam a ser código executável com enforcement técnico.',
+  description: 'Plataforma de governança para administração pública municipal, com foco em controles técnicos, rastreabilidade e evidência operacional conforme implementação e configuração.',
   keywords: [
     'governança pública',
     'govtech',
@@ -56,13 +56,13 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: 'https://govevia.com.br',
     title: 'Govevia | Governança Executável para Administração Pública',
-    description: 'Plataforma de governança para administração pública municipal com enforcement normativo automático e evidência verificável.',
+    description: 'Plataforma de governança para administração pública municipal com foco em controles técnicos, rastreabilidade e evidência operacional.',
     siteName: 'Govevia',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Govevia | Governança Executável para Administração Pública',
-    description: 'Plataforma de governança para administração pública municipal com enforcement normativo automático.',
+    description: 'Plataforma de governança para administração pública municipal com foco em controles técnicos e rastreabilidade.',
   },
 }
 
@@ -92,7 +92,7 @@ const schemaOrg = {
       name: 'Govevia',
       applicationCategory: 'GovernmentApplication',
       operatingSystem: 'Web',
-      description: 'Plataforma de governança executável para administração pública municipal com enforcement normativo automático e evidência verificável.',
+      description: 'Plataforma de governança para administração pública municipal com foco em controles técnicos, rastreabilidade e evidência operacional.',
       author: { '@id': 'https://govevia.com.br/#organization' },
       offers: {
         '@type': 'Offer',

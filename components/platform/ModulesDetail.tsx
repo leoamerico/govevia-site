@@ -23,9 +23,9 @@ export default function ModulesDetail() {
       id: 'processos',
       title: 'Gestão de Processos Administrativos',
       subtitle: 'Tramitação digital com enforcement de prazos e competências',
-      functional: 'Permite criação, tramitação, despacho e arquivamento de processos administrativos com controle automatizado de prazos legais, validação de competências e preservação de cadeia de custódia digital de cada documento.',
+      functional: 'Permite criação, tramitação, despacho e arquivamento de processos administrativos com apoio a prazos e requisitos procedimentais, validação de competências e rastreabilidade de documentos, conforme configuração e integração no órgão.',
       normative: 'Implementa controles técnicos alinhados a requisitos recorrentes de processo administrativo (prazos, publicidade, fundamentação e competência) e a práticas de tramitação digital. O objetivo é reduzir risco e produzir evidência operacional para auditoria.',
-      enforcement: 'O sistema bloqueia tecnicamente: (1) tramitação para setores sem competência configurada; (2) despachos sem assinatura eletrônica válida; (3) prazos processuais vencidos sem justificativa registrada; (4) arquivamento sem cumprimento de etapas obrigatórias. Cada tentativa gera registro de evidência com trilha auditável.',
+      enforcement: 'O módulo é desenhado para suportar controles de fluxo (ex.: checagem de competência configurada, exigência de assinatura conforme política institucional e registro de justificativas). A aplicação efetiva de bloqueios e trilhas auditáveis depende de implementação e configuração no ambiente do órgão.',
       legalBasis: [
         'Lei 9.784/99 - Arts. 2º, 22, 24, 29, 38, 49 e 59',
         'Lei 14.129/2021 - Arts. 3º, 4º e 5º',
@@ -33,7 +33,7 @@ export default function ModulesDetail() {
       ],
       technicalFeatures: [
         'Integração com assinatura eletrônica (evolução governada para ICP-Brasil)',
-        'Versionamento temporal de documentos com hash SHA-256',
+        'Planejado: versionamento temporal de documentos (quando aplicável) com mecanismos de verificação de integridade.',
         'Alertas automáticos de prazos com escalonamento hierárquico',
         'Registro de eventos de tramitação com trilha auditável',
         'Exportação de processos e evidências para auditoria e arquivamento',
@@ -50,7 +50,7 @@ export default function ModulesDetail() {
       subtitle: 'Regras do Plano Diretor como código executável',
       functional: 'Permite consulta de viabilidade de construção, análise de projetos, emissão de alvarás e habite-se com verificação automatizada de conformidade com Plano Diretor, Código de Obras e legislação urbanística vigente.',
       normative: 'Implementa os parâmetros do Plano Diretor Municipal (coeficientes de aproveitamento, taxas de ocupação e permeabilidade, recuos, gabaritos) e do Código de Obras como restrições técnicas. Cada consulta de viabilidade verifica automaticamente todos os parâmetros aplicáveis ao lote.',
-      enforcement: 'O sistema impede tecnicamente: (1) emissão de alvará para lote com parâmetros urbanísticos violados; (2) aprovação de projetos com área construída superior ao permitido; (3) concessão de habite-se sem vistoria registrada e assinada; (4) alteração retroativa de parâmetros sem versionamento. Qualquer mudança no Plano Diretor cria nova versão com vigência temporal, preservando contexto normativo de atos anteriores.',
+      enforcement: 'O módulo é desenhado para suportar validações de conformidade urbanística (Plano Diretor/Código de Obras) e versionamento temporal de parâmetros, quando implementado e configurado. Isso reduz risco operacional e melhora rastreabilidade, mas depende de integração de dados (cadastro/lote/SIG) e configuração institucional.',
       legalBasis: [
         'Estatuto da Cidade (Lei 10.257/2001) - Arts. 39 a 42',
         'Lei 9.784/99 - Arts. 22 e 50',
@@ -73,9 +73,9 @@ export default function ModulesDetail() {
       id: 'assinatura',
       title: 'Assinatura Digital',
       subtitle: 'Assinatura eletrônica com evolução governada',
-      functional: 'Integra assinatura eletrônica para atos e documentos, com trilha de evidência e validações conforme políticas institucionais. Suporta evolução governada para requisitos compatíveis com ICP-Brasil, conforme tipologia do ato.',
+      functional: 'Integra assinatura eletrônica para atos e documentos, com trilha de evidência e validações conforme políticas institucionais. Prevê evolução governada de requisitos de assinatura, conforme tipologia do ato e políticas institucionais. Integrações específicas (incluindo ICP-Brasil, quando aplicável) dependem de escopo e implementação.',
       normative: 'Alinha-se a requisitos legais aplicáveis (assinaturas eletrônicas, governo digital e regras internas). A política de níveis e exigências por tipo de ato é governada institucionalmente e evolui com evidência.',
-      enforcement: 'O sistema bloqueia tecnicamente: (1) publicação de ato sem assinatura válida; (2) assinatura por agente sem competência para aquele tipo de ato (quando configurado); (3) tentativa de alterar documento já assinado (gera novo registro versionado).',
+      enforcement: 'O módulo é desenhado para suportar validações e controles preventivos (ex.: exigência de assinatura conforme política institucional, checagens de competência quando configuradas e registro de versões), conforme implementação e configuração no órgão.',
       legalBasis: [
         'MP 2.200-2/2001 - Art. 10 (validade jurídica)',
         'Lei 14.063/2020 - Arts. 4º a 6º (níveis de assinatura)',
@@ -106,7 +106,7 @@ export default function ModulesDetail() {
         'LGPD - Art. 37 (relatório de impacto)',
       ],
       technicalFeatures: [
-        'Registro de eventos com integridade criptográfica',
+        'Planejado: registro de eventos com mecanismos de integridade e trilha de auditoria, conforme requisitos do órgão.',
         'Carimbo de tempo quando aplicável',
         'Exportação em formatos estruturados para auditoria',
         'Dashboard de auditoria com filtros por agente, tipo de ato, período',
@@ -123,19 +123,19 @@ export default function ModulesDetail() {
       title: 'Governança de Dados e LGPD',
       subtitle: 'Conformidade por arquitetura, não por configuração',
       functional: 'Gerencia ciclo de vida de dados pessoais com registro de finalidade, base legal, consentimento quando aplicável, e controles de acesso granulares. Permite atendimento a solicitações de titulares (direito de acesso, retificação, eliminação) e geração de Relatório de Impacto à Proteção de Dados (RIPD).',
-      normative: 'Implementa os princípios da LGPD (finalidade, adequação, necessidade, transparência, segurança) como requisitos arquiteturais. Cada dado pessoal possui metadado estruturado com: base legal, finalidade, prazo de retenção, e log de acessos. Isolamento de dados por Row-Level Security garante que dados de um município nunca são acessíveis por outro.',
-      enforcement: 'O sistema bloqueia tecnicamente: (1) coleta de dados sem base legal registrada; (2) acesso a dados sem finalidade justificada; (3) retenção de dados além do prazo configurado; (4) transferência de dados entre municípios (multi-tenancy com isolamento rígido). Todos os acessos geram registro de evidência com justificativa e trilha auditável.',
+      normative: 'Trata princípios da LGPD (finalidade, adequação, necessidade, transparência, segurança) como requisitos arquiteturais. Metadados e controles podem ser estruturados para apoiar base legal, finalidade e políticas de retenção, conforme implementação. Isolamento institucional (ex.: mecanismos de segregação lógica e controles de acesso) é tratado como requisito de arquitetura e implantação.',
+      enforcement: 'O módulo é desenhado para suportar controles preventivos e rastreabilidade (ex.: políticas de coleta, acesso e retenção definidas institucionalmente), conforme implementação e configuração. Mecanismos específicos dependem do ambiente e do escopo de implantação.',
       legalBasis: [
         'LGPD - Arts. 6º (princípios), 7º (bases legais), 37 (relatório de impacto)',
         'LGPD - Arts. 46 a 52 (responsabilização e boas práticas)',
         'Decreto 10.046/2019 (governança de dados no setor público)',
       ],
       technicalFeatures: [
-        'Row-Level Security (RLS) no PostgreSQL para isolamento por tenant',
+        'Planejado: isolamento lógico por tenant, com mecanismos de controle de acesso e segregação de dados definidos por arquitetura e requisitos de implantação.',
         'Registro de base legal e finalidade para cada dado pessoal',
         'Logs de acesso com justificativa obrigatória',
         'Geração automática de RIPD (Relatório de Impacto)',
-        'Anonimização automática após prazo de retenção',
+        'Planejado: suporte a políticas de retenção e descarte/anonimização, conforme regras e prazos definidos pelo órgão.',
       ],
       icon: (
         <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ export default function ModulesDetail() {
       subtitle: 'Transparência ativa com dados máquina-legíveis',
       functional: 'Publica automaticamente dados de transparência ativa conforme Lei de Acesso à Informação (LAI), com datasets em formatos abertos (CSV, JSON, XML). Gerencia pedidos de acesso à informação com controle de prazos e recursos, e disponibiliza APIs públicas para reutilização de dados.',
       normative: 'Implementa os requisitos dos Arts. 8º e 9º da LAI quanto a transparência ativa mínima (receitas, despesas, licitações, contratos, convênios). Atende também ao Decreto 7.724/2012 quanto a estrutura mínima do SIC (Serviço de Informação ao Cidadão) e prazos de resposta.',
-      enforcement: 'O sistema garante tecnicamente: (1) publicação automática de dados estruturados em até 24h após registro no sistema; (2) contagem automática de prazos de resposta a pedidos de LAI (20 dias + 10 prorrogáveis); (3) alertas escalonados para gestores quando prazos estão próximos do vencimento; (4) impossibilidade de deletar pedido de LAI (apenas responder ou justificar sigilo).',
+      enforcement: 'O módulo é desenhado para suportar transparência ativa e gestão de pedidos LAI com prazos, alertas e trilha de tramitação, quando implementado e configurado. Regras como prazos e permissões dependem de parametrização institucional e integração com sistemas de origem.',
       legalBasis: [
         'Lei 12.527/2011 (LAI) - Arts. 8º, 9º, 10 a 14',
         'Decreto 7.724/2012 - Arts. 7º a 11 (transparência ativa)',

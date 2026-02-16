@@ -23,8 +23,7 @@ export default function PlatformHero() {
             Detalhamento Técnico da Plataforma
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-            Arquitetura de governança onde cada módulo implementa regras institucionais 
-            como restrições técnicas verificáveis em auditoria.
+            Arquitetura de governança onde cada módulo é descrito com foco em requisitos normativos e controles desejados, para discussão técnica e planejamento de implantação.
           </p>
           
           <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-8 py-4 rounded-lg">

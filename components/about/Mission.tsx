@@ -36,7 +36,7 @@ export default function Mission() {
                 A administração pública brasileira opera sob regime jurídico-administrativo denso, 
                 com centenas de normas federais, estaduais e municipais que regulam cada ato praticado 
                 por agentes públicos. No entanto, a maioria dos sistemas de gestão municipal trata 
-                essas regras como "documentação externa" — algo que o usuário precisa conhecer e 
+                essas regras como &ldquo;documentação externa&rdquo; — algo que o usuário precisa conhecer e 
                 obedecer voluntariamente.
               </p>
               <p>
@@ -46,9 +46,9 @@ export default function Mission() {
               </p>
               <p>
                 Nossa missão é transformar normas institucionais em código executável, onde cada 
-                artigo de lei relevante se manifesta como restrição técnica que o sistema impede 
-                de violar. Não criamos sistemas que "alertam" sobre não-conformidade. Criamos 
-                sistemas que bloqueiam a não-conformidade.
+                artigo de lei relevante pode se manifestar como requisito e controle técnico (conforme 
+                implementação e configuração no órgão). Em vez de depender apenas de alertas, o objetivo 
+                é apoiar controles preventivos e rastreabilidade operacional.
               </p>
               <p className="font-semibold text-institutional-navy text-xl">
                 Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser 

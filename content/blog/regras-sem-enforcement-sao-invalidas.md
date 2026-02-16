@@ -23,13 +23,13 @@ Essa distinção tem consequências jurídicas concretas. Quando o Tribunal de C
 
 ## O conceito de enforcement normativo
 
-Enforcement normativo é a implementação de regras institucionais como restrições técnicas no sistema. Não como alertas, não como warnings, não como campos opcionais — como **bloqueios que impedem a execução do ato em não-conformidade**.
+Enforcement normativo é a implementação de regras institucionais como controles técnicos no sistema — indo além de alertas e campos opcionais. Em termos práticos, pode incluir validações e, quando apropriado, **controles preventivos** que reduzem a chance de execução do ato em não-conformidade.
 
 A diferença prática:
 
 **Sistema sem enforcement:** O servidor tenta emitir alvará de construção para lote com taxa de ocupação acima do permitido pelo Plano Diretor. O sistema emite o alvará. Meses depois, o TCE identifica a irregularidade. O prefeito responde processo.
 
-**Sistema com enforcement:** O servidor tenta emitir o mesmo alvará. O sistema calcula automaticamente a taxa de ocupação com base nos parâmetros vigentes do Plano Diretor, identifica a violação, e **bloqueia a emissão**. O ato irregular nunca é praticado.
+**Sistema com controles automáticos:** O servidor tenta emitir o mesmo alvará. O sistema pode calcular a taxa de ocupação com base nos parâmetros vigentes do Plano Diretor, identificar a violação e impedir a emissão, conforme implementação e configuração. O objetivo é reduzir a probabilidade de atos irregulares.
 
 <!-- MOD: tom não-acusatório -->
 No primeiro caso, o sistema **não atua como barreira institucional**: ele deixa a decisão (e o risco) recaírem integralmente sobre a pessoa e sobre a rotina. No segundo, ele funciona como **mecanismo de proteção institucional** ao reduzir a probabilidade de erros operacionais e inconformidades.
@@ -58,7 +58,7 @@ O sistema que não implementa enforcement não protege o gestor — transfere pa
 
 ## Evidência verificável: o complemento necessário
 
-Enforcement normativo impede a violação. Mas auditoria exige mais do que prevenção — exige **prova de conformidade**. É aqui que entra o conceito de evidência verificável e resistente a adulteração.
+Controles preventivos ajudam a reduzir violações. Mas auditoria exige mais do que prevenção — exige **prova de conformidade**. É aqui que entra o conceito de evidência verificável e resistente a adulteração.
 
 Uma trilha de auditoria completa deve permitir reconstruir, para cada ato administrativo:
 
@@ -73,7 +73,7 @@ Se qualquer desses elementos está ausente, a evidência é incompleta. Se regis
 <!-- MOD: referências sucintas a órgãos de controle -->
 Esse ponto dialoga com orientações recorrentes de órgãos de controle. Em termos práticos, **o TCU e diversos Tribunais de Contas estaduais** vêm enfatizando, em referenciais e manuais de governança/controle interno, a necessidade de **controles preventivos**, **segregação de funções**, **rastreabilidade** e **trilhas de auditoria** capazes de sustentar a reconstituição do ato e do contexto decisório. A mensagem para o gestor é simples: quando o controle é apenas "depois do fato" e sem evidência confiável, o risco institucional aumenta.
 
-Um padrão técnico comum para evidência auditável é registrar eventos preservando histórico (sem sobrescrita silenciosa), com **integridade criptográfica** e trilha de auditoria reprodutível. Na prática, isso permite detectar adulterações e reconstruir contexto sem depender de memória humana.
+Um padrão técnico comum para evidência auditável é registrar eventos preservando histórico (sem sobrescrita silenciosa), com mecanismos de integridade e trilha de auditoria reprodutível. Na prática, isso ajuda a detectar adulterações e reconstruir contexto sem depender de memória humana.
 
 ## Versionamento temporal: o problema que quase ninguém resolve
 
@@ -83,7 +83,7 @@ Considere o seguinte cenário: em janeiro de 2025, o Plano Diretor municipal est
 
 Depende de qual versão do Plano Diretor estava vigente quando o alvará foi emitido. Se o sistema sobrescreveu o parâmetro de 60% para 70%, é impossível responder à pergunta. A informação foi destruída.
 
-**Versionamento temporal normativo** resolve esse problema preservando cada versão de cada parâmetro com sua data de vigência. O sistema nunca sobrescreve — apenas adiciona nova versão. Qualquer consulta pode ser feita "no tempo": qual era a regra vigente em 15 de fevereiro de 2025?
+**Versionamento temporal normativo** resolve esse problema preservando cada versão de cada parâmetro com sua data de vigência. Em vez de sobrescrever, o histórico é mantido para permitir consultas "no tempo": qual era a regra vigente em 15 de fevereiro de 2025?
 
 Sem versionamento temporal, o sistema é vulnerável a qualquer auditoria que pergunte "sob qual regra este ato foi praticado?" — porque a resposta pode ter sido destruída pela atualização subsequente.
 
@@ -91,9 +91,9 @@ Sem versionamento temporal, o sistema é vulnerável a qualquer auditoria que pe
 
 Se você é controlador interno, procurador municipal, ou auditor de controle externo, há três perguntas que deveria fazer ao sistema de gestão do seu município:
 
-1. **O sistema impede tecnicamente a prática de atos em desacordo com normas configuradas, ou apenas alerta?** Se apenas alerta, a proteção institucional é zero.
+1. **O sistema tem controles preventivos para reduzir a prática de atos em desacordo com normas configuradas, ou apenas alerta?** Se apenas alerta, a proteção institucional tende a ser limitada.
 
-2. **Os registros de auditoria preservam histórico com integridade criptográfica, ou podem ser alterados sem trilha?** Se podem ser alterados sem trilha, não constituem evidência.
+2. **Os registros de auditoria preservam histórico com mecanismos de integridade, ou podem ser alterados sem trilha?** Se podem ser alterados sem trilha, a evidência tende a ser mais frágil.
 
 3. **Os parâmetros normativos são versionados temporalmente, ou atualizações sobrescrevem versões anteriores?** Se sobrescrevem, o contexto normativo de atos passados é irrecuperável.
 

@@ -35,8 +35,8 @@ export default function Hero() {
             <p className="text-xl md:text-2xl text-institutional-slate mb-12 max-w-4xl mx-auto leading-relaxed font-sans">
               Governança pública que vira rotina executável — e reduz risco do gestor.
               Regras institucionais deixam de ser “manual” e passam a ser restrições técnicas com trilha auditável.
-              O sistema impede atos fora de conformidade e registra evidência verificável do que foi feito,
-              por quem e sob qual regra.
+              O objetivo é reduzir atos fora de conformidade e estruturar rastreabilidade do que foi feito,
+              por quem e sob qual regra (conforme implementação e configuração no órgão).
             </p>
           </motion.div>
 

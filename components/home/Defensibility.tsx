@@ -91,8 +91,8 @@ export default function Defensibility() {
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
         >
           {[
-            { title: 'Integridade Criptográfica', desc: 'Registros incluem mecanismos de integridade para detecção de adulteração e auditoria reprodutível.', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
-            { title: 'Trilha Auditável', desc: 'Histórico preservado com contexto, versão normativa e evidência do que foi feito e por quem.', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+            { title: 'Integridade e Rastreabilidade', desc: 'Registros podem ser estruturados para suportar detecção de alterações e auditoria reprodutível, conforme requisitos do órgão.', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+            { title: 'Trilha Auditável', desc: 'Histórico com contexto, versão normativa e evidência operacional do que foi feito e por quem (conforme implementação).', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
             { title: 'Exportação para Auditoria', desc: 'Exportação estruturada e documentação de evidências para auditorias e controles internos.', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
           ].map((item, i) => (
             <div key={i} className="text-center">

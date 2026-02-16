@@ -1,0 +1,235 @@
+{
+  "claims": [
+    {
+      "id": "WEB-HOME-HERO-001",
+      "page_path": "components/home/Hero.tsx",
+      "statement": "O sistema impede atos fora de conformidade e registra evidência verificável do que foi feito,\n              por quem e sob qual regra.",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "O objetivo é reduzir atos fora de conformidade e estruturar rastreabilidade do que foi feito, por quem e sob qual regra (conforme implementação e configuração no órgão)."
+    },
+    {
+      "id": "WEB-HOME-PLAT-ENF-001",
+      "page_path": "components/home/Platform.tsx",
+      "statement": "Regras institucionais implementadas como restrições técnicas que bloqueiam atos em não-conformidade. O sistema impede violações, não apenas alerta sobre elas.",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Regras institucionais podem ser traduzidas em validações e restrições técnicas (conforme escopo e configuração) para reduzir inconformidades. O foco é prevenção, não apenas alerta."
+    },
+    {
+      "id": "WEB-HOME-PLAT-EVID-001",
+      "page_path": "components/home/Platform.tsx",
+      "statement": "Cada ato administrativo gera registros de evidência com integridade criptográfica e trilha auditável. Onde aplicável, a plataforma suporta encadeamento e carimbo de tempo, com validação reprodutível.",
+      "claim_type": "EVIDENCE",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Atos administrativos podem ser acompanhados por registros de rastreabilidade e evidência operacional. Onde aplicável, pode suportar encadeamento e carimbo de tempo, conforme requisitos do órgão."
+    },
+    {
+      "id": "WEB-HOME-PLAT-RLS-001",
+      "page_path": "components/home/Platform.tsx",
+      "statement": "Row-Level Security implementado na camada de dados. Dados de um município são tecnicamente inacessíveis por outro. Conformidade LGPD por arquitetura.",
+      "claim_type": "RLS",
+      "required_proof": "DB_MIGRATION",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Isolamento institucional é tratado como requisito de arquitetura (ex.: segregação lógica por tenant e controles de acesso). O desenho e a implementação dependem do ambiente e do escopo de implantação."
+    },
+    {
+      "id": "WEB-ABOUT-MISS-001",
+      "page_path": "components/about/Mission.tsx",
+      "statement": "artigo de lei relevante se manifesta como restrição técnica que o sistema impede \n                de violar. Não criamos sistemas que \"alertam\" sobre não-conformidade. Criamos \n                sistemas que bloqueiam a não-conformidade.",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "artigo de lei relevante pode se manifestar como requisito e controle técnico (conforme implementação e configuração no órgão). Em vez de depender apenas de alertas, o objetivo é apoiar controles preventivos e rastreabilidade operacional."
+    },
+    {
+      "id": "WEB-SIGN-ENF-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "O sistema bloqueia tecnicamente: (1) publicação de ato sem assinatura válida; (2) assinatura por agente sem competência para aquele tipo de ato (quando configurado); (3) tentativa de alterar documento já assinado (gera novo registro versionado).",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "O módulo é desenhado para suportar validações e controles preventivos (ex.: exigência de assinatura conforme política institucional, checagens de competência quando configuradas e registro de versões), conforme implementação e configuração no órgão."
+    },
+    {
+      "id": "WEB-LGPD-NORM-RLS-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "Isolamento de dados por Row-Level Security garante que dados de um município nunca são acessíveis por outro.",
+      "claim_type": "RLS",
+      "required_proof": "DB_MIGRATION",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Isolamento institucional (ex.: mecanismos de segregação lógica e controles de acesso) é tratado como requisito de arquitetura e implantação."
+    },
+    {
+      "id": "WEB-LGPD-ENF-002",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "O sistema bloqueia tecnicamente: (1) coleta de dados sem base legal registrada; (2) acesso a dados sem finalidade justificada; (3) retenção de dados além do prazo configurado; (4) transferência de dados entre municípios (multi-tenancy com isolamento rígido). Todos os acessos geram registro de evidência com justificativa e trilha auditável.",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "O módulo é desenhado para suportar controles preventivos e rastreabilidade (ex.: políticas de coleta, acesso e retenção definidas institucionalmente), conforme implementação e configuração. Mecanismos específicos dependem do ambiente e do escopo de implantação."
+    },
+    {
+      "id": "WEB-LAYOUT-META-001",
+      "page_path": "app/layout.tsx",
+      "statement": "Plataforma de governança para administração pública municipal com enforcement normativo automático e evidência verificável.",
+      "claim_type": "MARKETING",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Plataforma de governança para administração pública municipal com foco em controles técnicos, rastreabilidade e evidência operacional."
+    },
+    {
+      "id": "WEB-PLAT-001",
+      "page_path": "components/platform/PlatformHero.tsx",
+      "statement": "Arquitetura de governança onde cada módulo implementa regras institucionais \n            como restrições técnicas verificáveis em auditoria.",
+      "claim_type": "EVIDENCE",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Arquitetura de governança onde cada módulo é descrito com foco em requisitos normativos e controles desejados, para discussão técnica e planejamento de implantação."
+    },
+    {
+      "id": "WEB-PROC-ENF-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "O sistema bloqueia tecnicamente: (1) tramitação para setores sem competência configurada; (2) despachos sem assinatura eletrônica válida; (3) prazos processuais vencidos sem justificativa registrada; (4) arquivamento sem cumprimento de etapas obrigatórias. Cada tentativa gera registro de evidência com trilha auditável.",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "O módulo é desenhado para suportar controles de fluxo (ex.: checagem de competência configurada, exigência de assinatura conforme política institucional e registro de justificativas). A aplicação efetiva de bloqueios e trilhas auditáveis depende de implementação e configuração no ambiente do órgão."
+    },
+    {
+      "id": "WEB-PROC-HASH-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "Versionamento temporal de documentos com hash SHA-256",
+      "claim_type": "TEMPORAL_VERSIONING",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Planejado: versionamento temporal de documentos (quando aplicável) com mecanismos de verificação de integridade."
+    },
+    {
+      "id": "WEB-URB-ENF-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "O sistema impede tecnicamente: (1) emissão de alvará para lote com parâmetros urbanísticos violados; (2) aprovação de projetos com área construída superior ao permitido; (3) concessão de habite-se sem vistoria registrada e assinada; (4) alteração retroativa de parâmetros sem versionamento. Qualquer mudança no Plano Diretor cria nova versão com vigência temporal, preservando contexto normativo de atos anteriores.",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "O módulo é desenhado para suportar validações de conformidade urbanística (Plano Diretor/Código de Obras) e versionamento temporal de parâmetros, quando implementado e configurado. Isso reduz risco operacional e melhora rastreabilidade, mas depende de integração de dados (cadastro/lote/SIG) e configuração institucional."
+    },
+    {
+      "id": "WEB-SIGN-ICP-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "Suporta evolução governada para requisitos compatíveis com ICP-Brasil, conforme tipologia do ato.",
+      "claim_type": "SIGNATURE",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Prevê evolução governada de requisitos de assinatura, conforme tipologia do ato e políticas institucionais. Integrações específicas (incluindo ICP-Brasil, quando aplicável) dependem de escopo e implementação."
+    },
+    {
+      "id": "WEB-AUD-CRYPTO-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "Registro de eventos com integridade criptográfica",
+      "claim_type": "EVIDENCE",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Planejado: registro de eventos com mecanismos de integridade e trilha de auditoria, conforme requisitos do órgão."
+    },
+    {
+      "id": "WEB-LGPD-RLS-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "Row-Level Security (RLS) no PostgreSQL para isolamento por tenant",
+      "claim_type": "RLS",
+      "required_proof": "DB_MIGRATION",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Planejado: isolamento lógico por tenant, com mecanismos de controle de acesso e segregação de dados definidos por arquitetura e requisitos de implantação."
+    },
+    {
+      "id": "WEB-LGPD-RET-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "Anonimização automática após prazo de retenção",
+      "claim_type": "PRIVACY_OPERATION",
+      "required_proof": "CODE_INVARIANT",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Planejado: suporte a políticas de retenção e descarte/anonimização, conforme regras e prazos definidos pelo órgão."
+    },
+    {
+      "id": "WEB-LAI-24H-001",
+      "page_path": "components/platform/ModulesDetail.tsx",
+      "statement": "O sistema garante tecnicamente: (1) publicação automática de dados estruturados em até 24h após registro no sistema; (2) contagem automática de prazos de resposta a pedidos de LAI (20 dias + 10 prorrogáveis); (3) alertas escalonados para gestores quando prazos estão próximos do vencimento; (4) impossibilidade de deletar pedido de LAI (apenas responder ou justificar sigilo).",
+      "claim_type": "ENFORCEMENT",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "O módulo é desenhado para suportar transparência ativa e gestão de pedidos LAI com prazos, alertas e trilha de tramitação, quando implementado e configurado. Regras como prazos e permissões dependem de parametrização institucional e integração com sistemas de origem."
+    },
+    {
+      "id": "WEB-PRIV-IP-001",
+      "page_path": "app/politica-privacidade/page.tsx",
+      "statement": "Adicionalmente, por questões de segurança e prevenção de abuso, registramos automaticamente \n                o endereço IP de origem das mensagens enviadas.",
+      "claim_type": "PRIVACY_OPERATION",
+      "required_proof": "CODE_INVARIANT",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Adicionalmente, por questões de segurança e prevenção de abuso, podemos tratar dados técnicos de conexão (como endereço IP e identificadores de requisição) de forma proporcional, para detectar abuso e proteger a disponibilidade do serviço."
+    },
+    {
+      "id": "WEB-PRIV-LOG-001",
+      "page_path": "app/politica-privacidade/page.tsx",
+      "statement": "Logs de auditoria de acessos",
+      "claim_type": "EVIDENCE",
+      "required_proof": "TEST",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Registros técnicos mínimos para diagnóstico e segurança (ex.: identificação de requisição e eventos de erro), quando necessário."
+    },
+    {
+      "id": "WEB-PRIV-RET-5Y-001",
+      "page_path": "app/politica-privacidade/page.tsx",
+      "statement": "Os dados são retidos pelo período necessário para cumprimento da finalidade de contato \n                e obrigações legais, sendo eliminados após 5 anos da última interação, salvo exigência \n                legal de retenção maior.",
+      "claim_type": "PRIVACY_OPERATION",
+      "required_proof": "CODE_INVARIANT",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "reproduce": [],
+      "copy_fix": "Os dados são tratados pelo período necessário para cumprimento da finalidade de contato e de obrigações legais aplicáveis. Prazos específicos de retenção e descarte dependem do canal, do tipo de demanda e de requisitos legais/regulatórios incidentes."
+    }
+  ]
+}

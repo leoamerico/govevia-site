@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
                 2. Dados Coletados
               </h2>
               <p className="leading-relaxed mb-4">
-                Através do formulário de contato do site, coletamos os seguintes dados pessoais:
+                Quando o canal de contato do site estiver disponível, podemos coletar os seguintes dados pessoais:
               </p>
               <ul className="list-disc pl-6 space-y-2 mb-4">
                 <li>Nome completo</li>
@@ -57,8 +57,7 @@ export default function PrivacyPolicyPage() {
                 <li>Mensagem enviada pelo usuário</li>
               </ul>
               <p className="leading-relaxed">
-                Adicionalmente, por questões de segurança e prevenção de abuso, registramos automaticamente 
-                o endereço IP de origem das mensagens enviadas.
+                Adicionalmente, por questões de segurança e prevenção de abuso, podemos tratar dados técnicos de conexão (como endereço IP e identificadores de requisição) de forma proporcional, para detectar abuso e proteger a disponibilidade do serviço.
               </p>
             </section>
 
@@ -112,13 +111,11 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc pl-6 space-y-2 mb-4">
                 <li>Criptografia de dados em trânsito (HTTPS/TLS)</li>
                 <li>Controles de acesso restrito a dados pessoais</li>
-                <li>Logs de auditoria de acessos</li>
-                <li>Backups periódicos com retenção controlada</li>
+                <li>Registros técnicos mínimos para diagnóstico e segurança (ex.: identificação de requisição e eventos de erro), quando necessário.</li>
+                <li>Medidas de continuidade e recuperação proporcionais ao tipo de serviço, quando aplicável</li>
               </ul>
               <p className="leading-relaxed">
-                Os dados são retidos pelo período necessário para cumprimento da finalidade de contato 
-                e obrigações legais, sendo eliminados após 5 anos da última interação, salvo exigência 
-                legal de retenção maior.
+                Os dados são tratados pelo período necessário para cumprimento da finalidade de contato e de obrigações legais aplicáveis. Prazos específicos de retenção e descarte dependem do canal, do tipo de demanda e de requisitos legais/regulatórios incidentes.
               </p>
             </section>
 
@@ -143,7 +140,7 @@ export default function PrivacyPolicyPage() {
                 <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">
                   govevia@govevia.com.br
                 </a>
-                {' '}com o assunto "LGPD - Direitos do Titular".
+                {' '}com o assunto &ldquo;LGPD - Direitos do Titular&rdquo;.
               </p>
             </section>
 

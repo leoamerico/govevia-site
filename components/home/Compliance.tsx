@@ -6,9 +6,9 @@ const regulations = [
   { law: 'Lei 9.784/99', title: 'Processo Administrativo (referência)', description: 'Controles de tramitação, prazos e requisitos recorrentes de atos administrativos implementados como regras de fluxo.', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
   { law: 'Lei 14.129/2021', title: 'Governo Digital', description: 'Controles para tramitação digital e registro de evidências alinhados a práticas de governo digital.', icon: 'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z' },
   { law: 'LGPD', title: 'Proteção de Dados', description: 'Isolamento por tenant, controles de acesso e trilha de auditoria alinhados a requisitos recorrentes de proteção de dados.', icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
-  { law: 'LAI', title: 'Acesso à Informação', description: 'Transparência ativa estruturada com dados máquina-legíveis. Pedidos de acesso rastreáveis com prazos automáticos.', icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+  { law: 'LAI', title: 'Acesso à Informação', description: 'Transparência ativa estruturada com dados máquina-legíveis. Pedidos de acesso rastreáveis com prazos e tramitação parametrizáveis.', icon: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
   { law: 'Lei 14.133/2021', title: 'Nova Lei de Licitações', description: 'Planejamento de contratações, controle de prazos e publicidade conforme exigências dos arts. 18 e seguintes.', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
-  { law: 'Assinatura', title: 'Assinatura Eletrônica', description: 'Integração com assinatura eletrônica e evidência operacional, com evolução governada para requisitos compatíveis com ICP-Brasil.', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
+  { law: 'Assinatura', title: 'Assinatura Eletrônica', description: 'Prevê integração com assinatura eletrônica e evidência operacional. Requisitos específicos (incluindo ICP-Brasil, quando aplicável) dependem de escopo e implementação.', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
 ]
 
 export default function Compliance() {
@@ -24,8 +24,8 @@ export default function Compliance() {
         >
           <h2 className="section-title">Conformidade Regulatória</h2>
           <p className="section-subtitle mx-auto font-sans">
-            Controles técnicos incorporados, alinhados a requisitos recorrentes do setor público.
-            O foco é reduzir risco e produzir evidência operacional para auditoria.
+            Controles técnicos alinhados a requisitos recorrentes do setor público.
+            O foco é reduzir risco e estruturar evidência operacional para auditoria.
           </p>
         </motion.div>
 
