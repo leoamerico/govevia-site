@@ -35,16 +35,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
             <Image
-              src="/brand/govevia-mark-on-white.png"
+              src="/brand/govevia-wordmark-on-white.png"
               alt="Govevia"
-              width={120}
-              height={120}
-              className="h-7 w-7"
+              width={325}
+              height={313}
+              className="h-7 w-auto"
               priority
             />
-            <span className="text-2xl font-serif font-bold text-institutional-navy tracking-tight">
-              GOVEVIA
-            </span>
 
             <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
 
