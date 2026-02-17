@@ -34,6 +34,14 @@ export default function Header() {
       <nav className="container-custom" aria-label="Navegação principal">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
+            <Image
+              src="/brand/govevia-mark-on-white.png"
+              alt="Govevia"
+              width={120}
+              height={120}
+              className="h-7 w-7"
+              priority
+            />
             <span className="text-2xl font-serif font-bold text-institutional-navy tracking-tight">
               GOVEVIA
             </span>
