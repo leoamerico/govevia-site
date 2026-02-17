@@ -47,8 +47,15 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
   const personas = getPersonas()
   const contexts = getContexts()
 
-  const activeView = searchParams?.view
-  const activeCtx = searchParams?.ctx
+  const viewSet = new Set<string>(personas.map((p) => p.id))
+  const ctxSet = new Set<string>(contexts.map((c) => c.id))
+
+  const requestedView = searchParams?.view
+  const requestedCtx = searchParams?.ctx
+
+  const activeView = requestedView && viewSet.has(requestedView) ? requestedView : undefined
+  const activeCtx =
+    activeView && requestedCtx && ctxSet.has(requestedCtx) ? requestedCtx : undefined
 
   const schemaArticle = {
     '@context': 'https://schema.org',
