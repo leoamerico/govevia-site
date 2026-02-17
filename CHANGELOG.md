@@ -12,6 +12,7 @@
 - Enforcement: gate `history:check` exige atualização do `CHANGELOG.md` para qualquer mudança no repo (SSOT do `/historico`).
 - Enforcement (robustez CI/PR): base preferencial via `merge-base` com `origin/main` (com fallbacks) + evidência pública do gate.
 - Plataforma (P0-01): reimplementação de `/plataforma` com componentes dedicados (`PersonaSelector`, `CapabilitiesMatrix`) + SSOT em `lib/plataforma/model.ts` e textos via `getContent()` com fallback hardcoded (tokens-only; sem HEX; sem `@import`; sem fontes externas).
+- Governança (tokens/diff): `PROJECT-SSOT.md`, `RUN-SITE-STEPS.md`, registries em `docs/registry/` + gates `stage:check`, `scope:check`, `content-keys:check` e policy `POL-PORTAL-BFF-CORE.md`.
 
 ## Correções de Segurança
 

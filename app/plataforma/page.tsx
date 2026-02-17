@@ -31,15 +31,15 @@ export default async function PlatformPage({ searchParams }: Props) {
   const initialView = parseInitialView(searchParams?.view)
 
   const heroTitle = await getContent({
-    key: 'plataforma.hero.title',
+    key: 'site.plataforma.hero.title',
     fallback: 'Plataforma — visão por persona',
   })
   const heroLead = await getContent({
-    key: 'plataforma.hero.lead',
+    key: 'site.plataforma.hero.lead',
     fallback: 'Capacidades canônicas, ordenadas por relevância e com evidências exigidas destacadas.',
   })
   const helper = await getContent({
-    key: 'plataforma.hero.helper',
+    key: 'site.plataforma.hero.helper',
     fallback: 'Selecione uma persona para reordenar as capacidades e ver as evidências exigidas.',
   })
 
