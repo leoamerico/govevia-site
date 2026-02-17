@@ -73,3 +73,27 @@ artifacts:
     path: tests/hardening/test_hardening_smoke.py
   - kind: operational_script
     path: tools/db/verify_audit_chain.sql
+  - kind: admin_access_policy
+    path: docs/policy/POL-ADMIN-ACCESS.md
+  - kind: admin_env_setup_runbook
+    path: docs/runbooks/RUN-ADMIN-ENV-SETUP.md
+  - kind: admin_login_runbook
+    path: docs/runbooks/RUN-ADMIN-LOGIN.md
+  - kind: admin_auth_module
+    path: lib/auth/admin.ts
+  - kind: admin_middleware_enforcement
+    path: middleware.ts
+  - kind: admin_auth_evidence
+    path: docs/public/evidence/security/REPORT-ADMIN-AUTH-MVP.md
+  - kind: changelog_enforcement_gate
+    path: scripts/verify-changelog-updated.mjs
+  - kind: changelog_enforcement_evidence
+    path: docs/public/evidence/frontend/REPORT-HISTORY-CHECK-GATE.md
+  - kind: plataforma_personas_ssot
+    path: lib/plataforma/ssot.ts
+  - kind: plataforma_personas_component
+    path: components/plataforma/PlataformaView.client.tsx
+  - kind: plataforma_personas_evidence
+    path: docs/public/evidence/frontend/REPORT-PLATAFORMA-PERSONAS-VIEW.md
+  - kind: assets_no_external_urls_evidence
+    path: docs/public/evidence/security/REPORT-ASSETS-NO-EXTERNAL-URLS.md
