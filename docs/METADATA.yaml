@@ -1,0 +1,127 @@
+version: 1
+items:
+  - id: BRAND-ARCH-ENVNEO-GOVEVIA
+    path: docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md
+    domain: BRAND
+    function: normative
+    status: active
+    owner: EnvNeo
+    related_gates: ["D-01", "D-03", "FE-01"]
+    related_claims: ["WEB-BRAND-ENDORSE-001"]
+
+  - id: LICENSE-CHAIN-OF-TITLE
+    path: docs/legal/ip/LICENSE-CHAIN-OF-TITLE.md
+    domain: IP
+    function: normative
+    status: active
+    owner: EnvNeo
+    related_gates: ["IP-01"]
+    related_claims: ["WEB-IP-TITLE-001"]
+
+  - id: INPI-SOFTWARE-DEPOSIT
+    path: docs/legal/ip/INPI-SOFTWARE-DEPOSIT.md
+    domain: IP
+    function: normative
+    status: active
+    owner: EnvNeo
+    related_gates: ["IP-02"]
+    related_claims: ["WEB-IP-INPI-SW-001"]
+
+  - id: RUN-DESIGN-TOKENS
+    path: docs/runbooks/RUN-DESIGN-TOKENS.md
+    domain: FRONTEND
+    function: runbook
+    status: active
+    owner: Govevia
+    related_gates: ["FE-01", "D-04"]
+    related_claims: []
+
+  - id: RUN-REPO-HYGIENE-LAB
+    path: docs/runbooks/RUN-REPO-HYGIENE-LAB.md
+    domain: REPO
+    function: runbook
+    status: active
+    owner: EnvNeo
+    related_gates: ["FE-01", "D-04"]
+    related_claims: []
+
+  - id: REPORT-CLEANUP-LAB
+    path: docs/public/evidence/REPORT-CLEANUP-LAB.md
+    domain: REPO
+    function: evidence
+    status: active
+    owner: EnvNeo
+    related_gates: ["REPO-HYGIENE-LAB", "FE-01"]
+    related_claims: []
+
+  - id: EVIDENCE-BRAND-ENDORSED-ARCH
+    path: docs/public/evidence/brand/EVIDENCE-BRAND-ENDORSED-ARCH.md
+    domain: BRAND
+    function: evidence
+    status: active
+    owner: Govevia
+    related_gates: ["D-01"]
+    related_claims: ["WEB-BRAND-ENDORSE-001"]
+
+  - id: EVIDENCE-BRAND-FOOTER-LOCKUP
+    path: docs/public/evidence/brand/EVIDENCE-BRAND-FOOTER-LOCKUP.md
+    domain: BRAND
+    function: evidence
+    status: active
+    owner: Govevia
+    related_gates: ["D-01"]
+    related_claims: ["WEB-BRAND-ENDORSE-001"]
+
+  - id: EVIDENCE-BRAND-OG-IMAGE
+    path: docs/public/evidence/brand/EVIDENCE-BRAND-OG-IMAGE.md
+    domain: BRAND
+    function: evidence
+    status: active
+    owner: Govevia
+    related_gates: ["D-01"]
+    related_claims: ["WEB-BRAND-ENDORSE-001"]
+
+  - id: EVIDENCE-IP-TITLE-CHAIN
+    path: docs/public/evidence/ip/EVIDENCE-IP-TITLE-CHAIN.md
+    domain: IP
+    function: evidence
+    status: active
+    owner: EnvNeo
+    related_gates: ["IP-01"]
+    related_claims: ["WEB-IP-TITLE-001"]
+
+  - id: EVIDENCE-INPI-SOFTWARE-DEPOSIT
+    path: docs/public/evidence/ip/EVIDENCE-INPI-SOFTWARE-DEPOSIT.md
+    domain: IP
+    function: evidence
+    status: active
+    owner: EnvNeo
+    related_gates: ["IP-02"]
+    related_claims: ["WEB-IP-INPI-SW-001"]
+
+  - id: PATCH-NEW-CLAIMS
+    path: docs/public/claims/PATCH-NEW-CLAIMS.yaml
+    domain: CLAIMS
+    function: patch
+    status: active
+    owner: Govevia
+    related_gates: ["CLAIMS-REGISTRY"]
+    related_claims: []
+
+  - id: PATCH-FORBIDDEN-LANGUAGE-IP
+    path: docs/public/claims/PATCH-FORBIDDEN-LANGUAGE-IP.yaml
+    domain: CLAIMS
+    function: patch
+    status: active
+    owner: Govevia
+    related_gates: ["CLAIMS"]
+    related_claims: []
+
+  - id: PATCH-EVIDENCE-EXCLUSION
+    path: docs/public/claims/PATCH-EVIDENCE-EXCLUSION.md
+    domain: CLAIMS
+    function: patch
+    status: active
+    owner: Govevia
+    related_gates: ["CLAIMS"]
+    related_claims: []

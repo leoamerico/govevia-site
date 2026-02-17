@@ -7,14 +7,25 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-institutional-offwhite via-white to-slate-50 pt-20">
       {/* Subtle geometric pattern */}
-      <div className="absolute inset-0 overflow-hidden opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230A3D7A' fill-opacity='1'%3E%3Cpath d='M20 20h-2v2h2v-2zm-10 0H8v2h2v-2zm20 0h-2v2h2v-2zM10 10H8v2h2v-2zm10 0h-2v2h2v-2zm10 0h-2v2h2v-2z'/%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+      <div className="absolute inset-0 overflow-hidden opacity-[0.03] text-primary">
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <pattern id="gov-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <g fill="currentColor">
+                <path d="M20 20h-2v2h2v-2zm-10 0H8v2h2v-2zm20 0h-2v2h2v-2zM10 10H8v2h2v-2zm10 0h-2v2h2v-2zm10 0h-2v2h2v-2z" />
+              </g>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#gov-grid)" />
+        </svg>
       </div>
 
       <div className="container-custom relative z-10 py-20">
         <div className="max-w-5xl mx-auto text-center">
+          <p className="text-xs tracking-widest uppercase text-institutional-slate font-mono mb-5">
+            Govevia — by EnvNeo
+          </p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

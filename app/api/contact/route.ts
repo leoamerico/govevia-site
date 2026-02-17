@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import { TOKENS_RUNTIME } from '@/packages/design-tokens/dist/tokens.runtime'
 
 // ============================================================
 // SEGURANÇA: Sanitização de HTML para prevenir XSS em e-mails
@@ -245,6 +246,16 @@ export async function POST(request: Request) {
 
     const timestamp = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })
 
+    const mailColors = {
+      text: TOKENS_RUNTIME.brand.institutional.graphite,
+      headerBg: TOKENS_RUNTIME.brand.govevia.primary[700],
+      label: TOKENS_RUNTIME.brand.institutional.navy,
+      contentBg: TOKENS_RUNTIME.ui.bg.muted,
+      valueBorder: TOKENS_RUNTIME.brand.govevia.primary[700],
+      footerText: TOKENS_RUNTIME.brand.institutional.slate,
+      white: TOKENS_RUNTIME.ui.bg.canvas,
+    }
+
     const mailOptions = {
       from: `"Govevia - Formulário de Contato" <${process.env.SMTP_USER}>`,
       to: 'govevia@govevia.com.br',
@@ -255,14 +266,14 @@ export async function POST(request: Request) {
         <head>
           <meta charset="utf-8">
           <style>
-            body { font-family: 'Source Sans Pro', Arial, sans-serif; line-height: 1.6; color: #2d3748; }
+            body { font-family: system-ui, -apple-system, Arial, sans-serif; line-height: 1.6; color: ${mailColors.text}; }
             .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #0A3D7A; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
-            .content { background: #f7fafc; padding: 30px; border-radius: 0 0 8px 8px; }
+            .header { background: ${mailColors.headerBg}; color: ${mailColors.white}; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+            .content { background: ${mailColors.contentBg}; padding: 30px; border-radius: 0 0 8px 8px; }
             .field { margin-bottom: 20px; }
-            .label { font-weight: 600; color: #0C1B2E; margin-bottom: 5px; }
-            .value { background: white; padding: 12px; border-left: 4px solid #0A3D7A; border-radius: 4px; }
-            .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #718096; }
+            .label { font-weight: 600; color: ${mailColors.label}; margin-bottom: 5px; }
+            .value { background: ${mailColors.white}; padding: 12px; border-left: 4px solid ${mailColors.valueBorder}; border-radius: 4px; }
+            .footer { text-align: center; margin-top: 30px; font-size: 12px; color: ${mailColors.footerText}; }
           </style>
         </head>
         <body>

@@ -7,6 +7,30 @@ artifacts:
     path: scripts/validate-web-claims-registry.mjs
   - kind: web_copy_overclaim_gate
     path: tools/claims/verify_web_claims.py
+  - kind: brand_architecture
+    path: docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md
+  - kind: design_tokens_spec
+    path: docs/brand/TOKENS-SPEC.md
+  - kind: design_tokens_source
+    path: packages/design-tokens/tokens.json
+  - kind: design_tokens_generator
+    path: packages/design-tokens/scripts/build.mjs
+  - kind: design_tokens_contrast_gate
+    path: scripts/check-contrast.mjs
+  - kind: design_tokens_enforcement_gate
+    path: scripts/verify-tokens-enforcement.mjs
+  - kind: repo_hygiene_audit_tool
+    path: script/lab-hygiene-audit.mjs
+  - kind: repo_hygiene_runbook
+    path: docs/runbooks/RUN-REPO-HYGIENE-LAB.md
+  - kind: repo_cleanup_report
+    path: docs/public/evidence/REPORT-CLEANUP-LAB.md
+  - kind: ip_software_deposit_runbook
+    path: docs/legal/ip/INPI-SOFTWARE-DEPOSIT.md
+  - kind: ip_chain_of_title_policy
+    path: docs/legal/ip/LICENSE-CHAIN-OF-TITLE.md
+  - kind: ip_trademark_classes_draft
+    path: docs/legal/ip/INPI-TRADEMARK-CLASSES.md
   - kind: hardening_migration
     path: infra/migrations/20260216_122_compliance_shield_rls.sql
   - kind: hardening_migration

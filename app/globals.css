@@ -1,3 +1,5 @@
+@import "../packages/design-tokens/dist/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +14,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-semibold;
+    @apply font-sans font-semibold;
   }
 }
 
@@ -36,7 +38,7 @@
   }
   
   .section-title {
-    @apply text-4xl md:text-5xl font-serif font-bold text-institutional-navy mb-6;
+    @apply text-4xl md:text-5xl font-sans font-bold text-institutional-navy mb-6;
   }
   
   .section-subtitle {

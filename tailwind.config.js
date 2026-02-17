@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  presets: [require('./packages/design-tokens/dist/tailwind.preset.cjs')],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,30 +8,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: {
-          DEFAULT: '#0A3D7A',
-          light: '#1E80FF',
-          dark: '#062B57',
-          accent: '#3B82C4',
-        },
-        accent: {
-          gold: '#B8860B',
-          copper: '#A0785A',
-        },
-        institutional: {
-          navy: '#0C1B2E',
-          graphite: '#2D3748',
-          slate: '#475569',
-          silver: '#94A3B8',
-          lightgray: '#CBD5E1',
-          offwhite: '#F8FAFC',
-        },
-      },
-      fontFamily: {
-        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
-        sans: ['var(--font-source-sans)', 'system-ui', 'sans-serif'],
-      },
       fontSize: {
         'hero': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
         'hero-mobile': ['2rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
@@ -40,4 +17,27 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
   ],
+}
+
+// Source palette used ONLY for migration/bootstrap into tokens.json.
+// Hard rule: do not wire this into theme.extend.colors.
+module.exports.__sourceColors = {
+  primary: {
+    DEFAULT: '10 61 122',
+    light: '30 128 255',
+    dark: '6 43 87',
+    accent: '59 130 196',
+  },
+  accent: {
+    gold: '184 134 11',
+    copper: '160 120 90',
+  },
+  institutional: {
+    navy: '12 27 46',
+    graphite: '45 55 72',
+    slate: '71 85 105',
+    silver: '148 163 184',
+    lightgray: '203 213 225',
+    offwhite: '248 250 252',
+  },
 }

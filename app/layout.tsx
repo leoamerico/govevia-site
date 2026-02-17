@@ -1,18 +1,25 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
+import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from 'next/font/google'
 import './globals.css'
 import CookieConsent from '@/components/CookieConsent'
 
-const playfair = Playfair_Display({
+const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-plex-sans',
   display: 'swap',
-  weight: ['400', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700'],
 })
 
-const sourceSans = Source_Sans_3({
+const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  variable: '--font-source-sans',
+  variable: '--font-plex-mono',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+})
+
+const plexSerif = IBM_Plex_Serif({
+  subsets: ['latin'],
+  variable: '--font-plex-serif',
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
 })
@@ -116,14 +123,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${playfair.variable} ${sourceSans.variable}`}>
+    <html lang="pt-BR">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
       </head>
-      <body>
+      <body className={`${plexSans.variable} ${plexSerif.variable} ${plexMono.variable}`}>
         {children}
         <CookieConsent />
       </body>
