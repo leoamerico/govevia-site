@@ -19,6 +19,12 @@ Distribuição runtime:
 - `public/brand/envneo/envneo-mark-inverted.svg`
 - `public/brand/envneo/envneo-wordmark.svg`
 
+Cache-bust (v2) — distribuição runtime:
+
+- `public/brand/envneo/envneo-mark.v2.svg`
+- `public/brand/envneo/envneo-mark-inverted.v2.svg`
+- `public/brand/envneo/envneo-wordmark.v2.svg`
+
 Norma:
 
 - `docs/brand/ENVNEO-IDENTITY-SPEC.md`
@@ -27,6 +33,7 @@ Norma:
 
 - `envneo-mark*.svg` possuem `viewBox="0 0 64 64"`.
 - SVGs usam `currentColor` (token-friendly).
+- Wordmark SVG não usa `<text>` (sem dependência de fonte) e não contém URLs externas.
 - Gate FE-01 continua PASS (sem HEX/%23 em `app/**` e `components/**`).
 
 Comandos:

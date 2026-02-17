@@ -1,20 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="EnvNeo">
   <rect x="0" y="0" width="512" height="512" fill="#000000"/>
-
-  <!-- Símbolo EnvNeo (branco sobre fundo preto) -->
-  <g>
-    <!-- Forma externa: meia-lua + base retangular -->
-    <path d="M92 220A164 164 0 0 1 420 220L420 220L92 220Z" fill="#FFFFFF"/>
-    <rect x="176" y="220" width="160" height="220" rx="20" ry="20" fill="#FFFFFF"/>
-
-    <!-- Vazados (preto = cor do fundo) -->
-    <!-- Recorte interno da meia-lua (curva) -->
-    <path d="M198 220C216 252 240 266 256 266C272 266 296 252 314 220C300 244 278 254 256 254C234 254 212 244 198 220Z" fill="#000000"/>
-
-    <!-- Recorte em V (gravata) -->
-    <path d="M206 244Q256 212 306 244L256 352Z" fill="#000000"/>
+  <g fill="#FFFFFF" transform="translate(64 64) scale(6)">
+    <path d="M14 14h30v6H20v8h22v6H20v8h24v6H14V14z"/>
+    <path d="M38 14h6v36h-6V29L28 50h-6V14h6v21z"/>
   </g>
-
-  <!-- Texto EnvNeo -->
-  <text x="50%" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="#FFFFFF">EnvNeo</text>
 </svg>
