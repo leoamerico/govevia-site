@@ -45,6 +45,15 @@ items:
     related_gates: ["FE-01", "D-04"]
     related_claims: []
 
+  - id: RUN-EDGE-RUNTIME-WARNINGS
+    path: docs/runbooks/RUN-EDGE-RUNTIME-WARNINGS.md
+    domain: FRONTEND
+    function: runbook
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []
+
   - id: REPORT-CLEANUP-LAB
     path: docs/public/evidence/REPORT-CLEANUP-LAB.md
     domain: REPO

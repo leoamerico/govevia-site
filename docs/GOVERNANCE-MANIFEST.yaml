@@ -23,6 +23,8 @@ artifacts:
     path: script/lab-hygiene-audit.mjs
   - kind: repo_hygiene_runbook
     path: docs/runbooks/RUN-REPO-HYGIENE-LAB.md
+  - kind: frontend_runbook
+    path: docs/runbooks/RUN-EDGE-RUNTIME-WARNINGS.md
   - kind: repo_cleanup_report
     path: docs/public/evidence/REPORT-CLEANUP-LAB.md
   - kind: ip_software_deposit_runbook

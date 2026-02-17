@@ -43,6 +43,7 @@ Este índice organiza o **payload de conhecimento** do repositório por função
 
 - `docs/runbooks/RUN-DESIGN-TOKENS.md` — execução e validação de tokens (build/check/gates)
 - `docs/runbooks/RUN-REPO-HYGIENE-LAB.md` — higienização arquitetural (lab-safe) + expurgo de scruta
+- `docs/runbooks/RUN-EDGE-RUNTIME-WARNINGS.md` — interpretação do warning de Edge Runtime (OG/Twitter images)
 
 ---
 
