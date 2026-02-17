@@ -13,6 +13,7 @@
     "blog:views:check": "node scripts/validate-blog-views.mjs",
     "clm:build": "node packages/clm/scripts/build.mjs",
     "clm:verify": "node packages/clm/scripts/verify.mjs",
+    "clm:scan": "node scripts/scan-clm-placeholders.mjs",
     "tokens:build": "node packages/design-tokens/scripts/build.mjs",
     "tokens:check": "node scripts/verify-tokens-enforcement.mjs && node scripts/verify-design-tokens.mjs && node scripts/verify-contrast.mjs",
     "tokens:contrast": "node scripts/verify-contrast.mjs",

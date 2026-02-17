@@ -51,6 +51,8 @@ artifacts:
     path: packages/clm/scripts/build.mjs
   - kind: clm_package_verifier
     path: packages/clm/scripts/verify.mjs
+  - kind: clm_placeholder_scanner
+    path: scripts/scan-clm-placeholders.mjs
   - kind: sales_funnel_gap_report_runbook
     path: docs/runbooks/RUN-FUNNEL-GAP-REPORT.md
   - kind: clm_package_runbook
