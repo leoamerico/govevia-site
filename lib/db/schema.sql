@@ -11,10 +11,12 @@ CREATE TABLE IF NOT EXISTS content_entries (
   scope TEXT NOT NULL,
   slug TEXT NULL,
   view TEXT NULL,
+  format TEXT NOT NULL DEFAULT 'text',
   status TEXT NOT NULL DEFAULT 'draft',
   value TEXT NOT NULL,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_by TEXT NOT NULL DEFAULT 'system',
+  CONSTRAINT content_entries_format_check CHECK (format IN ('text')),
   CONSTRAINT content_entries_status_check CHECK (status IN ('draft', 'published', 'archived')),
   CONSTRAINT content_entries_unique_lookup UNIQUE (key, scope, slug, view)
 );
