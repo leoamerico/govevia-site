@@ -1,0 +1,343 @@
+# =============================================================================
+# WEB-CLAIMS.yaml — Govevia Claims Registry (Phase 1: Hardening)
+# =============================================================================
+#
+# Purpose:
+#   Single source of truth for every public-facing claim about the Govevia
+#   platform. No claim goes to the site, pitch deck, or procurement pack
+#   without an entry here. No entry exists without evidence.
+#
+# Rules:
+#   1. Every claim MUST have at least one evidence.path pointing to a
+#      real artifact in this repository (test, migration, module, policy).
+#   2. Claims with status "proven" have passing tests or verifiable artifacts.
+#      Claims with status "planned" are NOT publishable — they exist here
+#      only to track the roadmap toward publishability.
+#   3. risk_level "high" claims require TWO independent evidence types.
+#
+# Taxonomy:
+#   domain:     normas | prova | seguranca | privacidade | ai | arquitetura
+#   risk_level: high | medium | low
+#   status:     proven | partial | planned
+#   audience:   tecnico | gestor | juridico | controle_interno | publico
+#
+# Versioning:
+#   version: 1.0.0 (Phase 1 — Hardening)
+#   date: 2026-02-16
+#
+# =============================================================================
+
+meta:
+  version: "1.0.0"
+  phase: "1-hardening"
+  date: "2026-02-16"
+  owner: "Leo Américo"
+  review_cadence: "on each phase delivery"
+  policy: >
+    No claim with status != "proven" may appear on govevia.com.br,
+    pitch decks, procurement packs, or any client-facing material.
+    Violation of this policy is a reputational risk event.
+
+claims:
+
+  # ---------------------------------------------------------------------------
+  # DOMAIN: prova (evidência e auditabilidade)
+  # ---------------------------------------------------------------------------
+
+  - id: CLAIM-PROVA-001
+    domain: prova
+    risk_level: high
+    status: proven
+    audience: [controle_interno, juridico, tecnico]
+    claim_pt: >
+      Toda ação no sistema gera registro de auditoria imutável, com
+      cadeia criptográfica verificável (SHA-256) que detecta qualquer
+      tentativa de adulteração.
+    publishable_copy: >
+      Trilha de auditoria com cadeia criptográfica verificável:
+      cada evento é registrado de forma imutável e encadeado por
+      hash SHA-256. Adulterações são detectadas automaticamente.
+    boundaries:
+      - "Não protege contra superusuário que desabilite triggers E recompute toda a cadeia."
+      - "Verificação depende de execução periódica do verificador (diária + por deploy)."
+    evidence:
+      - type: migration
+        path: infra/migrations/20260216_123_audit_events_hashchain.sql
+        what_it_proves: "Triggers de imutabilidade + hash-chain e função verify_audit_chain()."
+      - type: test
+        path: tests/hardening/test_hardening_smoke.py
+        what_it_proves: "Smoke em Postgres valida hash-chain + verify_audit_chain()."
+      - type: policy
+        path: docs/policy/POL-AUDIT-INTEGRITY.md
+        what_it_proves: "Obrigações operacionais: verificação periódica e resposta a incidentes."
+      - type: operational_script
+        path: tools/db/verify_audit_chain.sql
+        what_it_proves: "Script executável que valida integridade e trigger de imutabilidade."
+    client_verification: >
+      Executar verify_audit_chain() em ambiente do cliente (ou via script
+      operacional) e registrar o resultado como evidência.
+
+  - id: CLAIM-PROVA-002
+    domain: prova
+    risk_level: medium
+    status: proven
+    audience: [controle_interno, juridico]
+    claim_pt: >
+      Registros de auditoria são append-only: não podem ser editados
+      ou excluídos, mesmo via acesso direto ao banco (role não-superuser).
+    publishable_copy: >
+      Registros de auditoria são tecnicamente imutáveis: tentativas
+      de alteração ou exclusão são bloqueadas no nível do banco de
+      dados, independentemente do nível de acesso do usuário.
+    boundaries:
+      - "Superusuário Postgres pode desabilitar o trigger (mitigável por governança e auditoria de DDL)."
+      - "Aplica-se a operações com roles não-superuser."
+    evidence:
+      - type: migration
+        path: infra/migrations/20260216_123_audit_events_hashchain.sql
+        what_it_proves: "Trigger BEFORE UPDATE/DELETE bloqueia alterações."
+      - type: test
+        path: tests/hardening/test_hardening_smoke.py
+        what_it_proves: "UPDATE em audit_events falha."
+      - type: rfc
+        path: docs/rfc/RFC-HARDENING-INTEGRITY-ISOLATION.md
+        what_it_proves: "Threat model e limites do mecanismo (superuser)."
+    client_verification: >
+      Demonstrar tentativa de UPDATE/DELETE em audit_events e coletar
+      a exceção como evidência.
+
+  # ---------------------------------------------------------------------------
+  # DOMAIN: seguranca (isolamento e falha segura)
+  # ---------------------------------------------------------------------------
+
+  - id: CLAIM-SEG-001
+    domain: seguranca
+    risk_level: high
+    status: proven
+    audience: [tecnico, controle_interno, juridico]
+    claim_pt: >
+      Dados de cada município são isolados no nível do banco de dados
+      (RLS), com enforcement fora da aplicação.
+    publishable_copy: >
+      Isolamento de dados por município com enforcement no banco de
+      dados (Row-Level Security): mesmo que a aplicação contenha
+      erro, o banco impede acesso cruzado entre municípios.
+    boundaries:
+      - "Superusuário Postgres pode bypassar RLS (mitigado por FORCE RLS + roles não-superuser)."
+    evidence:
+      - type: migration
+        path: infra/migrations/20260216_122_compliance_shield_rls.sql
+        what_it_proves: "Habilita RLS e policy tenant_isolation via GUC app.current_tenant_id."
+      - type: middleware
+        path: apps/shared/middleware/tenant_rls.py
+        what_it_proves: "SET LOCAL app.current_tenant_id antes de queries tenant-scoped."
+      - type: test
+        path: tests/hardening/test_hardening_smoke.py
+        what_it_proves: "Isolamento A vs B + sessão sem tenant retorna zero rows."
+      - type: rfc
+        path: docs/rfc/RFC-HARDENING-INTEGRITY-ISOLATION.md
+        what_it_proves: "Decisão arquitetural e threat model."
+    client_verification: >
+      Criar dois tenants de teste e demonstrar acesso cruzado bloqueado,
+      com evidência registrada.
+
+  - id: CLAIM-SEG-002
+    domain: seguranca
+    risk_level: medium
+    status: proven
+    audience: [tecnico, gestor]
+    claim_pt: >
+      O sistema opera com semântica de falha segura: na ausência de
+      contexto de município, nenhum dado é acessível (deny-by-default).
+    publishable_copy: >
+      Segurança por padrão: se o sistema não souber qual município
+      está acessando, nenhum dado é retornado.
+    boundaries:
+      - "Aplica-se a dados tenant-scoped; endpoints públicos podem existir por design."
+    evidence:
+      - type: migration
+        path: infra/migrations/20260216_122_compliance_shield_rls.sql
+        what_it_proves: "Fail-closed: GUC ausente → zero rows."
+      - type: test
+        path: tests/hardening/test_hardening_smoke.py
+        what_it_proves: "Sessão sem tenant context retorna zero rows."
+      - type: middleware
+        path: apps/shared/middleware/tenant_rls.py
+        what_it_proves: "Helper para sessões tenant-scoped."
+    client_verification: >
+      Demonstrar que sessão sem tenant context não retorna dados.
+
+  # ---------------------------------------------------------------------------
+  # DOMAIN: arquitetura (design para regime jurídico-administrativo)
+  # ---------------------------------------------------------------------------
+
+  - id: CLAIM-ARQ-001
+    domain: arquitetura
+    risk_level: medium
+    status: proven
+    audience: [tecnico, gestor, juridico]
+    claim_pt: >
+      Arquitetura projetada especificamente para requisitos de
+      auditabilidade, conformidade e transparência do regime
+      jurídico-administrativo brasileiro.
+    publishable_copy: >
+      Plataforma projetada desde a arquitetura para o regime
+      jurídico-administrativo: auditabilidade e governança não são
+      funcionalidades adicionais — são decisões estruturais do sistema.
+    boundaries:
+      - "Não afirma conformidade legal garantida; afirma desenho para reduzir risco e sustentar evidência."
+    evidence:
+      - type: rfc
+        path: docs/rfc/RFC-HARDENING-INTEGRITY-ISOLATION.md
+        what_it_proves: "Motivação de RLS/hash-chain/fail-closed por requisitos de controle e auditoria."
+      - type: governance
+        path: docs/GOVERNANCE-MANIFEST.yaml
+        what_it_proves: "Registro de artefatos/gates versionados."
+      - type: policy
+        path: docs/policy/POL-AUDIT-INTEGRITY.md
+        what_it_proves: "Política operacional de integridade/auditoria."
+    client_verification: >
+      Apresentar o threat model + executar smoke test e verificador
+      operacional em até 15 minutos.
+
+  - id: CLAIM-ARQ-002
+    domain: arquitetura
+    risk_level: low
+    status: proven
+    audience: [tecnico]
+    claim_pt: >
+      Governança do sistema é documentada como código: decisões,
+      políticas e procedimentos são versionados no repositório.
+    publishable_copy: >
+      Governança como código: decisões, políticas e procedimentos
+      vivem no repositório, versionados e auditáveis.
+    boundaries:
+      - "Documentos jurídicos (contratos, pareceres) ficam fora do repositório por natureza."
+    evidence:
+      - type: governance
+        path: docs/GOVERNANCE-MANIFEST.yaml
+        what_it_proves: "Manifesto e rastreabilidade de artefatos."
+      - type: runbook
+        path: docs/runbooks/RUN-VERIFY-AUDIT-CHAIN.md
+        what_it_proves: "Procedimento operacional versionado."
+      - type: gate
+        path: scripts/validate-web-claims-registry.mjs
+        what_it_proves: "Policy-as-code do registry + gate de linguagem proibida."
+    client_verification: >
+      Rodar os gates do repositório e apontar as evidências.
+
+  # ---------------------------------------------------------------------------
+  # 6 claims PLANNED (não publicáveis)
+  # ---------------------------------------------------------------------------
+
+  - id: CLAIM-NORMA-001
+    domain: normas
+    risk_level: high
+    status: planned
+    audience: [gestor, controle_interno, juridico]
+    claim_pt: >
+      Regras de conformidade são codificadas e executadas
+      automaticamente sobre publicações oficiais.
+    publishable_copy: null
+    depends_on:
+      - "Motor de regras implementado"
+      - "Pipeline de ingestão/hunter operacional"
+      - "Testes de qualidade com dados reais"
+
+  - id: CLAIM-NORMA-002
+    domain: normas
+    risk_level: high
+    status: planned
+    audience: [gestor, controle_interno]
+    claim_pt: >
+      O sistema gera métricas operacionais de diligência e adoção
+      do processo de revisão.
+    publishable_copy: null
+    depends_on:
+      - "Métricas implementadas e populadas por pipeline real"
+      - "Pelo menos 1 piloto com dados reais"
+
+  - id: CLAIM-AI-001
+    domain: ai
+    risk_level: high
+    status: planned
+    audience: [gestor, controle_interno, juridico, tecnico]
+    claim_pt: >
+      Modelos de IA sugerem enquadramentos normativos, mas cada
+      recomendação só é consolidada após validação determinística
+      e revisão humana registrada.
+    publishable_copy: null
+    depends_on:
+      - "Workflow humano-no-circuito implementado"
+      - "Teste E2E recomendação → decisão → audit trail"
+      - "Pelo menos 1 piloto municipal concluído"
+
+  - id: CLAIM-AI-002
+    domain: ai
+    risk_level: high
+    status: planned
+    audience: [controle_interno, juridico]
+    claim_pt: >
+      Nenhuma decisão administrativa é tomada exclusivamente por IA;
+      toda recomendação gera trilha de revisão e responsável.
+    publishable_copy: null
+    depends_on:
+      - "decision_package com decision_owner"
+      - "Audit trail recomendação → decisão → responsável"
+
+  - id: CLAIM-AI-003
+    domain: ai
+    risk_level: high
+    status: planned
+    audience: [gestor, tecnico]
+    claim_pt: >
+      Em caso de incerteza do modelo, o sistema escala para revisão
+      humana em vez de prosseguir automaticamente.
+    publishable_copy: null
+    depends_on:
+      - "Threshold de confiança definido"
+      - "Mecanismo de escalation para humano"
+
+  - id: CLAIM-PRIV-001
+    domain: privacidade
+    risk_level: high
+    status: planned
+    audience: [juridico, controle_interno]
+    claim_pt: >
+      Município é controlador; Govevia atua como operador com
+      portabilidade e eliminação segura verificável ao término
+      do contrato.
+    publishable_copy: null
+    depends_on:
+      - "DPA/contrato + export manifest + destroy service"
+      - "RIPD template preenchível"
+
+verification:
+  automated:
+    description: "CI roda testes e verificadores referenciados nas evidências (quando aplicável)."
+  manual:
+    description: "Review por phase delivery: promover planned→proven apenas com evidência e testes."
+  client_facing:
+    description: "Qualquer claim proven deve ser demonstrável em 15 minutos, com runbook."
+
+forbidden_language:
+  - pattern: "imunidade"
+    reason: "Promessa de resultado jurídico."
+  - pattern: "blindagem"
+    reason: "Promessa de resultado jurídico."
+  - pattern: "garantia de conformidade"
+    reason: "Nenhum sistema garante conformidade; sistemas reduzem risco."
+  - pattern: "sem viés"
+    reason: "Overclaim em IA."
+  - pattern: "sem erro"
+    reason: "Overclaim técnico."
+  - pattern: "decide automaticamente"
+    reason: "Contradiz human-in-the-loop; IA é assistiva."
+  - pattern: "substitui parecer"
+    reason: "O sistema não substitui parecer jurídico."
+  - pattern: "proteção total"
+    reason: "Promessa absoluta."
+  - pattern: "100%"
+    reason: "Promessa absoluta."
+  - pattern: "à prova de"
+    reason: "Promessa absoluta."

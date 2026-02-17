@@ -1,0 +1,71 @@
+name: claims-registry
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  validate-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - name: Validate claims registry + forbidden language
+        run: npm run validate:web-claims-registry
+
+  hardening-smoke:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: govevia
+          POSTGRES_PASSWORD: govevia
+          POSTGRES_DB: govevia
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U govevia -d govevia"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install python deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest sqlalchemy asyncpg
+
+      - name: Install Postgres client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Apply migrations (schema + RLS + hashchain)
+        env:
+          PGPASSWORD: govevia
+        run: |
+          psql -h localhost -U govevia -d govevia -f infra/migrations/20260216_120_initial_schema.sql
+          psql -h localhost -U govevia -d govevia -f infra/migrations/20260216_122_compliance_shield_rls.sql
+          psql -h localhost -U govevia -d govevia -f infra/migrations/20260216_123_audit_events_hashchain.sql
+
+      - name: Run operational verifier (audit chain)
+        env:
+          PGPASSWORD: govevia
+        run: |
+          psql -h localhost -U govevia -d govevia -f tools/db/verify_audit_chain.sql
+
+      - name: Run hardening smoke (RLS + hashchain)
+        env:
+          HARDENING_PG_DSN: postgresql+asyncpg://govevia:govevia@localhost:5432/govevia
+        run: pytest tests/hardening/test_hardening_smoke.py -v

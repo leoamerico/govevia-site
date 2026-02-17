@@ -4,7 +4,7 @@ import process from 'node:process'
 import yaml from 'js-yaml'
 
 const repoRoot = process.cwd()
-const registryPath = path.join(repoRoot, 'docs/public/claims/WEB-CLAIMS-REGISTRY.yaml')
+const registryPath = path.join(repoRoot, 'docs/public/claims/WEB-CLAIMS.yaml')
 
 function fail(message) {
   console.error(`web-claims-registry: ${message}`)

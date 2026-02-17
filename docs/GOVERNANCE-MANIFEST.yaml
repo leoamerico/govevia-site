@@ -1,0 +1,17 @@
+version: 1
+scope: govevia-site
+artifacts:
+  - kind: claims_registry
+    path: docs/public/claims/WEB-CLAIMS.yaml
+  - kind: claims_registry_validator
+    path: scripts/validate-web-claims-registry.mjs
+  - kind: web_copy_overclaim_gate
+    path: tools/claims/verify_web_claims.py
+  - kind: hardening_migration
+    path: infra/migrations/20260216_122_compliance_shield_rls.sql
+  - kind: hardening_migration
+    path: infra/migrations/20260216_123_audit_events_hashchain.sql
+  - kind: hardening_smoke_test
+    path: tests/hardening/test_hardening_smoke.py
+  - kind: operational_script
+    path: tools/db/verify_audit_chain.sql
