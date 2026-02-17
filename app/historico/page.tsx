@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { getChangelogHtml } from '@/lib/changelog'
+import { getChangelogHtml, getChangelogMeta } from '@/lib/changelog'
 
 export const metadata: Metadata = {
   title: 'Histórico de Atualizações',
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 export default async function HistoricoPage() {
   const changelogHtml = await getChangelogHtml()
+  const { updatedAt } = getChangelogMeta()
 
   return (
     <>
@@ -25,6 +26,11 @@ export default async function HistoricoPage() {
                 Este histórico é gerado a partir do <span className="font-mono">CHANGELOG.md</span> versionado no repositório.
               </p>
               <div className="mt-6 text-sm text-institutional-silver font-mono">
+                {updatedAt ? (
+                  <div className="mb-2">
+                    Atualizado em (UTC): <span className="text-institutional-slate">{updatedAt}</span>
+                  </div>
+                ) : null}
                 <a href="/api/version" className="hover:text-primary">
                   Ver versão do deploy (/api/version)
                 </a>
