@@ -134,3 +134,66 @@ items:
     owner: Govevia
     related_gates: ["CLAIMS"]
     related_claims: []
+
+  - id: SSOT-SALES-FUNNEL
+    path: docs/sales-funnel/SSOT-SALES-FUNNEL.md
+    domain: SALES-FUNNEL
+    function: normative
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []
+
+  - id: GUARDRAILS-OVERCLAIM
+    path: docs/sales-funnel/GUARDRAILS-OVERCLAIM.md
+    domain: SALES-FUNNEL
+    function: normative
+    status: active
+    owner: Govevia
+    related_gates: ["CLAIMS"]
+    related_claims: []
+
+  - id: LGPD-MIN-DATA
+    path: docs/sales-funnel/LGPD-MIN-DATA.md
+    domain: SALES-FUNNEL
+    function: normative
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []
+
+  - id: RUN-FUNNEL-GAP-REPORT
+    path: docs/runbooks/RUN-FUNNEL-GAP-REPORT.md
+    domain: SALES-FUNNEL
+    function: runbook
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []
+
+  - id: RUN-CLM-PACKAGE
+    path: docs/runbooks/RUN-CLM-PACKAGE.md
+    domain: SALES-FUNNEL
+    function: runbook
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []
+
+  - id: EVID-SAMPLE-GAP-REPORT
+    path: docs/public/evidence/sales-funnel/EVID-SAMPLE-GAP-REPORT.md
+    domain: SALES-FUNNEL
+    function: evidence
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []
+
+  - id: EVID-CLM-PACKAGE-HASH
+    path: docs/public/evidence/sales-funnel/EVID-CLM-PACKAGE-HASH.md
+    domain: SALES-FUNNEL
+    function: evidence
+    status: active
+    owner: Govevia
+    related_gates: []
+    related_claims: []

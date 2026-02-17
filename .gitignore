@@ -31,6 +31,10 @@ govevia.env
 
 # local scratch files
 support@envneo.com.br.txt
+LEONARDO AMÉRICO JOSÉ RIBEIRO.txt
+
+# Lab-generated CLM outputs (deterministic, reproducible)
+/data/clm-packages/
 
 # vercel
 .vercel

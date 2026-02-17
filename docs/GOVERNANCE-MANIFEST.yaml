@@ -33,6 +33,32 @@ artifacts:
     path: docs/legal/ip/LICENSE-CHAIN-OF-TITLE.md
   - kind: ip_trademark_classes_draft
     path: docs/legal/ip/INPI-TRADEMARK-CLASSES.md
+  - kind: sales_funnel_ssot
+    path: docs/sales-funnel/SSOT-SALES-FUNNEL.md
+  - kind: sales_funnel_overclaim_guardrails
+    path: docs/sales-funnel/GUARDRAILS-OVERCLAIM.md
+  - kind: sales_funnel_lgpd_min_data
+    path: docs/sales-funnel/LGPD-MIN-DATA.md
+  - kind: sales_funnel_gap_report_schema
+    path: data/gap-reports/_schema.gap-report.v1.json
+  - kind: sales_funnel_gap_report_example
+    path: data/gap-reports/prefeitura/unai-mg.json
+  - kind: sales_funnel_gap_report_validator
+    path: scripts/validate-gap-reports.mjs
+  - kind: clm_manifest_schema
+    path: packages/clm/_schema.clm-manifest.v1.json
+  - kind: clm_package_generator
+    path: packages/clm/scripts/build.mjs
+  - kind: clm_package_verifier
+    path: packages/clm/scripts/verify.mjs
+  - kind: sales_funnel_gap_report_runbook
+    path: docs/runbooks/RUN-FUNNEL-GAP-REPORT.md
+  - kind: clm_package_runbook
+    path: docs/runbooks/RUN-CLM-PACKAGE.md
+  - kind: sales_funnel_evidence
+    path: docs/public/evidence/sales-funnel/EVID-SAMPLE-GAP-REPORT.md
+  - kind: sales_funnel_evidence
+    path: docs/public/evidence/sales-funnel/EVID-CLM-PACKAGE-HASH.md
   - kind: hardening_migration
     path: infra/migrations/20260216_122_compliance_shield_rls.sql
   - kind: hardening_migration

@@ -65,6 +65,26 @@ Este índice organiza o **payload de conhecimento** do repositório por função
 
 ---
 
+## Sales Funnel + CLM (SSOT)
+
+### Normas (Sales Funnel)
+
+- `docs/sales-funnel/SSOT-SALES-FUNNEL.md`
+- `docs/sales-funnel/GUARDRAILS-OVERCLAIM.md`
+- `docs/sales-funnel/LGPD-MIN-DATA.md`
+
+### Runbooks (Sales Funnel)
+
+- `docs/runbooks/RUN-FUNNEL-GAP-REPORT.md`
+- `docs/runbooks/RUN-CLM-PACKAGE.md`
+
+### Evidência pública (auditável) (Sales Funnel)
+
+- `docs/public/evidence/sales-funnel/EVID-SAMPLE-GAP-REPORT.md`
+- `docs/public/evidence/sales-funnel/EVID-CLM-PACKAGE-HASH.md`
+
+---
+
 ## Convenções do repositório para o payload de conhecimento
 
 - **Normas (MUST/SHOULD)** ficam em `docs/brand/`, `docs/legal/ip/`, `docs/policy/`.

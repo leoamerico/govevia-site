@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "govevia://schemas/clm-manifest.v1",
+  "title": "Govevia CLM Package Manifest v1",
+  "type": "object",
+  "required": ["version", "account_id", "generated_at", "artifacts", "hashes"],
+  "properties": {
+    "version": { "type": "string", "const": "clm-manifest.v1" },
+    "account_id": { "type": "string", "minLength": 2 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "artifacts": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 3 }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

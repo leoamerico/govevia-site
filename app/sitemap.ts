@@ -11,11 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (fs.existsSync(postsDirectory)) {
     const slugs = fs
       .readdirSync(postsDirectory)
-      .filter((file) => file.endsWith('.md'))
-      .map((file) => file.replace(/\.md$/, ''))
+      .filter((file) => (file.endsWith('.mdx') || file.endsWith('.md')) && !file.startsWith('_'))
+      .map((file) => file.replace(/\.(mdx|md)$/, ''))
 
     for (const slug of slugs) {
-      const fullPath = path.join(postsDirectory, `${slug}.md`)
+      const mdxPath = path.join(postsDirectory, `${slug}.mdx`)
+      const mdPath = path.join(postsDirectory, `${slug}.md`)
+      const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath
       let lastModified = new Date()
 
       try {

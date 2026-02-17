@@ -1,0 +1,37 @@
+{
+  "version": "gap-report.v1",
+  "generated_at": "2026-02-17T12:00:00-03:00",
+  "account": { "type": "prefeitura", "id": "unai-mg", "name": "Prefeitura de Unaí", "uf": "MG" },
+  "scope": {
+    "theme": "Transparência e rastreabilidade documental",
+    "period": "Últimos 12 meses",
+    "sources": [
+      { "kind": "transparencia", "url": "https://exemplo.gov.br/transparencia" }
+    ]
+  },
+  "findings": [
+    {
+      "id": "GAP-001",
+      "title": "Ausência de trilha de evidência pública para atos críticos",
+      "severity": "P0",
+      "statement": "Não foi localizado mecanismo público que permita verificar a cadeia de eventos e responsáveis por atos críticos (ex.: contratos e aditivos) com integridade verificável.",
+      "evidence": [
+        { "type": "url", "ref": "https://exemplo.gov.br/transparencia/contratos" }
+      ],
+      "impact": {
+        "risk": "Risco reputacional e de questionamento por controle externo",
+        "why_it_matters": "Sem evidência rastreável, auditorias e impugnações se tornam mais prováveis e custosas.",
+        "metrics_hint": "tempo médio de resposta a diligências; nº de retrabalhos"
+      },
+      "recommendation": {
+        "action": "Implementar trilha de evidência por evento (quem/quando/o quê) e consolidar relatórios verificáveis por hash.",
+        "expected_outcome": "Reduzir retrabalho e aumentar previsibilidade de auditorias.",
+        "links": ["docs/public/evidence/sales-funnel/EVID-SAMPLE-GAP-REPORT.md"]
+      }
+    }
+  ],
+  "limitations": [
+    "Este diagnóstico utiliza apenas fontes públicas; não infere dados internos não publicados.",
+    "Achados são condicionais ao estado atual das páginas consultadas e podem mudar sem aviso."
+  ]
+}
