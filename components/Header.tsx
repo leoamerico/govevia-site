@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
 export default function Header() {
@@ -35,6 +36,22 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <span className="text-2xl font-serif font-bold text-institutional-navy tracking-tight">
               GOVEVIA
+            </span>
+
+            <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
+
+            <span className="flex items-center gap-2">
+              <Image
+                src="/brand/envneo-on-white.png"
+                alt="ENV-NEO"
+                width={28}
+                height={28}
+                className="h-6 w-6"
+                priority
+              />
+              <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
+                ENV-NEO
+              </span>
             </span>
           </Link>
 
