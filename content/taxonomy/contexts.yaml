@@ -1,0 +1,18 @@
+version: 1
+contexts:
+  - id: prefeitura
+    label: Prefeitura
+  - id: camara
+    label: Câmara
+  - id: autarquia
+    label: Autarquia
+  - id: consorcio
+    label: Consórcio
+  - id: empresa_publica
+    label: Empresa pública
+  - id: controle_interno
+    label: Controle interno
+  - id: controle_externo
+    label: Controle externo
+  - id: ministerio_publico
+    label: Ministério Público

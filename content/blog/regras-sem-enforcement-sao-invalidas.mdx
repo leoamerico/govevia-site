@@ -10,13 +10,15 @@ tags:
   - Conformidade Municipal
 ---
 
+<ViewBlock>
+
 ## O problema que ninguém nomeia
 
 A maioria dos sistemas de gestão municipal opera sob uma premissa implícita: as regras estão documentadas, portanto o sistema é conforme. Essa premissa é falsa.
 
 Documentar uma regra e executá-la são operações fundamentalmente diferentes. Um manual de procedimentos que diz "o servidor deve verificar se o parecer jurídico foi emitido antes de publicar o ato" é uma instrução. Se o sistema permite publicar o ato sem parecer jurídico, a instrução é irrelevante — o que conta é o que o sistema permite, não o que o manual diz.
 
-<!-- MOD: escopo jurídico (validade formal vs efetividade operacional) -->
+{/* MOD: escopo jurídico (validade formal vs efetividade operacional) */}
 Este texto **não discute a validade formal** de normas (que decorre do devido processo legislativo e dos requisitos de competência, forma e publicidade). O foco aqui é a **efetividade operacional** dessas normas dentro das rotinas administrativas: quando não há enforcement automático (bloqueios técnicos e controles verificáveis), a regra pode até existir formalmente, mas se torna **praticamente inaplicável** no dia a dia e **gera risco institucional** para o gestor e para a organização.
 
 Essa distinção tem consequências jurídicas concretas. Quando o Tribunal de Contas audita um município e encontra atos administrativos praticados em desacordo com normas internas, a resposta "mas estava no manual" não constitui defesa. O que o TCE pergunta é: **o sistema impediu a violação ou permitiu que ela ocorresse?**
@@ -31,7 +33,7 @@ A diferença prática:
 
 **Sistema com controles automáticos:** O servidor tenta emitir o mesmo alvará. O sistema pode calcular a taxa de ocupação com base nos parâmetros vigentes do Plano Diretor, identificar a violação e impedir a emissão, conforme implementação e configuração. O objetivo é reduzir a probabilidade de atos irregulares.
 
-<!-- MOD: tom não-acusatório -->
+{/* MOD: tom não-acusatório */}
 No primeiro caso, o sistema **não atua como barreira institucional**: ele deixa a decisão (e o risco) recaírem integralmente sobre a pessoa e sobre a rotina. No segundo, ele funciona como **mecanismo de proteção institucional** ao reduzir a probabilidade de erros operacionais e inconformidades.
 
 ## O que a Lei 14.129/2021 exige (e poucos implementam)
@@ -70,7 +72,7 @@ Uma trilha de auditoria completa deve permitir reconstruir, para cada ato admini
 
 Se qualquer desses elementos está ausente, a evidência é incompleta. Se registros podem ser alterados retroativamente sem trilha, a evidência fica frágil.
 
-<!-- MOD: referências sucintas a órgãos de controle -->
+{/* MOD: referências sucintas a órgãos de controle */}
 Esse ponto dialoga com orientações recorrentes de órgãos de controle. Em termos práticos, **o TCU e diversos Tribunais de Contas estaduais** vêm enfatizando, em referenciais e manuais de governança/controle interno, a necessidade de **controles preventivos**, **segregação de funções**, **rastreabilidade** e **trilhas de auditoria** capazes de sustentar a reconstituição do ato e do contexto decisório. A mensagem para o gestor é simples: quando o controle é apenas "depois do fato" e sem evidência confiável, o risco institucional aumenta.
 
 Um padrão técnico comum para evidência auditável é registrar eventos preservando histórico (sem sobrescrita silenciosa), com mecanismos de integridade e trilha de auditoria reprodutível. Na prática, isso ajuda a detectar adulterações e reconstruir contexto sem depender de memória humana.
@@ -103,5 +105,97 @@ Se a resposta a qualquer dessas perguntas é insatisfatória, o município opera
 
 *Este artigo faz parte da série de publicações técnicas da ENV-NEO sobre governança digital municipal. As análises apresentadas são baseadas na legislação federal vigente e nas exigências normativas dos Tribunais de Contas.*
 
-<!-- MOD: ressalva final obrigatória -->
+{/* MOD: ressalva final obrigatória */}
 *Este texto tem caráter técnico-informativo e não substitui parecer jurídico ou orientação específica de órgãos de controle.*
+
+### Limites e Condições
+
+- Conteúdo técnico-informativo; não substitui parecer jurídico.
+- Este artigo descreve padrões e riscos; a aplicabilidade depende de configuração, legislação local e processos internos.
+
+### Evidências
+
+- Ver: docs/public/evidence/WEB-CLAIMS-REPORT.md
+- Ver: docs/public/evidence/REPORT-CLAIMS-IMPLEMENTATION.md
+
+</ViewBlock>
+
+<ViewBlock view="prefeito">
+
+## Visão: Prefeito
+
+Enforcement automático não é “tecnicismo”: é **proteção institucional**. O ponto de decisão aqui é reduzir o espaço onde “a regra existe no papel, mas o sistema deixa passar”.
+
+### Limites e Condições
+
+- O gestor ainda depende de controles, processos e pessoas — o sistema reduz probabilidade de erro, não elimina responsabilidade.
+
+### Evidências
+
+- Ver: docs/public/evidence/WEB-CLAIMS-REPORT.md
+
+</ViewBlock>
+
+<ViewBlock view="prefeito" ctx="camara">
+
+## Visão composta: Prefeito × Câmara
+
+No contexto de Câmara, a ênfase é **publicidade, rastreabilidade e prestação de contas**: a regra precisa ser demonstrável e reconstituível em auditoria.
+
+### Limites e Condições
+
+- Os ritos e requisitos de deliberação variam por casa legislativa.
+
+### Evidências
+
+- Ver: docs/public/evidence/REPORT-CLAIMS-IMPLEMENTATION.md
+
+</ViewBlock>
+
+<ViewBlock view="procurador">
+
+## Visão: Procurador
+
+Separar “validade formal” de “efetividade operacional” ajuda a reduzir overclaim: o sistema pode implementar controles, mas isso não altera a cadeia normativa nem substitui análise jurídica.
+
+### Limites e Condições
+
+- Este texto não constitui assessoria jurídica.
+
+### Evidências
+
+- Ver: docs/public/evidence/WEB-CLAIMS-REPORT.md
+
+</ViewBlock>
+
+<ViewBlock view="controlador">
+
+## Visão: Controlador
+
+O foco é a **trilha de auditoria**: o que o sistema impede, o que ele permite, e como provar isso depois (sem sobrescrita e com integridade).
+
+### Limites e Condições
+
+- Evidência só serve se for reprodutível, versionada e resistente a adulteração.
+
+### Evidências
+
+- Ver: docs/public/evidence/REPORT-CLAIMS-IMPLEMENTATION.md
+
+</ViewBlock>
+
+<ViewBlock view="secretario">
+
+## Visão: Secretário
+
+Transformar regra em enforcement exige operação: cadência de verificação, runbooks e gates contínuos para que a conformidade não dependa de “lembrar de fazer”.
+
+### Limites e Condições
+
+- Requer governança operacional (rotinas e métricas), não só software.
+
+### Evidências
+
+- Ver: docs/public/evidence/RUNBOOK-CONTACT-API-CSRF.md
+
+</ViewBlock>

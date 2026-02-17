@@ -1,0 +1,10 @@
+version: 1
+personas:
+  - id: prefeito
+    label: Prefeito
+  - id: procurador
+    label: Procurador
+  - id: controlador
+    label: Controlador
+  - id: secretario
+    label: Secretário

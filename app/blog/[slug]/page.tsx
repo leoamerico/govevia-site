@@ -4,9 +4,15 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { getPostBySlug, getAllPostSlugs } from '@/lib/blog'
+import { getContexts, getPersonas } from '@/lib/taxonomy'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import ViewSelector from '@/components/content/ViewSelector'
+import { ViewProvider } from '@/components/content/ViewProvider'
+import ViewBlock from '@/components/content/ViewBlock'
 
 interface Props {
   params: { slug: string }
+  searchParams?: { view?: string; ctx?: string }
 }
 
 export async function generateStaticParams() {
@@ -34,9 +40,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const post = await getPostBySlug(params.slug)
   if (!post) notFound()
+
+  const personas = getPersonas()
+  const contexts = getContexts()
+
+  const activeView = searchParams?.view
+  const activeCtx = searchParams?.ctx
 
   const schemaArticle = {
     '@context': 'https://schema.org',
@@ -122,20 +134,31 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Article Body */}
         <section className="py-12 bg-white">
           <div className="container-custom">
-            <article
-              className="max-w-3xl mx-auto prose prose-lg prose-slate
-                prose-headings:font-serif prose-headings:text-institutional-navy prose-headings:font-bold
-                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
-                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                prose-p:font-sans prose-p:text-institutional-graphite prose-p:leading-relaxed
-                prose-li:font-sans prose-li:text-institutional-graphite
-                prose-strong:text-institutional-navy
-                prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                prose-blockquote:border-primary prose-blockquote:bg-institutional-offwhite prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
-                prose-code:text-primary prose-code:bg-primary/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
-                prose-pre:bg-institutional-navy prose-pre:text-gray-200"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <ViewProvider activeView={activeView} activeCtx={activeCtx}>
+              <div className="max-w-3xl mx-auto">
+                <ViewSelector personas={personas} contexts={contexts} activeView={activeView} activeCtx={activeCtx} />
+              </div>
+
+              <article
+                className="max-w-3xl mx-auto prose prose-lg prose-slate
+                  prose-headings:font-serif prose-headings:text-institutional-navy prose-headings:font-bold
+                  prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+                  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                  prose-p:font-sans prose-p:text-institutional-graphite prose-p:leading-relaxed
+                  prose-li:font-sans prose-li:text-institutional-graphite
+                  prose-strong:text-institutional-navy
+                  prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                  prose-blockquote:border-primary prose-blockquote:bg-institutional-offwhite prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
+                  prose-code:text-primary prose-code:bg-primary/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+                  prose-pre:bg-institutional-navy prose-pre:text-gray-200"
+              >
+                {post.format === 'mdx' ? (
+                  <MDXRemote source={post.content} components={{ ViewBlock }} />
+                ) : (
+                  <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                )}
+              </article>
+            </ViewProvider>
           </div>
         </section>
 

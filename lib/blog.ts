@@ -17,6 +17,7 @@ export interface BlogPost {
   tags: string[]
   readingTime: string
   content: string
+  format: 'mdx' | 'md'
 }
 
 export interface BlogPostMeta {
@@ -33,8 +34,8 @@ export interface BlogPostMeta {
 export function getAllPostSlugs(): string[] {
   if (!fs.existsSync(postsDirectory)) return []
   return fs.readdirSync(postsDirectory)
-    .filter(file => file.endsWith('.md'))
-    .map(file => file.replace(/\.md$/, ''))
+    .filter((file) => (file.endsWith('.mdx') || file.endsWith('.md')) && !file.startsWith('_'))
+    .map((file) => file.replace(/\.(mdx|md)$/, ''))
 }
 
 export function getAllPosts(): BlogPostMeta[] {
@@ -44,7 +45,9 @@ export function getAllPosts(): BlogPostMeta[] {
 }
 
 export function getPostMeta(slug: string): BlogPostMeta | null {
-  const fullPath = path.join(postsDirectory, `${slug}.md`)
+  const mdxPath = path.join(postsDirectory, `${slug}.mdx`)
+  const mdPath = path.join(postsDirectory, `${slug}.md`)
+  const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath
   if (!fs.existsSync(fullPath)) return null
 
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -71,7 +74,9 @@ export function getPostMeta(slug: string): BlogPostMeta | null {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  const fullPath = path.join(postsDirectory, `${slug}.md`)
+  const mdxPath = path.join(postsDirectory, `${slug}.mdx`)
+  const mdPath = path.join(postsDirectory, `${slug}.md`)
+  const fullPath = fs.existsSync(mdxPath) ? mdxPath : mdPath
   if (!fs.existsSync(fullPath)) return null
 
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -85,9 +90,16 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     // Keep default lastModified
   }
 
-  const processedContent = await remark()
-    .use(html, { sanitize: false })
-    .process(content)
+  const format = fullPath.endsWith('.mdx') ? 'mdx' : 'md'
+
+  const rendered =
+    format === 'md'
+      ? (
+          await remark()
+            .use(html, { sanitize: false })
+            .process(content)
+        ).toString()
+      : content
 
   return {
     slug,
@@ -98,6 +110,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     author: data.author || 'ENV-NEO LTDA',
     tags: data.tags || [],
     readingTime: stats.text.replace('min read', 'min de leitura'),
-    content: processedContent.toString(),
+    content: rendered,
+    format,
   }
 }
