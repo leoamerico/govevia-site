@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run content:check",
+    "prebuild": "npm run content:check && npm run history:check",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "content:check": "node scripts/verify-mdx-viewblocks.mjs",
+    "history:check": "node scripts/verify-changelog-updated.mjs",
     "gap:check": "node scripts/validate-gap-reports.mjs",
     "blog:views:check": "node scripts/validate-blog-views.mjs",
     "clm:build": "node packages/clm/scripts/build.mjs",

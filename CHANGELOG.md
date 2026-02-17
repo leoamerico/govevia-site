@@ -1,5 +1,17 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-17 — Admin Console (MVP) + hardening
+
+- Fase 1 (DB): `lib/db/schema.sql` (idempotente, `pgcrypto`) e `lib/db/postgres.ts` (server-only, pool singleton via `globalThis`).
+- Fase 2 (Auth Admin): `/admin/**` protegido por middleware Edge (fail-closed) com sessão via cookie HttpOnly (JWT HS256).
+- Fase 3.1 (Conteúdo): camada `lib/db/content.ts` (upsert transacional + revisões) e `lib/content/getContent.ts` (override DB com fallback, published-only, timeout curto).
+- Fase 3.2 (Admin UI): listagem e editor em `/admin/content` com validação e sanitização hard-rule no write.
+- Plataforma: rota `/plataforma` com SSOT de personas/capabilities, reordenação por `order[]` e URL shareable via `?view=` (sem HEX, sem fetch externo).
+- Contato: rota `/contato` adicionada para suportar CTAs internos por persona (`/contato?context=<persona>`).
+- Governança: policy, runbooks e evidência pública do auth admin adicionados e registrados no manifesto.
+- Enforcement: gate `history:check` exige atualização do `CHANGELOG.md` para qualquer mudança no repo (SSOT do `/historico`).
+- Enforcement (robustez CI/PR): base preferencial via `merge-base` com `origin/main` (com fallbacks) + evidência pública do gate.
+
 ## Correções de Segurança
 
 ### CRÍTICA — XSS no Template de E-mail
