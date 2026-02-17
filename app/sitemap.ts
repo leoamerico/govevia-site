@@ -40,6 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'monthly', priority: 1 },
     { url: `${baseUrl}/plataforma`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/historico`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.6 },
     ...blogPostUrls,
     { url: `${baseUrl}/sobre`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.8 },
     { url: `${baseUrl}/politica-privacidade`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },

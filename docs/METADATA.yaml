@@ -9,6 +9,15 @@ items:
     related_gates: ["D-01", "D-03", "FE-01"]
     related_claims: ["WEB-BRAND-ENDORSE-001"]
 
+  - id: LOCKUPS-SPEC
+    path: docs/brand/LOCKUPS-SPEC.md
+    domain: BRAND
+    function: normative
+    status: active
+    owner: EnvNeo
+    related_gates: ["D-01", "FE-01"]
+    related_claims: ["WEB-BRAND-ENDORSE-001"]
+
   - id: LICENSE-CHAIN-OF-TITLE
     path: docs/legal/ip/LICENSE-CHAIN-OF-TITLE.md
     domain: IP

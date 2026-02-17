@@ -9,6 +9,8 @@ artifacts:
     path: tools/claims/verify_web_claims.py
   - kind: brand_architecture
     path: docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md
+  - kind: brand_lockups_spec
+    path: docs/brand/LOCKUPS-SPEC.md
   - kind: design_tokens_spec
     path: docs/brand/TOKENS-SPEC.md
   - kind: design_tokens_source

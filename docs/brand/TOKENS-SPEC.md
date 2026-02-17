@@ -28,9 +28,10 @@ Implementação:
 
 ## 4. Cromia (tokens semânticos)
 
-- EnvNeo (neutro): `brand.envneo.neutral.900 = #1A1A1A`.
-- Preto absoluto (#000000) apenas para impressão/alto contraste (não default de UI).
-- Cores de produto e institucionais existem em `packages/design-tokens/tokens.json`.
+- EnvNeo (neutro) MUST ser consumido via token: `color.brand.envneo.neutral.900`.
+- Preto absoluto MUST ser consumido via token: `color.brand.envneo.neutral.1000` e seu uso é restrito a impressão/alto contraste (não default de UI).
+- Azul institucional profundo MUST ser consumido via token: `color.brand.govevia.primary.900`.
+- Cores de produto e institucionais MUST existir em `packages/design-tokens/tokens.json` e serem consumidas via aliases do preset Tailwind.
 
 Acessibilidade:
 
@@ -46,4 +47,10 @@ Para símbolos/ícones geométricos (quando aplicável), usar grid inteiro para 
 - raio base (curva): **8u**
 - stroke (se houver): tokenizado e escalável (ver seção 3)
 
-> A relação 1:1.618 deve ser aproximada por razões inteiras (ex.: 32:20 = 1.6) para consistência em múltiplos tamanhos.
+Tolerâncias (verificáveis):
+
+- Medidas MUST usar unidades inteiras (u) no grid.
+- Proporção `base:chip` MUST ser **32u:20u**.
+- Tolerância permitida: chip ∈ [19u, 21u] e base ∈ [31u, 33u], mantendo raio 8u.
+
+> Nota: não usar “proporção áurea” como argumento; o requisito auditável é a grade + tolerância.
