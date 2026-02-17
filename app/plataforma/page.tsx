@@ -1,27 +1,38 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import PlatformHero from '@/components/platform/PlatformHero'
-import ModulesDetail from '@/components/platform/ModulesDetail'
+import PlataformaView from '@/components/plataforma/PlataformaView.client'
+import { PERSONAS, type PersonaId } from '@/lib/plataforma/ssot'
 
 export const metadata: Metadata = {
-  title: 'Plataforma | Detalhamento Técnico',
-  description: 'Detalhamento técnico dos módulos Govevia: enforcement normativo, evidência verificável, assinatura eletrônica e controles de conformidade para administração pública municipal.',
+  title: 'Plataforma | Visão por Persona',
+  description: 'Visão da plataforma com capacidades canônicas reordenadas por persona, evidências exigidas e link compartilhável via ?view=.',
   keywords: [
-    'plataforma govtech', 'módulos governança pública', 'enforcement normativo',
-    'assinatura digital municipal', 'auditoria pública automatizada', 'conformidade LGPD setor público'
+    'plataforma govtech',
+    'governança executável',
+    'evidência verificável',
+    'auditoria pública',
+    'conformidade municipal'
   ],
 }
 
-export default function PlatformPage() {
+type Props = {
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
+function parseInitialView(value: unknown): PersonaId | null {
+  if (typeof value !== 'string') return null
+  return value in PERSONAS ? (value as PersonaId) : null
+}
+
+export default function PlatformPage({ searchParams }: Props) {
+  const initialView = parseInitialView(searchParams?.view)
   return (
     <>
       <Header />
-      <main>
-        <PlatformHero />
-        <ModulesDetail />
-      </main>
+      <PlataformaView initialView={initialView} />
       <Footer />
     </>
   )
 }
+
