@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { jwtVerify } from 'jose'
+
+const ADMIN_COOKIE_NAME = 'govevia_admin_session'
+const ADMIN_ISSUER = 'govevia-admin'
+const ADMIN_AUDIENCE = 'govevia-admin'
 
 function toOrigin(value: string | null): string | null {
   if (!value) return null
@@ -54,12 +59,61 @@ function getAllowedOrigins(): Set<string> {
   return origins
 }
 
-// Aplicar apenas em rotas de API
+// Aplicar em rotas de API (CSRF) e Admin (auth)
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*', '/admin/:path*'],
+}
+
+function getAdminSecret(): string | null {
+  const value = process.env.ADMIN_SESSION_SECRET
+  if (!value) return null
+  if (value.length < 32) return null
+  return value
+}
+
+function buildAdminLoginRedirect(request: NextRequest): NextResponse {
+  const from = `${request.nextUrl.pathname}${request.nextUrl.search}`
+  const url = request.nextUrl.clone()
+  url.pathname = '/admin/login'
+  url.searchParams.set('from', from)
+  return NextResponse.redirect(url)
+}
+
+async function enforceAdminAuth(request: NextRequest): Promise<NextResponse> {
+  const pathname = request.nextUrl.pathname
+
+  if (pathname === '/admin/login' || pathname === '/admin/login/') {
+    return NextResponse.next()
+  }
+
+  const secret = getAdminSecret()
+  if (!secret) {
+    return buildAdminLoginRedirect(request)
+  }
+
+  const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value
+  if (!token) {
+    return buildAdminLoginRedirect(request)
+  }
+
+  try {
+    await jwtVerify(token, new TextEncoder().encode(secret), {
+      algorithms: ['HS256'],
+      issuer: ADMIN_ISSUER,
+      audience: ADMIN_AUDIENCE,
+    })
+  } catch {
+    return buildAdminLoginRedirect(request)
+  }
+
+  return NextResponse.next()
 }
 
 export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    return enforceAdminAuth(request)
+  }
+
   // CSRF: Bloquear requisições sem Origin válido em rotas de API
   if (request.method === 'POST') {
     const origin = request.headers.get('origin')
