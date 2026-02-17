@@ -12,12 +12,14 @@ Este índice organiza o **payload de conhecimento** do repositório por função
 
 - `docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md` — arquitetura de marca endossada (EnvNeo holding / Govevia produto)
 - `docs/brand/LOCKUPS-SPEC.md` — versões permitidas/proibidas do lockup (SSOT)
+- `docs/brand/ENVNEO-IDENTITY-SPEC.md` — identidade EnvNeo v1 (mark/wordmark, regras hard)
 
 ### Evidência pública (auditável) (Brand)
 
 - `docs/public/evidence/brand/EVIDENCE-BRAND-ENDORSED-ARCH.md` — evidência da regra de endosso
 - `docs/public/evidence/brand/EVIDENCE-BRAND-FOOTER-LOCKUP.md` — evidência do lockup no footer
 - `docs/public/evidence/brand/EVIDENCE-BRAND-OG-IMAGE.md` — evidência de OG/Twitter images geradas
+- `docs/public/evidence/brand/REPORT-ENVNEO-IDENTITY-V1.md` — evidência de entrega (assets + spec)
 
 ### Diretórios relacionados (Brand)
 

@@ -11,6 +11,8 @@ artifacts:
     path: docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md
   - kind: brand_lockups_spec
     path: docs/brand/LOCKUPS-SPEC.md
+  - kind: brand_identity_spec
+    path: docs/brand/ENVNEO-IDENTITY-SPEC.md
   - kind: design_tokens_spec
     path: docs/brand/TOKENS-SPEC.md
   - kind: design_tokens_source

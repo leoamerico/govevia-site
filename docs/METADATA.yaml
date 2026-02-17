@@ -18,6 +18,24 @@ items:
     related_gates: ["D-01", "FE-01"]
     related_claims: ["WEB-BRAND-ENDORSE-001"]
 
+  - id: ENVNEO-IDENTITY-SPEC
+    path: docs/brand/ENVNEO-IDENTITY-SPEC.md
+    domain: BRAND
+    function: normative
+    status: active
+    owner: EnvNeo
+    related_gates: ["D-01", "FE-01"]
+    related_claims: []
+
+  - id: REPORT-ENVNEO-IDENTITY-V1
+    path: docs/public/evidence/brand/REPORT-ENVNEO-IDENTITY-V1.md
+    domain: BRAND
+    function: evidence
+    status: active
+    owner: EnvNeo
+    related_gates: ["D-01"]
+    related_claims: []
+
   - id: LICENSE-CHAIN-OF-TITLE
     path: docs/legal/ip/LICENSE-CHAIN-OF-TITLE.md
     domain: IP

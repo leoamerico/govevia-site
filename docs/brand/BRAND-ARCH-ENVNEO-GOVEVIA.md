@@ -77,6 +77,11 @@ Arquivos recomendados:
 - `EVIDENCE-BRAND-FOOTER-LOCKUP.md`
 - `EVIDENCE-BRAND-OG-IMAGE.md`
 
+## 6.4 Identidade EnvNeo (v1)
+
+- Norma MUST existir em: `docs/brand/ENVNEO-IDENTITY-SPEC.md`.
+- Assets runtime MUST existir em: `public/brand/envneo/`.
+
 ## 7. Regras de uso de marca (Do / Don’t)
 ### 7.1 Do (permitido)
 - Usar “Govevia” como marca primária em páginas do produto.

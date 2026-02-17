@@ -10,9 +10,17 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
               <h3 className="text-2xl font-serif font-bold">GOVEVIA</h3>
-              <p className="text-xs font-mono tracking-widest uppercase text-gray-400 mt-2">
-                by EnvNeo
-              </p>
+              <div className="mt-2 flex items-center gap-2 text-gray-400">
+                <span className="inline-flex h-4 w-4 items-center justify-center" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" className="h-4 w-4" fill="currentColor" role="img" aria-label="EnvNeo">
+                    <path d="M14 14h30v6H20v8h22v6H20v8h24v6H14V14z" />
+                    <path d="M38 14h6v36h-6V29L28 50h-6V14h6v21z" />
+                  </svg>
+                </span>
+                <p className="text-xs font-mono tracking-widest uppercase">
+                  by EnvNeo
+                </p>
+              </div>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed">
               Governança Executável para Administração Pública
