@@ -268,56 +268,62 @@ export default async function Home() {
     { law: compliance06Law, title: compliance06Title, body: compliance06Body },
   ]
 
+  const isUnderConstruction = true
+
   return (
     <>
       <Header />
       <main>
         <Hero
-          kicker={heroKicker}
-          title={heroTitle}
-          subtitle={heroSubtitle}
+          kicker={isUnderConstruction ? '' : heroKicker}
+          title={isUnderConstruction ? 'Estamos em construção' : heroTitle}
+          subtitle={isUnderConstruction ? 'Estamos preparando o site. Em breve, mais informações.' : heroSubtitle}
           ctas={{
-            primary: { href: '#plataforma', label: heroCtaPrimaryLabel },
-            secondary: { href: '#contato', label: heroCtaSecondaryLabel },
+            primary: { href: '#plataforma', label: isUnderConstruction ? '' : heroCtaPrimaryLabel },
+            secondary: { href: '#contato', label: isUnderConstruction ? '' : heroCtaSecondaryLabel },
           }}
-          legal={{ title: heroLegalTitle, items: heroLegalItems }}
-          scrollLabel={heroScrollLabel}
+          legal={{ title: isUnderConstruction ? '' : heroLegalTitle, items: isUnderConstruction ? [] : heroLegalItems }}
+          scrollLabel={isUnderConstruction ? '' : heroScrollLabel}
         />
-        <Problem
-          title={problemTitle}
-          subtitle={problemSubtitle}
-          items={problemItems}
-          quote={{ title: problemQuoteTitle, body: problemQuoteBody }}
-        />
-        <Platform
-          title={platformTitle}
-          subtitle={platformSubtitle}
-          items={platformItems}
-          cta={{ href: '/plataforma', label: platformCtaLabel }}
-        />
-        <Defensibility
-          title={defensTitle}
-          subtitle={defensSubtitle}
-          trail={{ title: defensTrailTitle, items: defensTrailItems }}
-          quote={defensQuote}
-          features={defensFeatures}
-        />
-        <Compliance
-          title={complianceTitle}
-          subtitle={complianceSubtitle}
-          items={complianceItems}
-          closing={{ title: complianceClosingTitle, body: complianceClosingBody }}
-        />
-        <Contact
-          title={contactTitle}
-          subtitle={contactSubtitle}
-          notice={{ title: contactNoticeTitle, body: contactNoticeBody }}
-          email={{ label: contactEmailLabel, value: contactEmailValue }}
-          infoTitle={contactInfoTitle}
-          address={{ label: contactAddressLabel, value: contactAddressValue }}
-          company={{ title: contactCompanyTitle, body: contactCompanyBody }}
-          ceo={{ label: contactCeoLabel, name: contactCeoName }}
-        />
+        {isUnderConstruction ? null : (
+          <>
+            <Problem
+              title={problemTitle}
+              subtitle={problemSubtitle}
+              items={problemItems}
+              quote={{ title: problemQuoteTitle, body: problemQuoteBody }}
+            />
+            <Platform
+              title={platformTitle}
+              subtitle={platformSubtitle}
+              items={platformItems}
+              cta={{ href: '/plataforma', label: platformCtaLabel }}
+            />
+            <Defensibility
+              title={defensTitle}
+              subtitle={defensSubtitle}
+              trail={{ title: defensTrailTitle, items: defensTrailItems }}
+              quote={defensQuote}
+              features={defensFeatures}
+            />
+            <Compliance
+              title={complianceTitle}
+              subtitle={complianceSubtitle}
+              items={complianceItems}
+              closing={{ title: complianceClosingTitle, body: complianceClosingBody }}
+            />
+            <Contact
+              title={contactTitle}
+              subtitle={contactSubtitle}
+              notice={{ title: contactNoticeTitle, body: contactNoticeBody }}
+              email={{ label: contactEmailLabel, value: contactEmailValue }}
+              infoTitle={contactInfoTitle}
+              address={{ label: contactAddressLabel, value: contactAddressValue }}
+              company={{ title: contactCompanyTitle, body: contactCompanyBody }}
+              ceo={{ label: contactCeoLabel, name: contactCeoName }}
+            />
+          </>
+        )}
       </main>
       <Footer />
     </>

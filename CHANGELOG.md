@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Aviso de site em construção
+
+- Home (`/`): removidos os dizeres/sections atuais na renderização e incluída mensagem informativa "Estamos em construção".
+
 ## 2026-02-18 — Expurgo de logo legado
 
 - Brand: removida qualquer renderização/serving de assets do logo legado (ENV-NEO) do Header/Footer, metadados e OG/Twitter.
