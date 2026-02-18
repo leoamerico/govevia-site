@@ -4,6 +4,8 @@ import crypto from 'node:crypto'
 
 import { dbQuery, dbTransaction } from '@/lib/db/postgres'
 
+export const PORTAL_SESSION_COOKIE_NAME = 'govevia_portal_session'
+
 type PortalContact = {
   id: number
   email: string
@@ -21,6 +23,12 @@ type AuditEventInput = {
 }
 
 type IssueLoginTokenContext = {
+  expiresAt: Date
+  ip?: string | null
+  userAgent?: string | null
+}
+
+type IssueSessionContext = {
   expiresAt: Date
   ip?: string | null
   userAgent?: string | null
@@ -47,7 +55,7 @@ export function hashSha256Hex(value: string | Buffer): string {
 
 function requireSha256Hex(value: string, name: string): string {
   if (!/^[0-9a-f]{64}$/.test(value)) {
-    throw new Error(`${name} must be sha256 hex`) 
+    throw new Error(`${name} must be sha256 hex`)
   }
   return value
 }
@@ -57,6 +65,17 @@ function normalizeUserAgent(value: string | null | undefined): string | null {
   const trimmed = value.trim()
   if (!trimmed) return null
   return trimmed.length <= 200 ? trimmed : trimmed.slice(0, 200)
+}
+
+export function extractIpFromHeaders(headers: Headers): string | null {
+  const forwarded = headers.get('x-forwarded-for')
+  if (!forwarded) return null
+  const ip = forwarded.split(',')[0]?.trim()
+  return ip || null
+}
+
+export function extractUserAgentFromHeaders(headers: Headers): string | null {
+  return normalizeUserAgent(headers.get('user-agent'))
 }
 
 export async function recordAuditEvent(input: AuditEventInput): Promise<void> {
@@ -236,6 +255,88 @@ export async function validateAndConsumeLoginToken(token: string): Promise<{ con
 
     return { contactId: row.contact_id }
   })
+}
+
+export async function issueSession(contactId: number, ctx: IssueSessionContext): Promise<{ token: string }> {
+  if (!Number.isFinite(contactId) || contactId <= 0) throw new Error('contactId is invalid')
+  if (!(ctx.expiresAt instanceof Date) || Number.isNaN(ctx.expiresAt.getTime())) throw new Error('expiresAt is invalid')
+
+  const now = Date.now()
+  if (ctx.expiresAt.getTime() <= now) throw new Error('expiresAt must be in the future')
+
+  const token = crypto.randomBytes(32).toString('base64url')
+  const tokenHash = requireSha256Hex(hashSha256Hex(token), 'tokenHash')
+
+  const createdIpHash = ctx.ip ? requireSha256Hex(hashSha256Hex(ctx.ip), 'createdIpHash') : null
+  const createdUserAgent = normalizeUserAgent(ctx.userAgent)
+
+  await dbTransaction(async (client) => {
+    const inserted = await client.query<{ id: number }>(
+      {
+        text: `
+          INSERT INTO portal_sessions (
+            contact_id, kind, token_hash, token_expires_at, created_ip_hash, created_user_agent
+          )
+          VALUES ($1, 'session', $2, $3, $4, $5)
+          RETURNING id
+        `,
+        values: [contactId, tokenHash, ctx.expiresAt, createdIpHash, createdUserAgent],
+      },
+    )
+
+    if (inserted.rowCount !== 1) throw new Error('failed to issue session')
+
+    await client.query(
+      {
+        text: `
+          INSERT INTO portal_audit_events (contact_id, event_type, actor_type, actor_ref, metadata_json)
+          VALUES ($1, $2, $3, $4, $5)
+        `,
+        values: [contactId, 'session_issued', 'system', null, null],
+      },
+    )
+  })
+
+  return { token }
+}
+
+export async function validateSession(token: string): Promise<{ contactId: number; email: string }> {
+  if (typeof token !== 'string') throw new Error('token must be a string')
+  const trimmed = token.trim()
+  if (!trimmed) throw new Error('token is required')
+
+  const tokenHash = requireSha256Hex(hashSha256Hex(trimmed), 'tokenHash')
+
+  const res = await dbQuery<{
+    contact_id: number
+    email: string
+    status: 'active' | 'disabled'
+    token_expires_at: Date
+  }>({
+    text: `
+      SELECT s.contact_id,
+             c.email,
+             c.status,
+             s.token_expires_at
+      FROM portal_sessions s
+      JOIN portal_contacts c ON c.id = s.contact_id
+      WHERE s.kind = 'session'
+        AND s.token_hash = $1
+      LIMIT 1
+    `,
+    values: [tokenHash],
+  })
+
+  if (res.rowCount === 0) throw new Error('invalid session')
+
+  const row = res.rows[0]
+  if (row.status !== 'active') throw new Error('contact is disabled')
+  if (!(row.token_expires_at instanceof Date) || Number.isNaN(row.token_expires_at.getTime())) {
+    throw new Error('invalid session expiry')
+  }
+  if (row.token_expires_at.getTime() <= Date.now()) throw new Error('session expired')
+
+  return { contactId: row.contact_id, email: row.email }
 }
 
 export async function recordConsent(

@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS portal_sessions (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   created_ip_hash TEXT NULL,
   created_user_agent TEXT NULL,
-  CONSTRAINT portal_sessions_kind_check CHECK (kind IN ('login_token')),
+  CONSTRAINT portal_sessions_kind_check CHECK (kind IN ('login_token', 'session')),
   CONSTRAINT portal_sessions_token_hash_check CHECK (token_hash ~ '^[0-9a-f]{64}$'),
   CONSTRAINT portal_sessions_created_ip_hash_check CHECK (
     created_ip_hash IS NULL OR created_ip_hash ~ '^[0-9a-f]{64}$'

@@ -112,6 +112,21 @@ artifacts:
   - kind: portal_identity_evidence
     path: docs/public/evidence/security/REPORT-PORTAL-IDENTITY-CONSENT-AUDIT.md
 
+  - kind: portal_magiclink_migration
+    path: infra/migrations/20260218_110_portal_sessions_allow_session_kind.sql
+  - kind: portal_magiclink_api
+    path: app/api/portal/login/route.ts
+  - kind: portal_magiclink_routes
+    path: app/portal/login/page.tsx
+  - kind: portal_magiclink_routes
+    path: app/portal/login/PortalLoginForm.tsx
+  - kind: portal_magiclink_routes
+    path: app/portal/callback/route.ts
+  - kind: portal_magiclink_routes
+    path: app/portal/page.tsx
+  - kind: portal_magiclink_evidence
+    path: docs/public/evidence/security/REPORT-PORTAL-MAGICLINK-SESSION.md
+
   - kind: portal_process_catalog
     path: docs/process/PROCESS-CATALOG.yaml
   - kind: portal_process_catalog_loader

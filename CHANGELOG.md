@@ -20,6 +20,7 @@
 - Governança (inventário): inventário governado do Portal (keys + integrações) + gate `portal-inventory:check` anti-drift.
 - Fase 5.1 (Portal): fundamentos de identidade/consentimento/auditoria (schema idempotente + lib server-only; token hash-only; fail-closed).
 - Fase 5.2 (Portal/Admin): módulo de Processos (Processo Piloto 0001 INPI) com catálogo governado no repo + persistência + timeline + enforcement determinístico por passo.
+- Fase 5.2 (Portal): login mágico por e-mail (anti-enumeração) + callback + sessão HttpOnly + rate-limit básico (LGPD-min-data).
 
 ## Correções de Segurança
 
