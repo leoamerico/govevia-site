@@ -11,6 +11,7 @@
     "content:check": "node scripts/verify-mdx-viewblocks.mjs",
     "content-keys:check": "node scripts/content-keys-check.mjs",
     "history:check": "node scripts/verify-changelog-updated.mjs",
+    "portal-inventory:check": "node scripts/portal-inventory-check.mjs",
     "stage:check": "node scripts/stage-check.mjs",
     "scope:check": "node scripts/scope-check.mjs",
     "gap:check": "node scripts/validate-gap-reports.mjs",

@@ -116,3 +116,12 @@ artifacts:
 
   - kind: core_brand_consume_evidence
     path: docs/public/evidence/frontend/REPORT-CORE-BRAND-CONSUME.md
+
+  - kind: portal_inventory
+    path: docs/inventory/INVENTORY-PORTAL-DATA.md
+  - kind: portal_inventory_gate
+    path: scripts/portal-inventory-check.mjs
+  - kind: portal_inventory_gate_script
+    path: package.json
+  - kind: portal_inventory_evidence
+    path: docs/public/evidence/frontend/REPORT-INVENTORY-PORTAL.md
