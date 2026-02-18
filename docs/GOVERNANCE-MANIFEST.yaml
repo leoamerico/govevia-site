@@ -105,6 +105,13 @@ artifacts:
   - kind: content_catalog_bootstrap_evidence
     path: docs/public/evidence/frontend/REPORT-CONTENT-CATALOG-BOOTSTRAP.md
 
+  - kind: portal_identity_schema
+    path: lib/db/schema.sql
+  - kind: portal_identity_auth_module
+    path: lib/portal/auth.ts
+  - kind: portal_identity_evidence
+    path: docs/public/evidence/security/REPORT-PORTAL-IDENTITY-CONSENT-AUDIT.md
+
   - kind: content_first_plataforma_evidence
     path: docs/public/evidence/frontend/REPORT-CONTENT-FIRST-PLATAFORMA.md
 

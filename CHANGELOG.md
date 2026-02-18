@@ -18,6 +18,7 @@
 - Fase 3.4 (Content-First): Home (`/`) refatorada para layout + keys (server loader + props) e ocultação de seções/blocos vazios; zero texto hardcoded nos componentes de Home.
 - Fase 4.2 (Portal ↔ Core): consumo server-only do read-model público do Core (`/public/v1/portal/brand`) com validação (zod), sanitização determinística de SVG (fail-closed) e precedência de override via Admin.
 - Governança (inventário): inventário governado do Portal (keys + integrações) + gate `portal-inventory:check` anti-drift.
+- Fase 5.1 (Portal): fundamentos de identidade/consentimento/auditoria (schema idempotente + lib server-only; token hash-only; fail-closed).
 
 ## Correções de Segurança
 
