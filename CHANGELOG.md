@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Validação de segurança publicada (pós-deploy)
+
+- `docs/evidence/security/SECURITY-PROD-SNAPSHOT.md`: evidência HTTP real registrada — `/admin/**` retorna 404 com `Cache-Control: no-store` e `X-Robots-Tag: noindex, nofollow`; CSP sem `unsafe-eval`, `object-src 'none'` ativo; `robots.txt` com `Disallow: /admin/` e `Disallow: /portal/callback`. Commit validado: `a2b3745`.
+
 ## 2026-02-18 — Personificação do Sistema (CEO preview mode)
 
 - `lib/auth/impersonation.ts`: sessão de personificação via cookie JWT assinado (`govevia_impersonation`, httpOnly) + cookie de display (`govevia_impersonation_info`, não-httpOnly para leitura client-side).
