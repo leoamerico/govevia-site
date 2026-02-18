@@ -1,5 +1,13 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Fix: taxonomy inlined — elimina fs.readFileSync em serverless
+
+- `lib/taxonomy.ts`: dados de personas e contextos embutidos diretamente no TypeScript, eliminando `fs.readFileSync` sobre YAMLs em `/admin/impersonate` e `startImpersonationAction`. Em ambientes serverless (Vercel), arquivos estáticos não rastreados pelo bundler não estão disponíveis em disco em runtime — a chamada lançava ENOENT e derrubava a página com "Application error".
+
+## 2026-02-18 — Fix: incluir arquivos YAML/MD no bundle serverless
+
+- `next.config.js`: adicionado `outputFileTracingIncludes` para garantir que `docs/content/`, `docs/process/`, `content/blog/`, `content/taxonomy/` e `CHANGELOG.md` sejam incluídos no bundle serverless da Vercel. Sem isso, `readFile`/`readFileSync` falha em produção com ENOENT (arquivos existem localmente mas não são copiados para a lambda).
+
 ## 2026-02-18 — Correção: redirect() fora de try/catch em server action de login
 
 - `app/admin/login/actions.ts`: `loginAction` refatorada — `redirect()` não pode ser chamado dentro de `try/catch` (Next.js lança `NEXT_REDIRECT` internamente que precisava ser propagado). Agora o try/catch envolve apenas `verifyAdminCredentials` e `createAdminSession`; as chamadas `redirect()` ficaram fora do bloco.

@@ -1,7 +1,3 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import yaml from 'js-yaml'
-
 export type PersonaId = 'prefeito' | 'procurador' | 'controlador' | 'secretario'
 export type ContextId =
   | 'prefeitura'
@@ -18,18 +14,33 @@ export interface TaxonomyItem<T extends string> {
   label: string
 }
 
-function readYaml<T>(relativePath: string): T {
-  const fullPath = path.join(process.cwd(), relativePath)
-  const raw = fs.readFileSync(fullPath, 'utf8')
-  return yaml.load(raw) as T
-}
+// Taxonomy inlined — eliminates fs.readFileSync dependency in serverless environments.
+// Source of truth: content/taxonomy/personas.yaml and content/taxonomy/contexts.yaml
+// Update both the YAML files and this list when adding/renaming personas or contexts.
+
+const PERSONAS: TaxonomyItem<PersonaId>[] = [
+  { id: 'prefeito',     label: 'Prefeito' },
+  { id: 'procurador',  label: 'Procurador' },
+  { id: 'controlador', label: 'Controlador' },
+  { id: 'secretario',  label: 'Secretário' },
+]
+
+const CONTEXTS: TaxonomyItem<ContextId>[] = [
+  { id: 'prefeitura',        label: 'Prefeitura' },
+  { id: 'camara',            label: 'Câmara' },
+  { id: 'autarquia',         label: 'Autarquia' },
+  { id: 'consorcio',         label: 'Consórcio' },
+  { id: 'empresa_publica',   label: 'Empresa pública' },
+  { id: 'controle_interno',  label: 'Controle interno' },
+  { id: 'controle_externo',  label: 'Controle externo' },
+  { id: 'ministerio_publico', label: 'Ministério Público' },
+]
 
 export function getPersonas(): TaxonomyItem<PersonaId>[] {
-  const data = readYaml<{ personas: TaxonomyItem<PersonaId>[] }>('content/taxonomy/personas.yaml')
-  return data.personas || []
+  return PERSONAS
 }
 
 export function getContexts(): TaxonomyItem<ContextId>[] {
-  const data = readYaml<{ contexts: TaxonomyItem<ContextId>[] }>('content/taxonomy/contexts.yaml')
-  return data.contexts || []
+  return CONTEXTS
 }
+
