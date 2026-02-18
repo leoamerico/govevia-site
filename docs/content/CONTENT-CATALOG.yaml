@@ -1,0 +1,25 @@
+version: 1
+items:
+  - key: site.plataforma.hero.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: plataforma.hero
+    notes: H1 público da página /plataforma.
+
+  - key: site.plataforma.hero.lead
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: plataforma.hero
+    notes: Lead/descrição curta da página /plataforma.
+
+  - key: site.plataforma.hero.helper
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.hero
+    notes: Texto auxiliar (pode ficar vazio e ocultar a linha).

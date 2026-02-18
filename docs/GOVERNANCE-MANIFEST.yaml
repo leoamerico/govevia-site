@@ -97,3 +97,10 @@ artifacts:
     path: docs/public/evidence/frontend/REPORT-PLATAFORMA-PERSONAS-VIEW.md
   - kind: assets_no_external_urls_evidence
     path: docs/public/evidence/security/REPORT-ASSETS-NO-EXTERNAL-URLS.md
+
+  - kind: content_catalog
+    path: docs/content/CONTENT-CATALOG.yaml
+  - kind: content_catalog_loader
+    path: lib/content/catalog.ts
+  - kind: content_catalog_bootstrap_evidence
+    path: docs/public/evidence/frontend/REPORT-CONTENT-CATALOG-BOOTSTRAP.md

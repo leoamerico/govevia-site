@@ -13,6 +13,7 @@
 - Enforcement (robustez CI/PR): base preferencial via `merge-base` com `origin/main` (com fallbacks) + evidência pública do gate.
 - Plataforma (P0-01): reimplementação de `/plataforma` com componentes dedicados (`PersonaSelector`, `CapabilitiesMatrix`) + SSOT em `lib/plataforma/model.ts` e textos via `getContent()` com fallback hardcoded (tokens-only; sem HEX; sem `@import`; sem fontes externas).
 - Governança (tokens/diff): `PROJECT-SSOT.md`, `RUN-SITE-STEPS.md`, registries em `docs/registry/` + gates `stage:check`, `scope:check`, `content-keys:check` e policy `POL-PORTAL-BFF-CORE.md`.
+- Fase 3.3 (Content-First): `docs/content/CONTENT-CATALOG.yaml` (SSOT de chaves) + bootstrap “Inicializar Catálogo” no `/admin/content` + indicador de completude publicada.
 
 ## Correções de Segurança
 
