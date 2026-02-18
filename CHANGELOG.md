@@ -6,6 +6,13 @@
 - Assets: removidos `public/brand/envneo*` e `assets/brand/envneo*`.
 - Evidência: `docs/evidence/BRAND-LOGO-DRIFT.md` + screenshot `docs/evidence/assets/logo-fixed.png`.
 
+## 2026-02-18 — Portal pronto para produção (hardening)
+
+- CSP: `unsafe-eval` permitido apenas em desenvolvimento; produção sem dependência de `unsafe-eval`.
+- Assets básicos: `/favicon.ico` passa a existir (sem 404).
+- Diagnóstico objetivo: `/api/version` expõe `portalApiBaseHost` (host-only) para validar o `NEXT_PUBLIC_API_BASE_URL` em produção.
+- Evidência: `docs/evidence/portal/PORTAL-PROD-READINESS.md` e runbook `docs/runbooks/RUN-PORTAL-PROD-VALIDATION.md`.
+
 ## 2026-02-17 — Admin Console (MVP) + hardening
 
 - Fase 1 (DB): `lib/db/schema.sql` (idempotente, `pgcrypto`) e `lib/db/postgres.ts` (server-only, pool singleton via `globalThis`).

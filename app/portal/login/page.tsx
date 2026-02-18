@@ -27,7 +27,6 @@ export default function PortalLoginPage({ searchParams }: Props) {
 
     const emailRaw = String(formData.get('email') || '')
 
-    // Anti-enumeração: nunca revelar se existe.
     try {
       const email = normalizeEmail(emailRaw)
       await recordAuditEvent({
@@ -44,7 +43,7 @@ export default function PortalLoginPage({ searchParams }: Props) {
         timeoutMs: 2000,
       })
     } catch {
-      // Fail-closed: não tentar "corrigir"; UX permanece genérica.
+      redirect('/portal/login?error=unavailable')
     }
 
     redirect('/portal/login?sent=1')
@@ -63,6 +62,12 @@ export default function PortalLoginPage({ searchParams }: Props) {
             {error === 'link' ? (
               <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm text-institutional-graphite">
                 Link inválido ou expirado.
+              </div>
+            ) : null}
+
+            {error === 'unavailable' ? (
+              <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm text-institutional-graphite">
+                Serviço temporariamente indisponível. Tente novamente.
               </div>
             ) : null}
 

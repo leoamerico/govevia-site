@@ -26,7 +26,8 @@ export default async function PortalHomePage() {
     await portalApiFetchJsonWithAuth('/api/v1/portal/auth/me', { method: 'GET', timeoutMs: 2000 })
   } catch (e) {
     apiStatus = 'error'
-    apiError = e instanceof Error ? e.message : 'erro'
+    void e
+    apiError = 'indisponível'
   }
 
   async function logoutAction() {

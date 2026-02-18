@@ -1,4 +1,28 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV === 'development'
+
+function buildCspValue() {
+  const scriptSrc = [
+    "'self'",
+    "'unsafe-inline'",
+    ...(isDev ? ["'unsafe-eval'"] : []),
+    'https://www.googletagmanager.com',
+    'https://www.google-analytics.com',
+  ].join(' ')
+
+  return [
+    "default-src 'self'",
+    `script-src ${scriptSrc}`,
+    "style-src 'self' 'unsafe-inline'",
+    "font-src 'self'",
+    "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com",
+    "connect-src 'self' https://www.google-analytics.com",
+    "frame-ancestors 'self'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ')
+}
+
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -42,20 +66,8 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            // Security note (2026-02-16): keep CSP restrictive; Next.js uses inline scripts/styles, so we allow
-            // 'unsafe-inline' (and 'unsafe-eval' for compatibility). External hosts are limited to GA/GTM + Google Fonts.
-            // Rollback: remove the extra hosts or tighten directives, then run `npm run security:verify`.
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com",
-              "connect-src 'self' https://www.google-analytics.com",
-              "frame-ancestors 'self'",
-              "base-uri 'self'",
-              "form-action 'self'",
-            ].join('; ')
+            // Production hardening: CSP MUST NOT depend on 'unsafe-eval'. Allow it only in development.
+            value: buildCspValue()
           }
         ]
       }

@@ -11,10 +11,17 @@
 - `/blog` e `/blog/[slug]`
 - `/politica-privacidade`
 
+### Rotas técnicas (produção)
+- `/favicon.ico` (endpoint para evitar 404 em browsers/SEO tools)
+- `/api/version` (diagnóstico de deploy; inclui `portalApiBaseHost` para validação objetiva do `NEXT_PUBLIC_API_BASE_URL` em produção)
+
 ### Admin
 - `/admin` (console MVP)
 - `/admin/login`
 - `/admin/content` (console de conteúdo)
+
+### Runbooks (validação publicada)
+- `docs/runbooks/RUN-PORTAL-PROD-VALIDATION.md`
 
 ### Regras de SSOT (Portal)
 - Texto/copy: Content-First via DB (camada `getContent()`), governado por catálogo versionado no repo.

@@ -40,7 +40,7 @@ export default function BlogPage() {
               {posts.length === 0 ? (
                 <div className="text-center py-16">
                   <p className="text-institutional-slate font-sans text-lg">
-                    Publicações em breve. Acompanhe nosso conteúdo técnico sobre governança digital municipal.
+                    Não há publicações disponíveis no momento.
                   </p>
                 </div>
               ) : (
