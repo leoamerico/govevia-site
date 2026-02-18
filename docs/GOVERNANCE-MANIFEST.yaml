@@ -112,6 +112,21 @@ artifacts:
   - kind: portal_identity_evidence
     path: docs/public/evidence/security/REPORT-PORTAL-IDENTITY-CONSENT-AUDIT.md
 
+  - kind: portal_process_catalog
+    path: docs/process/PROCESS-CATALOG.yaml
+  - kind: portal_process_catalog_loader
+    path: lib/process/catalog.ts
+  - kind: portal_process_admin_module
+    path: lib/process/admin.ts
+  - kind: portal_process_migration
+    path: infra/migrations/20260218_090_portal_process_module.sql
+  - kind: portal_process_admin_ui
+    path: app/admin/processes/page.tsx
+  - kind: portal_process_admin_ui
+    path: app/admin/processes/[id]/page.tsx
+  - kind: portal_process_pilot_evidence
+    path: docs/public/evidence/frontend/REPORT-PROCESS-PILOT-INPI.md
+
   - kind: content_first_plataforma_evidence
     path: docs/public/evidence/frontend/REPORT-CONTENT-FIRST-PLATAFORMA.md
 

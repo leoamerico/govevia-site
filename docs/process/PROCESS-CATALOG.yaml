@@ -1,0 +1,53 @@
+version: 1
+templates:
+  - key: process.inpi.trademark.v1
+    title: Processo Piloto 0001 — INPI (Marca)
+    version: "1"
+    steps:
+      - step_id: protocolar
+        title: Protocolo do pedido
+        required_artifacts:
+          - inpi.trademark.protocol.receipt
+          - inpi.trademark.protocol.number
+        close_rule: requires_all_artifacts
+
+      - step_id: pagamento
+        title: Pagamento da GRU
+        required_artifacts:
+          - inpi.trademark.payment.gru
+          - inpi.trademark.payment.receipt
+        close_rule: requires_all_artifacts
+
+      - step_id: publicacao
+        title: Publicação na RPI
+        required_artifacts:
+          - inpi.trademark.rpi.publication.number
+          - inpi.trademark.rpi.publication.link
+        close_rule: requires_all_artifacts
+
+      - step_id: oposicao
+        title: Oposição (se houver)
+        required_artifacts:
+          - inpi.trademark.opposition.status
+        close_rule: requires_all_artifacts
+
+      - step_id: parecer_deferimento
+        title: Parecer de deferimento
+        required_artifacts:
+          - inpi.trademark.decision.opinion
+          - inpi.trademark.decision.deferred_notice
+        close_rule: requires_all_artifacts
+
+      - step_id: decisao
+        title: Decisão final
+        required_artifacts:
+          - inpi.trademark.decision.number
+          - inpi.trademark.decision.date
+        close_rule: requires_all_artifacts
+
+      - step_id: certificado
+        title: Certificado
+        required_artifacts:
+          - inpi.trademark.certificate.number
+          - inpi.trademark.certificate.file
+        close_rule: requires_all_artifacts

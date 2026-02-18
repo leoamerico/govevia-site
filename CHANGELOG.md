@@ -19,6 +19,7 @@
 - Fase 4.2 (Portal ↔ Core): consumo server-only do read-model público do Core (`/public/v1/portal/brand`) com validação (zod), sanitização determinística de SVG (fail-closed) e precedência de override via Admin.
 - Governança (inventário): inventário governado do Portal (keys + integrações) + gate `portal-inventory:check` anti-drift.
 - Fase 5.1 (Portal): fundamentos de identidade/consentimento/auditoria (schema idempotente + lib server-only; token hash-only; fail-closed).
+- Fase 5.2 (Portal/Admin): módulo de Processos (Processo Piloto 0001 INPI) com catálogo governado no repo + persistência + timeline + enforcement determinístico por passo.
 
 ## Correções de Segurança
 
