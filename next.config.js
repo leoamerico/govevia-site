@@ -28,17 +28,6 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  // Garante que arquivos lidos via fs em runtime sejam incluídos no bundle serverless da Vercel.
-  // Sem isso, readFile/readFileSync falha silenciosamente em produção (ENOENT).
-  outputFileTracingIncludes: {
-    '/**': [
-      './docs/content/**/*',
-      './docs/process/**/*',
-      './content/blog/**/*',
-      './content/taxonomy/**/*',
-      './CHANGELOG.md',
-    ],
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
