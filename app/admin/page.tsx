@@ -38,8 +38,46 @@ export default async function AdminHomePage() {
             </form>
           </div>
 
-          <div className="mt-8 rounded-md border border-gray-200 bg-institutional-offwhite p-6 text-sm text-institutional-graphite">
-            Admin Content Console será implementado nas próximas fases.
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <a
+              href="/admin/content"
+              className="group flex flex-col rounded-lg border border-gray-200 bg-institutional-offwhite p-5 hover:border-primary/40 transition-colors"
+            >
+              <span className="text-xs font-mono text-institutional-slate">conteúdo</span>
+              <span className="mt-1 text-sm font-semibold text-institutional-navy font-sans group-hover:text-primary">
+                Console de Conteúdo
+              </span>
+              <span className="mt-1 text-xs text-institutional-slate font-sans">
+                Entradas dinâmicas com fallback estático
+              </span>
+            </a>
+
+            <a
+              href="/admin/processes"
+              className="group flex flex-col rounded-lg border border-gray-200 bg-institutional-offwhite p-5 hover:border-primary/40 transition-colors"
+            >
+              <span className="text-xs font-mono text-institutional-slate">processos</span>
+              <span className="mt-1 text-sm font-semibold text-institutional-navy font-sans group-hover:text-primary">
+                Processos Governados
+              </span>
+              <span className="mt-1 text-xs text-institutional-slate font-sans">
+                Instâncias e estado por passo
+              </span>
+            </a>
+
+            <a
+              href="/admin/impersonate"
+              className="group flex flex-col rounded-lg border border-amber-200 bg-amber-50 p-5 hover:border-amber-400 transition-colors sm:col-span-2"
+            >
+              <span className="text-xs font-mono text-amber-600">personificação</span>
+              <span className="mt-1 text-sm font-semibold text-amber-900 font-sans group-hover:text-amber-700">
+                Personificação do Sistema
+              </span>
+              <span className="mt-1 text-xs text-amber-700 font-sans">
+                Navegue o site como Prefeito, Procurador, Controlador ou Secretário.
+                Os artigos do blog filtram automaticamente pelo perfil selecionado.
+              </span>
+            </a>
           </div>
         </div>
       </div>

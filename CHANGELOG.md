@@ -1,6 +1,17 @@
 # Govevia Site — v2.0.0
 
-## 2026-02-18 — Correção de build (history:check em CI)
+## 2026-02-18 — Personificação do Sistema (CEO preview mode)
+
+- `lib/auth/impersonation.ts`: sessão de personificação via cookie JWT assinado (`govevia_impersonation`, httpOnly) + cookie de display (`govevia_impersonation_info`, não-httpOnly para leitura client-side).
+- `app/admin/impersonate/page.tsx`: página admin com picker de persona (Prefeito, Procurador, Controlador, Secretário) + contexto opcional + estado ativo com botão Encerrar.
+- `app/admin/impersonate/actions.ts`: server actions `startImpersonationAction` e `stopImpersonationAction`.
+- `components/ImpersonationBanner.tsx`: banner fixo (bottom) client-side que lê o cookie de display — aparece em todas as páginas sem impactar SSG.
+- `components/content/ImpersonationAutoSelect.tsx`: client component que auto-redireciona para `?view=<persona>` no blog quando personificação está ativa.
+- `app/layout.tsx`: banner de personificação adicionado ao body.
+- `app/blog/[slug]/page.tsx`: `ImpersonationAutoSelect` incluído no `ViewProvider`.
+- `app/admin/page.tsx`: dashboard redesenhado com cards de navegação (Conteúdo, Processos, Personificação).
+
+
 
 - `scripts/verify-changelog-updated.mjs`: em ambientes CI (Vercel define `VERCEL_GIT_COMMIT_SHA`), o script agora sempre usa o diff commitado em vez de inspecionar a árvore de trabalho. O Vercel modifica `vercel.json` na working tree durante o setup do deploy, causando falso positivo no gate.
 

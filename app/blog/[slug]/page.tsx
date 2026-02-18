@@ -9,6 +9,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import ViewSelector from '@/components/content/ViewSelector'
 import { ViewProvider } from '@/components/content/ViewProvider'
 import ViewBlock from '@/components/content/ViewBlock'
+import ImpersonationAutoSelect from '@/components/content/ImpersonationAutoSelect'
+import { Suspense } from 'react'
 
 interface Props {
   params: { slug: string }
@@ -142,6 +144,9 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
         <section className="py-12 bg-white">
           <div className="container-custom">
             <ViewProvider activeView={activeView} activeCtx={activeCtx}>
+              <Suspense fallback={null}>
+                <ImpersonationAutoSelect />
+              </Suspense>
               <div className="max-w-3xl mx-auto">
                 <ViewSelector personas={personas} contexts={contexts} activeView={activeView} activeCtx={activeCtx} />
               </div>
