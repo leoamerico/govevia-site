@@ -71,29 +71,32 @@ function getAdminSecret(): string | null {
   return value
 }
 
-function buildAdminLoginRedirect(request: NextRequest): NextResponse {
-  const from = `${request.nextUrl.pathname}${request.nextUrl.search}`
-  const url = request.nextUrl.clone()
-  url.pathname = '/admin/login'
-  url.searchParams.set('from', from)
-  return NextResponse.redirect(url)
-}
+const ADMIN_404 = new NextResponse('Not Found', {
+  status: 404,
+  headers: {
+    'cache-control': 'no-store',
+    'x-robots-tag': 'noindex, nofollow',
+  },
+})
 
 async function enforceAdminAuth(request: NextRequest): Promise<NextResponse> {
   const pathname = request.nextUrl.pathname
 
+  // Login sempre acessível (entrada do admin)
   if (pathname === '/admin/login' || pathname === '/admin/login/') {
     return NextResponse.next()
   }
 
   const secret = getAdminSecret()
   if (!secret) {
-    return buildAdminLoginRedirect(request)
+    // Sem secret configurado: 404 (não redireciona para evitar loop em produção sem env)
+    return ADMIN_404
   }
 
   const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value
   if (!token) {
-    return buildAdminLoginRedirect(request)
+    // Sem sessão: 404 para bots/scanners; admin sabe navegar diretamente para /admin/login
+    return ADMIN_404
   }
 
   try {
@@ -103,7 +106,7 @@ async function enforceAdminAuth(request: NextRequest): Promise<NextResponse> {
       audience: ADMIN_AUDIENCE,
     })
   } catch {
-    return buildAdminLoginRedirect(request)
+    return ADMIN_404
   }
 
   return NextResponse.next()
@@ -111,15 +114,6 @@ async function enforceAdminAuth(request: NextRequest): Promise<NextResponse> {
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
-    if (process.env.NODE_ENV === 'production') {
-      return new NextResponse('Not Found', {
-        status: 404,
-        headers: {
-          'cache-control': 'no-store',
-          'x-robots-tag': 'noindex, nofollow',
-        },
-      })
-    }
     return enforceAdminAuth(request)
   }
 

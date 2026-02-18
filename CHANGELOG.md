@@ -1,5 +1,11 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Acesso à área administrativa
+
+- `middleware.ts`: `/admin/login` sempre acessível em produção; demais rotas `/admin/**` exigem JWT válido — sem JWT retorna 404 (mantém superfície oculta de bots/scanners); removido bloqueio cego via `NODE_ENV === 'production'`.
+- `components/AdminAccessButton.tsx`: botão flutuante discreto (cadeado, bottom-right, `z-[9997]`) com link para `/admin/login` — quase invisível por padrão, realça no hover.
+- `app/layout.tsx`: `AdminAccessButton` adicionado ao body.
+
 ## 2026-02-18 — Validação de segurança publicada (pós-deploy)
 
 - `docs/evidence/security/SECURITY-PROD-SNAPSHOT.md`: evidência HTTP real registrada — `/admin/**` retorna 404 com `Cache-Control: no-store` e `X-Robots-Tag: noindex, nofollow`; CSP sem `unsafe-eval`, `object-src 'none'` ativo; `robots.txt` com `Disallow: /admin/` e `Disallow: /portal/callback`. Commit validado: `a2b3745`.
