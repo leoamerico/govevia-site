@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     'ICP-Brasil',
     'tribunais de contas'
   ],
-  authors: [{ name: 'ENV-NEO LTDA', url: 'https://govevia.com.br' }],
-  creator: 'ENV-NEO LTDA',
-  publisher: 'ENV-NEO LTDA',
+  authors: [{ name: 'Env Neo Ltda.', url: 'https://govevia.com.br' }],
+  creator: 'Env Neo Ltda.',
+  publisher: 'Env Neo Ltda.',
   robots: {
     index: true,
     follow: true,
@@ -79,9 +79,9 @@ const schemaOrg = {
     {
       '@type': 'Organization',
       '@id': 'https://govevia.com.br/#organization',
-      name: 'ENV-NEO LTDA',
+      name: 'Env Neo Ltda.',
       url: 'https://govevia.com.br',
-      logo: 'https://govevia.com.br/brand/envneo-on-white.png',
+      logo: 'https://govevia.com.br/brand/govevia-mark-on-white.png',
       description: 'Tecnologia para Governança Pública',
       address: {
         '@type': 'PostalAddress',

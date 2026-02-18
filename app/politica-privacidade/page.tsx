@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade | Govevia',
-  description: 'Política de Privacidade da ENV-NEO LTDA e Govevia em conformidade com a Lei Geral de Proteção de Dados (LGPD).',
+  description: 'Política de Privacidade da Env Neo Ltda. e Govevia em conformidade com a Lei Geral de Proteção de Dados (LGPD).',
   robots: {
     index: true,
     follow: true,
@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
                 1. Informações Gerais
               </h2>
               <p className="leading-relaxed mb-4">
-                A ENV-NEO LTDA, inscrita no CNPJ 36.207.211/0001-47, com sede na Avenida Palmeira Imperial, 
+                A Env Neo Ltda., inscrita no CNPJ 36.207.211/0001-47, com sede na Avenida Palmeira Imperial,
                 165 / 302, CEP 38.406-582, Uberlândia-MG, é a controladora dos dados pessoais coletados 
                 através do site govevia.com.br.
               </p>
@@ -173,7 +173,7 @@ export default function PrivacyPolicyPage() {
                 Para dúvidas sobre esta Política de Privacidade ou sobre o tratamento de dados pessoais:
               </p>
               <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-primary">
-                <p className="font-semibold text-institutional-navy mb-2">ENV-NEO LTDA</p>
+                <p className="font-semibold text-institutional-navy mb-2">Env Neo Ltda.</p>
                 <p className="mb-1">E-mail: <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">govevia@govevia.com.br</a></p>
                 <p className="mb-1">CNPJ: 36.207.211/0001-47</p>
                 <p>Endereço: Av. Palmeira Imperial, 165 / 302, CEP 38.406-582, Uberlândia-MG</p>

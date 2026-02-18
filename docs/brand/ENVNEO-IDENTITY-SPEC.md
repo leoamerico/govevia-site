@@ -1,10 +1,10 @@
-# ENVNEO-IDENTITY-SPEC — EnvNeo Identity v1 (SSOT)
+# ENVNEO-IDENTITY-SPEC — Env Neo Identity v1 (SSOT)
 
 Status: Normativo (MUST/SHOULD)
 
 ## Objetivo
 
-Definir, de forma auditável e implementável em código, os artefatos oficiais da identidade EnvNeo v1.
+Definir, de forma auditável e implementável em código, os artefatos oficiais da identidade Env Neo v1.
 
 ## Metodologia baseada em métricas (racional)
 
@@ -38,25 +38,13 @@ As decisões desta identidade foram tomadas para maximizar desempenho em critér
 
 ## Propósito de uso (arquitetura de marca)
 
-- EnvNeo representa **infraestrutura/holding** (fundação, engenharia, confiabilidade).
-- Em interfaces de produto, EnvNeo aparece como **endosso institucional** (byline), não como marca concorrente.
+- Env Neo representa **infraestrutura/holding** (fundação, engenharia, confiabilidade).
+- Em interfaces de produto, Env Neo aparece como **endosso institucional** (byline), não como marca concorrente.
 
 ## SSOT de arquivos
 
-- Fonte canônica (versionável): `assets/brand/envneo/`
-- Distribuição runtime: `public/brand/envneo/`
-
-Arquivos MUST existir em ambos:
-
-- `envneo-mark.svg`
-- `envneo-mark-inverted.svg`
-- `envneo-wordmark.svg`
-
-Para mitigação de cache/CDN, versões cache-busted também MUST existir em ambos e SHOULD ser preferidas por consumidores runtime:
-
-- `envneo-mark.v2.svg`
-- `envneo-mark-inverted.v2.svg`
-- `envneo-wordmark.v2.svg`
+- Esta especificação permanece como histórico/audit trail.
+- Assets de logo de endosso NÃO devem ser distribuídos em runtime (`public/brand/**`).
 
 ## Regras de cor e tokens (hard)
 

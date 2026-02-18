@@ -1,5 +1,11 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Expurgo de logo legado
+
+- Brand: removida qualquer renderização/serving de assets do logo legado (ENV-NEO) do Header/Footer, metadados e OG/Twitter.
+- Assets: removidos `public/brand/envneo*` e `assets/brand/envneo*`.
+- Evidência: `docs/evidence/BRAND-LOGO-DRIFT.md` + screenshot `docs/evidence/assets/logo-fixed.png`.
+
 ## 2026-02-17 — Admin Console (MVP) + hardening
 
 - Fase 1 (DB): `lib/db/schema.sql` (idempotente, `pgcrypto`) e `lib/db/postgres.ts` (server-only, pool singleton via `globalThis`).

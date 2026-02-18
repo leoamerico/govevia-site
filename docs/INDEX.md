@@ -10,9 +10,9 @@ Este índice organiza o **payload de conhecimento** do repositório por função
 
 ### Normativo (Brand)
 
-- `docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md` — arquitetura de marca endossada (EnvNeo holding / Govevia produto)
+- `docs/brand/BRAND-ARCH-ENVNEO-GOVEVIA.md` — arquitetura de marca endossada (Env Neo holding / Govevia produto)
 - `docs/brand/LOCKUPS-SPEC.md` — versões permitidas/proibidas do lockup (SSOT)
-- `docs/brand/ENVNEO-IDENTITY-SPEC.md` — identidade EnvNeo v1 (mark/wordmark, regras hard)
+- `docs/brand/ENVNEO-IDENTITY-SPEC.md` — identidade Env Neo v1 (mark/wordmark, regras hard)
 
 ### Evidência pública (auditável) (Brand)
 

@@ -2,7 +2,9 @@
 
 ## Objetivo
 
-Evidenciar, de forma auditável, os artefatos de identidade EnvNeo v1 entregues no repositório.
+Evidenciar, de forma auditável, os artefatos de identidade Env Neo v1 entregues no repositório.
+
+Nota: estes assets foram removidos do repositório (runtime e fonte) durante o expurgo do logo legado, para evitar renderização/serving de marca antiga em produção.
 
 ## Inventário (SSOT)
 

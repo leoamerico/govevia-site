@@ -1,4 +1,4 @@
-# LOCKUPS-SPEC — Govevia (Produto) endossado por EnvNeo (Holding)
+# LOCKUPS-SPEC — Govevia (Produto) endossado por Env Neo (Holding)
 
 Status: Normativo (MUST/SHOULD)
 
@@ -13,28 +13,26 @@ Formalizar as versões permitidas/proibidas do lockup endossado e as regras oper
 
 ## Lockup padrão (texto) — obrigatório
 
-- Forma canônica: **Govevia — by EnvNeo**
+- Forma canônica: **Govevia — por Env Neo**
 
 Regras:
 
 - “Govevia” MUST ser dominante.
-- “by EnvNeo” MUST ser secundário (tamanho menor, peso menor, contraste suficiente).
-- “EnvNeo” MUST usar `font-mono` quando disponível.
+- “por Env Neo” MUST ser secundário (tamanho menor, peso menor, contraste suficiente).
+- “Env Neo” MUST usar `font-mono` quando disponível.
 
 ## Versões permitidas (runtime)
 
 - Wordmark (Govevia): `public/brand/govevia-wordmark-on-white.png`
-- Lockup (Govevia + by EnvNeo): `public/brand/govevia-lockup-on-white.png`
+- Lockup (Govevia + byline textual): `public/brand/govevia-lockup-on-white.png`
 - Mark (Govevia):
   - `public/brand/govevia-mark-on-white.png`
   - `public/brand/govevia-mark-on-black.png`
-- Endosso EnvNeo:
-  - `public/brand/envneo-on-white.png`
-  - `public/brand/envneo-on-black.png`
+- Endosso da holding: texto apenas (sem asset de logo dedicado em runtime)
 
 ## Proibições (hard)
 
-- PROIBIDO co-branding com EnvNeo competindo visualmente com Govevia (mesmo peso/tamanho em herói).
+- PROIBIDO co-branding com Env Neo competindo visualmente com Govevia (mesmo peso/tamanho em herói).
 - PROIBIDO usar símbolos de registro (®) ou texto “marca registrada/registrado no INPI” sem evidência formal.
 - PROIBIDO definir cromia por HEX em runtime (`app/**`, `components/**`). Usar tokens.
 

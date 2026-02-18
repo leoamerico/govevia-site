@@ -1,17 +1,17 @@
-# BRAND-ARCH — EnvNeo (Holding) + Govevia (Produto)
+# BRAND-ARCH — Env Neo (Holding) + Govevia (Produto)
 Versão: 1.0  
 Status: Normativo (MUST/SHOULD)  
 Escopo: Site institucional, materiais públicos, dashboard (quando aplicável), documentação técnica.
 
 ## 1. Finalidade
 Este documento define a **Arquitetura de Marca Endossada** (Endorsed Branding) entre:
-- **EnvNeo**: holding tecnológica (autoridade institucional).
+- **Env Neo**: holding tecnológica (autoridade institucional).
 - **Govevia**: produto (ponta, interface pública, governança executável).
 
 Objetivo: garantir consistência semiótica e jurídica **auditável**, evitando colisão de posicionamento e **evitando overclaim** (ex.: “marca registrada”, “registrado no INPI”) sem evidência.
 
 ## 2. Definições (termos e papéis)
-### 2.1 EnvNeo (Holding)
+### 2.1 Env Neo (Holding)
 - Papel: **infraestrutura, plataforma, operação e comercialização**.
 - Semiótica: “kernel / fundação / engenharia / confiabilidade”.
 - Uso: aparece como **endosso** do produto (byline), não como marca concorrente do produto.
@@ -23,17 +23,15 @@ Objetivo: garantir consistência semiótica e jurídica **auditável**, evitando
 
 ## 3. Regra de endosso (obrigatória)
 ### 3.1 Lockup textual padrão (obrigatório)
-**Govevia — by EnvNeo**
+**Govevia — por Env Neo**
 
 Regras:
 - “Govevia” MUST ser a parte dominante do lockup.
-- “by EnvNeo” MUST ser secundário (tamanho menor, peso menor).
-- “EnvNeo” MUST usar família tipográfica monoespaçada (mono) quando disponível.
-- NÃO usar “by ENVNEO” em caixa alta (perde legibilidade e vira ruído institucional).
+- “por Env Neo” MUST ser secundário (tamanho menor, peso menor).
+- “Env Neo” MUST usar família tipográfica monoespaçada (mono) quando disponível.
 
 Implementação mínima obrigatória:
-- `components/Footer.tsx`: lockup MUST estar presente no rodapé.
-- Metadados/OG: MUST refletir a relação produto ↔ holding (ver seção 6).
+- Metadados/OG: MUST refletir a entidade legal (PJ) sem carregar/servir assets de logo legados.
 
 > Nota: o Header pode permanecer neutro (sem endosso) quando a hierarquia visual estiver comprometida.
 
@@ -41,7 +39,7 @@ Implementação mínima obrigatória:
 A tipografia segue a superfamília **IBM Plex** para coerência multi-produto.
 
 - Produto (Govevia): **IBM Plex Sans** (UI/legibilidade).
-- Holding (EnvNeo): **IBM Plex Mono** (code-first / infra).
+- Holding (Env Neo): **IBM Plex Mono** (code-first / infra).
 - Quando houver uso editorial (títulos institucionais): **IBM Plex Serif** MAY ser usada de forma controlada.
 
 Implementação:
@@ -60,9 +58,8 @@ Regras:
 - HEX hardcoded (`#...` ou `%23...`) em `app/**` e `components/**` é PROIBIDO (Gate FE-01).
 
 ## 6. Aplicação digital (site, OG e evidência)
-### 6.1 Footer (obrigatório)
-- `components/Footer.tsx` MUST exibir: **“Govevia — by EnvNeo”**
-- “EnvNeo” MUST estar em `font-mono` quando disponível.
+### 6.1 Footer
+- Footer MAY exibir byline textual com a entidade legal (PJ), sem uso de logo/ícone de endosso.
 
 ### 6.2 OpenGraph/Twitter (obrigatório)
 - `app/opengraph-image.tsx` e `app/twitter-image.tsx` MUST existir.
@@ -77,21 +74,21 @@ Arquivos recomendados:
 - `EVIDENCE-BRAND-FOOTER-LOCKUP.md`
 - `EVIDENCE-BRAND-OG-IMAGE.md`
 
-## 6.4 Identidade EnvNeo (v1)
+## 6.4 Identidade Env Neo (v1)
 
-- Norma MUST existir em: `docs/brand/ENVNEO-IDENTITY-SPEC.md`.
-- Assets runtime MUST existir em: `public/brand/envneo/`.
+- Especificação pode existir como histórico/audit trail em `docs/brand/ENVNEO-IDENTITY-SPEC.md`.
+- Assets de logo de endosso NÃO devem ser distribuídos em runtime (`public/brand/**`).
 
 ## 7. Regras de uso de marca (Do / Don’t)
 ### 7.1 Do (permitido)
 - Usar “Govevia” como marca primária em páginas do produto.
-- Usar “EnvNeo” como endosso discreto em rodapé, metadados e materiais institucionais.
-- Referenciar a holding como “EnvNeo (holding tecnológica)” em contexto corporativo.
+- Usar “Env Neo” como endosso discreto (texto), quando aplicável.
+- Referenciar a holding como “Env Neo (holding tecnológica)” em contexto corporativo.
 
 ### 7.2 Don’t (proibido)
 - PROIBIDO afirmar “marca registrada”, “registrado no INPI”, ou usar “®” sem evidência formal.
 - PROIBIDO sugerir que toda licença de software é “averbada no INPI” (isso depende de regime/ato específico).
-- PROIBIDO co-branding com “EnvNeo” competindo visualmente com “Govevia” (mesmo peso/tamanho no herói).
+- PROIBIDO co-branding com “Env Neo” competindo visualmente com “Govevia” (mesmo peso/tamanho no herói).
 
 ## 8. Nota jurídica mínima (anti-overclaim)
 Este repositório separa:
@@ -112,4 +109,5 @@ Documentos internos correlatos:
 Qualquer alteração nesta arquitetura MUST:
 1) Atualizar `docs/public/evidence/brand/` (se afetar comunicação pública),
 2) Passar `npm run tokens:build`, `npm run tokens:check`, `npm run build`,
-3) Manter a hierarquia: **Govevia primário, EnvNeo endosso**.
+3) Manter a hierarquia: **Govevia primário, Env Neo endosso**.
+

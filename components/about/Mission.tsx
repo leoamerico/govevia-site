@@ -40,7 +40,7 @@ export default function Mission() {
                 obedecer voluntariamente.
               </p>
               <p>
-                A ENV-NEO entende que essa abordagem é institucional e tecnicamente inadequada. 
+                A Env Neo entende que essa abordagem é institucional e tecnicamente inadequada.
                 Regras sem enforcement automático não são regras — são sugestões. E sugestões 
                 criam responsabilidade sem proteção.
               </p>

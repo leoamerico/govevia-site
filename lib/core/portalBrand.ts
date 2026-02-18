@@ -164,7 +164,7 @@ export const getPortalBrand = cache(async (): Promise<PortalBrandV1> => {
   if (core) return core
 
   return {
-    legal_entity_name: 'EnvNeo Ltda.',
+    legal_entity_name: 'Env Neo Ltda.',
     product_name: 'Govevia',
     logo_svg: null,
     logo_url: null,

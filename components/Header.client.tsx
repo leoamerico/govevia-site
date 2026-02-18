@@ -62,21 +62,11 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
 
             <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
 
-            <span className="flex items-center gap-2">
-              <Image
-                src="/brand/envneo-on-white.png"
-                alt={legalEntityName}
-                width={28}
-                height={28}
-                className="h-6 w-6"
-                priority
-              />
-              {legalEntityName.trim().length > 0 ? (
-                <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
-                  {legalEntityName}
-                </span>
-              ) : null}
-            </span>
+            {legalEntityName.trim().length > 0 ? (
+              <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
+                {legalEntityName}
+              </span>
+            ) : null}
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">

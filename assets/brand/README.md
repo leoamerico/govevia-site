@@ -4,16 +4,12 @@ Esta pasta existe para consolidar evidências e convenções de empacotamento de
 
 ## Runtime (site)
 
-Os arquivos atualmente utilizados pelo site ficam em `public/brand/` (PNGs + `envneo.svg`).
+Os arquivos atualmente utilizados pelo site ficam em `public/brand/` (PNGs).
 
 ## Convenção de nomes (alvo)
 
 Quando houver exportação vetorial oficial (SVG) para todos os lockups, a convenção recomendada é:
 
-- `assets/brand/envneo/logo.svg`
-- `assets/brand/envneo/icon.svg`
-- `assets/brand/envneo/lockup-horizontal.svg`
-- `assets/brand/envneo/lockup-stacked.svg`
 - `assets/brand/govevia/logo.svg`
 - `assets/brand/govevia/icon.svg`
 - `assets/brand/govevia/lockup-horizontal.svg`
@@ -21,7 +17,6 @@ Quando houver exportação vetorial oficial (SVG) para todos os lockups, a conve
 
 ## Mapeamento atual
 
-- EnvNeo (vetor existente): `public/brand/envneo.svg`
 - Govevia (raster atual):
   - lockup: `public/brand/govevia-lockup-on-white.png`
   - wordmark: `public/brand/govevia-wordmark-on-white.png`

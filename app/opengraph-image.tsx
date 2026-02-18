@@ -81,7 +81,7 @@ export default async function Image() {
                 textTransform: 'uppercase' as const,
               }}
             >
-              by EnvNeo
+              por Env Neo
             </div>
             <div style={{ width: 40, height: 1, background: 'rgba(255,255,255,0.3)' }} />
           </div>
@@ -137,7 +137,7 @@ export default async function Image() {
               letterSpacing: '1px',
             }}
           >
-            ENV-NEO LTDA · CNPJ 36.207.211/0001-47
+            Env Neo Ltda. · CNPJ 36.207.211/0001-47
           </div>
         </div>
       </div>

@@ -71,7 +71,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'ENV-NEO LTDA',
+      name: 'Env Neo Ltda.',
       url: 'https://govevia.com.br',
     },
     mainEntityOfPage: {

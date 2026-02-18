@@ -67,7 +67,7 @@ export function getPostMeta(slug: string): BlogPostMeta | null {
     date: data.date || '',
     lastModified,
     description: data.description || '',
-    author: data.author || 'ENV-NEO LTDA',
+    author: data.author || 'Env Neo Ltda.',
     tags: data.tags || [],
     readingTime: stats.text.replace('min read', 'min de leitura'),
   }
@@ -107,7 +107,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     date: data.date || '',
     lastModified,
     description: data.description || '',
-    author: data.author || 'ENV-NEO LTDA',
+    author: data.author || 'Env Neo Ltda.',
     tags: data.tags || [],
     readingTime: stats.text.replace('min read', 'min de leitura'),
     content: rendered,

@@ -21,7 +21,7 @@
 - Keys: derivadas do `docs/content/CONTENT-CATALOG.yaml` (SSOT) e validadas por gates.
 
 ### Separação jurídica/comercial (Portal)
-- EnvNeo: entidade legal (PJ/contratação).
+- Env Neo: entidade legal (PJ/contratação).
 - Govevia: marca/produto.
 
 ## Keys do Catálogo (gerado)

@@ -16,4 +16,4 @@ Registrar um rascunho governado de classes NCL e descrições de produtos/servi�
 
 - Preferir termos descritivos e compatíveis com NCL (sem marketing).
 - Evitar prometer “exclusividade” ou escopo que dependa de terceiros.
-- Manter alinhamento com a arquitetura de marca (Govevia como produto; EnvNeo como endosso institucional).
+- Manter alinhamento com a arquitetura de marca (Govevia como produto; Env Neo como endosso institucional).

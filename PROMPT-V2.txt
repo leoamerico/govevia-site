@@ -100,14 +100,14 @@ D-04) Evidência + policy (POL-ACTIVITY-LOGGING) + runbook.
 
 FASE E (SITE) — Módulo Marca + INPI (controle completo)
 E-01) Schema:
-- brands (EnvNeo, Govevia)
+- brands (Env Neo, Govevia)
 - trademark_records (marca, classe Nice, número processo, status, datas, documentos)
 - trademark_events (timeline de movimentações)
 E-02) UI Admin:
 - /admin/brand (dados da marca: assets, uso, disclaimers)
 - /admin/inpi (cadastro + status + prazos + anexos + timeline)
 E-03) Conteúdo público:
-- chaves CMS para “EnvNeo é PJ / Govevia é marca”, rodapés, disclaimers e página institucional.
+- chaves CMS para “Env Neo é PJ / Govevia é marca”, rodapés, disclaimers e página institucional.
 E-04) Evidência + policy (POL-BRAND-INPI) + runbook (RUN-INPI-OPERATIONS).
 
 FASE F (SITE) — Personas + /plataforma (compliance total)

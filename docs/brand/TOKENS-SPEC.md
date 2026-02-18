@@ -9,7 +9,7 @@ Normatizar tokens (cores, tipografia, radius e regras geométricas) para uso det
 ## 1. Tipografia (superfamília)
 
 - UI (Govevia): **IBM Plex Sans**
-- Holding/endosso (EnvNeo): **IBM Plex Mono**
+- Holding/endosso (Env Neo): **IBM Plex Mono**
 
 Implementação:
 
@@ -28,7 +28,7 @@ Implementação:
 
 ## 4. Cromia (tokens semânticos)
 
-- EnvNeo (neutro) MUST ser consumido via token: `color.brand.envneo.neutral.900`.
+- Env Neo (neutro) MUST ser consumido via token: `color.brand.envneo.neutral.900`.
 - Preto absoluto MUST ser consumido via token: `color.brand.envneo.neutral.1000` e seu uso é restrito a impressão/alto contraste (não default de UI).
 - Azul institucional profundo MUST ser consumido via token: `color.brand.govevia.primary.900`.
 - Cores de produto e institucionais MUST existir em `packages/design-tokens/tokens.json` e serem consumidas via aliases do preset Tailwind.

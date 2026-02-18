@@ -7,6 +7,13 @@ function isBlank(value: string | null | undefined): boolean {
   return !value || value.trim().length === 0
 }
 
+function normalizeLegalEntityName(value: string): string {
+  return value
+    .replace(/\bENV\s*-\s*NEO\s+LTDA\b/gi, 'Env Neo Ltda.')
+    .replace(/\bENV\s*-\s*NEO\b/gi, 'Env Neo')
+    .replace(/\bEnv\s*Neo\b/gi, 'Env Neo')
+}
+
 export default async function Footer() {
   const currentYear = new Date().getFullYear()
 
@@ -23,6 +30,8 @@ export default async function Footer() {
     ? overrideLegalEntityName
     : core.legal_entity_name
 
+  const legalEntityNameNormalized = normalizeLegalEntityName(legalEntityName)
+
   const productName = !isBlank(overrideProductName) ? overrideProductName : core.product_name
   const inpiStatus = !isBlank(overrideInpiStatus) ? overrideInpiStatus : core.inpi.status
 
@@ -36,14 +45,8 @@ export default async function Footer() {
                 {productName}
               </h3>
               <div className="mt-2 flex items-center gap-2 text-gray-400">
-                <span className="inline-flex h-4 w-4 items-center justify-center" aria-hidden="true">
-                  <svg viewBox="0 0 64 64" className="h-4 w-4" fill="currentColor" role="img" aria-label="EnvNeo">
-                    <path d="M14 14h30v6H20v8h22v6H20v8h24v6H14V14z" />
-                    <path d="M38 14h6v36h-6V29L28 50h-6V14h6v21z" />
-                  </svg>
-                </span>
                 <p className="text-xs font-mono tracking-widest uppercase">
-                  by EnvNeo
+                  por {legalEntityNameNormalized}
                 </p>
               </div>
             </div>
@@ -86,7 +89,7 @@ export default async function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="text-sm text-gray-400">
-              <p className="font-semibold text-gray-300 mb-2">{legalEntityName}</p>
+              <p className="font-semibold text-gray-300 mb-2">{legalEntityNameNormalized}</p>
               <p>CNPJ: 36.207.211/0001-47</p>
               <p className="mt-2">Tecnologia para Governança Pública</p>
             </div>
@@ -153,7 +156,7 @@ export default async function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-500">
-          <p>© {currentYear} ENV-NEO LTDA. Todos os direitos reservados.</p>
+          <p>© {currentYear} {legalEntityNameNormalized}. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

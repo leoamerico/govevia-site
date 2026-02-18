@@ -5,7 +5,7 @@ items:
     domain: BRAND
     function: normative
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["D-01", "D-03", "FE-01"]
     related_claims: ["WEB-BRAND-ENDORSE-001"]
 
@@ -14,7 +14,7 @@ items:
     domain: BRAND
     function: normative
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["D-01", "FE-01"]
     related_claims: ["WEB-BRAND-ENDORSE-001"]
 
@@ -23,7 +23,7 @@ items:
     domain: BRAND
     function: normative
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["D-01", "FE-01"]
     related_claims: []
 
@@ -32,7 +32,7 @@ items:
     domain: BRAND
     function: evidence
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["D-01"]
     related_claims: []
 
@@ -41,7 +41,7 @@ items:
     domain: IP
     function: normative
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["IP-01"]
     related_claims: ["WEB-IP-TITLE-001"]
 
@@ -50,7 +50,7 @@ items:
     domain: IP
     function: normative
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["IP-02"]
     related_claims: ["WEB-IP-INPI-SW-001"]
 
@@ -68,7 +68,7 @@ items:
     domain: REPO
     function: runbook
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["FE-01", "D-04"]
     related_claims: []
 
@@ -86,7 +86,7 @@ items:
     domain: REPO
     function: evidence
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["REPO-HYGIENE-LAB", "FE-01"]
     related_claims: []
 
@@ -122,7 +122,7 @@ items:
     domain: IP
     function: evidence
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["IP-01"]
     related_claims: ["WEB-IP-TITLE-001"]
 
@@ -131,7 +131,7 @@ items:
     domain: IP
     function: evidence
     status: active
-    owner: EnvNeo
+    owner: Env Neo
     related_gates: ["IP-02"]
     related_claims: ["WEB-IP-INPI-SW-001"]
 
