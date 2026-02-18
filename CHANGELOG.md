@@ -4,6 +4,10 @@
 
 - Home (`/`): removidos os dizeres/sections atuais na renderização e incluída mensagem informativa "Estamos em construção".
 
+## 2026-02-18 — Correção de build (Vercel)
+
+- Build: `js-yaml` movido para `dependencies` (era `devDependencies`) para garantir execução do `content:check` no `prebuild` em ambientes que omitirem devDeps.
+
 ## 2026-02-18 — Expurgo de logo legado
 
 - Brand: removida qualquer renderização/serving de assets do logo legado (ENV-NEO) do Header/Footer, metadados e OG/Twitter.
