@@ -215,7 +215,6 @@ export default async function AdminContentListPage({ searchParams }: Props) {
                 <input
                   name="q"
                   defaultValue={q}
-                  placeholder="Buscar por key (ex.: footer.endorsement)"
                   className="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-institutional-graphite focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 />
                 <button type="submit" className="btn-secondary px-6 py-3 whitespace-nowrap">

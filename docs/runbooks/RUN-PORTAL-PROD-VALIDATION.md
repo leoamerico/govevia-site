@@ -108,6 +108,16 @@ PASS se:
 
 - não retorna 404
 
+### 8) Manifest sem 404
+
+Abrir:
+
+- `https://www.govevia.com.br/manifest.webmanifest`
+
+PASS se:
+
+- não retorna 404
+
 ## Gates locais (antes de deploy)
 
 - `npm run lint`

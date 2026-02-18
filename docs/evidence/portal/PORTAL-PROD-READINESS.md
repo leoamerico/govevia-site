@@ -15,3 +15,16 @@ Alterações para deixar o Portal e o site prontos para produção:
 
 - Runbook: `docs/runbooks/RUN-PORTAL-PROD-VALIDATION.md`
 - PASS/FAIL deve ser executado no ambiente publicado antes de declarar “pronto para produção”.
+
+## Outputs esperados (produção)
+
+- `GET https://www.govevia.com.br/api/version`
+	- `portalApiBaseHost`: `api.govevia.com.br` (ou host real de produção)
+- `HEAD https://www.govevia.com.br/`
+	- `content-security-policy` **sem** `unsafe-eval`
+	- `content-security-policy` **sem** `vercel.live`
+	- `content-security-policy` **sem** `perplexity` / `r2cdn.perplexity.ai`
+- `HEAD https://www.govevia.com.br/favicon.ico`
+	- status != 404
+- `HEAD https://www.govevia.com.br/manifest.webmanifest`
+	- status != 404

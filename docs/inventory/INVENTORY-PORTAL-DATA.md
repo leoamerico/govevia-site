@@ -13,6 +13,7 @@
 
 ### Rotas técnicas (produção)
 - `/favicon.ico` (endpoint para evitar 404 em browsers/SEO tools)
+- `/manifest.webmanifest` (manifest do site)
 - `/api/version` (diagnóstico de deploy; inclui `portalApiBaseHost` para validação objetiva do `NEXT_PUBLIC_API_BASE_URL` em produção)
 
 ### Admin

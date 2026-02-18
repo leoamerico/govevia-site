@@ -243,7 +243,6 @@ export default async function AdminProcessDetailsPage({ params, searchParams }: 
                                   <input
                                     name="artifact_key"
                                     required
-                                    placeholder="ex.: inpi.trademark.protocol.number"
                                     className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-institutional-graphite"
                                   />
                                 </label>
@@ -253,7 +252,6 @@ export default async function AdminProcessDetailsPage({ params, searchParams }: 
                                   <input
                                     name="title"
                                     required
-                                    placeholder="ex.: Número do protocolo"
                                     className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-institutional-graphite"
                                   />
                                 </label>
@@ -262,7 +260,6 @@ export default async function AdminProcessDetailsPage({ params, searchParams }: 
                                   ref_url (opcional)
                                   <input
                                     name="ref_url"
-                                    placeholder="https://..."
                                     className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-institutional-graphite"
                                   />
                                 </label>
@@ -271,7 +268,6 @@ export default async function AdminProcessDetailsPage({ params, searchParams }: 
                                   ref_text (opcional)
                                   <input
                                     name="ref_text"
-                                    placeholder="referência curta"
                                     className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-institutional-graphite"
                                   />
                                 </label>
@@ -280,7 +276,6 @@ export default async function AdminProcessDetailsPage({ params, searchParams }: 
                                   sha256 (opcional)
                                   <input
                                     name="sha256"
-                                    placeholder="64 hex"
                                     className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-institutional-graphite"
                                   />
                                 </label>

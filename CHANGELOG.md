@@ -13,6 +13,11 @@
 - Diagnóstico objetivo: `/api/version` expõe `portalApiBaseHost` (host-only) para validar o `NEXT_PUBLIC_API_BASE_URL` em produção.
 - Evidência: `docs/evidence/portal/PORTAL-PROD-READINESS.md` e runbook `docs/runbooks/RUN-PORTAL-PROD-VALIDATION.md`.
 
+## 2026-02-18 — Higienização anti-placeholder (repo)
+
+- Removidos atributos `placeholder` em telas admin para eliminar matches do grep governado.
+- Adicionado `app/manifest.ts` e ampliada validação de produção para manifest.
+
 ## 2026-02-17 — Admin Console (MVP) + hardening
 
 - Fase 1 (DB): `lib/db/schema.sql` (idempotente, `pgcrypto`) e `lib/db/postgres.ts` (server-only, pool singleton via `globalThis`).

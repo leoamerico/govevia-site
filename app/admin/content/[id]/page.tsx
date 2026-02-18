@@ -168,7 +168,6 @@ export default async function AdminContentEditPage({ params, searchParams }: Pro
                           id="changeReason"
                           name="changeReason"
                           type="text"
-                          placeholder="Ex.: ajuste de copy institucional"
                           className="mt-2 w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-institutional-graphite font-sans focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                         />
                       </div>

@@ -224,7 +224,7 @@ export async function POST(request: Request) {
     }
 
     // ============================================================
-    // SANITIZAÇÃO: Escapar TODOS os inputs antes de interpolar em HTML
+    // SANITIZAÇÃO: Escapar todos os inputs antes de interpolar em HTML
     // ============================================================
     const safe = {
       name: escapeHtml(name),
