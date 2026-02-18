@@ -39,14 +39,22 @@ export async function loginAction(formData: FormData) {
 
   const from = normalizeFrom(parsed.data.from)
 
+  // NOTE: redirect() throws NEXT_REDIRECT internally and must NOT be called
+  // inside try/catch — the try/catch here wraps only the async credential
+  // checks, with no redirect inside.
+  let authenticated = false
   try {
     const ok = await verifyAdminCredentials(parsed.data.username, parsed.data.password)
-    if (!ok) {
-      redirectWithError(from)
+    if (ok) {
+      await createAdminSession(parsed.data.username)
+      authenticated = true
     }
-
-    await createAdminSession(parsed.data.username)
   } catch {
+    // env vars missing, bcrypt failure, JWT signing failure → auth failure
+    authenticated = false
+  }
+
+  if (!authenticated) {
     redirectWithError(from)
   }
 

@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Correção: redirect() fora de try/catch em server action de login
+
+- `app/admin/login/actions.ts`: `loginAction` refatorada — `redirect()` não pode ser chamado dentro de `try/catch` (Next.js lança `NEXT_REDIRECT` internamente que precisava ser propagado). Agora o try/catch envolve apenas `verifyAdminCredentials` e `createAdminSession`; as chamadas `redirect()` ficaram fora do bloco.
+
 ## 2026-02-18 — Acesso à área administrativa
 
 - `middleware.ts`: `/admin/login` sempre acessível em produção; demais rotas `/admin/**` exigem JWT válido — sem JWT retorna 404 (mantém superfície oculta de bots/scanners); removido bloqueio cego via `NODE_ENV === 'production'`.
