@@ -120,6 +120,15 @@
 - `site.home.defensibility.features.03.title` — fallback obrigatório
 - `site.home.defensibility.features.03.body` — fallback obrigatório
 
+### Brand (override)
+- `brand.envneo.legal_entity_name` — fallback obrigatório
+- `brand.govevia.product_name` — fallback obrigatório
+- `brand.govevia.logo_svg` — fallback obrigatório
+- `brand.govevia.inpi.status` — fallback obrigatório
+- `brand.govevia.inpi.process_number` — fallback obrigatório
+- `brand.govevia.inpi.classes` — fallback obrigatório
+- `brand.govevia.inpi.last_event_at` — fallback obrigatório
+
 - `site.home.compliance.title` — fallback obrigatório
 - `site.home.compliance.subtitle` — fallback obrigatório
 - `site.home.compliance.items.01.law` — fallback obrigatório

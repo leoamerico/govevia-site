@@ -1,124 +1,66 @@
-'use client'
+import HeaderClient from '@/components/Header.client'
+import { getPortalBrand, sanitizeSvgAllowlist } from '@/lib/core/portalBrand'
+import { getContent } from '@/lib/content/getContent'
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState, useEffect } from 'react'
+function isBlank(value: string | null | undefined): boolean {
+  return !value || value.trim().length === 0
+}
 
-export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+function parseClasses(value: string): string[] {
+  return value
+    .split(/\r?\n/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+export default async function Header() {
+  const core = await getPortalBrand()
 
-  const navigation = [
-    { name: 'Início', href: '/' },
-    { name: 'Plataforma', href: '/plataforma' },
-    { name: 'Publicações', href: '/blog' },
-    { name: 'Histórico', href: '/historico' },
-    { name: 'Sobre', href: '/sobre' },
-  ]
+  const [
+    overrideLegalEntityName,
+    overrideProductName,
+    overrideLogoSvg,
+    overrideInpiStatus,
+    overrideInpiProcessNumber,
+    overrideInpiClasses,
+    overrideInpiLastEventAt,
+  ] = (
+    await Promise.all([
+      getContent({ key: 'brand.envneo.legal_entity_name', fallback: '' }),
+      getContent({ key: 'brand.govevia.product_name', fallback: '' }),
+      getContent({ key: 'brand.govevia.logo_svg', fallback: '' }),
+      getContent({ key: 'brand.govevia.inpi.status', fallback: '' }),
+      getContent({ key: 'brand.govevia.inpi.process_number', fallback: '' }),
+      getContent({ key: 'brand.govevia.inpi.classes', fallback: '' }),
+      getContent({ key: 'brand.govevia.inpi.last_event_at', fallback: '' }),
+    ])
+  ).map((r) => r.value)
+
+  const legalEntityName = !isBlank(overrideLegalEntityName)
+    ? overrideLegalEntityName
+    : core.legal_entity_name
+
+  const productName = !isBlank(overrideProductName) ? overrideProductName : core.product_name
+
+  const inpiStatus = !isBlank(overrideInpiStatus) ? overrideInpiStatus : core.inpi.status
+  const inpiProcessNumber = !isBlank(overrideInpiProcessNumber) ? overrideInpiProcessNumber : (core.inpi.process_number ?? '')
+  const inpiLastEventAt = !isBlank(overrideInpiLastEventAt) ? overrideInpiLastEventAt : (core.inpi.last_event_at ?? '')
+  const inpiClasses = !isBlank(overrideInpiClasses) ? parseClasses(overrideInpiClasses) : core.inpi.classes
+
+  // Read but do not expose more than needed in the UI; keep values local-first.
+  void inpiProcessNumber
+  void inpiLastEventAt
+  void inpiClasses
+
+  const rawLogoSvg = !isBlank(overrideLogoSvg) ? overrideLogoSvg : (core.logo_svg ?? '')
+  const goveviaLogoSvg = sanitizeSvgAllowlist(rawLogoSvg)
 
   return (
-    <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white shadow-md'
-          : 'bg-white/95 backdrop-blur-sm'
-      }`}
-    >
-      <nav className="container-custom" aria-label="Navegação principal">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/brand/govevia-wordmark-on-white.png"
-              alt="Govevia"
-              width={325}
-              height={313}
-              className="h-7 w-auto"
-              priority
-            />
-
-            <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
-
-            <span className="flex items-center gap-2">
-              <Image
-                src="/brand/envneo-on-white.png"
-                alt="ENV-NEO"
-                width={28}
-                height={28}
-                className="h-6 w-6"
-                priority
-              />
-              <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
-                ENV-NEO
-              </span>
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-institutional-graphite hover:text-primary font-medium transition-colors duration-200 text-sm"
-              >
-                {item.name}
-              </Link>
-            ))}
-            <Link
-              href="#contato"
-              className="btn-primary text-sm px-6 py-3"
-            >
-              Fale com nossa equipe
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            className="md:hidden p-2 rounded-md text-institutional-graphite hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Abrir menu de navegação"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-institutional-graphite hover:text-primary font-medium transition-colors duration-200 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <Link href="#contato" className="btn-primary text-center" onClick={() => setIsMobileMenuOpen(false)}>
-                Fale com nossa equipe
-              </Link>
-            </div>
-          </div>
-        )}
-      </nav>
-    </header>
+    <HeaderClient
+      productName={productName}
+      legalEntityName={legalEntityName}
+      goveviaLogoSvg={goveviaLogoSvg}
+      inpiStatus={inpiStatus}
+    />
   )
 }

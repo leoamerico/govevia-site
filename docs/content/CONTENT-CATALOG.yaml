@@ -989,3 +989,61 @@ items:
     format: text
     required: false
     section: home.contact
+
+  # --- BRAND (Core consume + Admin override) ---
+
+  - key: brand.envneo.legal_entity_name
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.envneo
+    notes: Nome legal da PJ (override do Core). Pode ficar vazio.
+
+  - key: brand.govevia.product_name
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.govevia
+    notes: Nome do produto/marca (override do Core). Pode ficar vazio.
+
+  - key: brand.govevia.logo_svg
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.govevia
+    notes: Colar SVG inline. Passa por sanitização allowlist e rejeita HEX.
+
+  - key: brand.govevia.inpi.status
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.inpi
+    notes: Status informativo (texto curto).
+
+  - key: brand.govevia.inpi.process_number
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.inpi
+    notes: Número do processo (se aplicável).
+
+  - key: brand.govevia.inpi.classes
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.inpi
+    notes: 1 classe por linha.
+
+  - key: brand.govevia.inpi.last_event_at
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: brand.inpi
+    notes: ISO date-time (texto) do último evento (se aplicável).

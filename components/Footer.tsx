@@ -1,7 +1,30 @@
 import Link from 'next/link'
 
-export default function Footer() {
+import { getPortalBrand } from '@/lib/core/portalBrand'
+import { getContent } from '@/lib/content/getContent'
+
+function isBlank(value: string | null | undefined): boolean {
+  return !value || value.trim().length === 0
+}
+
+export default async function Footer() {
   const currentYear = new Date().getFullYear()
+
+  const core = await getPortalBrand()
+  const [overrideLegalEntityName, overrideProductName, overrideInpiStatus] = (
+    await Promise.all([
+      getContent({ key: 'brand.envneo.legal_entity_name', fallback: '' }),
+      getContent({ key: 'brand.govevia.product_name', fallback: '' }),
+      getContent({ key: 'brand.govevia.inpi.status', fallback: '' }),
+    ])
+  ).map((r) => r.value)
+
+  const legalEntityName = !isBlank(overrideLegalEntityName)
+    ? overrideLegalEntityName
+    : core.legal_entity_name
+
+  const productName = !isBlank(overrideProductName) ? overrideProductName : core.product_name
+  const inpiStatus = !isBlank(overrideInpiStatus) ? overrideInpiStatus : core.inpi.status
 
   return (
     <footer className="bg-institutional-navy text-white">
@@ -9,7 +32,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
-              <h3 className="text-2xl font-serif font-bold">GOVEVIA</h3>
+              <h3 className="text-2xl font-serif font-bold" title={inpiStatus.trim() ? inpiStatus : undefined}>
+                {productName}
+              </h3>
               <div className="mt-2 flex items-center gap-2 text-gray-400">
                 <span className="inline-flex h-4 w-4 items-center justify-center" aria-hidden="true">
                   <svg viewBox="0 0 64 64" className="h-4 w-4" fill="currentColor" role="img" aria-label="EnvNeo">
@@ -61,7 +86,7 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="text-sm text-gray-400">
-              <p className="font-semibold text-gray-300 mb-2">ENV-NEO LTDA</p>
+              <p className="font-semibold text-gray-300 mb-2">{legalEntityName}</p>
               <p>CNPJ: 36.207.211/0001-47</p>
               <p className="mt-2">Tecnologia para Governança Pública</p>
             </div>

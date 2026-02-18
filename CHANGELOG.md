@@ -16,6 +16,7 @@
 - Fase 3.3 (Content-First): `docs/content/CONTENT-CATALOG.yaml` (SSOT de chaves) + bootstrap “Inicializar Catálogo” no `/admin/content` + indicador de completude publicada.
 - Fase 3.4 (Content-First): `/plataforma` refatorada para layout + keys (`getContent(..., fallback: '')`) e ocultação de blocos/cards vazios; personas/capabilities/axes sem texto hardcoded.
 - Fase 3.4 (Content-First): Home (`/`) refatorada para layout + keys (server loader + props) e ocultação de seções/blocos vazios; zero texto hardcoded nos componentes de Home.
+- Fase 4.2 (Portal ↔ Core): consumo server-only do read-model público do Core (`/public/v1/portal/brand`) com validação (zod), sanitização determinística de SVG (fail-closed) e precedência de override via Admin.
 
 ## Correções de Segurança
 
