@@ -20,7 +20,7 @@
 
 ## 2026-02-18 — Hardening de superfície (admin) + evidência
 
-- Superfície: `/admin/**` bloqueado em produção via middleware (responde 404 por rewrite para `/404`).
+- Superfície: `/admin/**` bloqueado em produção via middleware (responde 404 direto, com `Cache-Control: no-store` e `X-Robots-Tag`).
 - Headers: CSP reforçada com `object-src 'none'`.
 - SEO: `robots.txt` passa a bloquear `/admin/` e `/portal/callback`.
 - Runbook: `docs/runbooks/RUN-SECURITY-PROD-CHECKLIST.md` + template de evidência `docs/evidence/security/SECURITY-PROD-SNAPSHOT.md`.

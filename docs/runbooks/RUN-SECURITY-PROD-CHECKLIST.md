@@ -71,11 +71,15 @@ PASS se:
 ```powershell
 (Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").StatusCode
 (Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/content").StatusCode
+(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").Headers["x-robots-tag"]
+(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").Headers["cache-control"]
 ```
 
 PASS se:
 
-- retorna `404` (ou equivalente) em produção
+- status `404` em produção
+- `X-Robots-Tag` = `noindex, nofollow`
+- `Cache-Control` contém `no-store`
 
 ## Gates locais (pré-deploy)
 

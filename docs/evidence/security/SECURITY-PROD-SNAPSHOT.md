@@ -45,6 +45,8 @@ Registrar evidência reproduzível (HTTP real) dos controles mínimos de seguran
 
 - `(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").StatusCode`
 - `(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/content").StatusCode`
+- `(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").Headers["x-robots-tag"]`
+- `(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").Headers["cache-control"]`
 
 ## Conclusão
 
