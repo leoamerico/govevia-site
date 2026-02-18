@@ -107,3 +107,6 @@ artifacts:
 
   - kind: content_first_plataforma_evidence
     path: docs/public/evidence/frontend/REPORT-CONTENT-FIRST-PLATAFORMA.md
+
+  - kind: content_first_home_evidence
+    path: docs/public/evidence/frontend/REPORT-CONTENT-FIRST-HOME.md

@@ -276,3 +276,716 @@ items:
     format: text
     required: false
     section: cap.axis
+
+  # --- HOME (/) ---
+
+  - key: site.home.hero.kicker
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+    notes: Linha curta acima do H1.
+
+  - key: site.home.hero.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.hero
+    notes: H1 da Home.
+
+  - key: site.home.hero.subtitle
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.hero
+    notes: Subtítulo/lead da Home.
+
+  - key: site.home.hero.cta_primary_label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+    notes: Label do CTA primário (âncora #plataforma).
+
+  - key: site.home.hero.cta_secondary_label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+    notes: Label do CTA secundário (âncora #contato).
+
+  - key: site.home.hero.legal.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+    notes: Linha explicativa acima da lista legal.
+
+  - key: site.home.hero.legal.items.01
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+
+  - key: site.home.hero.legal.items.02
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+
+  - key: site.home.hero.legal.items.03
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+
+  - key: site.home.hero.legal.items.04
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+
+  - key: site.home.hero.legal.items.05
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+
+  - key: site.home.hero.legal.items.06
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+
+  - key: site.home.hero.scroll_label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.hero
+    notes: Texto do indicador de rolagem.
+
+  - key: site.home.problem.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.problem
+
+  - key: site.home.problem.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.01.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.01.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.02.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.02.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.03.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.03.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.04.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.items.04.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.quote.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.problem.quote.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.problem
+
+  - key: site.home.platform.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.platform
+
+  - key: site.home.platform.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.01.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.01.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.02.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.02.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.03.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.03.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.04.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.04.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.05.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.05.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.06.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.items.06.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.platform.cta_label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.platform
+
+  - key: site.home.defensibility.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.defensibility
+
+  - key: site.home.defensibility.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.01.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.01.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.01.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.02.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.02.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.02.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.03.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.03.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.03.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.04.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.04.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.04.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.05.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.05.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.trail.items.05.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.quote
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+    notes: Frase em destaque.
+
+  - key: site.home.defensibility.features.01.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.features.01.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.features.02.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.features.02.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.features.03.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.defensibility.features.03.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.defensibility
+
+  - key: site.home.compliance.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.compliance
+
+  - key: site.home.compliance.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.01.law
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.01.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.01.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.02.law
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.02.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.02.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.03.law
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.03.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.03.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.04.law
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.04.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.04.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.05.law
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.05.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.05.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.06.law
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.06.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.items.06.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.closing.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.compliance.closing.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.compliance
+
+  - key: site.home.contact.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: home.contact
+
+  - key: site.home.contact.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.notice.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.notice.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.email.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.email.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+    notes: Valor do e-mail (usado também para mailto).
+
+  - key: site.home.contact.info.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.address.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.address.value
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+    notes: Pode usar \n para quebrar linhas.
+
+  - key: site.home.contact.company.title
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.company.body
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+    notes: Pode usar \n para quebrar linhas.
+
+  - key: site.home.contact.ceo.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact
+
+  - key: site.home.contact.ceo.name
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: home.contact

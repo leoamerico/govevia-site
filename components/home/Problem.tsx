@@ -1,27 +1,22 @@
 'use client'
 
 import { motion } from 'framer-motion'
+type Props = {
+  title: string
+  subtitle: string
+  items: Array<{ title: string; description: string }>
+  quote: { title: string; body: string }
+}
 
-const problems = [
-  {
-    title: 'Atos administrativos sem evidência auditável',
-    description: 'Decisões registradas sem cadeia de custódia digital verificável. Em auditoria, não há como comprovar integridade e contexto do ato de forma reprodutível.',
-  },
-  {
-    title: 'Regras urbanísticas que dependem de memória humana',
-    description: 'Parâmetros normativos armazenados em documentos ou planilhas. O sistema permite violações porque não implementa enforcement técnico.',
-  },
-  {
-    title: 'Dados de municípios misturados em sistemas compartilhados',
-    description: 'Ausência de isolamento por Row-Level Security. Risco de vazamento de dados entre entidades e vulnerabilidade à auditoria de conformidade LGPD.',
-  },
-  {
-    title: 'Versões de leis sobrescritas sem histórico',
-    description: 'Alterações normativas que apagam versões anteriores. Impossível verificar sob qual regra um ato foi praticado em determinada data.',
-  },
-]
+export default function Problem({ title, subtitle, items, quote }: Props) {
+  const visibleItems = items
+    .map((i) => ({ title: i.title.trim(), description: i.description.trim() }))
+    .filter((i) => i.title.length > 0 || i.description.length > 0)
 
-export default function Problem() {
+  if (!title.trim() && !subtitle.trim() && visibleItems.length === 0 && !quote.title.trim() && !quote.body.trim()) {
+    return null
+  }
+
   return (
     <section className="py-24 bg-white" id="problema">
       <div className="container-custom">
@@ -32,17 +27,14 @@ export default function Problem() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title">
-            Regras sem enforcement são apenas sugestões
-          </h2>
-          <p className="section-subtitle mx-auto font-sans">
-            Sistemas que documentam violações, mas não as impedem, criam responsabilidade
-            institucional sem proteção técnica.
-          </p>
+          {title.trim().length > 0 ? <h2 className="section-title">{title}</h2> : null}
+          {subtitle.trim().length > 0 ? (
+            <p className="section-subtitle mx-auto font-sans">{subtitle}</p>
+          ) : null}
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {problems.map((problem, index) => (
+          {visibleItems.map((problem, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -61,9 +53,9 @@ export default function Problem() {
                   <h3 className="font-serif font-semibold text-lg text-institutional-navy mb-3">
                     {problem.title}
                   </h3>
-                  <p className="text-institutional-slate leading-relaxed font-sans">
-                    {problem.description}
-                  </p>
+                  {problem.description.trim().length > 0 ? (
+                    <p className="text-institutional-slate leading-relaxed font-sans">{problem.description}</p>
+                  ) : null}
                 </div>
               </div>
             </motion.div>
@@ -77,14 +69,14 @@ export default function Problem() {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <div className="inline-block bg-institutional-navy text-white px-8 py-4 rounded-lg">
-            <p className="font-serif font-semibold text-lg">
-              A ausência de evidência equivale à inexistência do ato
-            </p>
-            <p className="mt-2 text-sm text-gray-300 font-sans">
-              Sem evidência técnica reprodutível, a defesa institucional fica frágil.
-            </p>
-          </div>
+          {quote.title.trim().length > 0 || quote.body.trim().length > 0 ? (
+            <div className="inline-block bg-institutional-navy text-white px-8 py-4 rounded-lg">
+              {quote.title.trim().length > 0 ? <p className="font-serif font-semibold text-lg">{quote.title}</p> : null}
+              {quote.body.trim().length > 0 ? (
+                <p className="mt-2 text-sm text-gray-300 font-sans">{quote.body}</p>
+              ) : null}
+            </div>
+          ) : null}
         </motion.div>
       </div>
     </section>
