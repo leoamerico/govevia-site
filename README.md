@@ -11,6 +11,20 @@ cp .env.example .env.local
 npm run dev
 ```
 
+## Portal (Magic Link + JWT)
+
+O Portal usa uma API externa (Core) para:
+- solicitar link mágico por e-mail
+- trocar o token de link por um JWT
+
+Variável obrigatória:
+- `NEXT_PUBLIC_API_BASE_URL` = base URL da API (ex.: `https://api.exemplo.com`)
+
+Endpoints esperados na API:
+- `POST /api/v1/portal/auth/request-link` (anti-enumeração)
+- `GET /api/v1/portal/auth/exchange?token=...` (retorna `jwt`/`token`/`access_token`)
+- `GET /api/v1/portal/auth/me` (protegido; usado para checar estado em `/portal`)
+
 ## Verificações de segurança (CSP)
 
 ```bash

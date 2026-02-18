@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { validateSession, PORTAL_SESSION_COOKIE_NAME } from '@/lib/portal/auth'
+import { portalApiFetchJsonWithAuth, PORTAL_JWT_COOKIE_NAME } from '@/lib/portal/apiClient'
+import { cookies } from 'next/headers'
 
 export const metadata: Metadata = {
   title: 'Portal',
@@ -15,15 +15,23 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic'
 
 export default async function PortalHomePage() {
-  const token = cookies().get(PORTAL_SESSION_COOKIE_NAME)?.value
-  if (!token) {
-    redirect('/portal/login')
+  const jwt = cookies().get(PORTAL_JWT_COOKIE_NAME)?.value || null
+  if (!jwt) redirect('/portal/login')
+
+  let apiStatus: 'ok' | 'error' = 'ok'
+  let apiError: string | null = null
+
+  // Endpoint protegido: ajustável no backend. Aqui tentamos um "me" canônico.
+  try {
+    await portalApiFetchJsonWithAuth('/api/v1/portal/auth/me', { method: 'GET', timeoutMs: 2000 })
+  } catch (e) {
+    apiStatus = 'error'
+    apiError = e instanceof Error ? e.message : 'erro'
   }
 
-  let session
-  try {
-    session = await validateSession(token)
-  } catch {
+  async function logoutAction() {
+    'use server'
+    cookies().set(PORTAL_JWT_COOKIE_NAME, '', { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production', path: '/', maxAge: 0 })
     redirect('/portal/login')
   }
 
@@ -35,14 +43,18 @@ export default async function PortalHomePage() {
           <div className="mx-auto max-w-3xl bg-white rounded-lg border border-gray-200 p-8">
             <div className="text-sm font-mono text-institutional-slate">/portal</div>
             <h1 className="mt-2 text-2xl font-serif font-semibold text-institutional-navy">Portal ativo</h1>
-            <p className="mt-4 text-sm text-institutional-graphite font-sans">
-              Sessão estabelecida para <span className="font-semibold">{session.email}</span>.
-            </p>
-            <p className="mt-2 text-xs font-mono text-institutional-slate">contact_id={session.contactId}</p>
 
-            <div className="mt-8">
-              <Link href="/portal/login" className="text-primary hover:underline font-sans text-sm">
-                Voltar ao login
+            <div className="mt-6 rounded-md border border-gray-200 bg-institutional-offwhite p-4 text-sm text-institutional-graphite">
+              Estado da API protegida: <span className="font-mono">{apiStatus}</span>
+              {apiError ? <div className="mt-2 text-xs font-mono text-institutional-slate">{apiError}</div> : null}
+            </div>
+
+            <div className="mt-8 flex items-center gap-4">
+              <form action={logoutAction}>
+                <button type="submit" className="btn-secondary px-6 py-3">Sair</button>
+              </form>
+              <Link href="/" className="text-primary hover:underline font-sans text-sm">
+                Voltar ao site
               </Link>
             </div>
           </div>

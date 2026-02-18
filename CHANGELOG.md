@@ -21,6 +21,8 @@
 - Fase 5.1 (Portal): fundamentos de identidade/consentimento/auditoria (schema idempotente + lib server-only; token hash-only; fail-closed).
 - Fase 5.2 (Portal/Admin): módulo de Processos (Processo Piloto 0001 INPI) com catálogo governado no repo + persistência + timeline + enforcement determinístico por passo.
 - Fase 5.2 (Portal): login mágico por e-mail (anti-enumeração) + callback + sessão HttpOnly + rate-limit básico (LGPD-min-data).
+- Portal (API + JWT): `/portal/login` solicita link via API externa (env `NEXT_PUBLIC_API_BASE_URL`), `/portal/callback` troca token por JWT e persiste em cookie HttpOnly, `/portal` usa Bearer JWT para chamadas protegidas.
+- Portal (hardening): `/api/portal/login` virou proxy anti-enum para o Core (sem emissão local de token); client server-only passa Authorization a partir do cookie JWT.
 
 ## Correções de Segurança
 
