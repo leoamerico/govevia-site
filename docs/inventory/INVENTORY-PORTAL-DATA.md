@@ -15,6 +15,7 @@
 - `/favicon.ico` (endpoint para evitar 404 em browsers/SEO tools)
 - `/manifest.webmanifest` (manifest do site)
 - `/api/version` (diagnóstico de deploy; inclui `portalApiBaseHost` para validação objetiva do `NEXT_PUBLIC_API_BASE_URL` em produção)
+- `/404` (rota técnica usada pelo middleware para bloquear `/admin/**` em produção com resposta 404)
 
 ### Admin
 - `/admin` (console MVP)
@@ -23,6 +24,7 @@
 
 ### Runbooks (validação publicada)
 - `docs/runbooks/RUN-PORTAL-PROD-VALIDATION.md`
+- `docs/runbooks/RUN-SECURITY-PROD-CHECKLIST.md`
 
 ### Regras de SSOT (Portal)
 - Texto/copy: Content-First via DB (camada `getContent()`), governado por catálogo versionado no repo.

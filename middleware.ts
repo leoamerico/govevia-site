@@ -111,6 +111,12 @@ async function enforceAdminAuth(request: NextRequest): Promise<NextResponse> {
 
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/admin')) {
+    if (process.env.NODE_ENV === 'production') {
+      const url = request.nextUrl.clone()
+      url.pathname = '/404'
+      url.search = ''
+      return NextResponse.rewrite(url)
+    }
     return enforceAdminAuth(request)
   }
 

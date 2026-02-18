@@ -18,6 +18,13 @@
 - Removidos atributos `placeholder` em telas admin para eliminar matches do grep governado.
 - Adicionado `app/manifest.ts` e ampliada validação de produção para manifest.
 
+## 2026-02-18 — Hardening de superfície (admin) + evidência
+
+- Superfície: `/admin/**` bloqueado em produção via middleware (responde 404 por rewrite para `/404`).
+- Headers: CSP reforçada com `object-src 'none'`.
+- SEO: `robots.txt` passa a bloquear `/admin/` e `/portal/callback`.
+- Runbook: `docs/runbooks/RUN-SECURITY-PROD-CHECKLIST.md` + template de evidência `docs/evidence/security/SECURITY-PROD-SNAPSHOT.md`.
+
 ## 2026-02-17 — Admin Console (MVP) + hardening
 
 - Fase 1 (DB): `lib/db/schema.sql` (idempotente, `pgcrypto`) e `lib/db/postgres.ts` (server-only, pool singleton via `globalThis`).

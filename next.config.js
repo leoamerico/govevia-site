@@ -17,6 +17,7 @@ function buildCspValue() {
     "font-src 'self'",
     "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com",
     "connect-src 'self' https://www.google-analytics.com",
+    "object-src 'none'",
     "frame-ancestors 'self'",
     "base-uri 'self'",
     "form-action 'self'",
