@@ -18,10 +18,27 @@ const CatalogItemSchema = z.object({
   notes: z.string().max(500).optional(),
 })
 
-const ContentCatalogSchema = z.object({
-  version: z.number().int().positive(),
-  items: z.array(CatalogItemSchema),
-})
+const ContentCatalogSchema = z
+  .object({
+    version: z.number().int().positive(),
+    items: z.array(CatalogItemSchema),
+  })
+  .superRefine((catalog, ctx) => {
+    const seen = new Set<string>()
+    for (const item of catalog.items) {
+      const slug = item.slug ?? null
+      const view = item.view ?? null
+      const lookup = `${item.key}||${item.scope}||${slug ?? ''}||${view ?? ''}`
+      if (seen.has(lookup)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `duplicate catalog item: ${lookup}`,
+        })
+        return
+      }
+      seen.add(lookup)
+    }
+  })
 
 export type ContentCatalogItem = z.infer<typeof CatalogItemSchema>
 export type ContentCatalog = z.infer<typeof ContentCatalogSchema>
@@ -31,9 +48,18 @@ function catalogPath(): string {
 }
 
 async function loadCatalogUncached(): Promise<ContentCatalog> {
+  if (process.env.NEXT_RUNTIME === 'edge') {
+    throw new Error('CONTENT-CATALOG.yaml loader is not supported on Edge runtime (requires filesystem access)')
+  }
+
   const raw = await readFile(catalogPath(), 'utf8')
   const parsed = yaml.load(raw)
-  return ContentCatalogSchema.parse(parsed)
+
+  try {
+    return ContentCatalogSchema.parse(parsed)
+  } catch {
+    throw new Error('Invalid docs/content/CONTENT-CATALOG.yaml (schema validation failed)')
+  }
 }
 
 export const loadContentCatalog = cache(loadCatalogUncached)

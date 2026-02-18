@@ -14,6 +14,7 @@
 - Plataforma (P0-01): reimplementação de `/plataforma` com componentes dedicados (`PersonaSelector`, `CapabilitiesMatrix`) + SSOT em `lib/plataforma/model.ts` e textos via `getContent()` com fallback hardcoded (tokens-only; sem HEX; sem `@import`; sem fontes externas).
 - Governança (tokens/diff): `PROJECT-SSOT.md`, `RUN-SITE-STEPS.md`, registries em `docs/registry/` + gates `stage:check`, `scope:check`, `content-keys:check` e policy `POL-PORTAL-BFF-CORE.md`.
 - Fase 3.3 (Content-First): `docs/content/CONTENT-CATALOG.yaml` (SSOT de chaves) + bootstrap “Inicializar Catálogo” no `/admin/content` + indicador de completude publicada.
+- Fase 3.4 (Content-First): `/plataforma` refatorada para layout + keys (`getContent(..., fallback: '')`) e ocultação de blocos/cards vazios; personas/capabilities/axes sem texto hardcoded.
 
 ## Correções de Segurança
 

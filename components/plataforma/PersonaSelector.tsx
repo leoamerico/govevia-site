@@ -2,13 +2,16 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-import { PERSONAS, type PersonaId } from '@/lib/plataforma/model'
+import type { PersonaId } from '@/lib/plataforma/model'
 
 type Props = {
   activePersonaId: PersonaId | null
+  helperText: string
+  ariaLabel: string
+  personas: Array<{ id: PersonaId; label: string; role: string }>
 }
 
-export default function PersonaSelector({ activePersonaId }: Props) {
+export default function PersonaSelector({ activePersonaId, helperText, ariaLabel, personas }: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -24,12 +27,14 @@ export default function PersonaSelector({ activePersonaId }: Props) {
 
   return (
     <div>
-      <div className="text-xs font-mono text-institutional-silver mb-3">
-        Seletor de persona (link compartilhável via <span className="font-semibold">?view=</span>)
-      </div>
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Selecionar persona">
-        {(Object.keys(PERSONAS) as PersonaId[]).map((id) => {
-          const persona = PERSONAS[id]
+      {helperText.trim().length > 0 ? (
+        <div className="text-xs font-mono text-institutional-silver mb-3">
+          {helperText}
+        </div>
+      ) : null}
+      <div className="flex flex-wrap gap-2" role="group" aria-label={ariaLabel}>
+        {personas.map((persona) => {
+          const id = persona.id
           const isActive = activePersonaId === id
           return (
             <button
@@ -44,7 +49,9 @@ export default function PersonaSelector({ activePersonaId }: Props) {
               }
             >
               {persona.label}
-              <span className="ml-2 text-xs font-mono text-institutional-slate">{persona.role}</span>
+              {persona.role.trim().length > 0 ? (
+                <span className="ml-2 text-xs font-mono text-institutional-slate">{persona.role}</span>
+              ) : null}
             </button>
           )
         })}

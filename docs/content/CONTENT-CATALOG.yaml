@@ -23,3 +23,256 @@ items:
     required: false
     section: plataforma.hero
     notes: Texto auxiliar (pode ficar vazio e ocultar a linha).
+
+  - key: site.plataforma.selector.helper
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.selector
+    notes: Texto auxiliar acima do seletor.
+
+  - key: site.plataforma.selector.ariaLabel
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.selector
+    notes: Aria-label do grupo de botões do seletor.
+
+  - key: site.plataforma.matrix.caption.global
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.matrix
+    notes: Legenda para visão canônica (sem persona).
+
+  - key: site.plataforma.matrix.caption.prefix
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.matrix
+    notes: Prefixo da legenda quando persona ativa (concatena com label da persona).
+
+  - key: site.plataforma.matrix.pill.priority
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.matrix
+    notes: Texto do badge de prioridade.
+
+  - key: site.plataforma.matrix.pill.evidence
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: plataforma.matrix
+    notes: Texto do badge de evidência.
+
+  - key: persona.prefeito.label
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: persona
+    notes: Label exibida no seletor.
+
+  - key: persona.prefeito.role
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: persona
+    notes: Subtexto exibido no seletor.
+
+  - key: persona.procurador.label
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: persona
+
+  - key: persona.procurador.role
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: persona
+
+  - key: persona.auditor.label
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: persona
+
+  - key: persona.auditor.role
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: persona
+
+  - key: persona.secretario.label
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: persona
+
+  - key: persona.secretario.role
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: persona
+
+  - key: cap.assinatura.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: cap
+
+  - key: cap.assinatura.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.assinatura.description
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.versionamento.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: cap
+
+  - key: cap.versionamento.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.versionamento.description
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.alertas.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: cap
+
+  - key: cap.alertas.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.alertas.description
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.trilha.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: cap
+
+  - key: cap.trilha.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.trilha.description
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.exportacao.title
+    scope: site
+    view: null
+    format: text
+    required: true
+    section: cap
+
+  - key: cap.exportacao.subtitle
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.exportacao.description
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap
+
+  - key: cap.axis.gestao.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap.axis
+
+  - key: cap.axis.planejamento.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap.axis
+
+  - key: cap.axis.assinatura.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap.axis
+
+  - key: cap.axis.auditoria.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap.axis
+
+  - key: cap.axis.governanca.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap.axis
+
+  - key: cap.axis.transparencia.label
+    scope: site
+    view: null
+    format: text
+    required: false
+    section: cap.axis

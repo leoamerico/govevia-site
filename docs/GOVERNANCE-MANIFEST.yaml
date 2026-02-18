@@ -104,3 +104,6 @@ artifacts:
     path: lib/content/catalog.ts
   - kind: content_catalog_bootstrap_evidence
     path: docs/public/evidence/frontend/REPORT-CONTENT-CATALOG-BOOTSTRAP.md
+
+  - kind: content_first_plataforma_evidence
+    path: docs/public/evidence/frontend/REPORT-CONTENT-FIRST-PLATAFORMA.md
