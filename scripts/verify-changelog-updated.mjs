@@ -93,7 +93,14 @@ function main() {
   }
 
   const headSha = getHeadSha()
-  const changed = isWorkingTreeDirty()
+
+  // In CI environments (Vercel sets VERCEL_GIT_COMMIT_SHA), the build platform may
+  // modify files like vercel.json in the working tree as part of deployment setup.
+  // Checking the working tree in CI would produce false positives from those platform
+  // writes. Always use committed diff when running inside a CI build.
+  const inCI = Boolean(process.env.VERCEL_GIT_COMMIT_SHA || process.env.CI)
+
+  const changed = (!inCI && isWorkingTreeDirty())
     ? listWorkingTreeFiles()
     : (() => {
         const baseSha = getBaseSha(headSha)

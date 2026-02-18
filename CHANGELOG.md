@@ -1,5 +1,13 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Correção de build (history:check em CI)
+
+- `scripts/verify-changelog-updated.mjs`: em ambientes CI (Vercel define `VERCEL_GIT_COMMIT_SHA`), o script agora sempre usa o diff commitado em vez de inspecionar a árvore de trabalho. O Vercel modifica `vercel.json` na working tree durante o setup do deploy, causando falso positivo no gate.
+
+## 2026-02-18 — Upgrade Next.js 14.2.28 → 14.2.35
+
+- `next` e `eslint-config-next` atualizados para `14.2.35` (última patch da série 14.x). A versão `14.2.28` contém vulnerabilidade de segurança documentada em `https://nextjs.org/blog/security-update-2025-12-11`.
+
 ## 2026-02-18 — Aviso de site em construção
 
 - Home (`/`): removidos os dizeres/sections atuais na renderização e incluída mensagem informativa "Estamos em construção".
