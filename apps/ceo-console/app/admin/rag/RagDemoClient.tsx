@@ -1,12 +1,13 @@
 'use client'
 /**
  * RagDemoClient.tsx — Interface interativa de demo RAG.
- * Tabs: Upload PDF | Busca Semântica.
- * Chama Server Actions (sem fetch direto ao kernel — sem hardcode de URL).
+ * Tabs: Upload PDF | Busca Semântica | Tarefas Assíncronas.
+ * Chama Server Actions e rotas proxy (sem fetch direto ao kernel).
  */
-import { useState, useTransition, useRef } from 'react'
+import { useState, useTransition, useRef, useEffect } from 'react'
 import { uploadDoc, searchDocs } from './actions'
 import type { UploadResult, SearchResult } from './actions'
+import { usePollTask } from '@/hooks/usePollTask'
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
@@ -207,9 +208,203 @@ function SearchTab() {
   )
 }
 
+// ─── Tab: Tarefas Assíncronas ─────────────────────────────────────────────────
+
+const STATUS_COLOR: Record<string, string> = {
+  pending: '#f59e0b',
+  running: '#38bdf8',
+  success: '#4ade80',
+  failed:  '#f87171',
+}
+
+function TasksTab() {
+  const [handlers, setHandlers]       = useState<string[]>([])
+  const [handlersErr, setHandlersErr] = useState<string | null>(null)
+  const [handler, setHandler]         = useState('')
+  const [rawPayload, setRawPayload]   = useState('{}')
+  const [payloadErr, setPayloadErr]   = useState<string | null>(null)
+  const [taskId, setTaskId]           = useState<string | null>(null)
+  const [dispatchErr, setDispatchErr] = useState<string | null>(null)
+  const [dispatching, setDispatching] = useState(false)
+
+  const { state, isLoading, error: pollErr, reset } = usePollTask(taskId)
+
+  useEffect(() => {
+    fetch('/api/admin/kernel/task/handlers', { cache: 'no-store' })
+      .then(r => r.json())
+      .then((d: { handlers?: string[]; error?: string }) => {
+        if (d.error) { setHandlersErr(d.error); return }
+        setHandlers(d.handlers ?? [])
+        if (d.handlers?.length) setHandler(d.handlers[0])
+      })
+      .catch(() => setHandlersErr('Erro ao carregar handlers'))
+  }, [])
+
+  function validatePayload(): Record<string, unknown> | null {
+    try {
+      const p = JSON.parse(rawPayload)
+      if (typeof p !== 'object' || Array.isArray(p)) throw new Error()
+      setPayloadErr(null)
+      return p as Record<string, unknown>
+    } catch {
+      setPayloadErr('Payload deve ser um objeto JSON válido, ex: {"chave":"valor"}')
+      return null
+    }
+  }
+
+  async function handleDispatch(e: React.FormEvent) {
+    e.preventDefault()
+    const payload = validatePayload()
+    if (!payload || !handler) return
+
+    reset()
+    setTaskId(null)
+    setDispatchErr(null)
+    setDispatching(true)
+
+    try {
+      const res = await fetch('/api/admin/kernel/task/dispatch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ handler, payload }),
+        cache: 'no-store',
+      })
+      const data = await res.json() as { task_id?: string; error?: string }
+      if (!res.ok || !data.task_id) {
+        setDispatchErr(data.error ?? `HTTP ${res.status}`)
+      } else {
+        setTaskId(data.task_id)
+      }
+    } catch {
+      setDispatchErr('Erro de rede ao despachar tarefa')
+    } finally {
+      setDispatching(false)
+    }
+  }
+
+  const isTerminal = state?.status === 'success' || state?.status === 'failed'
+
+  return (
+    <div>
+      <div style={{ marginBottom: '16px', fontSize: '12px', color: '#64748b' }}>
+        <span style={{ color: '#fb923c', marginRight: '8px' }}>Sprint C — Task Queue</span>
+        <span style={{ color: '#475569' }}>dispatch → pending → running → success|failed</span>
+      </div>
+
+      {handlersErr && (
+        <div style={{ ...S.stubBanner, color: '#fca5a5' }}>⚠ {handlersErr}</div>
+      )}
+
+      <form onSubmit={handleDispatch}>
+        <label style={S.label}>Handler</label>
+        {handlers.length > 0 ? (
+          <select
+            value={handler}
+            onChange={e => setHandler(e.target.value)}
+            style={{ ...S.input, cursor: 'pointer' }}
+          >
+            {handlers.map(h => <option key={h} value={h}>{h}</option>)}
+          </select>
+        ) : (
+          <input
+            type="text"
+            value={handler}
+            onChange={e => setHandler(e.target.value)}
+            placeholder="ping"
+            style={S.input}
+          />
+        )}
+
+        <label style={{ ...S.label, marginTop: '16px' }}>Payload JSON</label>
+        <textarea
+          value={rawPayload}
+          onChange={e => { setRawPayload(e.target.value); setPayloadErr(null) }}
+          rows={3}
+          style={{ ...S.input, fontFamily: 'monospace', fontSize: '12px', resize: 'vertical' }}
+        />
+        {payloadErr && <div style={{ color: '#f87171', fontSize: '12px', marginTop: '4px' }}>{payloadErr}</div>}
+
+        <button
+          type="submit"
+          style={S.btn(dispatching || isLoading, !handler.trim())}
+          disabled={dispatching || isLoading || !handler.trim()}
+        >
+          {dispatching ? 'Despachando…' : isLoading ? 'Aguardando tarefa…' : '⚡ Despachar tarefa'}
+        </button>
+      </form>
+
+      {dispatchErr && (
+        <div style={{ color: '#f87171', fontSize: '13px', marginTop: '12px' }}>✖ {dispatchErr}</div>
+      )}
+      {pollErr && (
+        <div style={{ color: '#fb923c', fontSize: '13px', marginTop: '12px' }}>⚠ {pollErr}</div>
+      )}
+
+      {(taskId || state) && (
+        <div style={{ marginTop: '20px', background: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '16px 18px' }}>
+          {taskId && (
+            <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#475569', marginBottom: '12px' }}>
+              task_id: <span style={{ color: '#94a3b8' }}>{taskId}</span>
+            </div>
+          )}
+
+          {(isLoading || state) && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+              <span style={{
+                display: 'inline-block', width: '10px', height: '10px', borderRadius: '50%',
+                background: state ? (STATUS_COLOR[state.status] ?? '#64748b') : '#f59e0b',
+                boxShadow: isLoading ? '0 0 0 3px rgba(56,189,248,0.3)' : 'none',
+              }} />
+              <span style={{ fontSize: '14px', fontWeight: 700, color: state ? (STATUS_COLOR[state.status] ?? '#e2e8f0') : '#f59e0b' }}>
+                {state?.status?.toUpperCase() ?? 'PENDING'}
+              </span>
+              {isLoading && <span style={{ fontSize: '11px', color: '#475569' }}>polling a cada 1,5s…</span>}
+              {isTerminal && state?.elapsed_ms != null && (
+                <span style={{ fontSize: '11px', color: '#475569', marginLeft: 'auto' }}>
+                  elapsed: {state.elapsed_ms.toFixed(0)} ms
+                </span>
+              )}
+            </div>
+          )}
+
+          {isLoading && (
+            <div style={{ height: '3px', background: '#334155', borderRadius: '2px', overflow: 'hidden', marginBottom: '12px' }}>
+              <div style={{
+                height: '100%', width: '40%',
+                background: 'linear-gradient(90deg, transparent, #38bdf8, transparent)',
+                animation: 'slide 1.2s linear infinite',
+              }} />
+            </div>
+          )}
+
+          {state?.status === 'success' && state.result != null && (
+            <pre style={{ margin: 0, fontSize: '12px', color: '#86efac', fontFamily: 'monospace', background: '#052e16', border: '1px solid #166534', borderRadius: '6px', padding: '10px 12px', overflowX: 'auto', whiteSpace: 'pre-wrap' }}>
+              {JSON.stringify(state.result, null, 2)}
+            </pre>
+          )}
+
+          {state?.status === 'failed' && (
+            <div style={{ color: '#f87171', fontSize: '13px', fontFamily: 'monospace', background: '#450a0a', border: '1px solid #991b1b', borderRadius: '6px', padding: '10px 12px' }}>
+              {String(state.error ?? 'Tarefa falhou sem mensagem de erro')}
+            </div>
+          )}
+        </div>
+      )}
+
+      <style>{`@keyframes slide { from { transform:translateX(-200%) } to { transform:translateX(400%) } }`}</style>
+    </div>
+  )
+}
+
 // ─── Main Export ─────────────────────────────────────────────────────────────
 
-type Tab = 'upload' | 'search'
+type Tab = 'upload' | 'search' | 'tasks'
+
+const TAB_LABELS: Record<Tab, string> = {
+  upload: '⬆  Upload PDF',
+  search: '🔍  Busca Semântica',
+  tasks:  '⚡  Tarefas Async',
+}
 
 export function RagDemoClient() {
   const [tab, setTab] = useState<Tab>('upload')
@@ -217,14 +412,16 @@ export function RagDemoClient() {
   return (
     <div>
       <div style={S.tabs}>
-        {(['upload', 'search'] as Tab[]).map(t => (
+        {(['upload', 'search', 'tasks'] as Tab[]).map(t => (
           <button key={t} type="button" style={S.tab(tab === t)} onClick={() => setTab(t)}>
-            {t === 'upload' ? '⬆  Upload PDF' : '🔍  Busca Semântica'}
+            {TAB_LABELS[t]}
           </button>
         ))}
       </div>
       <div style={S.panel}>
-        {tab === 'upload' ? <UploadTab /> : <SearchTab />}
+        {tab === 'upload' && <UploadTab />}
+        {tab === 'search' && <SearchTab />}
+        {tab === 'tasks'  && <TasksTab />}
       </div>
     </div>
   )

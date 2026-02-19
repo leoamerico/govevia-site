@@ -156,3 +156,41 @@ export async function getTaskState(taskId: string): Promise<TaskState | null> {
   if (!res.ok) throw new KernelUnavailableError(`tasks/${taskId} retornou HTTP ${res.status}`)
   return (await res.json()) as TaskState
 }
+
+/**
+ * Despacha uma tarefa assíncrona pelo nome do handler.
+ * Retorna o objeto inicial com task_id + status:"pending".
+ */
+export interface DispatchRequest {
+  handler: string
+  payload?: Record<string, unknown>
+}
+
+export interface DispatchResponse {
+  task_id: string
+  handler: string
+  status: 'pending'
+}
+
+export async function dispatchTask(req: DispatchRequest): Promise<DispatchResponse> {
+  const res = await kernelFetch('/api/v1/tasks/dispatch', {
+    method: 'POST',
+    body: JSON.stringify(req),
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    const msg = (body as { error?: string }).error ?? `HTTP ${res.status}`
+    throw new KernelUnavailableError(`tasks/dispatch: ${msg}`)
+  }
+  return (await res.json()) as DispatchResponse
+}
+
+/**
+ * Lista os handlers registrados no task queue.
+ */
+export async function getTaskHandlers(): Promise<string[]> {
+  const res = await kernelFetch('/api/v1/tasks/handlers')
+  if (!res.ok) throw new KernelUnavailableError(`tasks/handlers retornou HTTP ${res.status}`)
+  const data = (await res.json()) as { handlers: string[] }
+  return data.handlers
+}
