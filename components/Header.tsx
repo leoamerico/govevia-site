@@ -1,5 +1,5 @@
 import HeaderClient from '@/components/Header.client'
-import { ENVNEO_LEGAL_ENTITY_NAME, GOVEVIA_PRODUCT_NAME } from '@/lib/brand/envneo'
+import { GOVEVIA_PRODUCT_NAME } from '@/lib/brand/envneo'
 import { getAllPosts } from '@/lib/blog'
 
 export default function Header() {
