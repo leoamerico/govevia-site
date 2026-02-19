@@ -7,6 +7,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
 import { KernelStatus } from '@/components/admin/KernelStatus'
+import { ContextualHelp } from '@/components/admin/ContextualHelp'
 
 const navLinks = [
   { href: '/admin/site', label: 'Site' },
@@ -84,6 +85,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </nav>
       {children}
+      <ContextualHelp />
     </>
   )
 }

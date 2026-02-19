@@ -13,7 +13,11 @@
     "smoke:identity": "node tools/smoke/smoke-corporate-identity.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:debug": "PWDEBUG=1 playwright test"
+    "test:e2e:debug": "PWDEBUG=1 playwright test",
+    "demo:record": "playwright test --config=playwright.demo.config.ts --headed",
+    "demo:gif": "node scripts/webm-to-gif.mjs",
+    "demo:publish": "node scripts/demo-publish.mjs",
+    "demo": "npm run demo:record && npm run demo:gif && npm run demo:publish"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -28,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "ffmpeg-static": "^5.3.0",
     "typescript": "^5"
   }
 }

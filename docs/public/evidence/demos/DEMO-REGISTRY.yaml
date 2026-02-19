@@ -1,0 +1,67 @@
+version: 1
+# ─────────────────────────────────────────────────────────────────────────────
+# DEMO-REGISTRY — Evidências de vídeo para entregas frontend concluídas
+#
+# POLÍTICA (vigência: 2026-02-19)
+# Toda entrega frontend com status=done no CHANGELOG deve ter uma entrada aqui
+# com artifact_path preenchido e status=recorded.
+#
+# O gate `npm run gate:demo-video` (scripts/verify-delivery-video.mjs) bloqueia
+# deploy se qualquer entrega com status=done tiver artifact_path: null.
+#
+# Geração:  npm run demo:record   → grava vídeos em apps/ceo-console/demo-results/
+#           npm run demo:gif      → converte .webm → .gif
+#           npm run demo:publish  → move GIFs para docs/public/evidence/demos/<sprint_id>/
+#                                   e atualiza este registry
+# ─────────────────────────────────────────────────────────────────────────────
+
+policy:
+  effective_from: "2026-02-19"
+  rule: >
+    Toda entrega frontend marcada como done no CHANGELOG.md a partir de
+    effective_from deve ter artifact_path preenchido e status=recorded.
+  enforcement: block_on_missing
+  waiver_allowed: true
+  waiver_requires: waiver_reason
+
+deliveries:
+  # ── Entregas anteriores à política (waived) ────────────────────────────────
+
+  - sprint_id: SPRINT-PRESENT-01
+    date: "2026-02-19"
+    title: "Apresentação executável (Docs + CEO Console)"
+    status: waived
+    waiver_reason: "Entrega anterior à política de vídeo obrigatório (effective_from: 2026-02-19)"
+    artifact_path: null
+
+  - sprint_id: CEO-CONSOLE-SPRINTS-B-D
+    date: "2026-02-18"
+    title: "CEO Console — Auth, RAG Demo, Task Queue, Search Proxy"
+    status: waived
+    waiver_reason: "Entregas anteriores à política de vídeo obrigatório (effective_from: 2026-02-19)"
+    artifact_path: null
+
+  # ── Entregas sob a nova política ───────────────────────────────────────────
+
+  - sprint_id: CEO-CONSOLE-E2E-PLAYWRIGHT
+    date: "2026-02-19"
+    title: "Playwright E2E 29/29 — auth, admin, rag, api"
+    status: recorded
+    artifact_path: docs/public/evidence/demos/CEO-CONSOLE-E2E-PLAYWRIGHT/
+    artifacts:
+      - file: 01-protecao-de-rota.gif
+        scene: "Acesso sem autenticação redireciona para /admin/login"
+      - file: 02-login-credenciais-invalidas.gif
+        scene: "Formulário exibe mensagem de erro para credenciais incorretas"
+      - file: 03-navegacao-painel-admin.gif
+        scene: "Percorre todos os 7 módulos do painel admin"
+      - file: 04-rag-demo-busca-semantica.gif
+        scene: "Três abas (Upload, Busca, Tarefas) + query semântica ao vivo"
+      - file: 05-logout.gif
+        scene: "Logout via API limpa sessão e redireciona para login"
+    recorded_by: playwright-demo-spec
+    spec: apps/ceo-console/tests/e2e/demo.spec.ts
+    reviewed: false
+    notes: >
+      GIFs gerados via `npm run demo:record && npm run demo:gif && npm run demo:publish`
+      no commit 2c94a3a. Browser visível, slowMo=700ms, viewport 1280×800.
