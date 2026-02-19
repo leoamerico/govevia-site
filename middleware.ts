@@ -1,10 +1,5 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { jwtVerify } from 'jose'
-
-const ADMIN_COOKIE_NAME = 'govevia_admin_session'
-const ADMIN_ISSUER = 'govevia-admin'
-const ADMIN_AUDIENCE = 'govevia-admin'
 
 function toOrigin(value: string | null): string | null {
   if (!value) return null
@@ -64,13 +59,6 @@ export const config = {
   matcher: ['/api/:path*', '/admin/:path*'],
 }
 
-function getAdminSecret(): string | null {
-  const value = process.env.ADMIN_SESSION_SECRET
-  if (!value) return null
-  if (value.length < 32) return null
-  return value
-}
-
 const ADMIN_404 = new NextResponse('Not Found', {
   status: 404,
   headers: {
@@ -79,37 +67,10 @@ const ADMIN_404 = new NextResponse('Not Found', {
   },
 })
 
-async function enforceAdminAuth(request: NextRequest): Promise<NextResponse> {
-  const pathname = request.nextUrl.pathname
-
-  // Login sempre acessível (entrada do admin)
-  if (pathname === '/admin/login' || pathname === '/admin/login/') {
-    return NextResponse.next()
-  }
-
-  const secret = getAdminSecret()
-  if (!secret) {
-    // Sem secret configurado: 404 (não redireciona para evitar loop em produção sem env)
-    return ADMIN_404
-  }
-
-  const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value
-  if (!token) {
-    // Sem sessão: 404 para bots/scanners; admin sabe navegar diretamente para /admin/login
-    return ADMIN_404
-  }
-
-  try {
-    await jwtVerify(token, new TextEncoder().encode(secret), {
-      algorithms: ['HS256'],
-      issuer: ADMIN_ISSUER,
-      audience: ADMIN_AUDIENCE,
-    })
-  } catch {
-    return ADMIN_404
-  }
-
-  return NextResponse.next()
+async function enforceAdminAuth(_request: NextRequest): Promise<NextResponse> {
+  // BOUNDARY: site-public não tem admin funcional.
+  // Todo /admin/* retorna 404 — o console CEO vive em apps/ceo-console (porta 3001).
+  return ADMIN_404
 }
 
 export function middleware(request: NextRequest) {
