@@ -36,6 +36,18 @@ const CONTEXTS: TaxonomyItem<ContextId>[] = [
   { id: 'ministerio_publico', label: 'Ministério Público' },
 ]
 
+// Contextos válidos para cada persona — reflete o escopo real de atuação no setor público.
+// Prefeito: chefia o executivo municipal (prefeitura, consórcio, empresa pública)
+// Procurador: assessoria jurídica em toda a estrutura pública
+// Controlador: foco em instâncias de controle (interno e externo) e as entidades que fiscaliza
+// Secretário: gestão de área dentro do executivo e entidades vinculadas
+export const PERSONA_CONTEXT_MAP: Record<PersonaId, ContextId[]> = {
+  prefeito:    ['prefeitura', 'consorcio', 'empresa_publica'],
+  procurador:  ['prefeitura', 'camara', 'autarquia', 'consorcio', 'empresa_publica', 'ministerio_publico'],
+  controlador: ['prefeitura', 'camara', 'controle_interno', 'controle_externo'],
+  secretario:  ['prefeitura', 'autarquia', 'consorcio', 'empresa_publica'],
+}
+
 export function getPersonas(): TaxonomyItem<PersonaId>[] {
   return PERSONAS
 }

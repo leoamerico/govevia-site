@@ -66,6 +66,19 @@ export default async function AdminHomePage() {
             </a>
 
             <a
+              href="/admin/historico"
+              className="group flex flex-col rounded-lg border border-gray-200 bg-institutional-offwhite p-5 hover:border-primary/40 transition-colors"
+            >
+              <span className="text-xs font-mono text-institutional-slate">histórico</span>
+              <span className="mt-1 text-sm font-semibold text-institutional-navy font-sans group-hover:text-primary">
+                Histórico de Auditoria
+              </span>
+              <span className="mt-1 text-xs text-institutional-slate font-sans">
+                Registro imutável de eventos do sistema
+              </span>
+            </a>
+
+            <a
               href="/admin/impersonate"
               className="group flex flex-col rounded-lg border border-amber-200 bg-amber-50 p-5 hover:border-amber-400 transition-colors sm:col-span-2"
             >
