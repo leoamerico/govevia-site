@@ -1,47 +1,47 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
+import { COOKIE_NAME, ISSUER, AUDIENCE } from '@/lib/auth/admin'
 
-const ADMIN_COOKIE = 'govevia_admin_session'
-const ADMIN_ISSUER = 'govevia-admin'
-const ADMIN_AUDIENCE = 'govevia-admin-ui'
-
-function getSecret(): string | null {
-  const v = process.env.ADMIN_SESSION_SECRET
-  return v && v.length >= 32 ? v : null
-}
+const ALLOW = new Set([
+  '/admin/login',
+  '/admin/login/',
+  '/api/admin/login',
+  '/api/admin/logout',
+])
 
 const DENY = new NextResponse('Not Found', {
   status: 404,
-  headers: { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' },
+  headers: { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow, noarchive' },
 })
 
 export async function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname
+  const { pathname } = req.nextUrl
 
-  // Página de login sempre acessível (porta de entrada)
-  if (path === '/admin/login' || path === '/admin/login/') {
-    return NextResponse.next()
-  }
+  if (ALLOW.has(pathname)) return NextResponse.next()
 
-  const secret = getSecret()
-  if (!secret) return DENY
+  const secret = process.env.ADMIN_JWT_SECRET
+  if (!secret || secret.length < 32) return DENY
 
-  const token = req.cookies.get(ADMIN_COOKIE)?.value
-  if (!token) return DENY
+  const token = req.cookies.get(COOKIE_NAME)?.value
+  if (!token) return NextResponse.redirect(new URL('/admin/login', req.url))
 
   try {
     await jwtVerify(token, new TextEncoder().encode(secret), {
       algorithms: ['HS256'],
-      issuer: ADMIN_ISSUER,
-      audience: ADMIN_AUDIENCE,
+      issuer: ISSUER,
+      audience: AUDIENCE,
     })
   } catch {
-    return DENY
+    return NextResponse.redirect(new URL('/admin/login', req.url))
   }
 
-  return NextResponse.next()
+  const res = NextResponse.next()
+  res.headers.set('x-robots-tag', 'noindex, nofollow, noarchive')
+  res.headers.set('cache-control', 'no-store')
+  return res
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/api/admin/:path*'],
 }
+
