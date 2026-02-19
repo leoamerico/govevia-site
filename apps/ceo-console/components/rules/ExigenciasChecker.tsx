@@ -3,10 +3,11 @@
  * ExigenciasChecker — Checklist de exigências normativas por caso de uso.
  *
  * O fiscal marca cada exigência como confirmada, clica em "Confirmar Análise",
- * o BFF avalia o pré-payload via motor determinístico e (se PASS) emite um
- * token JWT-like armazenado em sessionStorage que libera o gate do BPMN.
+ * chama a Server Action verificarExigencias (motor determinístico, sem fetch)
+ * e armazena o token de aprovação em sessionStorage para liberar o gate do BPMN.
  */
 import { useState, useTransition } from 'react'
+import { verificarExigencias } from '@/app/admin/rules/actions'
 
 // ─── Dados estáticos derivados de institutional-rules.yaml ───────────────────
 
@@ -148,13 +149,18 @@ const S = {
 export interface ExigenciasCheckerProps {
   useCaseId: string
   normaId?: string
+  /** Regras ao vivo carregadas do YAML pelo RSC; usa catálogo estático como fallback */
+  rules?: Array<{ id: string; name: string; legal_reference: string; severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'; applies_to_use_cases: string[] }>
   onApproved: (token: string) => void
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export function ExigenciasChecker({ useCaseId, normaId, onApproved }: ExigenciasCheckerProps) {
-  const applicableRules = RULE_CATALOGUE.filter((r) => r.applies_to.includes(useCaseId))
+export function ExigenciasChecker({ useCaseId, normaId, rules: rulesProp, onApproved }: ExigenciasCheckerProps) {
+  const catalogue: RuleCatalogEntry[] = rulesProp
+    ? rulesProp.map((r) => ({ id: r.id, name: r.name, legal_reference: r.legal_reference, severity: r.severity, applies_to: r.applies_to_use_cases }))
+    : RULE_CATALOGUE
+  const applicableRules = catalogue.filter((r) => r.applies_to.includes(useCaseId))
   const [checked, setChecked] = useState<Record<string, boolean>>({})
   const [approved, setApproved] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -181,25 +187,15 @@ export function ExigenciasChecker({ useCaseId, normaId, onApproved }: Exigencias
     setError(null)
     startTransition(async () => {
       try {
-        const res = await fetch('/api/admin/rules/verificar-exigencias', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            useCaseId,
-            base_normativa_id: normaId ?? 'PRE_VERIFICACAO',
-          }),
+        const result = await verificarExigencias(useCaseId, {
+          base_normativa_id: normaId ?? 'PRE_VERIFICACAO',
+          actor_user_id: 'FISCAL_USER',
         })
-        const data = await res.json() as {
-          result?: string
-          token?: string
-          error?: string
-          detail?: string
-        }
-        if (!res.ok || data.result === 'FAIL') {
-          setError(data.error ?? data.detail ?? 'Avaliação não passou. Revise os campos e tente novamente.')
+        if (result.result === 'FAIL') {
+          setError('Avaliação não passou. Verifique as exigências e tente novamente.')
           return
         }
-        const token = data.token ?? btoa(`${useCaseId}:${Date.now()}`)
+        const token = btoa(`${useCaseId}:${Date.now()}`)
         try {
           sessionStorage.setItem('exigencias_aprovadas', token)
         } catch {
@@ -208,7 +204,7 @@ export function ExigenciasChecker({ useCaseId, normaId, onApproved }: Exigencias
         setApproved(true)
         onApproved(token)
       } catch (err) {
-        setError(`Erro de conexão: ${err instanceof Error ? err.message : String(err)}`)
+        setError(`Erro ao verificar: ${err instanceof Error ? err.message : String(err)}`)
       }
     })
   }

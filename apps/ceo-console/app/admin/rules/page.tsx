@@ -6,9 +6,9 @@
  */
 import type { Metadata } from 'next'
 import { join } from 'node:path'
-import { loadUseCases } from '../../../../../lib/rules/engine'
+import { loadUseCases, loadRules } from '../../../../../lib/rules/engine'
 import { PlaygroundClient } from './PlaygroundClient'
-import type { UseCaseInfo } from './PlaygroundClient'
+import type { UseCaseInfo, RuleInfo } from './PlaygroundClient'
 
 export const metadata: Metadata = {
   title: 'Regras — CEO Console',
@@ -28,5 +28,14 @@ export default function RulesPage() {
     rule_ids: u.rule_ids,
   }))
 
-  return <PlaygroundClient useCases={useCases} />
+  const rawRules = loadRules(rootDir)
+  const rules: RuleInfo[] = rawRules.map((r) => ({
+    id: r.id,
+    name: r.name,
+    legal_reference: r.legal_reference,
+    severity: r.severity,
+    applies_to_use_cases: r.applies_to_use_cases,
+  }))
+
+  return <PlaygroundClient useCases={useCases} rules={rules} />
 }

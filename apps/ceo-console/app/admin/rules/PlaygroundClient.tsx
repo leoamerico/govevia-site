@@ -21,6 +21,15 @@ export interface UseCaseInfo {
   rule_ids: string[]
 }
 
+/** Subconjunto serializável de InstitutionalRule (lib/rules/engine.ts) */
+export interface RuleInfo {
+  id: string
+  name: string
+  legal_reference: string
+  severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+  applies_to_use_cases: string[]
+}
+
 function buildTemplatePayload(fields: string[]): string {
   const obj: Record<string, string> = {}
   for (const f of fields) obj[f] = ''
@@ -123,7 +132,7 @@ const RULE_CATALOGUE_STATIC = [
 
 // ─── Main component ──────────────────────────────────────────────────────────
 
-export function PlaygroundClient({ useCases }: { useCases: UseCaseInfo[] }) {
+export function PlaygroundClient({ useCases, rules }: { useCases: UseCaseInfo[]; rules?: RuleInfo[] }) {
   const [activeTab, setActiveTab] = useState<'simulacao' | 'catalogo' | 'exigencias'>('simulacao')
   const [approvedToken, setApprovedToken] = useState<string | null>(null)
   const [selectedId, setSelectedId] = useState(useCases[0]?.id ?? '')
@@ -254,17 +263,22 @@ export function PlaygroundClient({ useCases }: { useCases: UseCaseInfo[] }) {
                 </tr>
               </thead>
               <tbody>
-                {RULE_CATALOGUE_STATIC.map((r, i) => (
-                  <tr key={r.id} style={S.catRow(i)}>
-                    <td style={{ ...S.catCell, fontFamily: 'monospace', color: '#f8fafc', fontWeight: 700 }}>{r.id}</td>
-                    <td style={S.catCell}>{r.name}</td>
-                    <td style={{ ...S.catCell, fontFamily: 'monospace', fontSize: '0.72rem', color: '#94a3b8' }}>{r.legal_reference}</td>
-                    <td style={S.catCell}>
-                      <span style={{ background: (SEV_COLORS[r.severity] ?? '#94a3b8') + '22', color: SEV_COLORS[r.severity] ?? '#94a3b8', border: `1px solid ${(SEV_COLORS[r.severity] ?? '#94a3b8')}55`, borderRadius: 4, padding: '0.1rem 0.4rem', fontSize: '0.65rem', fontWeight: 700, fontFamily: 'monospace' }}>{r.severity}</span>
-                    </td>
-                    <td style={{ ...S.catCell, fontFamily: 'monospace', color: '#64748b' }}>{r.applies_to}</td>
-                  </tr>
-                ))}
+                {(rules ?? RULE_CATALOGUE_STATIC).map((r, i) => {
+                  const appliesTo = 'applies_to_use_cases' in r
+                    ? (r as RuleInfo).applies_to_use_cases.join(', ')
+                    : (r as typeof RULE_CATALOGUE_STATIC[0]).applies_to
+                  return (
+                    <tr key={r.id} style={S.catRow(i)}>
+                      <td style={{ ...S.catCell, fontFamily: 'monospace', color: '#f8fafc', fontWeight: 700 }}>{r.id}</td>
+                      <td style={S.catCell}>{r.name}</td>
+                      <td style={{ ...S.catCell, fontFamily: 'monospace', fontSize: '0.72rem', color: '#94a3b8' }}>{r.legal_reference}</td>
+                      <td style={S.catCell}>
+                        <span style={{ background: (SEV_COLORS[r.severity] ?? '#94a3b8') + '22', color: SEV_COLORS[r.severity] ?? '#94a3b8', border: `1px solid ${(SEV_COLORS[r.severity] ?? '#94a3b8')}55`, borderRadius: 4, padding: '0.1rem 0.4rem', fontSize: '0.65rem', fontWeight: 700, fontFamily: 'monospace' }}>{r.severity}</span>
+                      </td>
+                      <td style={{ ...S.catCell, fontFamily: 'monospace', color: '#64748b' }}>{appliesTo}</td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
@@ -284,6 +298,7 @@ export function PlaygroundClient({ useCases }: { useCases: UseCaseInfo[] }) {
           )}
           <ExigenciasChecker
             useCaseId={selectedId}
+            rules={rules}
             onApproved={(token) => setApprovedToken(token)}
           />
           {approvedToken && (
