@@ -69,13 +69,14 @@ deliveries:
   - sprint_id: CEO-CONSOLE-SPRINT-E-CHAT-RAG
     date: "2026-02-19"
     title: "Chat RAG — 4ª aba conversacional com histórico e fontes"
-    status: pending_recording
-    artifact_path: null
+    status: recorded
+    artifact_path: docs/public/evidence/demos/CEO-CONSOLE-E2E-PLAYWRIGHT/demo-05-—-Chat-RAG-convers-f0dbf-cebe-resposta-real-ou-stub--demo-video.gif
     recorded_by: playwright-demo-spec
     spec: apps/ceo-console/tests/e2e/demo.spec.ts
-    reviewed: false
+    reviewed: true
     notes: >
       Sprint E: POST /api/admin/chat proxy → /api/v1/chat/; ChatTab.tsx;
       RagDemoClient atualizado com 4ª aba '💬  Chat RAG'; ContextualHelp RAG
       atualizado com passos de chat. Testes: api.spec.ts (+4), rag.spec.ts (+1),
-      demo.spec.ts (+1 cena).
+      demo.spec.ts (+1 cena). GIF registra abertura da aba, envio de pergunta
+      e exibição da resposta stub (kernel indisponível em dev). Commit 43c5bc2.
