@@ -8,9 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function AdminLoginPage() {
-  const brandRegistryPath = join(process.cwd(), '../..', 'envneo', 'control-plane', 'bridge', 'brand-registry.json')
-  const brandRegistry = JSON.parse(readFileSync(brandRegistryPath, 'utf8'))
-  const entity = brandRegistry['ENVNEO_LTDA'] as { legal_name_upper: string; cnpj: string }
-
-  return <LoginForm legalName={entity.legal_name_upper} cnpj={entity.cnpj} />
+  const orgIdentityPath = join(process.cwd(), '../..', 'envneo', 'control-plane', 'ltda', 'org-identity.json')
+  const org = JSON.parse(readFileSync(orgIdentityPath, 'utf8')) as { razao_social: string; cnpj: string }
+  return <LoginForm legalName={org.razao_social} cnpj={org.cnpj} />
 }

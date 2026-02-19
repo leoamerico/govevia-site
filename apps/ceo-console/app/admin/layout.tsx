@@ -1,7 +1,6 @@
 /**
  * Admin section layout — adiciona barra de navegação interna ao /admin/*.
- * Não exibido na tela de login (pois o login tem seu próprio layout inline).
- * Identidade corporativa lida do Control Plane (brand-registry.json).
+ * Identidade corporativa lida do SSOT jurídico (org-identity.json).
  */
 import Link from 'next/link'
 import { readFileSync } from 'node:fs'
@@ -14,10 +13,9 @@ const navLinks = [
 
 function loadCorporateIdentity(): { legalName: string; cnpj: string } {
   try {
-    const path = join(process.cwd(), '../..', 'envneo', 'control-plane', 'bridge', 'brand-registry.json')
-    const reg = JSON.parse(readFileSync(path, 'utf8'))
-    const e = reg['ENVNEO_LTDA'] as { legal_name_upper: string; cnpj: string }
-    return { legalName: e.legal_name_upper, cnpj: e.cnpj }
+    const path = join(process.cwd(), '../..', 'envneo', 'control-plane', 'ltda', 'org-identity.json')
+    const org = JSON.parse(readFileSync(path, 'utf8')) as { razao_social: string; cnpj: string }
+    return { legalName: org.razao_social, cnpj: org.cnpj }
   } catch {
     return { legalName: 'ENV NEO LTDA', cnpj: '36.207.211/0001-47' }
   }

@@ -77,8 +77,8 @@ cat envneo/ops/CEO-QUEUE.yaml | grep -E "^(backlog|wip|done):"
 
 **Prova PASS:**
 ```bash
-# Confirmar que identidade vem do Control Plane (não hardcoded)
-cat envneo/control-plane/bridge/brand-registry.json | grep -E '"legal_name_upper"|"cnpj"'
+# Confirmar que identidade vem do SSOT jurídico (não hardcoded)
+cat envneo/control-plane/ltda/org-identity.json | grep -E '"razao_social"|"cnpj"'
 # Esperado: "ENV NEO LTDA" e "36.207.211/0001-47"
 ```
 
