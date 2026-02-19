@@ -3,3 +3,6 @@
 {"ts":"2026-02-19T00:02:00Z","org_unit":"ENVNEO","type":"DECISION","ref":"ORGUNITS-v1","summary":"OrgUnits definidas: ENVNEO (prefeitura), GOVEVIA (subprefeitura produto), ENVLIVE (subprefeitura enterprise).","actor":"Leo"}
 {"ts":"2026-02-19T00:03:00Z","org_unit":"ENVNEO","type":"GATE","ref":"GATE-WIP-1","summary":"Gate bloqueante WIP=1 definido. Build falha se wip[] tiver mais de 1 item em CEO-QUEUE.yaml.","actor":"Leo"}
 {"ts":"2026-02-19T00:04:00Z","org_unit":"ENVNEO","type":"GATE","ref":"GATE-APPEND-ONLY","summary":"Gate bloqueante append-only definido. Build falha se linhas existentes do REGISTRY-OPS.ndjson forem modificadas ou removidas.","actor":"Leo"}
+{"ts":"2026-02-19T01:00:00Z","org_unit":"ENVNEO","type":"DECISION","ref":"TREE-REVENUE-v1","summary":"Árvore de Receita criada em envneo/strategy/TREE-REVENUE.yaml. Fonte única de verdade. 13 nós: 3 raízes, 3 tronco, 5 galhos, 2 folhas.","actor":"Leo"}
+{"ts":"2026-02-19T01:01:00Z","org_unit":"GOVEVIA","type":"CHANGE","ref":"SPRINT-OPS-01","summary":"Cockpit /admin/ops implementado. Gates WIP=1 e registry-append-only ativos. 26/26 testes passando.","actor":"Leo"}
+{"ts":"2026-02-19T01:02:00Z","org_unit":"GOVEVIA","type":"CHANGE","ref":"G3-FUNIL-v1","summary":"Funil de prospecção G3 implementado: /admin/prospeccao (novo→contatado→reuniao→proposta→contrato→perdido). Schema SQL pronto.","actor":"Leo"}

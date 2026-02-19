@@ -8,6 +8,15 @@ export const metadata: Metadata = {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+interface TreeNode {
+  id: string
+  parent: string | null
+  layer: 'root' | 'trunk' | 'branch' | 'leaf'
+  owner_org_unit: string
+  label: string
+  objective?: string
+}
+
 interface RegistryEvent {
   ts: string
   org_unit: 'ENVNEO' | 'GOVEVIA' | 'ENVLIVE'
@@ -45,6 +54,38 @@ function parseNdjson(text: string): RegistryEvent[] {
       try { return JSON.parse(l) as RegistryEvent } catch { return null }
     })
     .filter(Boolean) as RegistryEvent[]
+}
+
+function parseTreeYaml(text: string): TreeNode[] {
+  const nodes: TreeNode[] = []
+  const lines = text.split('\n')
+  let current: Partial<TreeNode> | null = null
+
+  const flush = () => {
+    if (current?.id && current?.label) nodes.push(current as TreeNode)
+  }
+
+  for (const raw of lines) {
+    const line = raw.trim()
+    if (line.startsWith('- id:')) {
+      flush()
+      current = { id: line.slice(5).trim(), parent: null }
+      continue
+    }
+    if (!current) continue
+    const kv = (key: string) => {
+      const prefix = `${key}:`
+      if (line.startsWith(prefix)) return line.slice(prefix.length).trim().replace(/^["']|["']$/g, '')
+      return null
+    }
+    const parent = kv('parent'); if (parent !== null) { current.parent = parent === 'null' ? null : parent }
+    const layer = kv('layer'); if (layer) current.layer = layer as TreeNode['layer']
+    const org = kv('owner_org_unit'); if (org) current.owner_org_unit = org
+    const label = kv('label'); if (label) current.label = label
+    const obj = kv('objective'); if (obj) current.objective = obj
+  }
+  flush()
+  return nodes
 }
 
 function parseQueueYaml(text: string): Queue {
@@ -97,7 +138,12 @@ function loadOpsData() {
     ? parseQueueYaml(readFileSync(queuePath, 'utf8'))
     : { backlog: [], wip: [], done: [] }
 
-  return { events, queue }
+  const treePath = join(opsDir, '../strategy/TREE-REVENUE.yaml')
+  const tree: TreeNode[] = existsSync(treePath)
+    ? parseTreeYaml(readFileSync(treePath, 'utf8'))
+    : []
+
+  return { events, queue, tree }
 }
 
 // ─── Styles (inline, dark theme consistent with ceo-console) ──────────────────
@@ -174,8 +220,48 @@ function EventRow({ event }: { event: RegistryEvent }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+const LAYER_ORDER = ['root', 'trunk', 'branch', 'leaf']
+const LAYER_LABELS: Record<string, string> = { root: 'Raízes', trunk: 'Tronco', branch: 'Galhos', leaf: 'Folhas' }
+const LAYER_COLORS: Record<string, string> = { root: '#6B7280', trunk: '#0059B3', branch: '#10B981', leaf: '#F59E0B' }
+
+function TreeSection({ tree }: { tree: TreeNode[] }) {
+  if (tree.length === 0) return (
+    <div style={{ ...S.card, color: '#334155', fontSize: '0.75rem' }}>
+      envneo/strategy/TREE-REVENUE.yaml não encontrado.
+    </div>
+  )
+  return (
+    <div>
+      {LAYER_ORDER.map(layer => {
+        const nodes = tree.filter(n => n.layer === layer)
+        if (nodes.length === 0) return null
+        return (
+          <div key={layer} style={{ marginBottom: '1rem' }}>
+            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: LAYER_COLORS[layer], letterSpacing: '0.08em', marginBottom: '0.5rem', textTransform: 'uppercase' as const }}>
+              {LAYER_LABELS[layer]}
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '0.5rem' }}>
+              {nodes.map(node => (
+                <div key={node.id} style={{ background: '#0f172a', border: `1px solid ${LAYER_COLORS[layer]}44`, borderRadius: 6, padding: '0.5rem 0.75rem', minWidth: 180, maxWidth: 260 }}>
+                  <div style={{ display: 'flex', gap: 4, marginBottom: '0.25rem', alignItems: 'center' }}>
+                    <span style={S.tag(ORG_COLORS[node.owner_org_unit] ?? '#94a3b8')}>{node.owner_org_unit}</span>
+                    <span style={{ ...S.mono, color: LAYER_COLORS[layer] }}>{node.id}</span>
+                    {node.parent && <span style={{ ...S.mono, color: '#334155' }}>← {node.parent}</span>}
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: '#e2e8f0', fontWeight: 500 }}>{node.label}</div>
+                  {node.objective && <div style={{ ...S.mono, marginTop: '0.25rem', lineClamp: 2 }}>{node.objective}</div>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function OpsPage() {
-  const { events, queue } = loadOpsData()
+  const { events, queue, tree } = loadOpsData()
   const recentEvents = [...events].reverse().slice(0, 20)
   const wipCount = queue.wip.length
 
@@ -195,6 +281,11 @@ export default function OpsPage() {
         <OrgCard unit="ENVNEO" queue={queue} />
         <OrgCard unit="GOVEVIA" queue={queue} />
         <OrgCard unit="ENVLIVE" queue={queue} />
+      </div>
+
+      <div style={S.sectionTitle}>Mapa do Ecossistema — Árvore de Receita</div>
+      <div style={{ ...S.card, marginBottom: '2rem' }}>
+        <TreeSection tree={tree} />
       </div>
 
       <div style={S.sectionTitle}>CEO Queue</div>

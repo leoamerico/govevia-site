@@ -1,0 +1,234 @@
+# TREE-REVENUE.yaml — Árvore de Receita do Ecossistema EnvNeo
+# Fonte única de verdade. O cockpit /admin/ops lê este arquivo.
+# Estrutura: id, parent (null = raiz), owner_org_unit, layer (root|trunk|branch|leaf)
+# objective: por que existe | kpis: 2-3 métricas | gates: o que bloqueia | evidence: onde fica
+
+meta:
+  version: "1.0.0"
+  created_at: "2026-02-19T00:00:00Z"
+  author: Leo
+  org: ENVNEO
+
+nodes:
+
+  # ── RAÍZES ──────────────────────────────────────────────────────────────────
+
+  - id: R0
+    parent: null
+    layer: root
+    owner_org_unit: ENVNEO
+    label: "Identidade jurídica e responsabilidade"
+    objective: "Receita sem lastro jurídico vira risco. Risco mata receita."
+    kpis:
+      - "CNPJ ativo e atualizado na Receita Federal"
+      - "Representante legal com poderes de assinatura documentados"
+      - "Contratos assinados pela entidade correta (não pela marca)"
+    gates:
+      - "POL-LEGAL-CONTRACTING-ENTITY preenchida com dados reais"
+      - "POL-SUBCONTRACTORS-PJ-EVIDENCE para qualquer PJ com acesso a produção"
+    evidence:
+      - "docs/governance/POL-LEGAL-CONTRACTING-ENTITY.md"
+      - "docs/governance/SEAL-OMNICHANNEL-ENTITY-BRANDS.md"
+      - "envneo/ops/REGISTRY-OPS.ndjson"
+
+  - id: R1
+    parent: null
+    layer: root
+    owner_org_unit: ENVNEO
+    label: "Evidência e não-repúdio"
+    objective: "Na venda pública/privada, confiança = evidência verificável."
+    kpis:
+      - "100% dos eventos relevantes em governance_events ou REGISTRY-OPS.ndjson"
+      - "Hash chain verificável em audit_events"
+      - "Nenhum contrato sem registro de hash SHA256"
+    gates:
+      - "gate-registry-append-only: proibido apagar/editar linhas do REGISTRY"
+      - "RUN-CONTRACT-REVIEW: checklist completo antes de assinar"
+    evidence:
+      - "envneo/ops/REGISTRY-OPS.ndjson"
+      - "docs/governance/REGISTRY-GOVERNANCE-EVENTS.md"
+      - "tools/policy-gates/gate-registry-append-only.mjs"
+
+  - id: R2
+    parent: null
+    layer: root
+    owner_org_unit: ENVNEO
+    label: "Fronteiras invioláveis"
+    objective: "UI ≠ Core ≠ Segurança ≠ Identidade. Acoplamento = dívida técnica mortal."
+    kpis:
+      - "Zero vazamentos de lógica de negócio no site público"
+      - "Todos os policy gates passando no CI/CD"
+    gates:
+      - "node tools/policy-gates/run-all.mjs (6 gates ativos)"
+      - "gate-tenant-auth-policy-no-hardcode: sem credenciais hardcoded"
+      - "gate-cybersecure-no-pii: sem PII em specs"
+    evidence:
+      - "tools/policy-gates/"
+      - "apps/ceo-console/ (fronteira ceo-console ≠ site público)"
+
+  # ── TRONCO ──────────────────────────────────────────────────────────────────
+
+  - id: T0
+    parent: R0
+    layer: trunk
+    owner_org_unit: ENVNEO
+    label: "Gabinete do Prefeito (ceo-console)"
+    objective: "Cockpit único: o que está ativo / o que bloqueia / qual a próxima ação."
+    kpis:
+      - "Uma tarefa em WIP a cada momento (gate-wip-one)"
+      - "/admin/ops acessível e com dados atualizados"
+      - "Nenhuma decisão tomada sem registro em REGISTRY-OPS.ndjson"
+    gates:
+      - "gate-wip-one: WIP máximo 1 item em CEO-QUEUE.yaml"
+      - "Login protegido com bcrypt + JWT (apps/ceo-console)"
+    evidence:
+      - "envneo/ops/CEO-QUEUE.yaml"
+      - "apps/ceo-console/app/admin/ops/page.tsx"
+
+  - id: T1
+    parent: R1
+    layer: trunk
+    owner_org_unit: ENVNEO
+    label: "Registro operacional (append-only)"
+    objective: "Memória institucional auditável. Sem registro, sem aprendizado."
+    kpis:
+      - "Cada decisão/mudança tem entrada em REGISTRY-OPS.ndjson"
+      - "Gate append-only passando em cada commit"
+    gates:
+      - "gate-registry-append-only"
+    evidence:
+      - "envneo/ops/REGISTRY-OPS.ndjson"
+
+  - id: T2
+    parent: T0
+    layer: trunk
+    owner_org_unit: ENVNEO
+    label: "Fila de execução (WIP=1)"
+    objective: "Antídoto objetivo para sobrecarga e drift. Uma coisa por vez."
+    kpis:
+      - "wip[] com 0 ou 1 item em CEO-QUEUE.yaml"
+      - "Backlog priorizado (P1/P2/P3)"
+      - "Itens done documentados com completed_at"
+    gates:
+      - "gate-wip-one: FAIL se wip > 1"
+    evidence:
+      - "envneo/ops/CEO-QUEUE.yaml"
+
+  # ── GALHOS ──────────────────────────────────────────────────────────────────
+
+  - id: G1
+    parent: T0
+    layer: branch
+    owner_org_unit: GOVEVIA
+    label: "Oferta (produto/serviço empacotado)"
+    objective: "Nenhuma oferta existe sem 'o que entrega + como prova'."
+    kpis:
+      - "EnvLive: pacotes de implantação com evidência de execução"
+      - "Govevia: módulos gov com multi-tenant e auditoria rígida"
+      - "Cada oferta tem SLA mensurável documentado"
+    gates:
+      - "POL-GOVEVIA-AUDIT-MULTITENANT: auditoria por tenant obrigatória"
+      - "ADR-005: elevação EnvLive sem migração destrutiva"
+    evidence:
+      - "docs/governance/POL-GOVEVIA-AUDIT-MULTITENANT.md"
+      - "docs/architecture/decisions/ADR-005-ENVLIVE-TENANCY-ELEVATION.md"
+
+  - id: G2
+    parent: T0
+    layer: branch
+    owner_org_unit: ENVNEO
+    label: "Inteligência de mercado (alvos)"
+    objective: "Receita vem de foco, não de volume de ideias. Lista priorizada."
+    kpis:
+      - "Lista de municípios/empresas com critérios definidos"
+      - "Score de prioridade por potencial + viabilidade + urgência institucional"
+    gates:
+      - "envneo/strategy/TARGETING-RULES.md preenchida antes de prospectar"
+    evidence:
+      - "envneo/strategy/TARGETING-RULES.md (a criar)"
+
+  - id: G3
+    parent: T0
+    layer: branch
+    owner_org_unit: GOVEVIA
+    label: "Funil (prospecção → oportunidade → contrato)"
+    objective: "Sem funil, você só conversa. Com funil, você fecha ciclo."
+    kpis:
+      - "Taxa de conversão por estágio (novo→contatado→reuniao→proposta→contrato)"
+      - "Ciclo médio por estágio"
+      - "Valor médio por prospect em contrato"
+    gates:
+      - "Transições de status válidas somente via server actions (sem bypass de UI)"
+      - "Cada mudança de status registrada com actor + timestamp"
+    evidence:
+      - "app/admin/prospeccao/ (funil implementado)"
+      - "lib/admin/prospects.ts"
+      - "infra/migrations/20260218_130_prospects.sql"
+
+  - id: G4
+    parent: G3
+    layer: branch
+    owner_org_unit: GOVEVIA
+    label: "Entrega com evidência (execução)"
+    objective: "Entrega comprovada vira renovação + indicação."
+    kpis:
+      - "job_id único por entrega"
+      - "Aceite formal registrado (assinado ou e-mail rastreável)"
+      - "Prova de conclusão em governance_events"
+    gates:
+      - "Nenhuma NF emitida sem aceite registrado"
+    evidence:
+      - "REGISTRY-GOVERNANCE-EVENTS: evento contract.signed"
+
+  - id: G5
+    parent: G4
+    layer: branch
+    owner_org_unit: GOVEVIA
+    label: "Retenção e expansão"
+    objective: "Receita saudável é recorrência, não caça."
+    kpis:
+      - "NRR (Net Revenue Retention) ≥ 100%"
+      - "% de clientes que expandiram módulos no ano"
+      - "NPS ≥ 40"
+    gates:
+      - "Renovação registrada com evidence_hash antes de emitir NF"
+    evidence:
+      - "envneo/ops/REGISTRY-OPS.ndjson (evento renovacao.confirmada)"
+
+  # ── FOLHAS ──────────────────────────────────────────────────────────────────
+
+  - id: L1
+    parent: G3
+    layer: leaf
+    owner_org_unit: GOVEVIA
+    label: "Kanban de funil (prospects)"
+    objective: "Visibilidade diária do pipeline comercial."
+    kpis:
+      - "Nenhum prospect em 'novo' por mais de 7 dias sem interação"
+    gates: []
+    evidence:
+      - "app/admin/prospeccao/page.tsx"
+
+  - id: L2
+    parent: G2
+    layer: leaf
+    owner_org_unit: ENVNEO
+    label: "Dossiê de alvo"
+    objective: "Dados públicos + tese de valor + risco institucional por alvo."
+    kpis:
+      - "Dossiê gerado antes de primeiro contato"
+    gates: []
+    evidence:
+      - "envneo/strategy/TARGETING-RULES.md (a criar)"
+
+  - id: L3
+    parent: G1
+    layer: leaf
+    owner_org_unit: ENVLIVE
+    label: "Playbooks por persona"
+    objective: "Proposta e reunião com script por perfil (prefeito/procurador/secretário)."
+    kpis:
+      - "Playbook disponível antes de cada reunião"
+    gates: []
+    evidence:
+      - "envneo/playbooks/ (a criar)"
