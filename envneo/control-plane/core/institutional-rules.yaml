@@ -1,0 +1,59 @@
+schema_version: 1
+
+severity_scale:
+  LOW: "Impacto limitado; não afeta validade do ato, mas exige correção."
+  MEDIUM: "Risco operacional relevante; pode gerar apontamento se recorrente."
+  HIGH: "Risco de desconformidade material; exige evidência de tratamento."
+  CRITICAL: "Risco jurídico/auditável alto; deve falhar fechado."
+
+rules:
+  - id: RN01
+    name: Legalidade Estrita
+    legal_reference: "CF/88, Art. 37 (princípios) + regime de motivação/justificação do ato"
+    constraint_summary: "base_normativa_id MUST NOT ser nulo; sem base normativa não há ato válido."
+    objective: "Impedir exercício de vontade própria sem amparo normativo verificável."
+    severity: CRITICAL
+    engine_ref: rn01_legalidade_estrita
+    applies_to_use_cases: [UC01, UC02, UC03, UC04, UC05]
+
+  - id: RN02
+    name: Responsabilidade Solidária (Controle Interno → Externo)
+    legal_reference: "CF/88, Art. 74 §1º"
+    constraint_summary: >
+      Se status_irregularidade=true, controle_externo_event_ref MUST estar preenchido
+      (evidência de encaminhamento/registro do evento).
+    objective: "Impedir ocultação interna e garantir rastreabilidade de encaminhamento."
+    severity: HIGH
+    engine_ref: rn02_responsabilidade_solidaria_trigger
+    applies_to_use_cases: [UC04]
+
+  - id: RN03
+    name: Segregação de Funções
+    legal_reference: "Princípios de controle interno / segregação de funções"
+    constraint_summary: "usuario_registra_id MUST ser diferente de usuario_audita_id."
+    objective: "Reduzir risco de fraude e conflito de interesse."
+    severity: HIGH
+    engine_ref: rn03_segregacao_de_funcoes
+    applies_to_use_cases: [UC03, UC04]
+
+  - id: RN04
+    name: Classificação de Sigilo (LAI) + Proteção de Dados (LGPD)
+    legal_reference: "Lei 12.527/2011 (LAI) + LGPD (Lei 13.709/2018)"
+    constraint_summary: >
+      Se contem_dados_pessoais=true, public_payload MUST conter mascaramento determinístico
+      dos campos em campos_sensiveis.
+    objective: "Preservar transparência sem expor dados pessoais."
+    severity: CRITICAL
+    engine_ref: rn04_classificacao_sigilo_mascaramento
+    applies_to_use_cases: [UC05]
+
+  - id: RN05
+    name: Limite de Gasto com Pessoal (LRF)
+    legal_reference: "LC 101/2000 (LRF) — limites de despesa com pessoal"
+    constraint_summary: >
+      Se tipo_gasto='PESSOAL' e valor_declarado > 0.60 * rcl_valor, deve emitir violação
+      'LIMITE_PRUDENCIAL' (alerta determinístico).
+    objective: "Controle fiscal e evidência de alerta prudencial."
+    severity: MEDIUM
+    engine_ref: rn05_limite_gasto_lrf_prudencial
+    applies_to_use_cases: [UC03]
