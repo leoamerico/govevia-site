@@ -1,0 +1,91 @@
+schema_version: 1
+use_cases:
+  - id: UC01
+    name: Ingerir Evidência
+    primary_actor: "Sistema Origem / Auditor"
+    payload_fields:
+      - tenant_id
+      - id_origem
+      - timestamp
+      - tipo_objeto
+      - hash_integridade
+      - base_normativa_id
+      - actor_user_id
+    flow_summary: >
+      Recebe dado bruto, valida integridade (hash/assinatura quando aplicável),
+      vincula base normativa mínima de retenção/registro e grava referência de evidência.
+    rule_ids: [RN01]
+
+  - id: UC02
+    name: Vincular Norma
+    primary_actor: "Agente Controlador"
+    payload_fields:
+      - tenant_id
+      - evidence_id
+      - base_normativa_id
+      - artigo_lei
+      - esfera_legal
+      - vigencia_inicio
+      - vigencia_fim
+      - actor_user_id
+    flow_summary: >
+      Associa a evidência a uma norma (lei/artigo/esfera) e fixa vigência para rastreabilidade temporal.
+    rule_ids: [RN01]
+
+  - id: UC03
+    name: Executar Análise
+    primary_actor: "Motor de Regras"
+    payload_fields:
+      - tenant_id
+      - evidence_id
+      - base_normativa_id
+      - tipo_gasto
+      - valor_declarado
+      - limite_legal
+      - rcl_valor
+      - usuario_registra_id
+      - usuario_audita_id
+      - actor_user_id
+    flow_summary: >
+      Compara valores declarados com limites legais e classifica conformidade de forma determinística,
+      preservando segregação de funções entre registro e auditoria.
+    rule_ids: [RN01, RN03, RN05]
+
+  - id: UC04
+    name: Gerar Achado
+    primary_actor: "Agente Controlador"
+    payload_fields:
+      - tenant_id
+      - evidence_id
+      - base_normativa_id
+      - severidade
+      - descricao_irregularidade
+      - evidencia_ref
+      - status_irregularidade
+      - usuario_registra_id
+      - usuario_audita_id
+      - controle_externo_event_ref
+      - actor_user_id
+    flow_summary: >
+      Registra desconformidade baseada em cruzamento de dados e regras, exigindo segregação de funções
+      e evidência de encaminhamento quando aplicável.
+    rule_ids: [RN01, RN02, RN03]
+
+  - id: UC05
+    name: Publicar Transparência
+    primary_actor: "Cidadão"
+    payload_fields:
+      - tenant_id
+      - evidence_id
+      - base_normativa_id
+      - url_publica
+      - nivel_sigilo
+      - resumo_executivo
+      - contem_dados_pessoais
+      - campos_sensiveis
+      - public_payload
+      - actor_user_id
+    flow_summary: >
+      Publica informação para controle social conforme LAI, preservando sigilo quando necessário e
+      aplicando mascaramento determinístico de dados pessoais quando presentes.
+    rule_ids: [RN01, RN04]
