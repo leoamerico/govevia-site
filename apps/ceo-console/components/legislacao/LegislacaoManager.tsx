@@ -77,12 +77,12 @@ const s = {
   title: {
     fontSize: '1.4rem',
     fontWeight: 700,
-    color: '#0f172a',
+    color: '#f1f5f9',
     margin: 0,
   } as React.CSSProperties,
   subtitle: {
     fontSize: '0.8rem',
-    color: '#64748b',
+    color: '#94a3b8',
     marginTop: '0.25rem',
   } as React.CSSProperties,
   badge: (color: { bg: string; color: string; border: string }) => ({
@@ -104,10 +104,10 @@ const s = {
       cursor: 'pointer',
       border: 'none',
     }
-    if (variant === 'primary') return { ...base, background: '#0f172a', color: '#fff' }
-    if (variant === 'ghost') return { ...base, background: 'transparent', color: '#64748b', border: '1px solid #e2e8f0' }
+    if (variant === 'primary') return { ...base, background: '#0059B3', color: '#fff' }
+    if (variant === 'ghost') return { ...base, background: 'transparent', color: '#94a3b8', border: '1px solid #334155' }
     if (variant === 'danger') return { ...base, background: '#fff1f2', color: '#9f1239', border: '1px solid #fecdd3' }
-    return { ...base, background: 'transparent', color: '#0f172a', border: '1px solid #cbd5e1' }
+    return { ...base, background: 'transparent', color: '#e2e8f0', border: '1px solid #334155' }
   },
   card: {
     border: '1px solid #e2e8f0',

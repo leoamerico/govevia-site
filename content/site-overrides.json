@@ -1,10 +1,8 @@
 {
   "site.mode": "live",
-
   "brand.envneo.legal_entity_name": "Env Neo Ltda.",
   "brand.govevia.product_name": "Govevia",
   "brand.govevia.inpi.status": "Marca em processo de registro no INPI.",
-
   "site.home.hero.kicker": "Plataforma de Governança Pública",
   "site.home.hero.title": "Governança executável para administração pública",
   "site.home.hero.subtitle": "O Govevia transforma normas institucionais em controles técnicos verificáveis — cada requisito registrado, rastreado e defensável perante qualquer instância de controle.",
@@ -18,7 +16,6 @@
   "site.home.hero.legal.items.05": "CF/88 — Art. 37",
   "site.home.hero.legal.items.06": "TCU / CGU / Tribunais de Contas",
   "site.home.hero.scroll_label": "Conheça mais",
-
   "site.home.problem.title": "O problema que resolvemos",
   "site.home.problem.subtitle": "A administração pública brasileira opera sob centenas de normas. O problema nunca foi a falta de regra — foi a falta de estrutura para torná-la executável.",
   "site.home.problem.items.01.title": "Regras sem enforcement técnico",
@@ -31,7 +28,6 @@
   "site.home.problem.items.04.body": "A verificação de conformidade ocorre depois do fato — no relatório de auditoria, na notificação do tribunal, na ação de improbidade. O custo de não conformidade deveria ser zero ab initio, não após o dano.",
   "site.home.problem.quote.title": "Regra sem enforcement não é regra — é sugestão.",
   "site.home.problem.quote.body": "E sugestão cria responsabilidade sem proteção.",
-
   "site.home.platform.title": "A Plataforma Govevia",
   "site.home.platform.subtitle": "Módulos integrados que transformam normas em controles técnicos executáveis, com rastreabilidade fim a fim e conformidade por design.",
   "site.home.platform.items.01.title": "Governança de Processos",
@@ -47,7 +43,6 @@
   "site.home.platform.items.06.title": "Relatórios para Controle Externo",
   "site.home.platform.items.06.body": "Dashboards e exportações formatados para TCU, CGU, Tribunais de Contas estaduais e auditores internos. Conformidade não relatada depois — demonstrada em tempo real.",
   "site.home.platform.cta_label": "Ver detalhes da plataforma",
-
   "site.home.defensibility.title": "Cada decisão, defensável",
   "site.home.defensibility.subtitle": "Do protocolo à conclusão do ato, toda a cadeia decisória é registrada em trilha auditável, encadeada criptograficamente e pronta para qualquer instância de controle.",
   "site.home.defensibility.trail.title": "Fluxo de rastreabilidade",
@@ -73,7 +68,6 @@
   "site.home.defensibility.features.02.body": "Requisitos normativos embutidos nos fluxos — não verificados depois, impedidos antes.",
   "site.home.defensibility.features.03.title": "Pronto para controle externo",
   "site.home.defensibility.features.03.body": "Trilha exportável nos formatos exigidos por TCU, CGU e Tribunais de Contas.",
-
   "site.home.compliance.title": "Marco regulatório coberto",
   "site.home.compliance.subtitle": "O Govevia é construído sobre o arcabouço normativo da administração pública brasileira — não adaptado depois, projetado desde o início para conformidade.",
   "site.home.compliance.items.01.law": "LGPD — Lei nº 13.709/18",
@@ -96,7 +90,6 @@
   "site.home.compliance.items.06.body": "Evidências, relatórios e trilhas exportáveis nos formatos exigidos pelo controle externo federal e estadual, reduzindo tempo de resposta a diligências.",
   "site.home.compliance.closing.title": "Conformidade não é feature — é a fundação.",
   "site.home.compliance.closing.body": "Cada módulo do Govevia foi projetado com o marco regulatório como requisito, não como checklist posterior.",
-
   "site.home.contact.title": "Fale com a Env Neo",
   "site.home.contact.subtitle": "Estamos em fase de implantação com municípios parceiros. Entre em contato para entender como o Govevia pode ser adaptado à realidade da sua instituição.",
   "site.home.contact.notice.title": "Implantação consultiva",
@@ -105,7 +98,7 @@
   "site.home.contact.email.value": "govevia@govevia.com.br",
   "site.home.contact.info.title": "Dados institucionais",
   "site.home.contact.address.label": "Endereço",
-  "site.home.contact.address.value": "Av. Palmeira Imperial, 165 / 302\nCEP: 38.406-582 — Uberlândia-MG\nBrasil",
+  "site.home.contact.address.value": "Av. Palmeira Imperial, 165 / 302\nCEP: 38.406-582 — Uberlândia MG\nBrasil",
   "site.home.contact.company.title": "Env Neo Ltda.",
   "site.home.contact.company.body": "CNPJ: 36.207.211/0001-47",
   "site.home.contact.ceo.label": "Responsável técnico e comercial",

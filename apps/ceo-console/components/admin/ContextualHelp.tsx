@@ -289,8 +289,6 @@ export function ContextualHelp() {
           </button>
         </div>
 
-        // Corpo — renderizado apenas quando aberto (evita locators de teste
-        // achando texto interno do drawer quando ele está fora da tela)
         {open && (
         <div style={{ padding: '1.25rem', flex: 1, overflowY: 'auto' }}>
 
@@ -366,7 +364,7 @@ export function ContextualHelp() {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-          <span style={{ fontSize: '0.65rem', color: '#334155', fontFamily: 'monospace' }}>
+          <span style={{ fontSize: '0.65rem', color: '#64748b', fontFamily: 'monospace' }}>
             ENV NEO LTDA · CEO Console
           </span>
           <button

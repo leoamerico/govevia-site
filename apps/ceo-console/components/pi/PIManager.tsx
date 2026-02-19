@@ -99,13 +99,13 @@ const s = {
   title: {
     fontSize: '1.4rem',
     fontWeight: 700,
-    color: '#1e293b',
+    color: '#f1f5f9',
     fontFamily: 'Georgia, serif',
     margin: 0,
   } as React.CSSProperties,
   subtitle: {
     fontSize: '0.8rem',
-    color: '#64748b',
+    color: '#94a3b8',
     marginTop: '0.2rem',
   } as React.CSSProperties,
   btnPrimary: {
@@ -583,7 +583,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       {/* Filtros */}
       <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>Situação:</span>
+          <span style={{ fontSize: '0.75rem', color: '#cbd5e1', fontWeight: 600 }}>Situação:</span>
           <select style={{ ...s.select, width: 'auto' }} value={filterStatus} onChange={(e) => setFilterStatus(e.target.value as StatusPI | 'todos')}>
             <option value="todos">Todas as situações</option>
             {(Object.entries(STATUS_LABELS) as [StatusPI, string][]).map(([v, l]) => (
@@ -592,7 +592,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
           </select>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>Tipo:</span>
+          <span style={{ fontSize: '0.75rem', color: '#cbd5e1', fontWeight: 600 }}>Tipo:</span>
           <select style={{ ...s.select, width: 'auto' }} value={filterTipo} onChange={(e) => setFilterTipo(e.target.value as TipoPI | 'todos')}>
             <option value="todos">Todos os tipos</option>
             {(Object.entries(TIPO_LABELS) as [TipoPI, string][]).map(([v, l]) => (
