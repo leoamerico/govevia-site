@@ -61,13 +61,10 @@ export default function Footer() {
           <div>
             <h4 className="font-sans font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Contato</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><a href={`mailto:${ENVNEO_BRAND.email}`} className="hover:text-primary-light transition-colors">{ENVNEO_BRAND.email}</a></li>
-              <li className="pt-2">
-                <p className="text-xs text-gray-500">
-                  {ENVNEO_BRAND.address.street}<br />
-                  CEP: {ENVNEO_BRAND.address.zip}<br />
-                  {ENVNEO_BRAND.address.city}, {ENVNEO_BRAND.address.country}
-                </p>
+              <li className="text-xs text-gray-500">
+                {ENVNEO_BRAND.address.street}<br />
+                CEP: {ENVNEO_BRAND.address.zip}<br />
+                {ENVNEO_BRAND.address.city}, {ENVNEO_BRAND.address.country}
               </li>
             </ul>
           </div>

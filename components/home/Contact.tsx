@@ -79,18 +79,6 @@ export default function Contact({ title, subtitle, notice, email, infoTitle, add
                 {notice.body.trim().length > 0 ? (
                   <p className="text-institutional-slate text-sm leading-relaxed font-sans">{notice.body}</p>
                 ) : null}
-                {email.label.trim().length > 0 || emailValue.length > 0 ? (
-                  <div className="mt-6">
-                    {email.label.trim().length > 0 ? (
-                      <p className="text-sm font-semibold text-institutional-navy mb-2 font-sans">{email.label}</p>
-                    ) : null}
-                    {emailValue.length > 0 ? (
-                      <a href={mailtoHref} className="text-primary hover:underline text-sm font-sans">
-                        {emailValue}
-                      </a>
-                    ) : null}
-                  </div>
-                ) : null}
               </div>
             ) : null}
           </motion.div>
