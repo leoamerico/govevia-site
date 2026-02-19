@@ -49,7 +49,7 @@
   "brand_assets": {
     "logo_svg": "apps/ceo-console/public/brand/envneo/logo.svg",
     "logo_component": null,
-    "_note": "logo_component desativado: EnvNeoLogo.tsx não é usado em runtime (apenas smoke test). Fonte canônica: logo_svg."
+    "_note": "logo_component desativado: entidade corporativa não tem logo/slogan. Fonte canônica (se necessário): logo_svg."
   },
 
   "ops_files": {

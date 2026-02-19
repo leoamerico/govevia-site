@@ -789,6 +789,41 @@ console.log('\n── Test: gate-no-envneo-shortname (shortname + integridade br
   }
 }
 
+// ─── Test 13: gate-no-env-neo-literal ───────────────────────────────────────
+{
+  console.log('\n── Test: gate-no-env-neo-literal (UI admin)')
+
+  // Cenário A: "Env Neo" isolado em arquivo admin → FAIL
+  {
+    const dir = tempDir('env-neo-literal-fail')
+    mkdirSync(join(dir, 'apps', 'ceo-console', 'app', 'admin'), { recursive: true })
+    writeFileSync(join(dir, 'apps', 'ceo-console', 'app', 'admin', 'page.tsx'), `
+export default function Page(){
+  return <div>Env Neo</div>
+}
+`)
+    const r = runGateWithFixture('gate-no-env-neo-literal.mjs', dir, 1)
+    const out = (r.stdout ?? '') + (r.stderr ?? '')
+    assert('"Env Neo" isolado → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    assert('"Env Neo" isolado → [FAIL] no output', out.includes('[FAIL]'), `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: apenas "ENV NEO LTDA" → PASS
+  {
+    const dir = tempDir('env-neo-literal-pass')
+    mkdirSync(join(dir, 'apps', 'ceo-console', 'components'), { recursive: true })
+    writeFileSync(join(dir, 'apps', 'ceo-console', 'components', 'x.tsx'), `
+export default function X(){
+  return <div>ENV NEO LTDA</div>
+}
+`)
+    const r = runGateWithFixture('gate-no-env-neo-literal.mjs', dir, 0)
+    assert('"ENV NEO LTDA" apenas → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {
   console.error('[TEST FAILED] Um ou mais testes de fixture falharam.')
