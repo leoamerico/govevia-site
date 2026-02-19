@@ -20,6 +20,8 @@ const GATES = [
   'gate-wip-one.mjs',
   'gate-registry-append-only.mjs',
   'gate-no-admin-in-site-public.mjs',
+  'gate-rules-have-impl.mjs',
+  'gate-impl-registered.mjs',
 ]
 
 let anyFailed = false

@@ -476,6 +476,93 @@ console.log('\n── Test: gate-no-admin-in-site-public (fixture violadora e li
     cleanup(dir)
   }
 }
+
+// ─── Test 8: gate-rules-have-impl ────────────────────────────────────────────
+console.log('\n── Test: gate-rules-have-impl (engine_ref sem impl → FAIL; completo → PASS)')
+
+{
+  const RULES_YAML_VALID = `schema_version: 1\nrules:\n  - id: RN01\n    name: Test Rule\n    legal_reference: CF/88\n    constraint_summary: test\n    objective: test\n    severity: CRITICAL\n    engine_ref: fn_existente\n    applies_to_use_cases: [UC01]\n`
+  const UC_YAML_VALID = `schema_version: 1\nuse_cases:\n  - id: UC01\n    name: Test UC\n    primary_actor: Test\n    payload_fields:\n      - campo_a\n    flow_summary: teste\n    rule_ids: [RN01]\n`
+  const IMPL_VALID = `export function fn_existente(payload) { return { result: 'PASS', violations: [], evidence: {} } }\n`
+
+  // Cenário A: engine_ref sem implementação → FAIL
+  {
+    const dir = tempDir('rules-have-impl-fail')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'core'), { recursive: true })
+    mkdirSync(join(dir, 'lib', 'rules', 'impl'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'institutional-rules.yaml'), RULES_YAML_VALID)
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'use-cases.yaml'), UC_YAML_VALID)
+    writeFileSync(join(dir, 'lib', 'rules', 'impl', 'index.ts'), '// sem fn_existente\n')
+    const r = runGateWithFixture('gate-rules-have-impl.mjs', dir, 1)
+    assert('engine_ref sem implementacao → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    const out = (r.stdout ?? '') + (r.stderr ?? '')
+    assert('engine_ref sem implementacao → [FAIL] no output', out.includes('[FAIL]'), `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: tudo presente → PASS
+  {
+    const dir = tempDir('rules-have-impl-pass')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'core'), { recursive: true })
+    mkdirSync(join(dir, 'lib', 'rules', 'impl'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'institutional-rules.yaml'), RULES_YAML_VALID)
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'use-cases.yaml'), UC_YAML_VALID)
+    writeFileSync(join(dir, 'lib', 'rules', 'impl', 'index.ts'), IMPL_VALID)
+    const r = runGateWithFixture('gate-rules-have-impl.mjs', dir, 0)
+    assert('engine_ref implementado → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário C: UC referencia RN inexistente → FAIL
+  {
+    const dir = tempDir('rules-have-impl-missing-rn')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'core'), { recursive: true })
+    mkdirSync(join(dir, 'lib', 'rules', 'impl'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'institutional-rules.yaml'), RULES_YAML_VALID)
+    const ucYamlMissing = UC_YAML_VALID.replace('[RN01]', '[RN01, RN99]')
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'use-cases.yaml'), ucYamlMissing)
+    writeFileSync(join(dir, 'lib', 'rules', 'impl', 'index.ts'), IMPL_VALID)
+    const r = runGateWithFixture('gate-rules-have-impl.mjs', dir, 1)
+    assert('UC referencia RN inexistente → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
+// ─── Test 9: gate-impl-registered ────────────────────────────────────────────
+console.log('\n── Test: gate-impl-registered (funcao sem registro → FAIL; tudo registrado → PASS)')
+
+{
+  const RULES_YAML = `schema_version: 1\nrules:\n  - id: RN01\n    name: Test Rule\n    legal_reference: CF/88\n    constraint_summary: test\n    objective: test\n    severity: CRITICAL\n    engine_ref: fn_registrada\n    applies_to_use_cases: [UC01]\n`
+  const IMPL_OK = `export function fn_registrada(payload) { return { result: 'PASS', violations: [], evidence: {} } }\n`
+  const IMPL_EXTRA = IMPL_OK + `export function fn_nao_registrada(payload) { return null }\n`
+
+  // Cenário A: função exportada sem registro → FAIL
+  {
+    const dir = tempDir('impl-registered-fail')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'core'), { recursive: true })
+    mkdirSync(join(dir, 'lib', 'rules', 'impl'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'institutional-rules.yaml'), RULES_YAML)
+    writeFileSync(join(dir, 'lib', 'rules', 'impl', 'index.ts'), IMPL_EXTRA)
+    const r = runGateWithFixture('gate-impl-registered.mjs', dir, 1)
+    assert('funcao sem registro → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    const out = (r.stdout ?? '') + (r.stderr ?? '')
+    assert('funcao sem registro → [FAIL] no output', out.includes('[FAIL]'), `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: todas as funções registradas → PASS
+  {
+    const dir = tempDir('impl-registered-pass')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'core'), { recursive: true })
+    mkdirSync(join(dir, 'lib', 'rules', 'impl'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'institutional-rules.yaml'), RULES_YAML)
+    writeFileSync(join(dir, 'lib', 'rules', 'impl', 'index.ts'), IMPL_OK)
+    const r = runGateWithFixture('gate-impl-registered.mjs', dir, 0)
+    assert('todas as funcoes registradas → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {
   console.error('[TEST FAILED] Um ou mais testes de fixture falharam.')
