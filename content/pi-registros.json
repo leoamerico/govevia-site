@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "PI-2026-001",
+    "tipo": "marca",
+    "titulo": "Marca Govevia",
+    "descricao": "",
+    "titular": {
+      "tipo": "pessoa_fisica",
+      "nome": "Leonardo Américo José Ribeiro",
+      "documento": "70338051104",
+      "qualificacao": "Criador da metodologia de gestão publica."
+    },
+    "data_criacao": "2026-02-19",
+    "orgao": "INPI",
+    "numero_pedido": "",
+    "numero_registro": "",
+    "classe": "42",
+    "status": "documentando",
+    "observacoes": "",
+    "created_at": "2026-02-19T12:12:30.747Z",
+    "updated_at": "2026-02-19T12:12:30.747Z"
+  }
+]

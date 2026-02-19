@@ -10,6 +10,7 @@ import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
 const navLinks = [
   { href: '/admin/site', label: 'Site' },
   { href: '/admin/pi', label: 'PI' },
+  { href: '/admin/bpmn', label: 'Processos' },
   { href: '/admin/ops', label: 'Ops' },
   { href: '/admin/rules', label: 'Regras' },
 ]
