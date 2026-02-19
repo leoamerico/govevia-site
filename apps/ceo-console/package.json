@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "smoke:brand": "node tools/smoke/smoke-brand-envneo.mjs"
   },
   "dependencies": {
     "next": "14.2.35",
