@@ -44,9 +44,11 @@ npm run dev        # porta 3001
 
 | Variável | Usado em | Finalidade |
 |----------|---------|-----------|
-| `ADMIN_SESSION_SECRET` | ceo-console | Chave HMAC-HS256 ≥ 32 chars |
-| `ADMIN_USERNAME_HASH` | ceo-console api | bcrypt hash do usuário |
+| `ADMIN_JWT_SECRET` | ceo-console | Chave HMAC-HS256 ≥ 32 chars |
+| `ADMIN_USERNAME` | ceo-console api | Usuário admin (texto) |
 | `ADMIN_PASSWORD_HASH` | ceo-console api | bcrypt hash da senha |
+| `ADMIN_JWT_TTL_SECONDS` | ceo-console | TTL do JWT (segundos) |
+| `CEO_CONSOLE_BASE_URL` | site-public | URL base do CEO Console para redirect de `/admin/login` |
 
 ## Deploy
 

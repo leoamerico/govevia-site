@@ -1,8 +1,8 @@
-# RUN-ADMIN-LOGIN — Operação do Login Admin (MVP)
+# RUN-ADMIN-LOGIN — Operação do Login Admin (CEO Console)
 
 ## Objetivo
 
-Explicar como validar o fluxo de autenticação do Admin Console (MVP) e como diagnosticar falhas comuns.
+Explicar como validar o fluxo de autenticação do Admin Console (CEO Console) e como diagnosticar falhas comuns.
 
 ## Pré-requisitos
 
@@ -13,13 +13,13 @@ Explicar como validar o fluxo de autenticação do Admin Console (MVP) e como di
 1) Execute:
 
 ```bash
-npm run dev
+cd apps/ceo-console && npm run dev
 ```
 
 2) Acesse:
 
-- `/admin` → deve redirecionar para `/admin/login` sem sessão.
-- `/admin/login` → formulário de login.
+- `http://localhost:3001/admin` → deve redirecionar para `/admin/login` sem sessão.
+- `http://localhost:3001/admin/login` → formulário de login.
 
 3) Login válido:
 

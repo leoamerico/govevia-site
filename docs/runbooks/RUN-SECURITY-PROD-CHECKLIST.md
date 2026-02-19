@@ -66,18 +66,22 @@ PASS se:
 
 ## D) Superfície exposta (admin)
 
-### 5) Bloqueio de `/admin/**` em produção
+### 5) Superfície `/admin/**` em produção (site-public)
 
 ```powershell
 (Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").StatusCode
+(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/login").StatusCode
 (Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/content").StatusCode
-(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").Headers["x-robots-tag"]
-(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin").Headers["cache-control"]
+(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/login").Headers["location"]
+(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/login").Headers["x-robots-tag"]
+(Invoke-WebRequest -Method Head -Uri "https://www.govevia.com.br/admin/login").Headers["cache-control"]
 ```
 
 PASS se:
 
-- status `404` em produção
+- `/admin` → status `307` (redirect para `/admin/login`)
+- `/admin/login` → status `307` (redirect para CEO Console, se `CEO_CONSOLE_BASE_URL` estiver configurado) **ou** `200` (página informativa)
+- demais `/admin/*` → status `404`
 - `X-Robots-Tag` = `noindex, nofollow`
 - `Cache-Control` contém `no-store`
 

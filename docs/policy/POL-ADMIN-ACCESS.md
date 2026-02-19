@@ -2,7 +2,9 @@
 
 ## Escopo
 
-Esta policy define os controles mínimos para o acesso administrativo do site (`/admin/**`).
+Esta policy define os controles mínimos para o acesso administrativo do **CEO Console** (`apps/ceo-console`, rotas `/admin/**`).
+
+No **site público** (raiz do repo), `/admin/login` existe apenas como **entrypoint** (redirect/página informativa) e não hospeda UI admin.
 
 ## Regras
 
@@ -15,12 +17,12 @@ Esta policy define os controles mínimos para o acesso administrativo do site (`
 
 - Sessão em cookie **HttpOnly** com JWT **HS256**.
 - Cookie com `SameSite=Lax` e `Secure` em produção.
-- TTL configurável por `ADMIN_SESSION_TTL_SECONDS`.
+- TTL configurável por `ADMIN_JWT_TTL_SECONDS`.
 
 3) Enforcement na borda (Edge Middleware)
 
 - Rotas `/admin/**` devem ser bloqueadas sem sessão válida.
-- Fail-closed: se `ADMIN_SESSION_SECRET` faltar ou for curto, `/admin/**` permanece bloqueado.
+- Fail-closed: se `ADMIN_JWT_SECRET` faltar ou for curto, `/admin/**` permanece bloqueado.
 
 4) Não vazamento
 

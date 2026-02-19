@@ -69,7 +69,66 @@ const ADMIN_404 = new NextResponse('Not Found', {
 
 async function enforceAdminAuth(_request: NextRequest): Promise<NextResponse> {
   // BOUNDARY: site-public não tem admin funcional.
-  // Todo /admin/* retorna 404 — o console CEO vive em apps/ceo-console (porta 3001).
+  // O admin real vive em apps/ceo-console (porta 3001). Aqui, mantemos apenas:
+  // - /admin         → redirect para /admin/login
+  // - /admin/login   → (a) redirect para CEO Console se configurado, ou (b) página informativa
+  // - demais /admin/* → 404 (superfície fechada)
+  const request = _request
+  const { pathname, search } = request.nextUrl
+
+  const hardHeaders = {
+    'cache-control': 'no-store',
+    'x-robots-tag': 'noindex, nofollow',
+  }
+
+  if (pathname === '/admin' || pathname === '/admin/') {
+    const res = NextResponse.redirect(new URL('/admin/login', request.url), 307)
+    for (const [k, v] of Object.entries(hardHeaders)) res.headers.set(k, v)
+    return res
+  }
+
+  if (pathname === '/admin/login' || pathname === '/admin/login/') {
+    const ceoBaseRaw = process.env.CEO_CONSOLE_BASE_URL || process.env.NEXT_PUBLIC_CEO_CONSOLE_BASE_URL
+    const ceoBase = toOrigin(ceoBaseRaw ?? null)
+
+    if (ceoBase) {
+      const target = new URL(`/admin/login${search}`, ceoBase)
+      const res = NextResponse.redirect(target, 307)
+      for (const [k, v] of Object.entries(hardHeaders)) res.headers.set(k, v)
+      return res
+    }
+
+    const html = `<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Admin — CEO Console</title>
+  </head>
+  <body>
+    <main style="max-width: 720px; margin: 40px auto; padding: 0 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.45;">
+      <h1 style="margin: 0 0 12px; font-size: 20px;">Acesso administrativo</h1>
+      <p style="margin: 0 0 12px;">O Admin não é servido pelo site público. Ele vive no <strong>CEO Console</strong> (<code>apps/ceo-console</code>).</p>
+      <h2 style="margin: 16px 0 8px; font-size: 16px;">Demo local</h2>
+      <p style="margin: 0 0 12px;">Inicie o CEO Console e acesse:</p>
+      <p style="margin: 0 0 12px;"><a href="http://localhost:3001/admin/login">http://localhost:3001/admin/login</a></p>
+      <h2 style="margin: 16px 0 8px; font-size: 16px;">Produção</h2>
+      <p style="margin: 0 0 12px;">Para habilitar redirect automático a partir deste domínio, configure a env var <code>CEO_CONSOLE_BASE_URL</code> (ex.: <code>https://ceo-console.seu-dominio</code>).</p>
+      <p style="margin: 0; color: #555;">(Página gerada pelo middleware — superfície admin do site permanece fechada.)</p>
+    </main>
+  </body>
+</html>`
+
+    return new NextResponse(html, {
+      status: 200,
+      headers: {
+        ...hardHeaders,
+        'content-type': 'text/html; charset=utf-8',
+      },
+    })
+  }
+
   return ADMIN_404
 }
 
