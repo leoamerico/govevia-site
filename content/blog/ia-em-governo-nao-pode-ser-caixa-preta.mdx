@@ -63,4 +63,82 @@ Em caso de dúvida, o fluxo pode exigir validação antes de prosseguir.
 
 ---
 
+<ViewBlock view="prefeito">
+
+## Visão: Prefeito
+
+IA no setor público é um recurso de apoio à gestão, não uma substituição ao ato administrativo. O que importa para o gestor máximo: **quem assina**, **qual norma ampara** e **o que serve de evidência** em caso de questionamento.
+
+Um sistema que recomenda sem registrar — ou que consolida sem revisão humana — transfere risco ao gestor sem oferecer proteção. O modelo correto mantém o humano no circuito e a evidência no registro.
+
+### Limites e Condições
+
+- A responsabilidade pelo ato administrativo permanece com o agente público designado.
+- IA pode sugerir enquadramento normativo; a decisão de aplicar é do gestor.
+
+### Evidências
+
+- Ver: docs/public/evidence/WEB-CLAIMS-REPORT.md
+
+</ViewBlock>
+
+<ViewBlock view="procurador">
+
+## Visão: Procurador
+
+Do ponto de vista jurídico, a questão central é: **o ato é reconstituível?** Recomendações de IA que influenciam decisões administrativas precisam deixar rastro suficiente para que qualquer revisor posterior consiga reconstituir: qual dado entrou, qual norma foi consultada, o que o sistema sugeriu e o que o responsável aceitou ou alterou.
+
+Sem essa cadeia, a defesa do ato fica fragilizada e a responsabilidade difusa — exatamente o cenário que sistemas de gestão pública devem evitar.
+
+### Limites e Condições
+
+- Este texto não substitui parecer jurídico.
+- Os requisitos de rastreabilidade variam por tipo de ato e órgão controlador.
+
+### Evidências
+
+- Ver: docs/public/evidence/REPORT-CLAIMS-IMPLEMENTATION.md
+
+</ViewBlock>
+
+<ViewBlock view="controlador">
+
+## Visão: Controlador
+
+Para auditoria, o que não foi registrado não aconteceu. Sistemas com IA precisam produzir **evidência operacional**: versão do modelo e da política, entrada relevante com minimização de dados, saída gerada e o que foi aceito/alterado, e a regra determinística que prevaleceu em caso de conflito.
+
+Qualquer componente "caixa preta" — que gera output sem rastro — é incompatível com auditoria efetiva.
+
+### Limites e Condições
+
+- Evidência só serve se for versionada, imutável e reprodutível.
+- Mecanismos de hash e cadeia de custódia são requisito, não opcional.
+
+### Evidências
+
+- Ver: docs/public/evidence/REPORT-CLAIMS-IMPLEMENTATION.md
+
+</ViewBlock>
+
+<ViewBlock view="secretario">
+
+## Visão: Secretário
+
+Na operação diária, o risco de IA "caixa preta" se manifesta como **padronização de erro em escala**: sem visibilidade sobre o que o modelo fez, é impossível detectar onde a cadência de verificação falhou ou qual gate não foi aplicado.
+
+A postura correta é operacionalizar controles verificáveis: checklist de revisão humana, runbooks para casos de dúvida, e métricas que mostrem quando o sistema está fora dos parâmetros esperados.
+
+### Limites e Condições
+
+- Requer governança operacional com rotinas, métricas e revisão periódica.
+- Conformidade não é um estado — é uma cadência de verificação contínua.
+
+### Evidências
+
+- Ver: docs/public/evidence/RUNBOOK-CONTACT-API-CSRF.md
+
+</ViewBlock>
+
+---
+
 *Este texto tem caráter técnico-informativo e não substitui parecer jurídico ou orientação específica de órgãos de controle.*
