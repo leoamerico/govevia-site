@@ -2,12 +2,16 @@
 /**
  * RagDemoClient.tsx — Interface interativa de demo RAG.
  * Tabs: Upload PDF | Busca Semântica | Tarefas Assíncronas.
- * Chama Server Actions e rotas proxy (sem fetch direto ao kernel).
+ *
+ * Upload usa /api/admin/documents/ingest (proxy → FastAPI /documents/upload)
+ * e polling via usePollDocJob — sistema SEPARADO do task queue.
  */
 import { useState, useTransition, useRef, useEffect } from 'react'
-import { uploadDoc, searchDocs } from './actions'
-import type { UploadResult, SearchResult } from './actions'
+import { searchDocs } from './actions'
+import type { SearchResult } from './actions'
 import { usePollTask } from '@/hooks/usePollTask'
+import { usePollDocJob } from '@/hooks/usePollDocJob'
+import type { DocJobState } from '@/hooks/usePollDocJob'
 
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
@@ -57,29 +61,63 @@ const S = {
 
 // ─── Tab: Upload ─────────────────────────────────────────────────────────────
 
+const JOB_STATUS_COLOR: Record<string, string> = {
+  queued:     '#f59e0b',
+  processing: '#38bdf8',
+  done:       '#4ade80',
+  error:      '#f87171',
+}
+
 function UploadTab() {
-  const [result, setResult]     = useState<UploadResult | null>(null)
-  const [isPending, startTr]    = useTransition()
-  const fileRef                  = useRef<HTMLInputElement>(null)
-  const [selectedName, setName] = useState<string>('')
+  const fileRef                      = useRef<HTMLInputElement>(null)
+  const [selectedName, setName]      = useState<string>('')
+  const [uploading, setUploading]    = useState(false)
+  const [uploadErr, setUploadErr]    = useState<string | null>(null)
+  const [jobId, setJobId]            = useState<string | null>(null)
+
+  const { state, isLoading, error: pollErr, interrupted, reset } = usePollDocJob(jobId)
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]
     setName(f ? f.name : '')
-    setResult(null)
+    setUploadErr(null)
+    setJobId(null)
+    reset()
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const file = fileRef.current?.files?.[0]
     if (!file) return
-    const fd = new FormData()
-    fd.append('file', file)
-    startTr(async () => {
-      const r = await uploadDoc(fd)
-      setResult(r)
-    })
+
+    reset()
+    setJobId(null)
+    setUploadErr(null)
+    setUploading(true)
+
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/admin/documents/ingest', {
+        method: 'POST',
+        body: fd,
+        cache: 'no-store',
+      })
+      const data = await res.json() as { job_id?: string; error?: string }
+      if (!res.ok || !data.job_id) {
+        setUploadErr(data.error ?? `HTTP ${res.status}`)
+      } else {
+        setJobId(data.job_id)
+      }
+    } catch {
+      setUploadErr('Erro de rede ao enviar arquivo')
+    } finally {
+      setUploading(false)
+    }
   }
+
+  const isTerminal = state?.status === 'done' || state?.status === 'error'
+  const busy = uploading || isLoading
 
   return (
     <form onSubmit={handleSubmit}>
@@ -94,7 +132,7 @@ function UploadTab() {
       <input
         ref={fileRef}
         type="file"
-        accept=".pdf,.txt,.md"
+        accept=".pdf"
         onChange={handleFileChange}
         style={{ ...S.input, padding: '8px' }}
       />
@@ -102,30 +140,71 @@ function UploadTab() {
         <div style={{ fontSize: '11px', color: '#64748b', marginTop: '6px' }}>Selecionado: {selectedName}</div>
       )}
 
-      <button type="submit" style={S.btn(isPending, !selectedName)} disabled={isPending || !selectedName}>
-        {isPending ? 'Enviando…' : 'Enviar para Kernel'}
+      <button type="submit" style={S.btn(busy, !selectedName)} disabled={busy || !selectedName}>
+        {uploading ? 'Enviando…' : isLoading ? 'Processando…' : 'Enviar para Kernel'}
       </button>
 
-      {result && (
-        <div style={{ marginTop: '20px' }}>
-          <span style={S.badge(result.ok)}>{result.ok ? 'INGERIDO' : 'ERRO'}</span>
-          {!result.kernelAvailable && (
-            <div style={S.stubBanner}>
-              ⚠ Kernel não configurado (GOVEVIA_KERNEL_BASE_URL ausente). Resultado simulado — eventos gravados no registry.
-            </div>
-          )}
-          {result.error && <div style={{ color: '#f87171', fontSize: '13px', marginTop: '8px' }}>{result.error}</div>}
-          {result.ok && (
-            <div style={{ fontSize: '13px', color: '#94a3b8', marginTop: '8px', lineHeight: 2 }}>
-              {result.documentId && <div>ID Documento: <code style={{ color: '#e2e8f0' }}>{result.documentId}</code></div>}
-              {result.fileName && <div>Arquivo: <code style={{ color: '#e2e8f0' }}>{result.fileName}</code></div>}
-              {result.chunksCreated !== undefined && <div>Chunks criados: <strong style={{ color: '#4ade80' }}>{result.chunksCreated}</strong></div>}
-            </div>
-          )}
-          <div style={S.hashRow}>hash_payload (SHA-256): {result.hash_payload || '—'}</div>
-          <div style={{ fontSize: '10px', color: '#334155', marginTop: '4px' }}>Evento SIMULATION/DEMO registrado em REGISTRY-OPS.ndjson (somente hash).</div>
+      {uploadErr && (
+        <div style={{ color: '#f87171', fontSize: '13px', marginTop: '12px' }}>✖ {uploadErr}</div>
+      )}
+      {pollErr && (
+        <div style={{ color: interrupted ? '#fb923c' : '#f87171', fontSize: '13px', marginTop: '12px' }}>
+          {interrupted ? '⚠' : '✖'} {pollErr}
         </div>
       )}
+
+      {(jobId || state) && (
+        <div style={{ marginTop: '20px', background: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '16px 18px' }}>
+          {jobId && (
+            <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#475569', marginBottom: '12px' }}>
+              job_id: <span style={{ color: '#94a3b8' }}>{jobId}</span>
+            </div>
+          )}
+
+          {(isLoading || state) && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+              <span style={{
+                display: 'inline-block', width: '10px', height: '10px', borderRadius: '50%',
+                background: state ? (JOB_STATUS_COLOR[state.status] ?? '#64748b') : '#f59e0b',
+                boxShadow: isLoading ? '0 0 0 3px rgba(56,189,248,0.3)' : 'none',
+              }} />
+              <span style={{ fontSize: '14px', fontWeight: 700, color: state ? (JOB_STATUS_COLOR[state.status] ?? '#e2e8f0') : '#f59e0b' }}>
+                {state?.status?.toUpperCase() ?? 'QUEUED'}
+              </span>
+              {isLoading && <span style={{ fontSize: '11px', color: '#475569' }}>polling a cada 1,5s…</span>}
+            </div>
+          )}
+
+          {isLoading && (
+            <div style={{ height: '3px', background: '#334155', borderRadius: '2px', overflow: 'hidden', marginBottom: '12px' }}>
+              <div style={{
+                height: '100%', width: '40%',
+                background: 'linear-gradient(90deg, transparent, #38bdf8, transparent)',
+                animation: 'slide 1.2s linear infinite',
+              }} />
+            </div>
+          )}
+
+          {state?.status === 'done' && (
+            <div style={{ fontSize: '13px', color: '#86efac', marginTop: '4px' }}>
+              ✓ Documento ingerido com sucesso
+              {state.result != null && (
+                <pre style={{ marginTop: '8px', fontSize: '12px', background: '#052e16', border: '1px solid #166534', borderRadius: '6px', padding: '10px 12px', overflowX: 'auto', whiteSpace: 'pre-wrap', color: '#86efac' }}>
+                  {JSON.stringify(state.result, null, 2)}
+                </pre>
+              )}
+            </div>
+          )}
+
+          {state?.status === 'error' && (
+            <div style={{ color: '#f87171', fontSize: '13px', fontFamily: 'monospace', background: '#450a0a', border: '1px solid #991b1b', borderRadius: '6px', padding: '10px 12px' }}>
+              {String(state.error ?? 'Falha na ingestão')}
+            </div>
+          )}
+        </div>
+      )}
+
+      <style>{`@keyframes slide { from { transform:translateX(-200%) } to { transform:translateX(400%) } }`}</style>
     </form>
   )
 }

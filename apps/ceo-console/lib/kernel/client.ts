@@ -107,6 +107,31 @@ export async function kernelFetch(
   })
 }
 
+/**
+ * Fetch autenticado para multipart/form-data.
+ * NÃO seta Content-Type — o Node.js fetch infere o boundary correto automaticamente.
+ */
+export async function kernelFetchForm(
+  path: string,
+  body: FormData,
+  opts: Omit<RequestInit, 'body' | 'headers'> = {}
+): Promise<Response> {
+  const base = getBase()
+  const token = await getToken()
+
+  return fetch(`${base}${path}`, {
+    ...opts,
+    method: 'POST',
+    body,
+    headers: {
+      // SEM Content-Type — o fetch infere multipart/form-data; boundary=...
+      Authorization: `Bearer ${token}`,
+    },
+    signal: AbortSignal.timeout(30_000), // uploads podem ser lentos
+    cache: 'no-store',
+  })
+}
+
 // ─── Helper: normas (endpoint público) ───────────────────────────────────────
 
 export interface NormaLegalBackend {
@@ -128,6 +153,49 @@ export async function fetchNormasFromBackend(): Promise<NormaLegalBackend[]> {
   if (!res.ok) throw new KernelUnavailableError(`normas-legais retornou HTTP ${res.status}`)
   const data = (await res.json()) as { total: number; items: NormaLegalBackend[] }
   return data.items
+}
+
+// ─── Document Ingestion ───────────────────────────────────────────────────────
+// Sistema separado do task queue — in-memory, sem TTL, statuses distintos.
+
+export type DocJobStatus = 'queued' | 'processing' | 'done' | 'error'
+
+export interface DocJobState {
+  status: DocJobStatus
+  filename: string
+  owner_id: number
+  result?: unknown
+  error?: string
+}
+
+export interface DocIngestResponse {
+  job_id: string
+  status: 'queued'
+}
+
+/**
+ * Envia um arquivo PDF para o backend e retorna { job_id, status:"queued" }.
+ * Usa `kernelFetchForm` — Content-Type multipart inferido automaticamente.
+ */
+export async function ingestDocument(formData: FormData): Promise<DocIngestResponse> {
+  const res = await kernelFetchForm('/api/v1/documents/upload', formData)
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    const detail = (body as { detail?: string }).detail ?? `HTTP ${res.status}`
+    throw new KernelUnavailableError(`documents/upload: ${detail}`)
+  }
+  return (await res.json()) as DocIngestResponse
+}
+
+/**
+ * Consulta status de um job de ingestão.
+ * Retorna null se não encontrado (job_id inválido ou container reiniciou).
+ */
+export async function getDocJobState(jobId: string): Promise<DocJobState | null> {
+  const res = await kernelFetch(`/api/v1/documents/upload/status/${encodeURIComponent(jobId)}`)
+  if (res.status === 404) return null
+  if (!res.ok) throw new KernelUnavailableError(`documents/upload/status/${jobId} retornou HTTP ${res.status}`)
+  return (await res.json()) as DocJobState
 }
 
 // ─── Task polling ─────────────────────────────────────────────────────────────
