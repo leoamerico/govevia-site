@@ -1,6 +1,11 @@
 # Govevia Site — v2.0.0
 
-## 2026-02-18 — Fix: taxonomy inlined — elimina fs.readFileSync em serverless
+## 2026-02-18 — Refactor: SSOT para módulos de enforcement da plataforma
+
+- `lib/plataforma/modules.ts` (NOVO): fonte única de verdade para os 6 módulos da plataforma (Processos, Urbanismo, Assinatura, Auditoria, LGPD, Transparência). Cada módulo expõe `functional`, `normative`, `enforcement`, `legalBasis`, `technicalFeatures` e `iconPaths`. Alterar aqui reflete automaticamente em qualquer consumidor do site.
+- `components/platform/ModulesDetail.tsx`: removido array local de 175 linhas hardcoded; agora importa `MODULES` de `@/lib/plataforma/modules`. Sem mudança visual; substituição pura de origem dos dados.
+
+
 
 - `lib/taxonomy.ts`: dados de personas e contextos embutidos diretamente no TypeScript, eliminando `fs.readFileSync` sobre YAMLs em `/admin/impersonate` e `startImpersonationAction`. Em ambientes serverless (Vercel), arquivos estáticos não rastreados pelo bundler não estão disponíveis em disco em runtime — a chamada lançava ENOENT e derrubava a página com "Application error".
 
