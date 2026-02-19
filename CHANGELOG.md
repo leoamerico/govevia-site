@@ -6,6 +6,7 @@
 - CEO Console: identidade corporativa padronizada e sem shortname proibido; cockpit `/admin/ops` ajustado para não exibir “EnvNeo” como nome.
 - Enforcement: novo gate `gate-docs-brand-legal` impede regressão (proíbe "EnvLive" em `docs/` e placeholders `[CNPJ]`/`[RAZÃO SOCIAL]`).
 - Build: correção de lint (variáveis não usadas) em `lib/rules/engine.ts` para liberar `next build`.
+- Conteúdo: correção de frontmatter YAML inválido em `content/blog/ia-em-governo-nao-pode-ser-caixa-preta.mdx` (linhas coladas `author`/`draft`/`tags`).
 
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 
