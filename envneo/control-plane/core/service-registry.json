@@ -1,0 +1,69 @@
+{
+  "_comment": "ENVNEO-CORE — Invariáveis técnicas do ecossistema. Machine-readable. Apps consomem (read-only).",
+  "_version": "1.0.0",
+  "_updated": "2026-02-19",
+
+  "org_units": ["ENVNEO", "GOVEVIA", "ENVLIVE"],
+
+  "apps": {
+    "site-public": {
+      "repo_path": ".",
+      "port_dev": 3000,
+      "host_prod": "govevia.com.br",
+      "allowed_routes": ["public only — sem /admin/*"],
+      "runtime": "next.js/vercel-edge"
+    },
+    "ceo-console": {
+      "repo_path": "apps/ceo-console",
+      "port_dev": 3001,
+      "host_prod": "console.govevia.com.br",
+      "allowed_routes": ["/admin/*"],
+      "runtime": "next.js/node"
+    }
+  },
+
+  "allowed_external_deps": [
+    "next",
+    "react",
+    "jose",
+    "bcryptjs",
+    "postgres",
+    "zod"
+  ],
+
+  "secret_references": {
+    "_comment": "Nomes das variáveis de ambiente — nunca valores. Valores em .env (nunca commitados).",
+    "ceo_console": [
+      "ADMIN_USERNAME",
+      "ADMIN_PASSWORD_HASH",
+      "ADMIN_JWT_SECRET",
+      "ADMIN_SESSION_SECRET"
+    ],
+    "site_public": [
+      "NEXT_PUBLIC_SITE_URL",
+      "DATABASE_URL",
+      "ADMIN_SESSION_SECRET"
+    ]
+  },
+
+  "brand_assets": {
+    "logo_svg": "apps/ceo-console/public/brand/envneo/logo.svg",
+    "logo_component": "apps/ceo-console/components/brand/EnvNeoLogo.tsx"
+  },
+
+  "ops_files": {
+    "registry": "envneo/ops/REGISTRY-OPS.ndjson",
+    "queue": "envneo/ops/CEO-QUEUE.yaml",
+    "tree": "envneo/strategy/TREE-REVENUE.yaml"
+  },
+
+  "policy_gates": [
+    "gate-tenant-auth-policy-no-hardcode",
+    "gate-cybersecure-no-pii",
+    "gate-no-auto-language",
+    "gate-procuracao-require-evidence",
+    "gate-wip-one",
+    "gate-registry-append-only",
+    "gate-no-admin-in-site-public"
+  ]
+}

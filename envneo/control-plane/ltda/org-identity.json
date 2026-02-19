@@ -1,0 +1,37 @@
+{
+  "_comment": "ENVNEO-LTDA — Identidade jurídica e administrativa. Fonte única de verdade. Alterar aqui → reflete em todo o ecossistema.",
+  "_version": "1.0.0",
+  "_updated": "2026-02-19",
+
+  "razao_social": "ENV NEO LTDA",
+  "nome_comercial": "Env Neo Ltda.",
+  "cnpj": "36.207.211/0001-47",
+  "inscricao_estadual": "ISENTO",
+  "regime_tributario": "Simples Nacional",
+
+  "endereco": {
+    "logradouro": "Av. Palmeira Imperial, 165 / 302",
+    "cep": "38.406-582",
+    "cidade": "Uberlândia",
+    "estado": "MG",
+    "pais": "Brasil"
+  },
+
+  "contato": {
+    "email_geral": "govevia@govevia.com.br",
+    "email_dpo": "dpo@govevia.com.br"
+  },
+
+  "produto_principal": {
+    "nome": "Govevia",
+    "segmento": "Tecnologia para Governança Pública",
+    "tagline": "Governança Executável para Administração Pública",
+    "site": "https://govevia.com.br"
+  },
+
+  "representantes": {
+    "_comment": "Preencher com dados reais antes do primeiro contrato. Ref: POL-LEGAL-CONTRACTING-ENTITY",
+    "ceo": "[NOME DO CEO]",
+    "dpo": "[NOME DO DPO]"
+  }
+}

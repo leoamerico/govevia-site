@@ -1,0 +1,69 @@
+{
+  "_comment": "ENVNEO-BRIDGE — Regras de impressão de identidade legal vs. comercial. Determina qual nome usar em cada contexto.",
+  "_version": "1.0.0",
+  "_updated": "2026-02-19",
+  "_source": "Leia razão_social e nome_comercial de: envneo/control-plane/ltda/org-identity.json",
+
+  "rules": [
+    {
+      "context": "contract",
+      "display_field": "razao_social",
+      "example": "ENV NEO LTDA",
+      "rationale": "Contratos exigem razão social exata conforme Receita Federal."
+    },
+    {
+      "context": "invoice",
+      "display_field": "razao_social",
+      "example": "ENV NEO LTDA",
+      "rationale": "Notas fiscais e cobranças usam razão social e CNPJ completo."
+    },
+    {
+      "context": "ui_header",
+      "display_field": "nome_comercial",
+      "example": "Env Neo Ltda.",
+      "rationale": "Interfaces de usuário usam nome comercial para legibilidade."
+    },
+    {
+      "context": "ui_footer",
+      "display_field": "nome_comercial",
+      "example": "Env Neo Ltda.",
+      "rationale": "Footer público usa nome comercial + CNPJ (exigência legal de e-commerce)."
+    },
+    {
+      "context": "email_from",
+      "display_field": "nome_comercial",
+      "example": "Env Neo Ltda. <govevia@govevia.com.br>",
+      "rationale": "Remetente de e-mail usa nome comercial para reconhecimento."
+    },
+    {
+      "context": "email_footer_legal",
+      "display_field": "razao_social",
+      "example": "ENV NEO LTDA — CNPJ 36.207.211/0001-47",
+      "rationale": "Rodapé legal de e-mail exige razão social e CNPJ completo."
+    },
+    {
+      "context": "terms_of_service",
+      "display_field": "razao_social",
+      "example": "ENV NEO LTDA",
+      "rationale": "Documentos legais públicos (ToS, PP) usam razão social."
+    },
+    {
+      "context": "login_screen",
+      "display_field": "nome_comercial",
+      "example": "Env Neo Ltda.",
+      "rationale": "Tela de login usa nome comercial. CNPJ exibido como informação secundária."
+    },
+    {
+      "context": "report_header",
+      "display_field": "razao_social",
+      "example": "ENV NEO LTDA",
+      "rationale": "Relatórios formais (PDF, auditoria) usam razão social."
+    }
+  ],
+
+  "hardcode_policy": {
+    "allowed": false,
+    "rationale": "CNPJ, razão social e nome comercial NUNCA são hardcoded em código-fonte. Única fonte: org-identity.json.",
+    "enforcement": "gate-no-admin-in-site-public + code review"
+  }
+}
