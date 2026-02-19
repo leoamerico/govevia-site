@@ -10,6 +10,7 @@
 - Refinamento: `envneo/ops/CEO-QUEUE.yaml` atualizado (itens concluídos movidos para `done`; WIP limpo) e índice/status em `docs/INDEX.md` + `docs/STATUS.md` alinhados ao payload atual.
 - Fix: site-public passa a tratar `/admin` e `/admin/login` como entrypoint seguro (redirect/página informativa) para o CEO Console, mantendo demais `/admin/*` fechados com 404.
 - Refinamento: página informativa de `/admin/login` ajustada (copy mais neutra/profissional) e `PRESENT-CEO-CONSOLE` explicita URLs locais do CEO Console (porta 3001).
+- Fix(build): removido `next/font/google` (evita fetch de woff2 em `fonts.gstatic.com` durante build no Vercel); fontes agora via stack local/system em CSS vars (`--font-plex-*`).
 
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 

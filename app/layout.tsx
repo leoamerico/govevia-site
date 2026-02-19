@@ -1,29 +1,7 @@
 import type { Metadata } from 'next'
-import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from 'next/font/google'
 import './globals.css'
 import CookieConsent from '@/components/CookieConsent'
 import AdminAccessButton from '@/components/AdminAccessButton'
-
-const plexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  variable: '--font-plex-sans',
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-})
-
-const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  variable: '--font-plex-mono',
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-})
-
-const plexSerif = IBM_Plex_Serif({
-  subsets: ['latin'],
-  variable: '--font-plex-serif',
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://govevia.com.br'),
@@ -131,7 +109,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
         />
       </head>
-      <body className={`${plexSans.variable} ${plexSerif.variable} ${plexMono.variable}`}>
+      <body>
         {children}
         <CookieConsent />
         <AdminAccessButton />
