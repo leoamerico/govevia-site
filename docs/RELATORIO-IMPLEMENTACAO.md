@@ -257,7 +257,7 @@ Diretório: `tests/hardening/test_hardening_smoke.py`
 
 | # | Área | Item | Prioridade |
 |---|------|------|-----------|
-| 1 | Backend | Implementar `POST /api/v1/search` — retornar `{ chunks: ChunkResult[] }` | Alta |
+| ~~1~~ | ~~Backend~~ | ~~Implementar `POST /api/v1/search`~~ | ✅ `2d28d372` (backend) |
 | 2 | QA | Executar `tests/hardening/test_hardening_smoke.py` e registrar resultados | Alta |
 | 3 | Frontend | Sprint E — Chat RAG UI (`POST /api/v1/chat/`), painel de métricas (`GET /api/v1/system/metrics`) | Média |
 | 4 | Infra | Validar pipeline CI/CD para deploy do `ceo-console` | Média |
@@ -268,13 +268,22 @@ Diretório: `tests/hardening/test_hardening_smoke.py`
 ## 7. Histórico de commits relevantes
 
 ```
-487b508  feat(sprint-d): search proxy route, SearchTab migrated to proxy fetch, actions.ts types-only
-b832c62  test(sprint-c): e2e smoke test — auth, task dispatch/poll, doc upload/poll, normas
-626ee68  feat(sprint-c): document ingestion — kernelFetchForm, ingest proxy routes, usePollDocJob, UploadTab live polling
-01b31b1  feat(sprint-c): dispatch + handlers proxy routes; TasksTab with live polling in RAG demo
-8aaca7a  feat(sprint-c): async task polling — getTaskState, task proxy route, usePollTask hook
-ed85b50  feat(sprint-b): federacao auth + proxy normas-legais para backend
-c187b5e  feat(sprint-a): kernel status widget + ping route
+# Backend (govevia)
+2d28d372  feat(search): POST /api/v1/search — busca semantica hibrida, contrato BFF ChunkResult
+cf288793  docs(report): preenche secao 10 com dados reais do frontend
+c78e3fb6  fix(sprint-d-prep): _jobs→Redis TTL 1h; compose ai-service; DOCUMENT_ENCRYPTION_KEY
+632b2757  feat(sprint-a/b/c): normas-legais, task queue, service accounts, auth role fix
+36c4710b  feat(adr-050): bounded context model segregation + alembic migrations
+
+# Frontend (govevia-site)
+ebf98a1   fix(divergencias): ping usa /api/v1/health, search documenta endpoint pendente
+487b508   feat(sprint-d): search proxy route, SearchTab migrated to proxy fetch, actions.ts types-only
+b832c62   test(sprint-c): e2e smoke test — auth, task dispatch/poll, doc upload/poll, normas
+626ee68   feat(sprint-c): document ingestion — kernelFetchForm, ingest proxy routes, usePollDocJob
+01b31b1   feat(sprint-c): dispatch + handlers proxy routes; TasksTab with live polling
+8aaca7a   feat(sprint-c): async task polling — getTaskState, task proxy route, usePollTask hook
+ed85b50   feat(sprint-b): federacao auth + proxy normas-legais para backend
+c187b5e   feat(sprint-a): kernel status widget + ping route
 ```
 
 ---
