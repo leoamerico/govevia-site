@@ -2,9 +2,7 @@
  * lib/plataforma/modules.ts
  * SSOT — Módulos da Plataforma Govevia
  *
- * Altere aqui. Reflete automaticamente em:
- *   - components/platform/ModulesDetail.tsx
- *   - qualquer outro componente do site que importe MODULES
+ * Altere aqui. Reflete em qualquer componente que importe MODULES.
  *
  * Ícones: array de SVG path strings (viewBox 0 0 24 24, stroke, strokeWidth 2).
  * Para múltiplos paths no mesmo ícone, adicione mais strings no array.
@@ -27,7 +25,7 @@ export type PlatformModule = {
   enforcement: string
   legalBasis: string[]
   technicalFeatures: string[]
-  /** SVG path `d` strings — renderizados por ModulesDetail com viewBox 0 0 24 24 */
+  /** SVG path `d` strings — viewBox 0 0 24 24, stroke, strokeWidth 2 */
   iconPaths: string[]
 }
 
