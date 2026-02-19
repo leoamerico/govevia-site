@@ -285,6 +285,144 @@ export async function checkAto(req: Request) {
   }
 }
 
+// ─── Test 5: gate-wip-one ─────────────────────────────────────────────────────
+console.log('\n── Test: gate-wip-one')
+
+{
+  const GATE = join(GATES_DIR, 'gate-wip-one.mjs')
+
+  function runWipGate(fixtureDir) {
+    return spawnSync(process.execPath, [GATE], {
+      stdio: 'pipe',
+      env: { ...process.env, GATE_FIXTURE_ROOT: fixtureDir },
+    })
+  }
+
+  // ── Cenário A: arquivo ausente → WARN (exit 0) ─────────────────────────────
+  {
+    const dir = tempDir('wip-no-file')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    const r = runWipGate(dir)
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('sem CEO-QUEUE.yaml → exit 0 (WARN)', r.status === 0,
+      `exit code foi ${r.status}`)
+    assert('sem CEO-QUEUE.yaml → [WARN] no output', out.includes('[WARN]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário B: wip com 2 itens → FAIL ────────────────────────────────────
+  {
+    const dir = tempDir('wip-violation')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'ops', 'CEO-QUEUE.yaml'), `
+backlog: []
+wip:
+  - id: Q-001
+    title: Item um
+  - id: Q-002
+    title: Item dois
+done: []
+`)
+    const r = runWipGate(dir)
+    assert('2 itens em wip → exit 1 (FAIL)', r.status === 1,
+      `exit code foi ${r.status}`)
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('2 itens em wip → [FAIL] no output', out.includes('[FAIL]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário C: wip com 1 item → PASS ──────────────────────────────────────
+  {
+    const dir = tempDir('wip-ok')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'ops', 'CEO-QUEUE.yaml'), `
+backlog: []
+wip:
+  - id: Q-001
+    title: Item único
+done: []
+`)
+    const r = runWipGate(dir)
+    assert('1 item em wip → exit 0 (PASS)', r.status === 0,
+      `exit code foi ${r.status}`)
+    cleanup(dir)
+  }
+}
+
+// ─── Test 6: gate-registry-append-only ────────────────────────────────────────
+console.log('\n── Test: gate-registry-append-only')
+
+{
+  const GATE = join(GATES_DIR, 'gate-registry-append-only.mjs')
+
+  function runAppendGate(fixtureDir, baselineLines = [], currentLines = null) {
+    const env = {
+      ...process.env,
+      GATE_FIXTURE_ROOT: fixtureDir,
+      GATE_FIXTURE_BASELINE: JSON.stringify(baselineLines),
+    }
+    return spawnSync(process.execPath, [GATE], { stdio: 'pipe', env })
+  }
+
+  // ── Cenário A: arquivo ausente → WARN ─────────────────────────────────────
+  {
+    const dir = tempDir('append-no-file')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    const r = runAppendGate(dir, [])
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('sem REGISTRY-OPS.ndjson → exit 0 (WARN)', r.status === 0,
+      `exit code foi ${r.status}`)
+    assert('sem REGISTRY-OPS.ndjson → [WARN] no output', out.includes('[WARN]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário B: linha existente modificada → FAIL ───────────────────────────
+  {
+    const dir = tempDir('append-modified')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    const original = '{"ts":"2026-01-01T00:00:00Z","type":"NOTE","summary":"original"}'
+    const tampered = '{"ts":"2026-01-01T00:00:00Z","type":"NOTE","summary":"ALTERADO"}'
+    writeFileSync(join(dir, 'envneo', 'ops', 'REGISTRY-OPS.ndjson'), tampered + '\n')
+    const r = runAppendGate(dir, [original])
+    assert('linha modificada → exit 1 (FAIL)', r.status === 1,
+      `exit code foi ${r.status}`)
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('linha modificada → [FAIL] no output', out.includes('[FAIL]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário C: linha removida → FAIL ──────────────────────────────────────
+  {
+    const dir = tempDir('append-removed')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    const line1 = '{"ts":"2026-01-01T00:00:00Z","type":"NOTE","summary":"L1"}'
+    const line2 = '{"ts":"2026-01-02T00:00:00Z","type":"NOTE","summary":"L2"}'
+    // Current file has only line1 (line2 was removed)
+    writeFileSync(join(dir, 'envneo', 'ops', 'REGISTRY-OPS.ndjson'), line1 + '\n')
+    const r = runAppendGate(dir, [line1, line2])
+    assert('linha removida → exit 1 (FAIL)', r.status === 1,
+      `exit code foi ${r.status}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário D: nova linha adicionada → PASS ───────────────────────────────
+  {
+    const dir = tempDir('append-ok')
+    mkdirSync(join(dir, 'envneo', 'ops'), { recursive: true })
+    const line1 = '{"ts":"2026-01-01T00:00:00Z","type":"NOTE","summary":"L1"}'
+    const line2 = '{"ts":"2026-01-02T00:00:00Z","type":"NOTE","summary":"L2"}'
+    writeFileSync(join(dir, 'envneo', 'ops', 'REGISTRY-OPS.ndjson'), line1 + '\n' + line2 + '\n')
+    const r = runAppendGate(dir, [line1])
+    assert('linha adicionada → exit 0 (PASS)', r.status === 0,
+      `exit code foi ${r.status}`)
+    cleanup(dir)
+  }
+}
+
 // ─── Resumo ──────────────────────────────────────────────────────────────────
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {

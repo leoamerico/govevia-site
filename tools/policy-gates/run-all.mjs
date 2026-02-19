@@ -17,6 +17,8 @@ const GATES = [
   'gate-cybersecure-no-pii.mjs',
   'gate-no-auto-language.mjs',
   'gate-procuracao-require-evidence.mjs',
+  'gate-wip-one.mjs',
+  'gate-registry-append-only.mjs',
 ]
 
 let anyFailed = false
