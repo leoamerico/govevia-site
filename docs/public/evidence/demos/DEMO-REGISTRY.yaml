@@ -75,8 +75,10 @@ deliveries:
     spec: apps/ceo-console/tests/e2e/demo.spec.ts
     reviewed: true
     notes: >
-      Sprint E: POST /api/admin/chat proxy → /api/v1/chat/; ChatTab.tsx;
-      RagDemoClient atualizado com 4ª aba '💬  Chat RAG'; ContextualHelp RAG
-      atualizado com passos de chat. Testes: api.spec.ts (+4), rag.spec.ts (+1),
-      demo.spec.ts (+1 cena). GIF registra abertura da aba, envio de pergunta
-      e exibição da resposta stub (kernel indisponível em dev). Commit 43c5bc2.
+      Sprint E (re-gravado pós fix message→question + history forwarding).
+      Fluxo completo: abertura aba Chat RAG, envio de pergunta, resposta
+      processada pelo backend FastAPI (kernel pathway ativo). Ollama indisponível
+      em dev → fallback gracioso do backend Python (não stub JS do proxy).
+      history[] multi-turno repassado ao LLM via HistoryMessage[]. 
+      Commits: 43c5bc2 (Sprint E), c5bd605 (fix question), 656b419 (history proxy),
+      352e575f (backend HistoryMessage). 40/40 testes. Gravação: 16.3s.
