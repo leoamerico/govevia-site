@@ -5,6 +5,7 @@
 import Link from 'next/link'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
 
 const navLinks = [
   { href: '/admin/ops', label: 'Ops' },
@@ -63,29 +64,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         {/* Right: corporate identity — ENV NEO LTDA, Open Sans 12 */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '1px' }}>
-          <span
-            style={{
-              fontFamily: "'Open Sans', Arial, sans-serif",
-              fontSize: '12px',
-              fontWeight: 'normal' as const,
-              color: '#f8fafc',
-              letterSpacing: '0.05em',
-            }}
-          >
-            {legalName}
-          </span>
-          <span
-            style={{
-              fontFamily: "'Open Sans', Arial, sans-serif",
-              fontSize: '12px',
-              fontWeight: 'normal' as const,
-              color: '#64748b',
-            }}
-          >
-            CNPJ: {cnpj}
-          </span>
-        </div>
+        <CorporateIdentity legalName={legalName} cnpj={cnpj} align="right" />
       </nav>
       {children}
     </>

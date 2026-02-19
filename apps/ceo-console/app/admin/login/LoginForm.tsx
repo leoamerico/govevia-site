@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
 
 export interface LoginFormProps {
   legalName: string
@@ -40,13 +41,8 @@ export function LoginForm({ legalName, cnpj }: LoginFormProps) {
         style={{ background: '#1e293b', padding: '2.5rem', borderRadius: '0.75rem', minWidth: 320 }}
       >
         {/* Identidade corporativa ENV NEO LTDA — sem logo, sem slogan */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.75rem', gap: '0.25rem' }}>
-          <span style={{ fontFamily: "'Open Sans', Arial, sans-serif", fontSize: '12px', fontWeight: 'normal', color: '#f8fafc', letterSpacing: '0.06em' }}>
-            {legalName}
-          </span>
-          <span style={{ fontFamily: "'Open Sans', Arial, sans-serif", fontSize: '12px', fontWeight: 'normal', color: '#94a3b8' }}>
-            CNPJ: {cnpj}
-          </span>
+        <div style={{ marginBottom: '1.75rem' }}>
+          <CorporateIdentity legalName={legalName} cnpj={cnpj} align="center" />
         </div>
 
         {error ? (
