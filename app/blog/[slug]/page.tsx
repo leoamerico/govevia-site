@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { getPostBySlug, getAllPosts } from '@/lib/blog'
 import { getContexts, getPersonas } from '@/lib/taxonomy'
+import { resolveView } from '@/lib/view/resolveView'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import ViewSelector from '@/components/content/ViewSelector'
 import { ViewProvider } from '@/components/content/ViewProvider'
@@ -49,15 +51,15 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
   const personas = getPersonas()
   const contexts = getContexts()
 
-  const viewSet = new Set<string>(personas.map((p) => p.id))
   const ctxSet = new Set<string>(contexts.map((c) => c.id))
 
-  const requestedView = searchParams?.view
-  const requestedCtx = searchParams?.ctx
+  // Seleção determinística: ?view= > cookie gv_view > default 'procurador'
+  // (ADR: docs/architecture/decisions/ADR-VIEW-SELECTION-PERSONAS.md)
+  const cookieStore = cookies()
+  const activeView = resolveView(searchParams ?? null, cookieStore)
 
-  const activeView = requestedView && viewSet.has(requestedView) ? requestedView : undefined
-  const activeCtx =
-    activeView && requestedCtx && ctxSet.has(requestedCtx) ? requestedCtx : undefined
+  const requestedCtx = searchParams?.ctx
+  const activeCtx = requestedCtx && ctxSet.has(requestedCtx) ? requestedCtx : undefined
 
   const schemaArticle = {
     '@context': 'https://schema.org',
