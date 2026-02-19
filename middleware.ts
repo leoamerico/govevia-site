@@ -104,18 +104,17 @@ async function enforceAdminAuth(_request: NextRequest): Promise<NextResponse> {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Admin — CEO Console</title>
+    <title>Acesso administrativo</title>
   </head>
   <body>
     <main style="max-width: 720px; margin: 40px auto; padding: 0 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.45;">
       <h1 style="margin: 0 0 12px; font-size: 20px;">Acesso administrativo</h1>
-      <p style="margin: 0 0 12px;">O Admin não é servido pelo site público. Ele vive no <strong>CEO Console</strong> (<code>apps/ceo-console</code>).</p>
-      <h2 style="margin: 16px 0 8px; font-size: 16px;">Demo local</h2>
-      <p style="margin: 0 0 12px;">Inicie o CEO Console e acesse:</p>
-      <p style="margin: 0 0 12px;"><a href="http://localhost:3001/admin/login">http://localhost:3001/admin/login</a></p>
-      <h2 style="margin: 16px 0 8px; font-size: 16px;">Produção</h2>
-      <p style="margin: 0 0 12px;">Para habilitar redirect automático a partir deste domínio, configure a env var <code>CEO_CONSOLE_BASE_URL</code> (ex.: <code>https://ceo-console.seu-dominio</code>).</p>
-      <p style="margin: 0; color: #555;">(Página gerada pelo middleware — superfície admin do site permanece fechada.)</p>
+      <p style="margin: 0 0 12px;">Esta área é <strong>restrita</strong> e não é servida pelo site público.</p>
+      <p style="margin: 0 0 12px;">O console administrativo vive no <strong>CEO Console</strong> (<code>apps/ceo-console</code>), com controles de sessão e postura fail-closed.</p>
+
+      <h2 style="margin: 16px 0 8px; font-size: 16px;">Para equipe interna</h2>
+      <p style="margin: 0 0 12px;">Se você precisa acessar o Admin via este domínio, habilite o redirecionamento configurando <code>CEO_CONSOLE_BASE_URL</code> (ex.: <code>https://ceo-console.seu-dominio</code>).</p>
+      <p style="margin: 0; color: #555;">(Página gerada pelo middleware — demais rotas <code>/admin/*</code> permanecem fechadas.)</p>
     </main>
   </body>
 </html>`

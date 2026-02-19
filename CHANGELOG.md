@@ -9,6 +9,7 @@
 - Conteúdo: correção de frontmatter YAML inválido em `content/blog/ia-em-governo-nao-pode-ser-caixa-preta.mdx` (linhas coladas `author`/`draft`/`tags`).
 - Refinamento: `envneo/ops/CEO-QUEUE.yaml` atualizado (itens concluídos movidos para `done`; WIP limpo) e índice/status em `docs/INDEX.md` + `docs/STATUS.md` alinhados ao payload atual.
 - Fix: site-public passa a tratar `/admin` e `/admin/login` como entrypoint seguro (redirect/página informativa) para o CEO Console, mantendo demais `/admin/*` fechados com 404.
+- Refinamento: página informativa de `/admin/login` ajustada (copy mais neutra/profissional) e `PRESENT-CEO-CONSOLE` explicita URLs locais do CEO Console (porta 3001).
 
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 

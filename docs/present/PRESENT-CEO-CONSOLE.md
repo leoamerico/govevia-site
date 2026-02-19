@@ -17,9 +17,9 @@ cd apps/ceo-console && npx tsc --noEmit && npm run smoke:identity && cd ../..
 
 ## URLs de demo
 
-- `/admin/login`
-- `/admin/ops`
-- `/admin/rules`
+- `http://localhost:3001/admin/login`
+- `http://localhost:3001/admin/ops`
+- `http://localhost:3001/admin/rules`
 
 ---
 
