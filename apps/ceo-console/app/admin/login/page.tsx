@@ -4,12 +4,13 @@ import { join } from 'node:path'
 import { LoginForm } from './LoginForm'
 
 export const metadata: Metadata = {
-  title: 'Env Neo Ltda. — Login',
+  title: 'ENV NEO LTDA — Login',
 }
 
 export default function AdminLoginPage() {
-  const orgIdentityPath = join(process.cwd(), '..', '..', 'envneo', 'control-plane', 'ltda', 'org-identity.json')
-  const orgIdentity = JSON.parse(readFileSync(orgIdentityPath, 'utf8'))
+  const brandRegistryPath = join(process.cwd(), '../..', 'envneo', 'control-plane', 'bridge', 'brand-registry.json')
+  const brandRegistry = JSON.parse(readFileSync(brandRegistryPath, 'utf8'))
+  const entity = brandRegistry['ENVNEO_LTDA'] as { legal_name_upper: string; cnpj: string }
 
-  return <LoginForm orgName={orgIdentity.nome_comercial} cnpj={orgIdentity.cnpj} />
+  return <LoginForm legalName={entity.legal_name_upper} cnpj={entity.cnpj} />
 }

@@ -1,14 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { EnvNeoLogo } from '@/components/brand/EnvNeoLogo'
 
 export interface LoginFormProps {
-  orgName: string
+  legalName: string
   cnpj: string
 }
 
-export function LoginForm({ orgName, cnpj }: LoginFormProps) {
+export function LoginForm({ legalName, cnpj }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -40,13 +39,12 @@ export function LoginForm({ orgName, cnpj }: LoginFormProps) {
         onSubmit={submit}
         style={{ background: '#1e293b', padding: '2.5rem', borderRadius: '0.75rem', minWidth: 320 }}
       >
-        {/* Identidade corporativa */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.75rem', gap: '0.5rem' }}>
-          <EnvNeoLogo className="h-10 w-auto" />
-          <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#f8fafc', marginTop: '0.25rem' }}>
-            {orgName}
+        {/* Identidade corporativa ENV NEO LTDA — sem logo, sem slogan */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.75rem', gap: '0.25rem' }}>
+          <span style={{ fontFamily: "'Open Sans', Arial, sans-serif", fontSize: '12px', fontWeight: 'normal', color: '#f8fafc', letterSpacing: '0.06em' }}>
+            {legalName}
           </span>
-          <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontFamily: 'monospace' }}>
+          <span style={{ fontFamily: "'Open Sans', Arial, sans-serif", fontSize: '12px', fontWeight: 'normal', color: '#94a3b8' }}>
             CNPJ: {cnpj}
           </span>
         </div>
