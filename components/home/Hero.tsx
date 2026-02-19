@@ -25,25 +25,29 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-institutional-offwhite via-white to-slate-50 pt-20">
-      {/* Subtle geometric pattern */}
-      <div className="absolute inset-0 overflow-hidden opacity-[0.03] text-primary">
-        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <pattern id="gov-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <g fill="currentColor">
-                <path d="M20 20h-2v2h2v-2zm-10 0H8v2h2v-2zm20 0h-2v2h2v-2zM10 10H8v2h2v-2zm10 0h-2v2h2v-2zm10 0h-2v2h2v-2z" />
-              </g>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#gov-grid)" />
-        </svg>
+    <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden pt-20">
+      {/* Atmospheric gradient blobs */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div style={{ position: 'absolute', top: '-10%', right: '-8%', width: '55vw', maxWidth: '680px', height: '55vw', maxHeight: '680px', borderRadius: '50%', background: 'radial-gradient(circle at 60% 40%, rgba(16,110,253,0.08) 0%, rgba(56,182,255,0.03) 45%, transparent 70%)' }} />
+        <div style={{ position: 'absolute', bottom: '-5%', left: '-5%', width: '38vw', maxWidth: '480px', height: '38vw', maxHeight: '480px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,225,230,0.06) 0%, transparent 70%)' }} />
+      </div>
+      {/* Decorative brand mark — watermark via multiply blend */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-[38vw] max-w-[520px]"
+        style={{ opacity: 0.055, mixBlendMode: 'multiply' }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/brand/govevia-mark-on-white.png" alt="" className="w-full h-auto" />
       </div>
 
       <div className="container-custom relative z-10 py-20">
         <div className="max-w-5xl mx-auto text-center">
           {kicker.trim().length > 0 ? (
-            <p className="text-xs tracking-widest uppercase text-institutional-slate font-mono mb-5">{kicker}</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/[0.04] text-xs font-mono tracking-widest uppercase text-primary mb-8">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5ce1e6] animate-pulse flex-shrink-0" aria-hidden="true" />
+              {kicker}
+            </div>
           ) : null}
 
           <motion.div
@@ -94,14 +98,16 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             className="mt-16 pt-12 border-t border-gray-200"
           >
             {legal.title.trim().length > 0 ? (
-              <p className="text-sm text-institutional-slate font-medium mb-4 font-sans">{legal.title}</p>
+              <p className="text-xs text-institutional-silver font-mono uppercase tracking-widest mb-4">{legal.title}</p>
             ) : null}
             {legalItems.length > 0 ? (
-              <div className="flex flex-wrap justify-center gap-6 text-xs text-institutional-silver font-sans">
+              <div className="flex flex-wrap justify-center gap-2">
                 {legalItems.map((item, idx) => (
-                  <span key={`${idx}-${item}`}>
+                  <span
+                    key={`${idx}-${item}`}
+                    className="inline-flex items-center px-3 py-1 rounded-md bg-institutional-offwhite border border-institutional-lightgray text-xs text-institutional-slate font-mono tracking-tight"
+                  >
                     {item}
-                    {idx < legalItems.length - 1 ? <span className="ml-6 text-institutional-lightgray">·</span> : null}
                   </span>
                 ))}
               </div>

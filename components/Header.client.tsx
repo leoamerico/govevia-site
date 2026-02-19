@@ -29,8 +29,10 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'bg-white/98 backdrop-blur-md shadow-[0_1px_0_0_rgba(16,110,253,0.15),0_4px_24px_0_rgba(0,0,0,0.07)]'
+          : 'bg-white/90 backdrop-blur-sm'
       }`}
     >
       <nav className="container-custom" aria-label="Navegação principal">
@@ -54,12 +56,13 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
               />
             )}
 
-            <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
-
             {legalEntityName.trim().length > 0 ? (
-              <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
-                {legalEntityName}
-              </span>
+              <>
+                <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
+                <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
+                  {legalEntityName}
+                </span>
+              </>
             ) : null}
           </Link>
 
@@ -68,13 +71,14 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-institutional-graphite hover:text-primary font-medium transition-colors duration-200 text-sm"
+                className="text-institutional-graphite hover:text-primary font-medium text-sm relative transition-colors duration-200 after:absolute after:bottom-[-3px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300 after:content-['']"
               >
                 {item.name}
               </Link>
             ))}
-            <Link href="#contato" className="btn-primary text-sm px-6 py-3">
+            <Link href="#contato" className="btn-primary text-sm px-6 py-3 group">
               Fale com nossa equipe
+              <span className="ml-2 transition-transform duration-200 group-hover:translate-x-0.5 inline-block" aria-hidden="true">→</span>
             </Link>
           </div>
 

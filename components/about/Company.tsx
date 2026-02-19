@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { ENVNEO_BRAND } from '@/lib/brand/envneo'
 
 export default function Company() {
   return (
@@ -39,7 +40,7 @@ export default function Company() {
                     </svg>
                     <div>
                       <p className="font-semibold text-institutional-navy">Razão Social</p>
-                      <p>Env Neo Ltda.</p>
+                      <p>{ENVNEO_BRAND.legalEntityName}</p>
                     </div>
                   </div>
 
@@ -49,7 +50,7 @@ export default function Company() {
                     </svg>
                     <div>
                       <p className="font-semibold text-institutional-navy">CNPJ</p>
-                      <p>36.207.211/0001-47</p>
+                      <p>{ENVNEO_BRAND.cnpj}</p>
                     </div>
                   </div>
 
