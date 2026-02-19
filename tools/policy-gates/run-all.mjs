@@ -22,6 +22,7 @@ const GATES = [
   'gate-no-admin-in-site-public.mjs',
   'gate-rules-have-impl.mjs',
   'gate-impl-registered.mjs',
+  'gate-no-envneo-shortname.mjs',
 ]
 
 let anyFailed = false

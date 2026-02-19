@@ -52,8 +52,8 @@ export const ENVNEO_WWW_URL   = 'https://www.govevia.com.br'
 export function normalizeLegalEntityName(value: string): string {
   return value
     .replace(/\bENV\s*-\s*NEO\s+LTDA\b/gi, ENVNEO_LEGAL_ENTITY_NAME)
-    .replace(/\bENV\s*-\s*NEO\b/gi, 'Env Neo')
-    .replace(/\bEnv\s*Neo\b/gi, 'Env Neo')
+    .replace(/\bENV\s*-\s*NEO\b/gi, ENVNEO_LEGAL_ENTITY_NAME)
+    .replace(/\bEnv\s*Neo\b/gi, ENVNEO_LEGAL_ENTITY_NAME)
 }
 
 // ── Objeto agregado (para uso compacto quando necessário) ─

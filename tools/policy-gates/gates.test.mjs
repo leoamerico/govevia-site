@@ -563,6 +563,91 @@ console.log('\n── Test: gate-impl-registered (funcao sem registro → FAIL; 
   }
 }
 
+// ─── Test 10: gate-no-envneo-shortname ───────────────────────────────────────
+console.log('\n── Test: gate-no-envneo-shortname (shortname + integridade brand-registry)')
+
+{
+  // Helper: cria estrutura mínima com brand-registry.json correto
+  function makeRegistry(dir) {
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'bridge'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'bridge', 'brand-registry.json'), JSON.stringify({
+      ENVNEO_LTDA: { legal_name_upper: 'ENV NEO LTDA', cnpj: '36.207.211/0001-47', logo: null }
+    }))
+  }
+
+  // Cenário A: "Env Neo" isolado em arquivo apps/ → FAIL
+  {
+    const dir = tempDir('shortname-fail')
+    mkdirSync(join(dir, 'apps', 'ceo-console', 'app'), { recursive: true })
+    makeRegistry(dir)
+    writeFileSync(join(dir, 'apps', 'ceo-console', 'app', 'page.tsx'),
+      `export default function Page() { return <span>a plataforma Env Neo possui...</span> }`)
+    const r = runGateWithFixture('gate-no-envneo-shortname.mjs', dir, 1)
+    assert('"Env Neo" isolado → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    const out = (r.stdout ?? '') + (r.stderr ?? '')
+    assert('"Env Neo" isolado → [FAIL] no output', out.includes('[FAIL]'), `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: "ENV NEO LTDA" (uppercase) → PASS (regex não casa)
+  {
+    const dir = tempDir('shortname-pass-uppercase')
+    mkdirSync(join(dir, 'apps', 'ceo-console', 'app'), { recursive: true })
+    makeRegistry(dir)
+    writeFileSync(join(dir, 'apps', 'ceo-console', 'app', 'page.tsx'),
+      `export default function Page() { return <span>ENV NEO LTDA — CNPJ: 36.207.211/0001-47</span> }`)
+    const r = runGateWithFixture('gate-no-envneo-shortname.mjs', dir, 0)
+    assert('"ENV NEO LTDA" uppercase → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário C: "Env Neo Ltda." → PASS (lookahead " Ltda" presente)
+  {
+    const dir = tempDir('shortname-pass-ltda')
+    mkdirSync(join(dir, 'apps', 'ceo-console', 'app'), { recursive: true })
+    makeRegistry(dir)
+    writeFileSync(join(dir, 'apps', 'ceo-console', 'app', 'page.tsx'),
+      `// Razão social: Env Neo Ltda. conforme CNPJ`)
+    const r = runGateWithFixture('gate-no-envneo-shortname.mjs', dir, 0)
+    assert('"Env Neo Ltda." → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário D: brand-registry.json sem "ENV NEO LTDA" → FAIL (integridade)
+  {
+    const dir = tempDir('shortname-fail-missing-name')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'bridge'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'bridge', 'brand-registry.json'),
+      JSON.stringify({ ENVNEO_LTDA: { cnpj: '36.207.211/0001-47' } }))
+    const r = runGateWithFixture('gate-no-envneo-shortname.mjs', dir, 1)
+    assert('brand-registry sem ENV NEO LTDA → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário E: brand-registry.json sem CNPJ → FAIL (integridade)
+  {
+    const dir = tempDir('shortname-fail-missing-cnpj')
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'bridge'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'bridge', 'brand-registry.json'),
+      JSON.stringify({ ENVNEO_LTDA: { legal_name_upper: 'ENV NEO LTDA' } }))
+    const r = runGateWithFixture('gate-no-envneo-shortname.mjs', dir, 1)
+    assert('brand-registry sem CNPJ → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário F: CNPJ isolado sem shortname → PASS
+  {
+    const dir = tempDir('shortname-pass-cnpj')
+    mkdirSync(join(dir, 'apps', 'ceo-console', 'app'), { recursive: true })
+    makeRegistry(dir)
+    writeFileSync(join(dir, 'apps', 'ceo-console', 'app', 'page.tsx'),
+      `export default function Page() { return <span>CNPJ: 36.207.211/0001-47</span> }`)
+    const r = runGateWithFixture('gate-no-envneo-shortname.mjs', dir, 0)
+    assert('"CNPJ: 36.207.211/0001-47" → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {
   console.error('[TEST FAILED] Um ou mais testes de fixture falharam.')
