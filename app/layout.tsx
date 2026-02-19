@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Serif } from 'next/font/google'
 import './globals.css'
 import CookieConsent from '@/components/CookieConsent'
-import ImpersonationBanner from '@/components/ImpersonationBanner'
 import AdminAccessButton from '@/components/AdminAccessButton'
 
 const plexSans = IBM_Plex_Sans({
@@ -136,7 +135,6 @@ export default function RootLayout({
         {children}
         <CookieConsent />
         <AdminAccessButton />
-        <ImpersonationBanner />
       </body>
     </html>
   )
