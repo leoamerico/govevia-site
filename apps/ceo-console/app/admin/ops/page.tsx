@@ -280,7 +280,7 @@ export default function OpsPage() {
 
   return (
     <div style={S.page}>
-      <h1 style={S.h1}>Gabinete Ops — EnvNeo</h1>
+      <h1 style={S.h1}>Gabinete Ops — ENV NEO LTDA</h1>
       <p style={S.subtitle}>envneo/ops · {events.length} eventos · {new Date().toISOString().slice(0, 10)}</p>
 
       <div style={S.sectionTitle}>Fonte Única de Verdade (SOT) — control-plane</div>
