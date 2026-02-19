@@ -2,6 +2,9 @@
   "name": "govevia-institucional",
   "version": "2.0.0",
   "private": true,
+  "workspaces": [
+    "apps/ceo-console"
+  ],
   "scripts": {
     "dev": "next dev",
     "prebuild": "npm run content:check && npm run history:check",
@@ -27,7 +30,8 @@
     "validate:claims": "node scripts/validate-claims.mjs",
     "validate:web-claims-registry": "node scripts/validate-web-claims-registry.mjs",
     "security:csp": "node scripts/verify-csp-allowlist.mjs",
-    "security:verify": "npm run security:csp && npm run build"
+    "security:verify": "npm run security:csp && npm run build",
+    "policy:gates": "node tools/policy-gates/run-all.mjs"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.0",
