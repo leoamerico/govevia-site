@@ -37,6 +37,70 @@ export interface SimulationResponse {
   error?: string
 }
 
+// ─── Pre-verification action ────────────────────────────────────────────────
+
+export async function verificarExigencias(
+  useCaseId: string,
+  normaContext: { base_normativa_id: string; actor_user_id: string }
+): Promise<SimulationResponse> {
+  // Payload mínimo positivo: satisfaz RN01 (base_normativa_id não-nulo),
+  // RN03 (registrador ≠ auditor), RN05 (tipo_gasto ≠ PESSOAL), RN04 (sem dados pessoais)
+  const prePayload: Record<string, unknown> = {
+    base_normativa_id: normaContext.base_normativa_id,
+    actor_user_id: normaContext.actor_user_id,
+    usuario_registra_id: normaContext.actor_user_id,
+    usuario_audita_id: 'AUDITOR_SYSTEM',
+    contem_dados_pessoais: false,
+    tipo_gasto: 'CUSTEIO',
+    status_irregularidade: false,
+    valor_declarado: 0,
+    rcl_valor: 1_000_000,
+  }
+
+  const payloadJson = JSON.stringify(prePayload)
+  const rootDir = monorepoRoot()
+
+  let evalResult: UseCaseEvalResult
+  try {
+    evalResult = evaluateUseCase(useCaseId, prePayload, rootDir)
+  } catch (err) {
+    return {
+      useCaseId,
+      result: 'FAIL',
+      ruleResults: [],
+      hash_payload: '',
+      error: `Erro no motor: ${err instanceof Error ? err.message : String(err)}`,
+    }
+  }
+
+  const hashPayload = createHash('sha256').update(payloadJson).digest('hex')
+
+  // Registrar evento EXIGENCIAS_CHECK no registry
+  const registryPath = join(rootDir, 'envneo', 'ops', 'REGISTRY-OPS.ndjson')
+  const event = {
+    ts: new Date().toISOString(),
+    org_unit: 'ENVNEO',
+    type: 'EXIGENCIAS_CHECK',
+    ref: 'PRE-BPMN-GATE',
+    use_case_id: useCaseId,
+    base_normativa_id: normaContext.base_normativa_id,
+    rule_ids: evalResult.ruleResults.map((r) => r.ruleId),
+    result: evalResult.result,
+    hash_payload: hashPayload,
+    actor: normaContext.actor_user_id,
+  }
+  try { appendFileSync(registryPath, JSON.stringify(event) + '\n') } catch { /* non-fatal */ }
+
+  return {
+    useCaseId,
+    result: evalResult.result,
+    ruleResults: evalResult.ruleResults,
+    hash_payload: hashPayload,
+  }
+}
+
+// ─── Simulation action ────────────────────────────────────────────────────────
+
 export async function executarSimulacao(
   useCaseId: string,
   payloadJson: string

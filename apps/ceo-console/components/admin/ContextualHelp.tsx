@@ -122,23 +122,25 @@ const HELP_MAP: Record<string, HelpContent> = {
   },
 
   '/admin/rules': {
-    title: 'Playground de Regras Institucionais',
-    purpose: 'Teste e simulação das regras de negócio (RN01–RN05) antes de aplicá-las em produção.',
+    title: 'Regras & Exigências',
+    purpose: 'Tradutor de normas legais em exigências operacionais para o fiscal, com gate de pré-aprovação antes do cadastro de processos.',
     steps: [
-      { n: 1, label: 'Selecione um caso de uso', detail: 'O dropdown lista os UC cadastrados. Cada UC define o ator principal e os campos de entrada esperados.' },
-      { n: 2, label: 'Preencha o payload', detail: 'Os campos variam por UC. Preencha todos os obrigatórios — campos ausentes resultam em erro de validação.' },
-      { n: 3, label: 'Execute a simulação', detail: 'Clique em "Executar". O motor aplica as regras e retorna: decisão (ALLOW / DENY), regras ativadas e justificativa.' },
-      { n: 4, label: 'Analise as regras ativadas', detail: 'Cada RN exibida possui base normativa. Confirme que a justificativa está alinhada com a legislação vigente.' },
-      { n: 5, label: 'Documente o resultado', detail: 'Copie o JSON de saída para registrar evidência em relatórios de compliance.' },
+      { n: 1, label: 'Selecione o Caso de Uso', detail: 'O seletor lista os UCs cadastrados. Escolha o UC correspondente ao processo que vai cadastrar no BPMN.' },
+      { n: 2, label: 'Vá para a aba Exigências', detail: 'As exigências normativas aplicáveis ao UC selecionado aparecem como checklist com severidade (CRITICAL, HIGH, MEDIUM).' },
+      { n: 3, label: 'Leia e confirme cada exigência', detail: 'Marque o checkbox de cada item após revisar. Todas devem ser confirmadas para habilitar o botão de análise.' },
+      { n: 4, label: 'Clique em "Confirmar Análise"', detail: 'O motor determinístico avalia um payload de pré-verificação. Se PASS, um token de aprovação é registrado — válido por 2h.' },
+      { n: 5, label: 'Volte ao BPMN para cadastrar o processo', detail: 'Com o token ativo, o aviso de "Análise pendente" desaparece e você verá a badge "⚖️ Exigências verificadas" no topo.' },
+      { n: 6, label: 'Use a aba Simulação para testes avançados', detail: 'Monte payloads completos com dados reais para simular cenários de compliance antes de produção.' },
     ],
     tips: [
-      { icon: '🧪', text: 'Este é um ambiente de simulação — nenhuma ação real é executada. Seguro para treinamentos.' },
-      { icon: '⚠️', text: 'Resultados DENY com base em RN01 (Legalidade Estrita) devem ser revisados por um jurista.' },
-      { icon: '💡', text: 'Para treinamentos: compare o resultado do playground com uma decisão administrativa real tomada pelo órgão.' },
+      { icon: '⚖️', text: 'CRITICAL e HIGH devem ser confirmadas com evidência documental arquivada no processo.' },
+      { icon: '📋', text: 'A análise tem validade de 2h — após isso o gate reabre e exige nova confirmação.' },
+      { icon: '🔗', text: 'Cada confirmação é registrada em REGISTRY-OPS.ndjson com hash do payload — ratreável em auditoria.' },
+      { icon: '🧪', text: 'Simulação é ambiente seguro — nenhuma ação real é executada. Usar para treinamentos e checklists de go-live.' },
     ],
   },
 
-  '/admin/control-plane': {
+    '/admin/control-plane': {
     title: 'Control Plane — Conectividade',
     purpose: 'Inspetor somente-leitura das integrações ativas do sistema — APIs, serviços externos e variáveis de ambiente.',
     steps: [

@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { verifyAdminToken, COOKIE_NAME } from '@/lib/auth/admin'
-import BPMNManager from '@/components/bpmn/BPMNManager'
+import BPMNGateClient from './BPMNGateClient'
 import { fetchNormasFromBackend, KernelUnavailableError } from '@/lib/kernel/client'
 
 export const metadata: Metadata = {
@@ -42,5 +42,10 @@ export default async function BPMNPage() {
   const token = jar.get(COOKIE_NAME)?.value
   if (!token || !(await verifyAdminToken(token))) redirect('/admin/login')
   const normas = await loadNormas()
-  return <BPMNManager initialProcessos={loadJSON('processos-bpmn.json')} normas={normas} />
+  return (
+    <BPMNGateClient
+      initialProcessos={loadJSON('processos-bpmn.json')}
+      normas={normas}
+    />
+  )
 }

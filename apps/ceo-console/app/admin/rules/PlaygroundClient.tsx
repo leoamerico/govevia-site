@@ -10,6 +10,7 @@
 import { useState, useTransition } from 'react'
 import { executarSimulacao } from './actions'
 import type { SimulationResponse } from './actions'
+import { ExigenciasChecker } from '@/components/rules/ExigenciasChecker'
 
 export interface UseCaseInfo {
   id: string
@@ -53,6 +54,23 @@ const S = {
     fontSize: '1rem',
     letterSpacing: '0.08em',
   }),
+  // ─── Tab styles ───────────────────────────────────────────────────────────
+  tabBar: { display: 'flex', gap: 4, marginBottom: '1.5rem', borderBottom: '1px solid #1e293b', paddingBottom: 0 },
+  tabBtn: (active: boolean) => ({
+    background: 'transparent',
+    color: active ? '#f8fafc' : '#64748b',
+    border: 'none',
+    borderBottom: `2px solid ${active ? '#0059B3' : 'transparent'}`,
+    padding: '0.5rem 1rem',
+    fontWeight: active ? 700 : 500,
+    cursor: 'pointer',
+    fontSize: '0.875rem',
+    marginBottom: -1,
+  }),
+  // ─── Catálogo tab ─────────────────────────────────────────────────────────
+  catRow: (i: number) => ({ background: i % 2 === 0 ? '#1e293b' : '#0f172a', borderBottom: '1px solid #1e293b' }),
+  catCell: { padding: '0.6rem 0.75rem', fontSize: '0.78rem', color: '#cbd5e1', verticalAlign: 'top' as const },
+  catHead: { padding: '0.5rem 0.75rem', fontSize: '0.7rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.06em', background: '#0f172a', borderBottom: '1px solid #334155' },
 }
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -93,9 +111,21 @@ function RuleResultRow({ r }: { r: NonNullable<SimulationResponse['ruleResults']
   )
 }
 
+const SEV_COLORS: Record<string, string> = { CRITICAL: '#EF4444', HIGH: '#F97316', MEDIUM: '#F59E0B', LOW: '#94a3b8' }
+
+const RULE_CATALOGUE_STATIC = [
+  { id: 'RN01', name: 'Legalidade Estrita', legal_reference: 'CF/88, Art. 37', severity: 'CRITICAL', applies_to: 'UC01–05' },
+  { id: 'RN02', name: 'Responsabilidade Solidária', legal_reference: 'CF/88, Art. 74 §1º', severity: 'HIGH', applies_to: 'UC04' },
+  { id: 'RN03', name: 'Segregação de Funções', legal_reference: 'Controle interno', severity: 'HIGH', applies_to: 'UC03, UC04' },
+  { id: 'RN04', name: 'Sigilo (LAI) + LGPD', legal_reference: 'Lei 12.527/2011 + Lei 13.709/2018', severity: 'CRITICAL', applies_to: 'UC05' },
+  { id: 'RN05', name: 'Limite de Gasto (LRF)', legal_reference: 'LC 101/2000', severity: 'MEDIUM', applies_to: 'UC03' },
+]
+
 // ─── Main component ──────────────────────────────────────────────────────────
 
 export function PlaygroundClient({ useCases }: { useCases: UseCaseInfo[] }) {
+  const [activeTab, setActiveTab] = useState<'simulacao' | 'catalogo' | 'exigencias'>('simulacao')
+  const [approvedToken, setApprovedToken] = useState<string | null>(null)
   const [selectedId, setSelectedId] = useState(useCases[0]?.id ?? '')
   const [payloadText, setPayloadText] = useState(() => {
     const uc = useCases[0]
@@ -123,80 +153,144 @@ export function PlaygroundClient({ useCases }: { useCases: UseCaseInfo[] }) {
 
   return (
     <div style={S.page}>
-      <h1 style={S.h1}>Playground — Regras Institucionais</h1>
+      <h1 style={S.h1}>Regras Institucionais</h1>
       <p style={S.subtitle}>
         envneo/control-plane/core · motor determinístico · {useCases.length} casos de uso carregados
       </p>
 
-      {/* UC Selector */}
-      <div style={S.section}>
-        <label style={S.label}>Caso de Uso</label>
-        <select
-          style={S.select}
-          value={selectedId}
-          onChange={(e) => handleUcChange(e.target.value)}
-        >
-          {useCases.map((u) => (
-            <option key={u.id} value={u.id}>
-              {u.id} — {u.name}
-            </option>
-          ))}
-        </select>
-        {selectedUc && <UCDetails uc={selectedUc} />}
+      {/* Tab bar */}
+      <div style={S.tabBar}>
+        {(['simulacao', 'catalogo', 'exigencias'] as const).map((t) => (
+          <button key={t} style={S.tabBtn(activeTab === t)} onClick={() => setActiveTab(t)}>
+            {t === 'simulacao' ? '🧪 Simulação' : t === 'catalogo' ? '📋 Catálogo' : '⚖️ Exigências'}
+          </button>
+        ))}
       </div>
 
-      {/* Payload editor */}
-      <div style={S.section}>
-        <label style={S.label}>Payload (JSON)</label>
-        <textarea
-          style={S.textarea}
-          value={payloadText}
-          onChange={(e) => setPayloadText(e.target.value)}
-          spellCheck={false}
-        />
-        <button
-          style={S.btn(isPending)}
-          disabled={isPending}
-          onClick={handleExecute}
-        >
-          {isPending ? 'Executando...' : 'Executar'}
-        </button>
-      </div>
-
-      {/* Result */}
-      {result && (
+      {/* UC Selector — shared across Simulação and Exigências */}
+      {activeTab !== 'catalogo' && (
         <div style={S.section}>
-          <label style={S.label}>Resultado</label>
-          <div style={S.card}>
-            {result.error ? (
-              <div style={{ color: '#f87171', fontSize: '0.875rem' }}>⚠ {result.error}</div>
-            ) : (
-              <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1rem', flexWrap: 'wrap' as const }}>
-                  <span style={S.pill(result.result === 'PASS')}>{result.result}</span>
-                  <span style={S.tag('#6B7280')}>{result.useCaseId}</span>
-                </div>
+          <label style={S.label}>Caso de Uso</label>
+          <select
+            style={S.select}
+            value={selectedId}
+            onChange={(e) => handleUcChange(e.target.value)}
+          >
+            {useCases.map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.id} — {u.name}
+              </option>
+            ))}
+          </select>
+          {selectedUc && activeTab === 'simulacao' && <UCDetails uc={selectedUc} />}
+        </div>
+      )}
 
-                {/* Evidence hash — prominente para demo */}
-                <div style={{ background: '#052e16', border: '1px solid #166534', borderRadius: 6, padding: '0.6rem 0.875rem', marginBottom: '1rem' }}>
-                  <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#4ade80', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>
-                    EVIDENCE HASH (SHA-256)
-                  </div>
-                  <div style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: '#86efac', wordBreak: 'break-all' as const }}>
-                    {result.hash_payload}
-                  </div>
-                  <div style={{ fontSize: '0.65rem', color: '#166534', marginTop: '0.3rem' }}>
-                    ✓ Evento SIMULATION registrado em envneo/ops/REGISTRY-OPS.ndjson — sem payload bruto
-                  </div>
-                </div>
-
-                <div style={S.divider} />
-                {result.ruleResults.map((r) => (
-                  <RuleResultRow key={r.ruleId} r={r} />
-                ))}
-              </>
-            )}
+      {/* ─── Tab: Simulação ─────────────────────────────────────────────── */}
+      {activeTab === 'simulacao' && (
+        <>
+          {/* Payload editor */}
+          <div style={S.section}>
+            <label style={S.label}>Payload (JSON)</label>
+            <textarea
+              style={S.textarea}
+              value={payloadText}
+              onChange={(e) => setPayloadText(e.target.value)}
+              spellCheck={false}
+            />
+            <button
+              style={S.btn(isPending)}
+              disabled={isPending}
+              onClick={handleExecute}
+            >
+              {isPending ? 'Executando...' : 'Executar'}
+            </button>
           </div>
+
+          {/* Result */}
+          {result && (
+            <div style={S.section}>
+              <label style={S.label}>Resultado</label>
+              <div style={S.card}>
+                {result.error ? (
+                  <div style={{ color: '#f87171', fontSize: '0.875rem' }}>⚠ {result.error}</div>
+                ) : (
+                  <>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1rem', flexWrap: 'wrap' as const }}>
+                      <span style={S.pill(result.result === 'PASS')}>{result.result}</span>
+                      <span style={S.tag('#6B7280')}>{result.useCaseId}</span>
+                    </div>
+
+                    {/* Evidence hash */}
+                    <div style={{ background: '#052e16', border: '1px solid #166534', borderRadius: 6, padding: '0.6rem 0.875rem', marginBottom: '1rem' }}>
+                      <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#4ade80', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>EVIDENCE HASH (SHA-256)</div>
+                      <div style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: '#86efac', wordBreak: 'break-all' as const }}>{result.hash_payload}</div>
+                      <div style={{ fontSize: '0.65rem', color: '#166534', marginTop: '0.3rem' }}>✓ Evento SIMULATION registrado em envneo/ops/REGISTRY-OPS.ndjson — sem payload bruto</div>
+                    </div>
+
+                    <div style={S.divider} />
+                    {result.ruleResults.map((r) => (
+                      <RuleResultRow key={r.ruleId} r={r} />
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ─── Tab: Catálogo ──────────────────────────────────────────────── */}
+      {activeTab === 'catalogo' && (
+        <div style={S.section}>
+          <label style={S.label}>Regras Institucionais — RN01 a RN05</label>
+          <div style={{ ...S.card, padding: 0, overflow: 'hidden' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr>
+                  {['ID', 'Nome', 'Referência Legal', 'Severidade', 'Aplica-se a'].map((h) => (
+                    <th key={h} style={S.catHead}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {RULE_CATALOGUE_STATIC.map((r, i) => (
+                  <tr key={r.id} style={S.catRow(i)}>
+                    <td style={{ ...S.catCell, fontFamily: 'monospace', color: '#f8fafc', fontWeight: 700 }}>{r.id}</td>
+                    <td style={S.catCell}>{r.name}</td>
+                    <td style={{ ...S.catCell, fontFamily: 'monospace', fontSize: '0.72rem', color: '#94a3b8' }}>{r.legal_reference}</td>
+                    <td style={S.catCell}>
+                      <span style={{ background: (SEV_COLORS[r.severity] ?? '#94a3b8') + '22', color: SEV_COLORS[r.severity] ?? '#94a3b8', border: `1px solid ${(SEV_COLORS[r.severity] ?? '#94a3b8')}55`, borderRadius: 4, padding: '0.1rem 0.4rem', fontSize: '0.65rem', fontWeight: 700, fontFamily: 'monospace' }}>{r.severity}</span>
+                    </td>
+                    <td style={{ ...S.catCell, fontFamily: 'monospace', color: '#64748b' }}>{r.applies_to}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ─── Tab: Exigências ────────────────────────────────────────────── */}
+      {activeTab === 'exigencias' && (
+        <div style={S.section}>
+          {selectedUc && (
+            <div style={{ marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' as const }}>
+                <span style={S.tag('#0059B3')}>{selectedUc.id}</span>
+                <span style={{ fontSize: '0.875rem', color: '#cbd5e1', fontWeight: 600 }}>{selectedUc.name}</span>
+              </div>
+            </div>
+          )}
+          <ExigenciasChecker
+            useCaseId={selectedId}
+            onApproved={(token) => setApprovedToken(token)}
+          />
+          {approvedToken && (
+            <div style={{ marginTop: '1rem', fontSize: '0.78rem', color: '#4ade80' }}>
+              🔗 <a href="/admin/bpmn" style={{ color: '#4ade80' }}>Ir para BPMN →</a>
+            </div>
+          )}
         </div>
       )}
     </div>
