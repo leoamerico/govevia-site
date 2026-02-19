@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
+import { FilterableEventList } from './FilterableEventList'
+import type { RegistryEventClient } from './FilterableEventList'
 
 export const metadata: Metadata = {
   title: 'Ops — CEO Console',
@@ -20,10 +22,13 @@ interface TreeNode {
 interface RegistryEvent {
   ts: string
   org_unit: 'ENVNEO' | 'GOVEVIA' | 'ENVLIVE'
-  type: 'DECISION' | 'GATE' | 'RUNBOOK' | 'CHANGE' | 'VIOLATION' | 'NOTE'
+  type: 'DECISION' | 'GATE' | 'RUNBOOK' | 'CHANGE' | 'VIOLATION' | 'NOTE' | 'SIMULATION'
   ref: string
-  summary: string
-  actor: string
+  summary?: string
+  actor?: string
+  use_case_id?: string
+  result?: string
+  hash_payload?: string
 }
 
 interface QueueItem {
@@ -204,19 +209,7 @@ function QueueCol({ title, items, isWip = false }: { title: string; items: Queue
   )
 }
 
-function EventRow({ event }: { event: RegistryEvent }) {
-  const d = new Date(event.ts)
-  const dateStr = d.toISOString().slice(0, 10)
-  return (
-    <div style={S.eventRow}>
-      <span style={{ ...S.mono, whiteSpace: 'nowrap' as const, minWidth: 80 }}>{dateStr}</span>
-      <span style={S.tag(ORG_COLORS[event.org_unit] ?? '#94a3b8')}>{event.org_unit}</span>
-      <span style={S.tag(TYPE_COLORS[event.type] ?? '#6B7280')}>{event.type}</span>
-      <span style={{ fontSize: '0.78rem', color: '#cbd5e1', flex: 1 }}>{event.summary}</span>
-      <span style={{ ...S.mono, whiteSpace: 'nowrap' as const }}>{event.actor}</span>
-    </div>
-  )
-}
+
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -262,7 +255,7 @@ function TreeSection({ tree }: { tree: TreeNode[] }) {
 
 export default function OpsPage() {
   const { events, queue, tree } = loadOpsData()
-  const recentEvents = [...events].reverse().slice(0, 20)
+  const recentEvents: RegistryEventClient[] = ([...events].reverse() as RegistryEventClient[])
   const wipCount = queue.wip.length
 
   return (
@@ -295,11 +288,11 @@ export default function OpsPage() {
         <QueueCol title="Done" items={queue.done} />
       </div>
 
-      <div style={S.sectionTitle}>Registry — eventos recentes</div>
+      <div style={S.sectionTitle}>Registry — eventos <span style={{ color: '#10B981', fontWeight: 700 }}>(filtro por tipo)</span></div>
       <div style={S.card}>
         {recentEvents.length === 0
           ? <div style={{ color: '#334155', fontSize: '0.75rem' }}>Nenhum evento registrado.</div>
-          : recentEvents.map((e, i) => <EventRow key={i} event={e} />)}
+          : <FilterableEventList events={recentEvents} />}
       </div>
     </div>
   )

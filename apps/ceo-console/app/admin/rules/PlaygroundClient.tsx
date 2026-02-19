@@ -175,17 +175,25 @@ export function PlaygroundClient({ useCases }: { useCases: UseCaseInfo[] }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1rem', flexWrap: 'wrap' as const }}>
                   <span style={S.pill(result.result === 'PASS')}>{result.result}</span>
                   <span style={S.tag('#6B7280')}>{result.useCaseId}</span>
-                  <span style={{ ...S.mono, color: '#475569', fontSize: '0.65rem' }}>
-                    hash: {result.hash_payload.slice(0, 16)}…
-                  </span>
                 </div>
+
+                {/* Evidence hash — prominente para demo */}
+                <div style={{ background: '#052e16', border: '1px solid #166534', borderRadius: 6, padding: '0.6rem 0.875rem', marginBottom: '1rem' }}>
+                  <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#4ade80', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>
+                    EVIDENCE HASH (SHA-256)
+                  </div>
+                  <div style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: '#86efac', wordBreak: 'break-all' as const }}>
+                    {result.hash_payload}
+                  </div>
+                  <div style={{ fontSize: '0.65rem', color: '#166534', marginTop: '0.3rem' }}>
+                    ✓ Evento SIMULATION registrado em envneo/ops/REGISTRY-OPS.ndjson — sem payload bruto
+                  </div>
+                </div>
+
                 <div style={S.divider} />
                 {result.ruleResults.map((r) => (
                   <RuleResultRow key={r.ruleId} r={r} />
                 ))}
-                <div style={{ ...S.mono, color: '#334155', marginTop: '0.5rem', fontSize: '0.65rem' }}>
-                  Evento SIMULATION registrado em envneo/ops/REGISTRY-OPS.ndjson (somente hash, sem payload bruto).
-                </div>
               </>
             )}
           </div>
