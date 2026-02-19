@@ -1,0 +1,54 @@
+{
+  "_comment": "ENVNEO-LTDA — SOURCE OF TRUTH (SOT) para apresentação executável. Machine-readable, consumido pela UI (read-only).",
+  "_version": "1.0.0",
+  "_updated": "2026-02-19",
+
+  "contracting_entity": {
+    "legal_name": "ENV NEO LTDA",
+    "cnpj": "36.207.211/0001-47",
+    "_invariant": "Única entidade que assina contrato, emite NF, responde por SLA/garantias e subcontratações."
+  },
+
+  "brands": [
+    {
+      "id": "GOVEVIA",
+      "display_name": "Govevia",
+      "context": "public",
+      "_invariant": "Multi-tenant obrigatório + logs/auditoria rígidos."
+    },
+    {
+      "id": "ENVLIVE",
+      "display_name": "Env Live",
+      "context": "private",
+      "_invariant": "Single-tenant elevável sem migração destrutiva."
+    }
+  ],
+
+  "domains": {
+    "current": {
+      "domain": "govevia.com.br",
+      "status": "ativo"
+    },
+    "planned": [
+      {
+        "domain": "console.govevia.com.br",
+        "status": "reservado (não ativo)"
+      }
+    ]
+  },
+
+  "boundaries": {
+    "admin_ui": {
+      "rule": "Admin UI só existe no CEO Console (apps/ceo-console).",
+      "enforced_by_gate": "gate-no-admin-in-site-public"
+    },
+    "site_public": {
+      "rule": "site-public é público apenas — sem /admin/*.",
+      "enforced_by_gate": "gate-no-admin-in-site-public"
+    },
+    "registry": {
+      "rule": "REGISTRY-OPS.ndjson é append-only (somente adição).",
+      "enforced_by_gate": "gate-registry-append-only"
+    }
+  }
+}

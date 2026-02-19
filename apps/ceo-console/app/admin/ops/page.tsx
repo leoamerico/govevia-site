@@ -31,6 +31,18 @@ interface RegistryEvent {
   hash_payload?: string
 }
 
+interface SourceOfTruth {
+  _version?: string
+  _updated?: string
+  contracting_entity?: { legal_name: string; cnpj: string }
+  brands?: Array<{ id: string; display_name: string; context: string }>
+  domains?: {
+    current?: { domain: string; status: string }
+    planned?: Array<{ domain: string; status: string }>
+  }
+  boundaries?: Record<string, { rule: string; enforced_by_gate?: string }>
+}
+
 interface QueueItem {
   id: string
   org_unit: string
@@ -135,9 +147,17 @@ function loadOpsData() {
   const registryPath = join(opsDir, 'REGISTRY-OPS.ndjson')
   const queuePath = join(opsDir, 'CEO-QUEUE.yaml')
 
+  const sotPath = join(process.cwd(), '../../envneo/control-plane/ltda/SOURCE-OF-TRUTH.json')
+
   const events: RegistryEvent[] = existsSync(registryPath)
     ? parseNdjson(readFileSync(registryPath, 'utf8'))
     : []
+
+  const sot: SourceOfTruth | null = existsSync(sotPath)
+    ? (() => {
+        try { return JSON.parse(readFileSync(sotPath, 'utf8')) as SourceOfTruth } catch { return null }
+      })()
+    : null
 
   const queue: Queue = existsSync(queuePath)
     ? parseQueueYaml(readFileSync(queuePath, 'utf8'))
@@ -148,7 +168,7 @@ function loadOpsData() {
     ? parseTreeYaml(readFileSync(treePath, 'utf8'))
     : []
 
-  return { events, queue, tree }
+  return { events, queue, tree, sot }
 }
 
 // ─── Styles (inline, dark theme consistent with ceo-console) ──────────────────
@@ -254,7 +274,7 @@ function TreeSection({ tree }: { tree: TreeNode[] }) {
 }
 
 export default function OpsPage() {
-  const { events, queue, tree } = loadOpsData()
+  const { events, queue, tree, sot } = loadOpsData()
   const recentEvents: RegistryEventClient[] = ([...events].reverse() as RegistryEventClient[])
   const wipCount = queue.wip.length
 
@@ -262,6 +282,62 @@ export default function OpsPage() {
     <div style={S.page}>
       <h1 style={S.h1}>Gabinete Ops — EnvNeo</h1>
       <p style={S.subtitle}>envneo/ops · {events.length} eventos · {new Date().toISOString().slice(0, 10)}</p>
+
+      <div style={S.sectionTitle}>Fonte Única de Verdade (SOT) — control-plane</div>
+      <div style={{ ...S.card, marginBottom: '2rem' }}>
+        {!sot ? (
+          <div style={{ color: '#334155', fontSize: '0.75rem' }}>
+            envneo/control-plane/ltda/SOURCE-OF-TRUTH.json não encontrado.
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div>
+              <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#f8fafc', marginBottom: '0.35rem' }}>
+                {sot.contracting_entity?.legal_name}
+              </div>
+              <div style={{ ...S.mono, marginBottom: '0.5rem' }}>{`CNPJ: ${sot.contracting_entity?.cnpj}`}</div>
+              <div style={{ ...S.mono, color: '#475569' }}>SOT: ltda/SOURCE-OF-TRUTH.json · v{sot._version} · updated {sot._updated}</div>
+            </div>
+
+            <div>
+              <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+                Marcas (display name)
+              </div>
+              {(sot.brands ?? []).map((b) => (
+                <div key={b.id} style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6, flexWrap: 'wrap' as const }}>
+                  <span style={S.tag('#0059B3')}>{b.id}</span>
+                  <span style={{ fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 600 }}>{b.display_name}</span>
+                  <span style={{ ...S.mono, color: '#334155' }}>{b.context}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ gridColumn: '1 / -1' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '0.5rem' }}>
+                <div>
+                  <div style={S.sectionTitle}>Domínios</div>
+                  <div style={{ ...S.mono, marginBottom: 6 }}>
+                    atual: {sot.domains?.current?.domain} · {sot.domains?.current?.status}
+                  </div>
+                  {(sot.domains?.planned ?? []).map((d, idx) => (
+                    <div key={idx} style={{ ...S.mono, marginBottom: 4 }}>
+                      planejado: {d.domain} · {d.status}
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div style={S.sectionTitle}>Boundaries (enforcement)</div>
+                  {Object.entries(sot.boundaries ?? {}).map(([k, v]) => (
+                    <div key={k} style={{ ...S.mono, marginBottom: 6 }}>
+                      {k}: {v.rule}{v.enforced_by_gate ? ` (gate: ${v.enforced_by_gate})` : ''}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
       {wipCount > 1 && (
         <div style={{ background: '#7f1d1d', border: '1px solid #EF4444', borderRadius: 8, padding: '0.75rem 1rem', marginBottom: '1.5rem', color: '#FCA5A5', fontSize: '0.8rem', fontWeight: 600 }}>
