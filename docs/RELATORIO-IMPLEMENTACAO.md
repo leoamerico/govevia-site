@@ -98,37 +98,85 @@ Todas as rotas proxy implementam degradação graciosa: quando o backend está i
 
 | Item | Valor |
 |------|-------|
-| Framework | *(a preencher)* |
-| Versão Python | *(a preencher)* |
+| Framework | FastAPI (Python) |
+| Versão Python | 3.11+ |
 | Porta | 8000 |
-| Container | `govevia_backend` |
-| Banco de dados | `govevia_db` (PostgreSQL) |
-| Cache | `govevia_redis` (Redis) |
-| Autenticação | *(a preencher — JWT, algoritmo, TTL)* |
+| Container | `govevia_backend` (imagem `govevia-core:latest`) |
+| Banco de dados | `govevia_db` — PostgreSQL + pgvector |
+| Cache | `govevia_redis` — Redis 7-alpine (`redis://redis:6379/0`) |
+| Autenticação | JWT — access token (sub=email) + refresh token (DB); hash HMAC-SHA256 |
+| Embeddings | Ollama `nomic-embed-text` 768d via `http://host.docker.internal:11434` |
+| LLM | Llama 3.1 (Ollama) — usado em `POST /api/v1/chat/` |
+| Docs interativas | `http://localhost:8000/docs` |
 
 ### 3.2 Endpoints implementados
 
-> Liste abaixo os endpoints implementados com status, versão e observações.
+**Auth**
 
-| Método | Endpoint | Status | Versão | Observações |
-|--------|----------|--------|--------|-------------|
-| `GET` | `/api/v1/ping` | *(a preencher)* | — | — |
-| `POST` | `/api/v1/auth/token` | *(a preencher)* | — | — |
-| `GET` | `/api/v1/normas` | *(a preencher)* | — | — |
-| `POST` | `/api/v1/tasks/dispatch` | *(a preencher)* | — | — |
-| `GET` | `/api/v1/tasks/{id}` | *(a preencher)* | — | — |
-| `GET` | `/api/v1/tasks/handlers` | *(a preencher)* | — | — |
-| `POST` | `/api/v1/documentos/upload` | *(a preencher)* | — | — |
-| `GET` | `/api/v1/documentos/status/{id}` | *(a preencher)* | — | — |
-| `POST` | `/api/v1/search` | *(a preencher)* | — | — |
+| Método | Endpoint | Auth | Descrição |
+|--------|----------|------|-----------|
+| `POST` | `/api/v1/auth/login` | open | JWT access + refresh token |
+| `POST` | `/api/v1/auth/refresh` | open | Renova access token via refresh token |
+| `GET` | `/api/v1/auth/me` | Bearer | Dados do usuário autenticado |
+| `POST` | `/api/v1/auth/logout` | Bearer | Revoga refresh token |
 
-### 3.3 Modelos de dados
+**Documentos (Ingestão RAG)**
 
-> Descreva os principais modelos/schemas do backend.
+| Método | Endpoint | Auth | Descrição |
+|--------|----------|------|-----------|
+| `POST` | `/api/v1/documents/upload` | Bearer | Upload PDF → job assíncrono (202) |
+| `GET` | `/api/v1/documents/upload/status/{job_id}` | Bearer | Poll do job de ingestão |
+| `GET` | `/api/v1/documents/` | Bearer | Lista documentos do usuário |
+| `GET` | `/api/v1/documents/{id}` | Bearer | Documento por ID |
+| `DELETE` | `/api/v1/documents/{id}` | Bearer | Remove documento |
 
-| Modelo | Tabela / Collection | Campos principais | Observações |
-|--------|--------------------|--------------------|-------------|
-| *(a preencher)* | *(a preencher)* | *(a preencher)* | — |
+**Normas Legais**
+
+| Método | Endpoint | Auth | Descrição |
+|--------|----------|------|-----------|
+| `GET` | `/api/v1/normas-legais/` | open | Lista normas (paginado, `total`+`items`) |
+| `GET` | `/api/v1/normas-legais/{id}` | open | Norma por ID |
+| `POST` | `/api/v1/normas-legais/` | Bearer admin | Cria norma |
+| `PUT` | `/api/v1/normas-legais/{id}` | Bearer admin | Atualiza norma |
+| `DELETE` | `/api/v1/normas-legais/{id}` | Bearer admin | Remove norma |
+
+**Task Queue**
+
+| Método | Endpoint | Auth | Descrição |
+|--------|----------|------|-----------|
+| `POST` | `/api/v1/tasks/dispatch` | Bearer | Despacha task (202, retorna `task_id`) |
+| `GET` | `/api/v1/tasks/{task_id}` | Bearer | Poll do estado da task |
+| `GET` | `/api/v1/tasks/handlers` | Bearer | Lista handlers — `['ping', 'normas_sync']` |
+
+**Chat / RAG**
+
+| Método | Endpoint | Auth | Descrição |
+|--------|----------|------|-----------|
+| `POST` | `/api/v1/chat/` | Bearer | Conversa com RAG (Llama 3.1 + pgvector) |
+
+**Sistema / Portal**
+
+| Método | Endpoint | Auth | Descrição |
+|--------|----------|------|-----------|
+| `GET` | `/api/v1/health` | open | Health check básico |
+| `GET` | `/api/v1/system/metrics` | Bearer superuser | Telemetria (CPU, mem, docs, usuários) |
+| `POST` | `/api/v1/portal/magic-link/request` | open | Solicita magic link por email |
+| `POST` | `/api/v1/portal/magic-link/verify` | open | Troca token → JWT |
+| `GET` | `/api/v1/sovereign/status` | Bearer | Estado do kernel atômico |
+
+### 3.3 Modelos de dados (Bounded Contexts — ADR-050)
+
+| Modelo | Bounded Context | Tabela | Campos principais |
+|--------|----------------|--------|-------------------|
+| `User` | identity | `users` | `id`, `email`, `role`, `is_active` |
+| `RefreshToken` | identity | `refresh_tokens` | `user_id`, `token`, `revoked_at` |
+| `PortalMagicLink` | identity | `portal_magic_link_tokens` | `email`, `token`, `expires_at` |
+| `NormaLegal` | core | `normas_legais` | `id`, `titulo`, `numero`, `vigencia`, `texto` |
+| `Document` | intelligence | `ai_documents` | `id`, `owner_id`, `filename`, `embedding` (pgvector 768d), `encrypted_content` |
+
+**Pipeline de ingestão:** SHA-256 → pypdf/pdfplumber → chunk (~1000 chars, overlap 200) → Ollama embed → Fernet encrypt → pgvector
+
+**Migrations Alembic:** `cc3030bcf566` — aplicada. Tabelas Liquibase (Java, 44) excluídas do `include_object`.
 
 ### 3.4 Migrações de banco de dados
 
@@ -140,15 +188,23 @@ Todas as rotas proxy implementam degradação graciosa: quando o backend está i
 
 ### 3.5 Cobertura de testes (backend)
 
-| Tipo | Ferramenta | Cobertura | Observações |
+| Tipo | Ferramenta | Resultado | Observações |
 |------|-----------|-----------|-------------|
-| *(a preencher)* | *(a preencher)* | *(a preencher)* | — |
+| Smoke test E2E (Sprint C) | Python `scripts/sprint_c_e2e.py` | ✅ ALL GREEN | Auth, task dispatch/poll, doc upload/poll, normas |
+| Hardening | `tests/hardening/test_hardening_smoke.py` | *(a executar)* | — |
 
 ### 3.6 Variáveis de ambiente (backend)
 
 | Variável | Obrigatória | Descrição |
 |----------|-------------|-----------|
-| *(a preencher)* | *(a preencher)* | *(a preencher)* |
+| `DATABASE_URL` | Sim | `postgresql://postgres:postgres@db:5432/govevia` |
+| `REDIS_URL` | Sim | `redis://redis:6379/0` |
+| `JWT_SECRET_KEY` | Sim | Mín. 64 chars em produção |
+| `PASSWORD_HMAC_KEY` | Sim | Chave HMAC-SHA256 para hash de senhas |
+| `FERNET_KEY` | Sim | 44-char URL-safe base64 — cipher de documentos |
+| `GOVEVIA_MASTER_KEY` | Sim | Deriva Fernet se `FERNET_KEY` ausente |
+| `DOCUMENT_ENCRYPTION_KEY` | Sim | Igual a `FERNET_KEY` |
+| `OLLAMA_HOST` | Sim | `http://host.docker.internal:11434` (modelos: llama3.1, nomic-embed-text) |
 
 ---
 
