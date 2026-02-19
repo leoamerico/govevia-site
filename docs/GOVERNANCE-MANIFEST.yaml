@@ -165,3 +165,43 @@ artifacts:
 
   - kind: operating_model
     path: docs/PROMPT-00.md
+
+  # ── CEO Console — Sprints A–E (2026-02) ────────────────────────────────────
+  - kind: ceo_console_auth_middleware
+    path: apps/ceo-console/middleware.ts
+  - kind: ceo_console_auth_lib
+    path: apps/ceo-console/lib/auth/admin.ts
+  - kind: ceo_console_kernel_client
+    path: apps/ceo-console/lib/kernel/client.ts
+  - kind: ceo_console_api_login
+    path: apps/ceo-console/app/api/admin/login/route.ts
+  - kind: ceo_console_api_logout
+    path: apps/ceo-console/app/api/admin/logout/route.ts
+  - kind: ceo_console_api_kernel_ping
+    path: apps/ceo-console/app/api/admin/kernel/ping/route.ts
+  - kind: ceo_console_api_rag_search
+    path: apps/ceo-console/app/api/admin/rag/search/route.ts
+  - kind: ceo_console_api_rag_dispatch
+    path: apps/ceo-console/app/api/admin/rag/dispatch/route.ts
+  - kind: ceo_console_api_chat_proxy
+    path: apps/ceo-console/app/api/admin/chat/route.ts
+  - kind: ceo_console_chat_type
+    path: apps/ceo-console/types/chat.ts
+  - kind: ceo_console_rag_demo_client
+    path: apps/ceo-console/app/admin/rag/RagDemoClient.tsx
+  - kind: ceo_console_chat_tab
+    path: apps/ceo-console/app/admin/rag/ChatTab.tsx
+  - kind: ceo_console_contextual_help
+    path: apps/ceo-console/components/admin/ContextualHelp.tsx
+  - kind: ceo_console_demo_config
+    path: apps/ceo-console/playwright.demo.config.ts
+  - kind: ceo_console_demo_spec
+    path: apps/ceo-console/tests/e2e/demo.spec.ts
+  - kind: ceo_console_e2e_suite
+    path: apps/ceo-console/tests/e2e
+  - kind: ceo_console_demo_pipeline
+    path: apps/ceo-console/scripts/demo-publish.mjs
+  - kind: ceo_console_demo_evidence_registry
+    path: docs/public/evidence/demos/DEMO-REGISTRY.yaml
+  - kind: ceo_console_demo_evidence_gifs
+    path: docs/public/evidence/demos/CEO-CONSOLE-E2E-PLAYWRIGHT

@@ -79,8 +79,9 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         // Backend ChatRequest usa "question", não "message"
         question: body.message.trim(),
+        // history repassado ao backend: HistoryMessage[] p/ contexto multi-turno
+        history: (body.history ?? []).map(m => ({ role: m.role, content: m.content })),
         session_id: body.session_id ?? undefined,
-        // history não é suportado pelo backend atual (conversation via session_id)
       }),
     })
 
