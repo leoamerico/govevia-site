@@ -2,8 +2,9 @@
  * smoke-brand-envneo.mjs — Smoke test: Identidade Corporativa ENV NEO LTDA
  *
  * Valida invariáveis corporativas do login do ceo-console:
- *   1) brand-registry.json existe e contém "ENV NEO LTDA" + CNPJ correto + logo=null + slogan=null
- *   2) page.tsx referencia brand-registry.json (não org-identity.json)
+ *   1) brand-registry.json existe e contém ENVNEO_LTDA com logo=null + slogan=null (sem logo/slogan corporativo)
+ *   2) org-identity.json existe e contém "ENV NEO LTDA" + CNPJ correto (SSOT jurídico)
+ *   3) page.tsx referencia org-identity.json (SSOT jurídico)
  *   3) metadata.title = "ENV NEO LTDA — Login"
  *   4) page.tsx passa prop legalName ao LoginForm
  *   5) LoginForm não contém logo no contexto corporativo
@@ -35,7 +36,7 @@ function readSafe(filePath) {
   try { return readFileSync(filePath, 'utf8') } catch { return null }
 }
 
-// ─── Test 1: brand-registry.json — fonte de verdade corporativa ──────────────
+// ─── Test 1: brand-registry.json — invariáveis de imprint corporativo ───────
 
 console.log('\n── Test 1: brand-registry.json')
 
@@ -79,9 +80,37 @@ if (!existsSync(BRAND_REGISTRY_PATH)) {
   }
 }
 
+// ─── Test 1b: org-identity.json — SSOT jurídico ─────────────────────────────
+
+console.log('\n── Test 1b: org-identity.json (SSOT jurídico)')
+
+const ORG_ID_PATH = join(ROOT, '../../envneo/control-plane/ltda/org-identity.json')
+
+if (!existsSync(ORG_ID_PATH)) {
+  fail('org-identity.json não encontrado', `Verificado em: ${ORG_ID_PATH}`)
+} else {
+  const content = readSafe(ORG_ID_PATH) ?? ''
+  let org
+  try { org = JSON.parse(content) } catch { org = null }
+  if (!org) {
+    fail('org-identity.json não é JSON válido')
+  } else {
+    if (org.razao_social === 'ENV NEO LTDA') {
+      pass('org-identity.razao_social = "ENV NEO LTDA"')
+    } else {
+      fail(`org-identity.razao_social incorreto: "${org.razao_social}"`, 'Esperado: "ENV NEO LTDA"')
+    }
+    if (org.cnpj === '36.207.211/0001-47') {
+      pass('org-identity.cnpj = "36.207.211/0001-47"')
+    } else {
+      fail(`org-identity.cnpj incorreto: "${org.cnpj}"`, 'Esperado: "36.207.211/0001-47"')
+    }
+  }
+}
+
 // ─── Test 2: login page — fonte e props corretas ─────────────────────────────
 
-console.log('\n── Test 2: login page.tsx — fonte brand-registry.json')
+console.log('\n── Test 2: login page.tsx — fonte org-identity.json')
 
 const LOGIN_PAGE_PATH = join(ROOT, 'app/admin/login/page.tsx')
 const LOGIN_FORM_PATH = join(ROOT, 'app/admin/login/LoginForm.tsx')
@@ -89,16 +118,10 @@ const LOGIN_FORM_PATH = join(ROOT, 'app/admin/login/LoginForm.tsx')
 const pageContent = readSafe(LOGIN_PAGE_PATH) ?? ''
 const formContent = readSafe(LOGIN_FORM_PATH) ?? ''
 
-if (pageContent.includes('brand-registry.json')) {
-  pass('page.tsx referencia brand-registry.json (fonte correta)')
+if (pageContent.includes('org-identity.json')) {
+  pass('page.tsx referencia org-identity.json (SSOT jurídico)')
 } else {
-  fail('page.tsx NÃO referencia brand-registry.json')
-}
-
-if (!pageContent.includes('org-identity.json')) {
-  pass('page.tsx não usa org-identity.json (descontinuado neste contexto)')
-} else {
-  fail('page.tsx ainda referencia org-identity.json — deve usar brand-registry.json')
+  fail('page.tsx NÃO referencia org-identity.json')
 }
 
 if (/ENV NEO LTDA/.test(pageContent) && /Login/.test(pageContent)) {
@@ -118,7 +141,6 @@ if (/legalName/.test(pageContent)) {
 console.log('\n── Test 3: LoginForm — sem logo no contexto corporativo')
 
 const LOGO_PATTERNS = [
-  /EnvNeoLogo/,
   /brand\/envneo\/logo\.svg/,
   /brand\/govevia\/logo\.svg/,
 ]
@@ -177,4 +199,4 @@ if (failed) {
   console.log(`[SMOKE PASSED] smoke-brand-envneo — ${passed}/${passed} verificações OK.`)
   process.exit(0)
 }
-
+

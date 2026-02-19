@@ -9,7 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "smoke:brand": "node tools/smoke/smoke-brand-envneo.mjs",
-    "smoke:rag": "node tools/smoke/smoke-rag-demo.mjs"
+    "smoke:rag": "node tools/smoke/smoke-rag-demo.mjs",
+    "smoke:identity": "node tools/smoke/smoke-corporate-identity.mjs"
   },
   "dependencies": {
     "next": "14.2.35",

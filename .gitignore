@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# next.js (monorepo apps)
+**/.next/
+
 # production
 /build
 
