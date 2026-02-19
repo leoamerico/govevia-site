@@ -10,16 +10,20 @@
     "typecheck": "tsc --noEmit",
     "smoke:brand": "node tools/smoke/smoke-brand-envneo.mjs",
     "smoke:rag": "node tools/smoke/smoke-rag-demo.mjs",
-    "smoke:identity": "node tools/smoke/smoke-corporate-identity.mjs"
+    "smoke:identity": "node tools/smoke/smoke-corporate-identity.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "PWDEBUG=1 playwright test"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.10.0",
     "next": "14.2.35",
     "react": "^18",
-    "react-dom": "^18",
-    "jose": "^5.10.0",
-    "bcryptjs": "^2.4.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",

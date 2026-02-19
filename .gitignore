@@ -49,3 +49,8 @@ next-env.d.ts
 # python
 __pycache__/
 *.pyc
+
+# playwright
+playwright/.auth/user.json
+playwright-report/
+test-results/
