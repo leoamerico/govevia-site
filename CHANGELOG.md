@@ -11,6 +11,7 @@
 - Fix: site-public passa a tratar `/admin` e `/admin/login` como entrypoint seguro (redirect/página informativa) para o CEO Console, mantendo demais `/admin/*` fechados com 404.
 - Refinamento: página informativa de `/admin/login` ajustada (copy mais neutra/profissional) e `PRESENT-CEO-CONSOLE` explicita URLs locais do CEO Console (porta 3001).
 - Fix(build): removido `next/font/google` (evita fetch de woff2 em `fonts.gstatic.com` durante build no Vercel); fontes agora via stack local/system em CSS vars (`--font-plex-*`).
+- Enforcement: redirect de `/admin/login` no site público virou governado (pré-check em `/api/healthz` do CEO Console; se indisponível responde `503` com correlation id). Gate `gate-ceo-console-health` bloqueia deploy quando `CEO_CONSOLE_BASE_URL` está configurada mas inválida.
 
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 

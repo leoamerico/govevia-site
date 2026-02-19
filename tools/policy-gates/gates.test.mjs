@@ -12,9 +12,10 @@
  */
 import { writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
-import { spawnSync } from 'node:child_process'
+import { spawnSync, spawn } from 'node:child_process'
 import { tmpdir } from 'node:os'
 import { fileURLToPath } from 'node:url'
+import { createServer } from 'node:http'
 
 const GATES_DIR = fileURLToPath(new URL('.', import.meta.url))
 const ROOT = fileURLToPath(new URL('../../', import.meta.url))
@@ -48,6 +49,36 @@ function runGateWithFixture(gateName, fixtureDir, expectedExitCode) {
     }
   )
   return { exitCode: r.status, stdout: r.stdout?.toString(), stderr: r.stderr?.toString() }
+}
+
+function runGateWithEnv(gateName, extraEnv = {}) {
+  const r = spawnSync(
+    process.execPath,
+    [join(GATES_DIR, gateName)],
+    {
+      stdio: 'pipe',
+      env: { ...process.env, ...extraEnv },
+    }
+  )
+  return { exitCode: r.status, stdout: r.stdout?.toString(), stderr: r.stderr?.toString() }
+}
+
+function runGateWithEnvAsync(gateName, extraEnv = {}) {
+  return new Promise((resolve) => {
+    const child = spawn(process.execPath, [join(GATES_DIR, gateName)], {
+      env: { ...process.env, ...extraEnv },
+      stdio: ['ignore', 'pipe', 'pipe'],
+    })
+
+    let stdout = ''
+    let stderr = ''
+    child.stdout.on('data', (d) => (stdout += d.toString()))
+    child.stderr.on('data', (d) => (stderr += d.toString()))
+
+    child.on('close', (code) => {
+      resolve({ exitCode: code ?? 0, stdout, stderr })
+    })
+  })
 }
 
 // ─── Results ────────────────────────────────────────────────────────────────
@@ -172,6 +203,45 @@ domains:
 `
   assert('não falha com spec sem campos PII', !piiPattern.test(cleanContent),
     'pattern matchou conteúdo sem PII (falso positivo)')
+}
+
+// ─── Test: gate-ceo-console-health ─────────────────────────────────────────
+console.log('\n── Test: gate-ceo-console-health (DNS + healthz)')
+
+{
+  // (A) SKIP quando CEO_CONSOLE_BASE_URL não está configurada
+  const rSkip = runGateWithEnv('gate-ceo-console-health.mjs', { CEO_CONSOLE_BASE_URL: '' })
+  assert('sem CEO_CONSOLE_BASE_URL → exit 0 (SKIP)', rSkip.exitCode === 0,
+    `exit ${rSkip.exitCode}\nstdout=${(rSkip.stdout || '').trim()}\nstderr=${(rSkip.stderr || '').trim()}`)
+
+  // (B) PASS quando aponta para um servidor local com /api/healthz 200
+  const server = createServer((req, res) => {
+    if (req.url === '/api/healthz') {
+      res.statusCode = 200
+      res.setHeader('content-type', 'application/json')
+      res.end(JSON.stringify({ status: 'ok' }))
+      return
+    }
+    res.statusCode = 404
+    res.end('not found')
+  })
+
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const addr = server.address()
+  const port = typeof addr === 'object' && addr ? addr.port : 0
+  const base = `http://127.0.0.1:${port}`
+
+  const rPass = await runGateWithEnvAsync('gate-ceo-console-health.mjs', { CEO_CONSOLE_BASE_URL: base })
+  assert('healthz 200 em localhost → exit 0 (PASS)', rPass.exitCode === 0,
+    `exit ${rPass.exitCode}\nstdout=${(rPass.stdout || '').trim()}\nstderr=${(rPass.stderr || '').trim()}`)
+
+  // (C) FAIL quando healthz retorna != 200
+  // Mesmo origin, mas nosso server retorna 200 em /api/healthz; então para falhar precisamos apontar para uma porta inexistente.
+  const rFail2 = await runGateWithEnvAsync('gate-ceo-console-health.mjs', { CEO_CONSOLE_BASE_URL: 'http://127.0.0.1:1' })
+  assert('healthz inacessível → exit 1 (FAIL)', rFail2.exitCode === 1,
+    `exit ${rFail2.exitCode}\nstdout=${(rFail2.stdout || '').trim()}\nstderr=${(rFail2.stderr || '').trim()}`)
+
+  server.close()
 }
 
 // ─── Test 3: gate-no-auto-language ──────────────────────────────────────────

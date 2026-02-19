@@ -27,6 +27,7 @@ const GATES = [
   'gate-docs-brand-legal.mjs',
   'gate-control-plane-no-secrets.mjs',
   'gate-no-hardcoded-endpoints.mjs',
+  'gate-ceo-console-health.mjs',
 ]
 
 let anyFailed = false

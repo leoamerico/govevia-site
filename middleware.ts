@@ -92,9 +92,76 @@ async function enforceAdminAuth(_request: NextRequest): Promise<NextResponse> {
     const ceoBase = toOrigin(ceoBaseRaw ?? null)
 
     if (ceoBase) {
-      const target = new URL(`/admin/login${search}`, ceoBase)
-      const res = NextResponse.redirect(target, 307)
-      for (const [k, v] of Object.entries(hardHeaders)) res.headers.set(k, v)
+      const correlationId = globalThis.crypto?.randomUUID?.() ?? `cid_${Date.now()}_${Math.random().toString(16).slice(2)}`
+
+      const healthz = new URL('/api/healthz', ceoBase)
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 1200)
+
+      try {
+        const r = await fetch(healthz.toString(), {
+          method: 'GET',
+          cache: 'no-store',
+          signal: controller.signal,
+          headers: { 'user-agent': 'govevia-site-middleware/healthz' },
+        })
+
+        if (r.ok) {
+          const target = new URL(`/admin/login${search}`, ceoBase)
+          const res = NextResponse.redirect(target, 307)
+          for (const [k, v] of Object.entries(hardHeaders)) res.headers.set(k, v)
+          res.headers.set('x-govevia-correlation-id', correlationId)
+          return res
+        }
+
+        console.error(
+          JSON.stringify({
+            event_type: 'ADMIN_CONSOLE_UNHEALTHY',
+            correlation_id: correlationId,
+            healthz: healthz.toString(),
+            status: r.status,
+          })
+        )
+      } catch (err) {
+        console.error(
+          JSON.stringify({
+            event_type: 'ADMIN_CONSOLE_UNHEALTHY',
+            correlation_id: correlationId,
+            healthz: healthz.toString(),
+            error: String(err),
+          })
+        )
+      } finally {
+        clearTimeout(timeout)
+      }
+
+      const html503 = `<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Console indisponível</title>
+  </head>
+  <body>
+    <main style="max-width: 720px; margin: 40px auto; padding: 0 16px; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height: 1.45;">
+      <h1 style="margin: 0 0 12px; font-size: 20px;">Console administrativo indisponível</h1>
+      <p style="margin: 0 0 12px;">O site público detectou que o destino configurado para o CEO Console não respondeu ao health-check.</p>
+      <p style="margin: 0 0 12px;"><strong>Correlation ID:</strong> <code>${correlationId}</code></p>
+      <p style="margin: 0 0 12px;">Tente novamente em instantes. Se persistir, valide o deploy do CEO Console e o DNS do domínio configurado.</p>
+      <p style="margin: 0; color: #555;">(Falha explícita por governança — este endpoint nunca redireciona às cegas.)</p>
+    </main>
+  </body>
+</html>`
+
+      const res = new NextResponse(html503, {
+        status: 503,
+        headers: {
+          ...hardHeaders,
+          'content-type': 'text/html; charset=utf-8',
+          'x-govevia-correlation-id': correlationId,
+        },
+      })
       return res
     }
 
