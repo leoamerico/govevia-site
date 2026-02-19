@@ -33,48 +33,46 @@ export default function Mission() {
           >
             <div className="text-institutional-slate leading-relaxed space-y-6">
               <p>
-                A administração pública brasileira opera sob regime jurídico-administrativo denso, 
-                com centenas de normas federais, estaduais e municipais que regulam cada ato praticado 
-                por agentes públicos. No entanto, a maioria dos sistemas de gestão municipal trata 
-                essas regras como &ldquo;documentação externa&rdquo; — algo que o usuário precisa conhecer e 
-                obedecer voluntariamente.
+                Há uma contadora em algum município brasileiro sentada atrás de uma pilha de papel,
+                separando documentos à mão, com medo de que um sistema venha um dia fazer o que ela faz.
+                Esse medo é compreensível — mas parte de uma premissa errada. O que ela carrega não é
+                uma tarefa. É trinta anos de memória institucional, de erros vistos de perto, de
+                situações que nenhum manual descreve. Isso não se automatiza. Isso é o ativo mais
+                valioso que existe neste momento.
               </p>
               <p>
-                A Env Neo entende que essa abordagem é institucional e tecnicamente inadequada.
-                Regras sem enforcement automático não são regras — são sugestões. E sugestões 
-                criam responsabilidade sem proteção.
+                A administração pública brasileira opera sob centenas de normas que regulam cada ato
+                praticado por agentes públicos. O problema nunca foi a falta de regra — foi a falta de
+                estrutura para torná-la executável. Prazos, competências, motivação do ato e condições
+                do rito viram checklists humanos, sujeitos a pressa, interpretação silenciosa e perda
+                de memória institucional. Quando a regra depende só de quem lembra, ela deixa de ser
+                proteção e vira risco.
               </p>
               <p>
-                Nossa missão é transformar normas institucionais em código executável, onde cada 
-                artigo de lei relevante pode se manifestar como requisito e controle técnico (conforme 
-                implementação e configuração no órgão). Em vez de depender apenas de alertas, o objetivo 
-                é apoiar controles preventivos e rastreabilidade operacional.
+                A Env Neo parte de um entendimento simples: regra sem enforcement não é regra — é
+                sugestão. E sugestão cria responsabilidade sem proteção, tanto para o cidadão quanto
+                para o servidor. Nossa missão é transformar normas institucionais em controles
+                técnicos executáveis, onde cada requisito relevante pode ser verificado, registrado e
+                rastreado — não para vigiar pessoas, mas para protegê-las.
               </p>
               <p>
-                Em uma abordagem GovTech AI-first, modelos de IA podem sugerir enquadramentos normativos e
-                apoiar a análise, mas a consolidação de atos depende de validação determinística e de revisão humana
-                registrada. Nenhuma decisão administrativa é tomada exclusivamente por IA.
+                Os agentes de inteligência artificial podem sugerir, organizar e antecipar — mas não
+                podem ser responsabilizados, premiados, corrigidos pela experiência de vida ou
+                registrados nos livros de história. Quem decide é o humano. Sempre. O que muda é que,
+                com o Govevia, essa decisão passa a ter contexto registrado, motivação documentada e
+                evidência consistente — pronta para controle interno, auditoria e prestação de contas.
               </p>
               <p>
-                Na administração pública, o que mais gera risco não é a falta de digitalização — é a
-                falta de regra executável: prazos, competência, motivação do ato e condições do rito
-                acabam virando checklists humanos, sujeitos a pressa, interpretação silenciosa e perda
-                de memória institucional. O Govevia parte de um princípio simples e duro: norma e
-                critério só protegem o cidadão e o gestor quando viram controle verificável, com regra
-                versionada, parâmetros auditáveis e registro automático do que aconteceu. Por isso, o
-                sistema é desenhado para operar como governança aplicada ao fluxo: ele não substitui a
-                decisão humana, mas padroniza o rito, reduz ambiguidade operacional e garante que cada
-                etapa gere evidência consistente — pronta para controle interno, jurídico, auditoria e
-                prestação de contas.
-              </p>
-              <p>
-                O Govevia não &ldquo;decide por você&rdquo; — estrutura o contexto para que a sua decisão seja
-                registrada, motivada e defensável. A responsabilidade permanece com o agente público;
-                o sistema elimina lacunas que hoje dependem de memória e boa vontade.
+                O Govevia não &ldquo;decide por você&rdquo; — estrutura o ambiente para que a sua decisão seja
+                defensável. A responsabilidade permanece com o agente público; o sistema elimina as
+                lacunas que hoje dependem de memória e boa vontade. Profissionais com décadas de
+                experiência não são substituídos — são o coração do sistema, pois são eles que sabem
+                onde estão os erros que nenhum agente de IA conseguiria encontrar sozinho.
               </p>
               <p className="font-semibold text-institutional-navy text-xl">
-                Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser 
-                documentada para ser executada.
+                Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser
+                documentada para ser executada — e onde cada pessoa que conhece o seu trabalho de
+                verdade encontra o lugar que sempre mereceu.
               </p>
             </div>
           </motion.div>
