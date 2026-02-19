@@ -61,7 +61,7 @@ deliveries:
         scene: "Logout via API limpa sessão e redireciona para login"
     recorded_by: playwright-demo-spec
     spec: apps/ceo-console/tests/e2e/demo.spec.ts
-    reviewed: false
+    reviewed: true
     notes: >
       GIFs gerados via `npm run demo:record && npm run demo:gif && npm run demo:publish`
       no commit 2c94a3a. Browser visível, slowMo=700ms, viewport 1280×800.
