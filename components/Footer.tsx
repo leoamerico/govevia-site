@@ -4,9 +4,7 @@ import { ENVNEO_BRAND } from '@/lib/brand/envneo'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
-  const legalEntityNameNormalized = ENVNEO_BRAND.legalEntityName
   const productName = ENVNEO_BRAND.productName
-  const inpiStatus = 'Marca em processo de registro no INPI.'
 
   return (
     <footer className="bg-institutional-navy text-white">
@@ -14,14 +12,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4">
-              <h3 className="text-2xl font-serif font-bold" title={inpiStatus.trim() ? inpiStatus : undefined}>
+              <h3 className="text-2xl font-serif font-bold">
                 {productName}
               </h3>
-              <div className="mt-2 flex items-center gap-2 text-gray-400">
-                <p className="text-xs font-mono tracking-widest uppercase">
-                  por {legalEntityNameNormalized}
-                </p>
-              </div>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed">
               {ENVNEO_BRAND.tagline}
@@ -62,7 +55,7 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="text-sm text-gray-400">
-              <p className="font-semibold text-gray-300 mb-2">{legalEntityNameNormalized}</p>
+              <p className="font-semibold text-gray-300 mb-2">{ENVNEO_BRAND.legalEntityName}</p>
               <p>CNPJ: {ENVNEO_BRAND.cnpj}</p>
               <p className="mt-2">{ENVNEO_BRAND.segment}</p>
             </div>
@@ -129,7 +122,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-500">
-          <p>© {currentYear} {legalEntityNameNormalized}. Todos os direitos reservados.</p>
+          <p>© {currentYear} {productName}. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
