@@ -39,12 +39,16 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
             {goveviaLogoSvg ? (
-              <span
-                className="h-7 w-auto text-institutional-navy"
-                aria-label={logoAriaLabel}
-                role="img"
-                dangerouslySetInnerHTML={{ __html: goveviaLogoSvg }}
-              />
+              <span className="flex items-center gap-2.5" role="img" aria-label={logoAriaLabel}>
+                <span
+                  className="flex-shrink-0"
+                  style={{ width: '32px', height: '32px', display: 'inline-flex', alignItems: 'center' }}
+                  dangerouslySetInnerHTML={{ __html: goveviaLogoSvg }}
+                />
+                <span className="font-bold text-[1.15rem] tracking-tight text-institutional-navy leading-none">
+                  {productName}
+                </span>
+              </span>
             ) : (
               <Image
                 src="/brand/govevia-lockup-on-white.png"
