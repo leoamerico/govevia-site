@@ -3,6 +3,7 @@ import { readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { FilterableEventList } from './FilterableEventList'
 import type { RegistryEventClient } from './FilterableEventList'
+import { ComplianceWidget } from '@/components/ops/ComplianceWidget'
 
 export const metadata: Metadata = {
   title: 'Ops — CEO Console',
@@ -282,6 +283,8 @@ export default function OpsPage() {
     <div style={S.page}>
       <h1 style={S.h1}>Gabinete Ops — ENV NEO LTDA</h1>
       <p style={S.subtitle}>envneo/ops · {events.length} eventos · {new Date().toISOString().slice(0, 10)}</p>
+
+      <ComplianceWidget />
 
       <div style={S.sectionTitle}>Fonte Única de Verdade (SOT) — control-plane</div>
       <div style={{ ...S.card, marginBottom: '2rem' }}>
