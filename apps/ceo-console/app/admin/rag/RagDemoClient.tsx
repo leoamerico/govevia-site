@@ -3,12 +3,12 @@
  * RagDemoClient.tsx — Interface interativa de demo RAG.
  * Tabs: Upload PDF | Busca Semântica | Tarefas Assíncronas.
  *
- * Upload usa /api/admin/documents/ingest (proxy → FastAPI /documents/upload)
- * e polling via usePollDocJob — sistema SEPARADO do task queue.
+ * Upload  → /api/admin/documents/ingest       (proxy → FastAPI, polling via usePollDocJob)
+ * Search  → /api/admin/documents/search       (proxy → FastAPI /api/v1/search, stub on down)
+ * Tasks   → /api/admin/kernel/task/dispatch   (proxy → FastAPI task queue, polling via usePollTask)
  */
-import { useState, useTransition, useRef, useEffect } from 'react'
-import { searchDocs } from './actions'
-import type { SearchResult } from './actions'
+import { useState, useRef, useEffect } from 'react'
+import type { ChunkResult } from './actions'
 import { usePollTask } from '@/hooks/usePollTask'
 import { usePollDocJob } from '@/hooks/usePollDocJob'
 import type { DocJobState } from '@/hooks/usePollDocJob'
@@ -211,18 +211,43 @@ function UploadTab() {
 
 // ─── Tab: Search ─────────────────────────────────────────────────────────────
 
+interface SearchProxyResult {
+  chunks: ChunkResult[]
+  kernelAvailable: boolean
+  stub?: boolean
+}
+
 function SearchTab() {
-  const [query, setQuery]     = useState('')
-  const [result, setResult]   = useState<SearchResult | null>(null)
-  const [isPending, startTr]  = useTransition()
+  const [query, setQuery]           = useState('')
+  const [searching, setSearching]   = useState(false)
+  const [result, setResult]         = useState<SearchProxyResult | null>(null)
+  const [error, setError]           = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!query.trim()) return
-    startTr(async () => {
-      const r = await searchDocs(query)
-      setResult(r)
-    })
+    setSearching(true)
+    setResult(null)
+    setError(null)
+
+    try {
+      const res = await fetch('/api/admin/documents/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: query.trim(), top_k: 5 }),
+        cache: 'no-store',
+      })
+      const data = await res.json() as SearchProxyResult & { error?: string }
+      if (!res.ok) {
+        setError(data.error ?? `HTTP ${res.status}`)
+      } else {
+        setResult(data)
+      }
+    } catch {
+      setError('Erro de rede ao consultar kernel')
+    } finally {
+      setSearching(false)
+    }
   }
 
   return (
@@ -238,29 +263,35 @@ function SearchTab() {
       <input
         type="text"
         value={query}
-        onChange={e => { setQuery(e.target.value); setResult(null) }}
+        onChange={e => { setQuery(e.target.value); setResult(null); setError(null) }}
         placeholder="Ex: limite de gasto com pessoal LRF"
         style={S.input}
       />
 
-      <button type="submit" style={S.btn(isPending, !query.trim())} disabled={isPending || !query.trim()}>
-        {isPending ? 'Buscando…' : 'Buscar no Kernel'}
+      <button type="submit" style={S.btn(searching, !query.trim())} disabled={searching || !query.trim()}>
+        {searching ? 'Buscando…' : 'Buscar no Kernel'}
       </button>
+
+      {error && (
+        <div style={{ color: '#f87171', fontSize: '13px', marginTop: '12px' }}>✖ {error}</div>
+      )}
 
       {result && (
         <div style={{ marginTop: '20px' }}>
           <div style={{ marginBottom: '12px' }}>
-            <span style={S.badge(result.ok)}>{result.ok ? 'PASS' : 'ERRO'}</span>
+            <span style={S.badge(result.kernelAvailable)}>
+              {result.kernelAvailable ? 'LIVE' : 'STUB'}
+            </span>
             <span style={{ fontSize: '13px', color: '#94a3b8' }}>
-              {result.resultsCount} chunk(s) encontrado(s)
+              {result.chunks.length} chunk(s) encontrado(s)
             </span>
           </div>
-          {!result.kernelAvailable && (
+
+          {(result.stub || !result.kernelAvailable) && (
             <div style={S.stubBanner}>
-              ⚠ Kernel não configurado (GOVEVIA_KERNEL_BASE_URL ausente). Resultado simulado — eventos gravados no registry.
+              ⚠ Kernel não configurado ou indisponível. Resultado simulado.
             </div>
           )}
-          {result.error && <div style={{ color: '#f87171', fontSize: '13px', marginBottom: '12px' }}>{result.error}</div>}
 
           {result.chunks.length > 0 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -276,11 +307,6 @@ function SearchTab() {
               ))}
             </div>
           )}
-
-          <div style={S.hashRow}>query_hash (SHA-256): {result.query_hash || '—'}</div>
-          <div style={{ fontSize: '10px', color: '#334155', marginTop: '4px' }}>
-            Evento SIMULATION/DEMO registrado em REGISTRY-OPS.ndjson (query_hash + resultsCount + topChunkIds — sem texto completo).
-          </div>
         </div>
       )}
     </form>
