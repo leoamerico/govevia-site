@@ -37,42 +37,52 @@ export default function Mission() {
                 para fora — cada prazo que não pode falhar, cada ato que precisa de motivação, cada
                 assinatura que carrega peso jurídico real. O que esses profissionais carregam não é
                 uma tarefa. É décadas de memória institucional, de erros vistos de perto, de situações
-                que nenhum manual descreve. Isso não se automatiza. Isso é o ativo mais valioso que
-                existe neste momento.
+                que nenhum manual consegue descrever. Isso não se automatiza. Isso é o ativo mais
+                valioso que a administração pública brasileira possui — e o mais frágil, porque fica
+                retido em pessoas, não em sistemas.
               </p>
               <p>
                 A administração pública brasileira opera sob centenas de normas que regulam cada ato
                 praticado por agentes públicos. O problema nunca foi a falta de regra — foi a falta de
                 estrutura para torná-la executável. Prazos, competências, motivação do ato e condições
-                do rito viram checklists humanos, sujeitos a pressa, interpretação silenciosa e perda
-                de memória institucional. Quando a regra depende só de quem lembra, ela deixa de ser
-                proteção e vira risco.
+                do rito viram checklists humanos, sujeitos a pressa, interpretação informal e perda
+                de memória com cada troca de gestão. Quando a regra depende só de quem lembra, ela
+                deixa de ser proteção e vira risco — para o gestor, para o servidor e para o cidadão.
               </p>
               <p>
-                A Govevia parte de um entendimento simples: regra sem enforcement não é regra — é
-                sugestão. E sugestão cria responsabilidade sem proteção, tanto para o cidadão quanto
-                para o servidor. Nossa missão é transformar normas institucionais em controles
-                técnicos executáveis, onde cada requisito relevante pode ser verificado, registrado e
-                rastreado — não para vigiar pessoas, mas para protegê-las.
+                A Govevia parte de um princípio simples: regra sem enforcement não é regra — é
+                sugestão. E sugestão cria responsabilidade sem proteção. Nossa missão é transformar
+                normas institucionais em controles técnicos executáveis, onde cada requisito relevante
+                pode ser verificado, registrado e rastreado — não para vigiar pessoas, mas para
+                protegê-las de um sistema que responsabiliza sem estruturar.
               </p>
               <p>
                 Os agentes de inteligência artificial podem sugerir, organizar e antecipar — mas não
-                podem ser responsabilizados, premiados, corrigidos pela experiência de vida ou
-                registrados nos livros de história. Quem decide é o humano. Sempre. O que muda é que,
-                com o Govevia, essa decisão passa a ter contexto registrado, motivação documentada e
-                evidência consistente — pronta para controle interno, auditoria e prestação de contas.
+                podem ser responsabilizados, premiados ou registrados nos livros de história da gestão
+                pública. Quem decide é o humano. Sempre. O que muda é que, com o Govevia, essa
+                decisão passa a ter contexto registrado, motivação documentada e evidência consistente
+                — pronta para controle interno, auditoria, diligência do TCU e prestação de contas
+                perante qualquer instância.
               </p>
               <p>
                 O Govevia não &ldquo;decide por você&rdquo; — estrutura o ambiente para que a sua decisão seja
                 defensável. A responsabilidade permanece com o agente público; o sistema elimina as
                 lacunas que hoje dependem de memória e boa vontade. Profissionais com décadas de
-                experiência não são substituídos — são o coração do sistema, pois são eles que sabem
-                onde estão os erros que nenhum agente de IA conseguiria encontrar sozinho.
+                experiência não são substituídos — são o coração do sistema, porque são eles que sabem
+                onde estão os riscos que nenhum algoritmo conseguiria identificar sozinho.
               </p>
+              <div className="bg-primary/5 border-l-4 border-primary rounded-r-lg p-6 my-2">
+                <p className="font-serif font-semibold text-institutional-navy text-lg leading-relaxed">
+                  A Govevia não nasceu de uma planilha de mercado ou de uma análise de oportunidade.
+                  Nasceu da observação de que gestores honestos, competentes e dedicados carregam
+                  responsabilidade real sem que o sistema lhes dê as ferramentas para exercê-la com
+                  segurança. Isso não é justo. E é evitável.
+                </p>
+              </div>
               <p className="font-semibold text-institutional-navy text-xl">
                 Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser
                 documentada para ser executada — e onde cada pessoa que conhece o seu trabalho de
-                verdade encontra o lugar que sempre mereceu.
+                verdade encontra a estrutura que sempre mereceu ter ao seu lado.
               </p>
             </div>
           </motion.div>

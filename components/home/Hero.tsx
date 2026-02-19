@@ -13,12 +13,14 @@ type Props = {
   }
   legal: { title: string; items: string[] }
   scrollLabel: string
+  personas?: { label: string; href: string }[]
 }
 
-export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel }: Props) {
+export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel, personas }: Props) {
   const hasTitle = title.trim().length > 0
   const hasCtas = ctas.primary.label.trim().length > 0 || ctas.secondary.label.trim().length > 0
   const legalItems = legal.items.map((s) => s.trim()).filter(Boolean)
+  const visiblePersonas = (personas ?? []).filter((p) => p.label.trim().length > 0)
 
   if (!kicker.trim() && !hasTitle && !subtitle.trim() && !hasCtas && !legal.title.trim() && legalItems.length === 0) {
     return null
@@ -85,6 +87,29 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
               </Link>
             ) : null}
           </motion.div>
+
+          {/* Persona quick-links */}
+          {visiblePersonas.length > 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.55 }}
+              className="mt-10"
+            >
+              <p className="text-xs text-institutional-silver font-sans mb-3 tracking-wide uppercase">Sou:</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                {visiblePersonas.map((persona, idx) => (
+                  <Link
+                    key={idx}
+                    href={persona.href}
+                    className="px-4 py-2 rounded-full border border-institutional-slate/30 text-sm text-institutional-slate hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-200 font-sans"
+                  >
+                    {persona.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          ) : null}
 
           {/* Legal basis indicator */}
           <motion.div
