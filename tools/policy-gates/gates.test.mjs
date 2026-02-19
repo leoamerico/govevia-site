@@ -824,6 +824,53 @@ export default function X(){
   }
 }
 
+// ─── Test 14: gate-docs-brand-legal ─────────────────────────────────────────
+{
+  console.log('\n── Test: gate-docs-brand-legal (docs/)')
+
+  // Cenário A: EnvLive em docs → FAIL
+  {
+    const dir = tempDir('docs-brand-legal-fail-envlive')
+    mkdirSync(join(dir, 'docs'), { recursive: true })
+    writeFileSync(join(dir, 'docs', 'x.md'), 'Marca: EnvLive\n')
+    const r = runGateWithFixture('gate-docs-brand-legal.mjs', dir, 1)
+    const out = (r.stdout ?? '') + (r.stderr ?? '')
+    assert('EnvLive em docs → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    assert('EnvLive em docs → [FAIL] no output', out.includes('[FAIL]'), `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: placeholder [CNPJ] em docs → FAIL
+  {
+    const dir = tempDir('docs-brand-legal-fail-cnpj')
+    mkdirSync(join(dir, 'docs'), { recursive: true })
+    writeFileSync(join(dir, 'docs', 'x.md'), 'CNPJ: [CNPJ]\n')
+    const r = runGateWithFixture('gate-docs-brand-legal.mjs', dir, 1)
+    assert('[CNPJ] em docs → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário C: placeholder [RAZÃO SOCIAL] em docs → FAIL
+  {
+    const dir = tempDir('docs-brand-legal-fail-razao')
+    mkdirSync(join(dir, 'docs'), { recursive: true })
+    writeFileSync(join(dir, 'docs', 'x.md'), 'Razão Social: [RAZÃO SOCIAL]\n')
+    const r = runGateWithFixture('gate-docs-brand-legal.mjs', dir, 1)
+    assert('[RAZÃO SOCIAL] em docs → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário D: docs limpo → PASS
+  {
+    const dir = tempDir('docs-brand-legal-pass')
+    mkdirSync(join(dir, 'docs'), { recursive: true })
+    writeFileSync(join(dir, 'docs', 'x.md'), 'Marca: Env Live\nCNPJ: 36.207.211/0001-47\n')
+    const r = runGateWithFixture('gate-docs-brand-legal.mjs', dir, 0)
+    assert('docs limpo → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {
   console.error('[TEST FAILED] Um ou mais testes de fixture falharam.')

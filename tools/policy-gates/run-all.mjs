@@ -24,6 +24,7 @@ const GATES = [
   'gate-impl-registered.mjs',
   'gate-no-envneo-shortname.mjs',
   'gate-no-env-neo-literal.mjs',
+  'gate-docs-brand-legal.mjs',
   'gate-control-plane-no-secrets.mjs',
   'gate-no-hardcoded-endpoints.mjs',
 ]
