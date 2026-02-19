@@ -1,15 +1,30 @@
 /**
  * Admin section layout — adiciona barra de navegação interna ao /admin/*.
  * Não exibido na tela de login (pois o login tem seu próprio layout inline).
+ * Identidade corporativa lida do Control Plane (brand-registry.json).
  */
 import Link from 'next/link'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 const navLinks = [
   { href: '/admin/ops', label: 'Ops' },
   { href: '/admin/rules', label: 'Regras' },
 ]
 
+function loadCorporateIdentity(): { legalName: string; cnpj: string } {
+  try {
+    const path = join(process.cwd(), '../..', 'envneo', 'control-plane', 'bridge', 'brand-registry.json')
+    const reg = JSON.parse(readFileSync(path, 'utf8'))
+    const e = reg['ENVNEO_LTDA'] as { legal_name_upper: string; cnpj: string }
+    return { legalName: e.legal_name_upper, cnpj: e.cnpj }
+  } catch {
+    return { legalName: 'ENV NEO LTDA', cnpj: '36.207.211/0001-47' }
+  }
+}
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const { legalName, cnpj } = loadCorporateIdentity()
   return (
     <>
       <nav
@@ -20,35 +35,59 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           display: 'flex',
           gap: '1.25rem',
           alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
-        <span
-          style={{
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            color: '#0059B3',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase' as const,
-            fontFamily: 'monospace',
-            marginRight: '0.5rem',
-          }}
-        >
-          CEO Console
-        </span>
-        {navLinks.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
+        {/* Left: console badge + nav links */}
+        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+          <span
             style={{
-              color: '#94a3b8',
-              fontSize: '0.8rem',
-              fontWeight: 500,
-              textDecoration: 'none',
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              color: '#0059B3',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase' as const,
+              fontFamily: 'monospace',
+              marginRight: '0.5rem',
             }}
           >
-            {l.label}
-          </Link>
-        ))}
+            CEO Console
+          </span>
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              style={{ color: '#94a3b8', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none' }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Right: corporate identity — ENV NEO LTDA, Open Sans 12 */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '1px' }}>
+          <span
+            style={{
+              fontFamily: "'Open Sans', Arial, sans-serif",
+              fontSize: '12px',
+              fontWeight: 'normal' as const,
+              color: '#f8fafc',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {legalName}
+          </span>
+          <span
+            style={{
+              fontFamily: "'Open Sans', Arial, sans-serif",
+              fontSize: '12px',
+              fontWeight: 'normal' as const,
+              color: '#64748b',
+            }}
+          >
+            CNPJ: {cnpj}
+          </span>
+        </div>
       </nav>
       {children}
     </>
