@@ -6,11 +6,13 @@ import Link from 'next/link'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
+import { KernelStatus } from '@/components/admin/KernelStatus'
 
 const navLinks = [
   { href: '/admin/site', label: 'Site' },
   { href: '/admin/pi', label: 'PI' },
   { href: '/admin/bpmn', label: 'Processos' },
+  { href: '/admin/legislacao', label: 'Legislação' },
   { href: '/admin/ops', label: 'Ops' },
   { href: '/admin/rules', label: 'Regras' },
 ]
@@ -75,8 +77,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </div>
 
-        {/* Right: corporate identity — ENV NEO LTDA, Open Sans 12 */}
-        <CorporateIdentity legalName={legalName} cnpj={cnpj} align="right" />
+        {/* Right: kernel status + corporate identity */}
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <KernelStatus />
+          <CorporateIdentity legalName={legalName} cnpj={cnpj} align="right" />
+        </div>
       </nav>
       {children}
     </>
