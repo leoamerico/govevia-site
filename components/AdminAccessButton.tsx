@@ -1,7 +1,5 @@
 'use client'
 
-import Link from 'next/link'
-
 /**
  * Botão flutuante discreto de acesso à área administrativa.
  * Posicionado acima do ImpersonationBanner (z-[9998], bottom-0).
@@ -9,10 +7,11 @@ import Link from 'next/link'
  */
 export default function AdminAccessButton() {
   return (
-    <Link
+    <a
       href="/admin/login"
       aria-label="Área administrativa"
       title="Área administrativa"
+      rel="nofollow"
       className="
         fixed bottom-6 right-5 z-[9997]
         w-8 h-8
@@ -40,6 +39,6 @@ export default function AdminAccessButton() {
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
       </svg>
-    </Link>
+    </a>
   )
 }
