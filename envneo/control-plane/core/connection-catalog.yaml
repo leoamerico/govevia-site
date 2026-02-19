@@ -55,6 +55,7 @@ services:
       - ADMIN_JWT_SECRET
       - ADMIN_SESSION_SECRET
       - ENVNEO_CORE_URL
+      - GOVEVIA_KERNEL_BASE_URL
     secret_refs:
       - "secret://ADMIN_PASSWORD_HASH"
       - "secret://ADMIN_JWT_SECRET"
