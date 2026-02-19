@@ -55,6 +55,23 @@ export default function Mission() {
                 apoiar a análise, mas a consolidação de atos depende de validação determinística e de revisão humana
                 registrada. Nenhuma decisão administrativa é tomada exclusivamente por IA.
               </p>
+              <p>
+                Na administração pública, o que mais gera risco não é a falta de digitalização — é a
+                falta de regra executável: prazos, competência, motivação do ato e condições do rito
+                acabam virando checklists humanos, sujeitos a pressa, interpretação silenciosa e perda
+                de memória institucional. O Govevia parte de um princípio simples e duro: norma e
+                critério só protegem o cidadão e o gestor quando viram controle verificável, com regra
+                versionada, parâmetros auditáveis e registro automático do que aconteceu. Por isso, o
+                sistema é desenhado para operar como governança aplicada ao fluxo: ele não substitui a
+                decisão humana, mas padroniza o rito, reduz ambiguidade operacional e garante que cada
+                etapa gere evidência consistente — pronta para controle interno, jurídico, auditoria e
+                prestação de contas.
+              </p>
+              <p>
+                O Govevia não &ldquo;decide por você&rdquo; — estrutura o contexto para que a sua decisão seja
+                registrada, motivada e defensável. A responsabilidade permanece com o agente público;
+                o sistema elimina lacunas que hoje dependem de memória e boa vontade.
+              </p>
               <p className="font-semibold text-institutional-navy text-xl">
                 Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser 
                 documentada para ser executada.
