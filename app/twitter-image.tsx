@@ -82,7 +82,7 @@ export default async function Image() {
                 textTransform: 'uppercase' as const,
               }}
             >
-              por Env Neo
+              por Govevia
             </div>
             <div style={{ width: 40, height: 1, background: 'rgba(255,255,255,0.3)' }} />
           </div>
@@ -138,7 +138,7 @@ export default async function Image() {
               letterSpacing: '1px',
             }}
           >
-            Env Neo Ltda. · CNPJ 36.207.211/0001-47
+            Govevia · govevia.com.br
           </div>
         </div>
       </div>

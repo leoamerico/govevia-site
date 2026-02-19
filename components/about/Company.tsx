@@ -15,7 +15,7 @@ export default function Company() {
             className="mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-institutional-navy mb-8 text-center">
-              Env Neo Ltda.
+              Govevia
             </h2>
           </motion.div>
 
@@ -137,7 +137,7 @@ export default function Company() {
               Nossa Trajetória
             </h3>
             <p className="text-institutional-slate leading-relaxed mb-4">
-              A Env Neo foi fundada com a convicção de que a transformação digital do setor público
+              A Govevia foi fundada com a convicção de que a transformação digital do setor público
               brasileiro não pode ser resolvida com adaptação de ferramentas corporativas. Governança 
               pública opera sob regime jurídico próprio, com requisitos de evidência, conformidade e 
               auditabilidade que não existem no setor privado.

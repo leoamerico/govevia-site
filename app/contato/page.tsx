@@ -3,12 +3,25 @@ import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Contact from '@/components/home/Contact'
-import { getContent } from '@/lib/content/getContent'
 
 export const metadata: Metadata = {
   title: 'Contato',
   description: 'Canal institucional para contato técnico e solicitações de documentação e evidências.',
 }
+
+const contactTitle = 'Fale com a Govevia'
+const contactSubtitle = 'Estamos em fase de implantação com municípios parceiros. Entre em contato para entender como o Govevia pode ser adaptado à realidade da sua instituição.'
+const contactNoticeTitle = 'Implantação consultiva'
+const contactNoticeBody = 'O processo de implantação do Govevia é conduzido de forma consultiva, com mapeamento dos fluxos institucionais existentes antes de qualquer configuração técnica.'
+const contactEmailLabel = 'E-mail institucional'
+const contactEmailValue = 'govevia@govevia.com.br'
+const contactInfoTitle = 'Dados institucionais'
+const contactAddressLabel = 'Endereço'
+const contactAddressValue = 'Av. Palmeira Imperial, 165 / 302\nCEP: 38.406-582 — Uberlândia MG\nBrasil'
+const contactCompanyTitle = 'Govevia'
+const contactCompanyBody = 'CNPJ: 36.207.211/0001-47'
+const contactCeoLabel = 'Responsável técnico e comercial'
+const contactCeoName = 'Leonardo Américo'
 
 type Props = {
   searchParams?: Record<string, string | string[] | undefined>
@@ -21,40 +34,8 @@ function normalizeContext(value: unknown): string | null {
   return v
 }
 
-export default async function ContatoPage({ searchParams }: Props) {
+export default function ContatoPage({ searchParams }: Props) {
   const context = normalizeContext(searchParams?.context)
-
-  const [
-    contactTitle,
-    contactSubtitle,
-    contactNoticeTitle,
-    contactNoticeBody,
-    contactEmailLabel,
-    contactEmailValue,
-    contactInfoTitle,
-    contactAddressLabel,
-    contactAddressValue,
-    contactCompanyTitle,
-    contactCompanyBody,
-    contactCeoLabel,
-    contactCeoName,
-  ] = (
-    await Promise.all([
-      getContent({ key: 'site.home.contact.title', fallback: '' }),
-      getContent({ key: 'site.home.contact.subtitle', fallback: '' }),
-      getContent({ key: 'site.home.contact.notice.title', fallback: '' }),
-      getContent({ key: 'site.home.contact.notice.body', fallback: '' }),
-      getContent({ key: 'site.home.contact.email.label', fallback: '' }),
-      getContent({ key: 'site.home.contact.email.value', fallback: '' }),
-      getContent({ key: 'site.home.contact.info.title', fallback: '' }),
-      getContent({ key: 'site.home.contact.address.label', fallback: '' }),
-      getContent({ key: 'site.home.contact.address.value', fallback: '' }),
-      getContent({ key: 'site.home.contact.company.title', fallback: '' }),
-      getContent({ key: 'site.home.contact.company.body', fallback: '' }),
-      getContent({ key: 'site.home.contact.ceo.label', fallback: '' }),
-      getContent({ key: 'site.home.contact.ceo.name', fallback: '' }),
-    ])
-  ).map((r) => r.value)
 
   return (
     <>

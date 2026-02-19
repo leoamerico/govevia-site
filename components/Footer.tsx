@@ -1,33 +1,12 @@
 import Link from 'next/link'
 
-import { getPortalBrand } from '@/lib/core/portalBrand'
-import { getContent } from '@/lib/content/getContent'
-import { ENVNEO_BRAND, normalizeLegalEntityName } from '@/lib/brand/envneo'
+import { ENVNEO_BRAND } from '@/lib/brand/envneo'
 
-function isBlank(value: string | null | undefined): boolean {
-  return !value || value.trim().length === 0
-}
-
-export default async function Footer() {
+export default function Footer() {
   const currentYear = new Date().getFullYear()
-
-  const core = await getPortalBrand()
-  const [overrideLegalEntityName, overrideProductName, overrideInpiStatus] = (
-    await Promise.all([
-      getContent({ key: 'brand.envneo.legal_entity_name', fallback: '' }),
-      getContent({ key: 'brand.govevia.product_name', fallback: '' }),
-      getContent({ key: 'brand.govevia.inpi.status', fallback: '' }),
-    ])
-  ).map((r) => r.value)
-
-  const legalEntityName = !isBlank(overrideLegalEntityName)
-    ? overrideLegalEntityName
-    : core.legal_entity_name
-
-  const legalEntityNameNormalized = normalizeLegalEntityName(legalEntityName)
-
-  const productName = !isBlank(overrideProductName) ? overrideProductName : core.product_name
-  const inpiStatus = !isBlank(overrideInpiStatus) ? overrideInpiStatus : core.inpi.status
+  const legalEntityNameNormalized = ENVNEO_BRAND.legalEntityName
+  const productName = ENVNEO_BRAND.productName
+  const inpiStatus = 'Marca em processo de registro no INPI.'
 
   return (
     <footer className="bg-institutional-navy text-white">
@@ -61,6 +40,7 @@ export default async function Footer() {
               <li><Link href="/historico" className="text-gray-400 hover:text-primary-light transition-colors">Histórico</Link></li>
               <li><Link href="/sobre" className="text-gray-400 hover:text-primary-light transition-colors">Sobre</Link></li>
               <li><Link href="/politica-privacidade" className="text-gray-400 hover:text-primary-light transition-colors">Política de Privacidade</Link></li>
+              <li><Link href="/termos-de-uso" className="text-gray-400 hover:text-primary-light transition-colors">Termos de Uso</Link></li>
             </ul>
           </div>
 

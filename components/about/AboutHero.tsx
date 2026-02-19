@@ -13,7 +13,7 @@ export default function AboutHero() {
           className="max-w-4xl mx-auto text-center"
         >
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-institutional-navy mb-6">
-            Sobre a Env Neo
+            Sobre a Govevia
           </h1>
           <p className="text-xl md:text-2xl text-institutional-slate leading-relaxed">
             Desenvolvemos tecnologia para que a governança pública deixe de ser discurso 

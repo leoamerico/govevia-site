@@ -49,7 +49,7 @@ export default function Mission() {
                 proteção e vira risco.
               </p>
               <p>
-                A Env Neo parte de um entendimento simples: regra sem enforcement não é regra — é
+                A Govevia parte de um entendimento simples: regra sem enforcement não é regra — é
                 sugestão. E sugestão cria responsabilidade sem proteção, tanto para o cidadão quanto
                 para o servidor. Nossa missão é transformar normas institucionais em controles
                 técnicos executáveis, onde cada requisito relevante pode ser verificado, registrado e

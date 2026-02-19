@@ -1,17 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { getPostBySlug, getAllPosts } from '@/lib/blog'
-import { getContexts, getPersonas } from '@/lib/taxonomy'
-import { resolveView } from '@/lib/view/resolveView'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import ViewSelector from '@/components/content/ViewSelector'
-import { ViewProvider } from '@/components/content/ViewProvider'
-import ViewBlock from '@/components/content/ViewBlock'
-import ImpersonationAutoSelect from '@/components/content/ImpersonationAutoSelect'
 import { Suspense } from 'react'
 
 interface Props {
@@ -44,22 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function BlogPostPage({ params, searchParams }: Props) {
+export default async function BlogPostPage({ params }: Props) {
   const post = await getPostBySlug(params.slug)
   if (!post || post.draft) notFound()
-
-  const personas = getPersonas()
-  const contexts = getContexts()
-
-  const ctxSet = new Set<string>(contexts.map((c) => c.id))
-
-  // Seleção determinística: ?view= > cookie gv_view > default 'procurador'
-  // (ADR: docs/architecture/decisions/ADR-VIEW-SELECTION-PERSONAS.md)
-  const cookieStore = cookies()
-  const activeView = resolveView(searchParams ?? null, cookieStore)
-
-  const requestedCtx = searchParams?.ctx
-  const activeCtx = requestedCtx && ctxSet.has(requestedCtx) ? requestedCtx : undefined
 
   const schemaArticle = {
     '@context': 'https://schema.org',
@@ -75,7 +55,7 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Env Neo Ltda.',
+      name: 'Govevia',
       url: 'https://govevia.com.br',
     },
     mainEntityOfPage: {
@@ -145,16 +125,8 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
         {/* Article Body */}
         <section className="py-12 bg-white">
           <div className="container-custom">
-            <ViewProvider activeView={activeView} activeCtx={activeCtx}>
-              <Suspense fallback={null}>
-                <ImpersonationAutoSelect />
-              </Suspense>
-              <div className="max-w-3xl mx-auto">
-                <ViewSelector personas={personas} contexts={contexts} activeView={activeView} activeCtx={activeCtx} />
-              </div>
-
-              <article
-                className="max-w-3xl mx-auto prose prose-lg prose-slate
+            <article
+              className="max-w-3xl mx-auto prose prose-lg prose-slate
                   prose-headings:font-serif prose-headings:text-institutional-navy prose-headings:font-bold
                   prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
                   prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
@@ -165,14 +137,15 @@ export default async function BlogPostPage({ params, searchParams }: Props) {
                   prose-blockquote:border-primary prose-blockquote:bg-institutional-offwhite prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
                   prose-code:text-primary prose-code:bg-primary/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
                   prose-pre:bg-institutional-navy prose-pre:text-gray-200"
-              >
-                {post.format === 'mdx' ? (
-                  <MDXRemote source={post.content} components={{ ViewBlock }} />
-                ) : (
-                  <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                )}
-              </article>
-            </ViewProvider>
+            >
+              {post.format === 'mdx' ? (
+                <Suspense fallback={null}>
+                  <MDXRemote source={post.content} />
+                </Suspense>
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              )}
+            </article>
           </div>
         </section>
 

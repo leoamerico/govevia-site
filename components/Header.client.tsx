@@ -45,11 +45,11 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
               />
             ) : (
               <Image
-                src="/brand/govevia-wordmark-on-white.png"
+                src="/brand/govevia-lockup-on-white.png"
                 alt={productName}
-                width={325}
-                height={313}
-                className="h-7 w-auto"
+                width={400}
+                height={120}
+                className="h-8 w-auto"
                 priority
               />
             )}

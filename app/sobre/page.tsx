@@ -7,9 +7,9 @@ import Principles from '@/components/about/Principles'
 import Company from '@/components/about/Company'
 
 export const metadata: Metadata = {
-  title: 'Sobre | Env Neo Ltda.',
-  description: 'A Env Neo desenvolve Govevia, plataforma de governança executável para administração pública municipal. Nossa missão: tornar a governança pública tecnicamente executável.',
-  keywords: ['Env Neo', 'empresa govtech', 'governança pública', 'tecnologia setor público'],
+  title: 'Sobre | Govevia',
+  description: 'A Govevia desenvolve plataforma de governança executável para administração pública municipal. Nossa missão: tornar a governança pública tecnicamente executável.',
+  keywords: ['Govevia', 'empresa govtech', 'governança pública', 'tecnologia setor público'],
 }
 
 export default function AboutPage() {

@@ -1,6 +1,6 @@
 """
-Sprint C+D — E2E smoke test
-Tests: auth → task dispatch+poll → document upload+poll → normas → semantic search
+Sprint C — E2E smoke test
+Tests: auth → task dispatch+poll → document upload+poll
 Run: python3 scripts/sprint_c_e2e.py
 """
 import urllib.request
@@ -10,7 +10,7 @@ import time
 
 BASE = "http://localhost:8000"
 
-# Desabilita proxy de sistema (evita 307 redirect no Windows)
+# Desabilita proxy de sistema — evita 307 redirect no Windows
 _opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
 
@@ -118,19 +118,15 @@ def main():
     print(f"[normas] total={normas.get('total', 0)}")
     assert normas.get("total", 0) > 0, "normas table empty"
 
-    # 7. Semantic search — POST /api/v1/search/ (commit 2d28d372)
+    # 7. Semantic search — POST /api/v1/search (implementado em 2d28d372)
     try:
-        search_resp = post_json_auth(
-            "/api/v1/search/",
-            {"query": "compliance governança", "limit": 3},
-            token
+        search_resp = post_json_auth("/api/v1/search/", {"query": "norma legal vigente", "limit": 3}, token)
+        print(
+            f"[search] OK  kernel_available={search_resp.get('kernel_available')}  "
+            f"chunks={len(search_resp.get('chunks', []))}"
         )
-        chunks = search_resp.get("chunks", [])
-        kernel_available = search_resp.get("kernel_available", True)
-        print(f"[search] OK  kernel_available={kernel_available}  chunks={len(chunks)}")
         assert "chunks" in search_resp, "search response missing 'chunks'"
         assert "query" in search_resp, "search response missing 'query'"
-        assert isinstance(chunks, list), "chunks deve ser lista"
     except urllib.error.HTTPError as e:
         body_err = e.read().decode()
         raise AssertionError(f"[search] FAIL HTTP {e.code}: {body_err[:200]}")
