@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run content:check && npm run history:check",
+    "prebuild": "npm run policy:gates && npm run content:check && npm run history:check",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
