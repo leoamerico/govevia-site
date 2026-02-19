@@ -19,6 +19,7 @@ const GATES = [
   'gate-procuracao-require-evidence.mjs',
   'gate-wip-one.mjs',
   'gate-registry-append-only.mjs',
+  'gate-no-admin-in-site-public.mjs',
 ]
 
 let anyFailed = false

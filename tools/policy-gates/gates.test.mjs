@@ -423,7 +423,59 @@ console.log('\n── Test: gate-registry-append-only')
   }
 }
 
-// ─── Resumo ──────────────────────────────────────────────────────────────────
+// ─── Test 7: gate-no-admin-in-site-public ────────────────────────────────────
+console.log('\n── Test: gate-no-admin-in-site-public (fixture violadora e limpa)')
+
+{
+  // Cenário A: app/admin/ com arquivo → FAIL
+  {
+    const dir = tempDir('no-admin-violation')
+    const adminDir = join(dir, 'app', 'admin')
+    mkdirSync(adminDir, { recursive: true })
+    writeFileSync(join(adminDir, 'page.tsx'), 'export default function AdminPage() { return null }')
+    const r = runGateWithFixture('gate-no-admin-in-site-public.mjs', dir, 1)
+    assert('app/admin/page.tsx existe → exit 1 (FAIL)', r.exitCode === 1,
+      `exit code foi ${r.exitCode} (esperado 1)`)
+    const out = (r.stdout ?? '') + (r.stderr ?? '')
+    assert('app/admin/page.tsx existe → [FAIL] no output', out.includes('[FAIL]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: app/admin/ inexistente → PASS
+  {
+    const dir = tempDir('no-admin-clean')
+    mkdirSync(join(dir, 'app'), { recursive: true })
+    // app/admin/ não criado
+    const r = runGateWithFixture('gate-no-admin-in-site-public.mjs', dir, 0)
+    assert('app/admin/ inexistente → exit 0 (PASS)', r.exitCode === 0,
+      `exit code foi ${r.exitCode} (esperado 0)`)
+    cleanup(dir)
+  }
+
+  // Cenário C: app/admin/ vazio (diretório existe mas sem arquivos) → PASS
+  {
+    const dir = tempDir('no-admin-empty')
+    mkdirSync(join(dir, 'app', 'admin'), { recursive: true })
+    // diretório existe mas vazio
+    const r = runGateWithFixture('gate-no-admin-in-site-public.mjs', dir, 0)
+    assert('app/admin/ vazio → exit 0 (PASS)', r.exitCode === 0,
+      `exit code foi ${r.exitCode} (esperado 0)`)
+    cleanup(dir)
+  }
+
+  // Cenário D: app/admin/ com arquivo aninhado → FAIL
+  {
+    const dir = tempDir('no-admin-nested')
+    const nestedDir = join(dir, 'app', 'admin', 'login')
+    mkdirSync(nestedDir, { recursive: true })
+    writeFileSync(join(nestedDir, 'page.tsx'), 'export default function LoginPage() { return null }')
+    const r = runGateWithFixture('gate-no-admin-in-site-public.mjs', dir, 1)
+    assert('app/admin/login/page.tsx (aninhado) → exit 1 (FAIL)', r.exitCode === 1,
+      `exit code foi ${r.exitCode} (esperado 1)`)
+    cleanup(dir)
+  }
+}
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {
   console.error('[TEST FAILED] Um ou mais testes de fixture falharam.')
