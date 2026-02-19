@@ -249,7 +249,7 @@ Diretório: `tests/hardening/test_hardening_smoke.py`
 | # | Divergência | Correção aplicada | Status |
 |---|-------------|-------------------|--------|
 | D1 | BFF `ping` chamava `/api/v1/system/metrics` (requer Bearer superuser, sem auth na chamada) | `ping/route.ts` → `GET /api/v1/health` (endpoint open) | ✅ corrigido |
-| D2 | BFF `search` chama `/api/v1/search` (não implementado no backend) | Stub automático mantido; comentário na rota atualizado | ⏳ backend Sprint E+ |
+| D2 | BFF `search` chama `/api/v1/search` (não implementado no backend) | Endpoint implementado no backend `2d28d372`; BFF agora usa campo `limit` e propaga `kernel_available` | ✅ corrigido |
 | D3 | `client.ts` usava `/api/v1/documentos/upload` | Já corrigido: `client.ts` usa `/api/v1/documents/upload` | ✅ OK |
 | D4 | BFF legislação usava `/api/v1/normas` | Já corrigido: todas as rotas usam `/api/v1/normas-legais/` | ✅ OK |
 

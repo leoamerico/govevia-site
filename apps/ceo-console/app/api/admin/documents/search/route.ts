@@ -4,12 +4,11 @@
  * Proxy server-side para POST /api/v1/search no backend FastAPI.
  * Autenticado com Bearer JWT do service account.
  *
- * NOTA: /api/v1/search ainda não implementado no backend (Sprint E+).
- * Enquanto o endpoint não existir, toda chamada cai em stub automático.
- * Quando implementado, o backend deve retornar { chunks: ChunkResult[] }.
- * Alternativa futura: adaptar para POST /api/v1/chat/ com mapeamento de resposta.
+ * Backend implementado em govevia `2d28d372`.
+ * Request:  { query: string, limit?: number (1-50) }
+ * Response backend: { query, chunks: ChunkResult[], kernel_available: bool }
  *
- * Body: { query: string; top_k?: number }
+ * Body BFF: { query: string; top_k?: number }
  * Response 200: { chunks: ChunkResult[], kernelAvailable: true }
  * Response 200 (stub): { chunks: ChunkResult[], kernelAvailable: false, stub: true }
  * Response 400: { error } — query vazia
@@ -60,7 +59,7 @@ export async function POST(req: NextRequest) {
   try {
     const res = await kernelFetch('/api/v1/search', {
       method: 'POST',
-      body: JSON.stringify({ query, top_k }),
+      body: JSON.stringify({ query, limit: top_k }),
     })
 
     if (!res.ok) {
@@ -69,8 +68,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ chunks: STUB_CHUNKS, kernelAvailable: false, stub: true })
     }
 
-    const data = (await res.json()) as { chunks?: ChunkResult[] }
-    return NextResponse.json({ chunks: data.chunks ?? [], kernelAvailable: true })
+    const data = (await res.json()) as { chunks?: ChunkResult[]; kernel_available?: boolean }
+    return NextResponse.json({ chunks: data.chunks ?? [], kernelAvailable: data.kernel_available ?? true })
   } catch (err) {
     if (err instanceof KernelUnavailableError) {
       return NextResponse.json({ chunks: STUB_CHUNKS, kernelAvailable: false, stub: true })
