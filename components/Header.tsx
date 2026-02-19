@@ -2,6 +2,7 @@ import HeaderClient from '@/components/Header.client'
 import { getPortalBrand, sanitizeSvgAllowlist } from '@/lib/core/portalBrand'
 import { getContent } from '@/lib/content/getContent'
 import { normalizeLegalEntityName } from '@/lib/brand/envneo'
+import { getAllPosts } from '@/lib/blog'
 
 function isBlank(value: string | null | undefined): boolean {
   return !value || value.trim().length === 0
@@ -56,12 +57,23 @@ export default async function Header() {
   const rawLogoSvg = !isBlank(overrideLogoSvg) ? overrideLogoSvg : (core.logo_svg ?? '')
   const goveviaLogoSvg = sanitizeSvgAllowlist(rawLogoSvg)
 
+  // Nav dinâmico: item ó exibido somente se tiver conteúdo da entidade por trás dele.
+  const publishedPostCount = getAllPosts().length
+
+  const navigation = [
+    { name: 'Início', href: '/' },
+    { name: 'Plataforma', href: '/plataforma' },
+    ...(publishedPostCount > 0 ? [{ name: 'Publicações', href: '/blog' }] : []),
+    { name: 'Sobre', href: '/sobre' },
+  ]
+
   return (
     <HeaderClient
       productName={productName}
       legalEntityName={legalEntityName}
       goveviaLogoSvg={goveviaLogoSvg}
       inpiStatus={inpiStatus}
+      navigation={navigation}
     />
   )
 }

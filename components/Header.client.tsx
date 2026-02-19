@@ -9,9 +9,11 @@ type Props = {
   legalEntityName: string
   goveviaLogoSvg: string | null
   inpiStatus: string
+  /** Itens de navegação filtrados pelo servidor: apenas o que tem conteúdo real. */
+  navigation: Array<{ name: string; href: string }>
 }
 
-export default function HeaderClient({ productName, legalEntityName, goveviaLogoSvg, inpiStatus }: Props) {
+export default function HeaderClient({ productName, legalEntityName, goveviaLogoSvg, inpiStatus, navigation }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -22,13 +24,6 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const navigation = [
-    { name: 'Início', href: '/' },
-    { name: 'Plataforma', href: '/plataforma' },
-    { name: 'Publicações', href: '/blog' },
-    { name: 'Sobre', href: '/sobre' },
-  ]
 
   const logoAriaLabel = `${productName}${inpiStatus.trim() ? ` (${inpiStatus.trim()})` : ''}`
 

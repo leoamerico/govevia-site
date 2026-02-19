@@ -1,5 +1,13 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Feat: nav dinâmico — itens sem conteúdo publicado não são exibidos
+
+- `lib/blog.ts`: adicionado campo `draft: boolean` em `BlogPost` e `BlogPostMeta`; `getAllPosts()` aceita `{ includeDrafts }` e filtra rascunhos por padrão.
+- `content/blog/*.mdx`: ambos os posts marcados como `draft: true` — "Publicações" some do menu enquanto não houver posts publicados.
+- `components/Header.tsx`: conta posts publicados (`getAllPosts()`) e monta array `navigation` dinamicamente — item "Publicações" só é incluído se `publishedPostCount > 0`.
+- `components/Header.client.tsx`: `navigation` deixa de ser hardcoded; recebido como prop do servidor.
+- `app/blog/[slug]/page.tsx`: `generateStaticParams` exclui drafts; página retorna 404 para posts com `draft: true` acessados diretamente.
+
 ## 2026-02-18 — Refactor: SSOT de marca Env Neo — fonte única implementada em todos os consumidores
 
 - `lib/brand/envneo.ts` (NOVO): fonte única da identidade Env Neo — nome legal, CNPJ, e-mail, endereço, tagline, descrição, segment, URLs. Exporta também `normalizeLegalEntityName()` (antes duplicada em Header e Footer).

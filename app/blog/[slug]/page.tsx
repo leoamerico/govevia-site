@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { getPostBySlug, getAllPostSlugs } from '@/lib/blog'
+import { getPostBySlug, getAllPosts } from '@/lib/blog'
 import { getContexts, getPersonas } from '@/lib/taxonomy'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import ViewSelector from '@/components/content/ViewSelector'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return getAllPostSlugs().map((slug) => ({ slug }))
+  return getAllPosts().map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params, searchParams }: Props) {
   const post = await getPostBySlug(params.slug)
-  if (!post) notFound()
+  if (!post || post.draft) notFound()
 
   const personas = getPersonas()
   const contexts = getContexts()

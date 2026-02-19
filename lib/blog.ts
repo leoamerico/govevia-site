@@ -19,6 +19,7 @@ export interface BlogPost {
   readingTime: string
   content: string
   format: 'mdx' | 'md'
+  draft: boolean
 }
 
 export interface BlogPostMeta {
@@ -30,6 +31,7 @@ export interface BlogPostMeta {
   author: string
   tags: string[]
   readingTime: string
+  draft: boolean
 }
 
 export function getAllPostSlugs(): string[] {
@@ -39,10 +41,15 @@ export function getAllPostSlugs(): string[] {
     .map((file) => file.replace(/\.(mdx|md)$/, ''))
 }
 
-export function getAllPosts(): BlogPostMeta[] {
+/**
+ * Retorna todos os posts publicados (draft: false ou ausente).
+ * Passe `{ includeDrafts: true }` para incluir rascunhos (ex.: admin).
+ */
+export function getAllPosts({ includeDrafts = false } = {}): BlogPostMeta[] {
   const slugs = getAllPostSlugs()
   const posts = slugs.map(slug => getPostMeta(slug)).filter(Boolean) as BlogPostMeta[]
-  return posts.sort((a, b) => (a.date > b.date ? -1 : 1))
+  const filtered = includeDrafts ? posts : posts.filter((p) => !p.draft)
+  return filtered.sort((a, b) => (a.date > b.date ? -1 : 1))
 }
 
 export function getPostMeta(slug: string): BlogPostMeta | null {
@@ -71,6 +78,7 @@ export function getPostMeta(slug: string): BlogPostMeta | null {
     author: data.author || ENVNEO_LEGAL_ENTITY_NAME,
     tags: data.tags || [],
     readingTime: stats.text.replace('min read', 'min de leitura'),
+    draft: data.draft === true,
   }
 }
 
@@ -113,5 +121,6 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     readingTime: stats.text.replace('min read', 'min de leitura'),
     content: rendered,
     format,
+    draft: data.draft === true,
   }
 }
