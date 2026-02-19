@@ -75,41 +75,6 @@ export default function Mission() {
                 verdade encontra o lugar que sempre mereceu.
               </p>
             </div>
-              <p>
-                A administração pública brasileira opera sob centenas de normas que regulam cada ato
-                praticado por agentes públicos. O problema nunca foi a falta de regra — foi a falta de
-                estrutura para torná-la executável. Prazos, competências, motivação do ato e condições
-                do rito viram checklists humanos, sujeitos a pressa, interpretação silenciosa e perda
-                de memória institucional. Quando a regra depende só de quem lembra, ela deixa de ser
-                proteção e vira risco.
-              </p>
-              <p>
-                A Env Neo parte de um entendimento simples: regra sem enforcement não é regra — é
-                sugestão. E sugestão cria responsabilidade sem proteção, tanto para o cidadão quanto
-                para o servidor. Nossa missão é transformar normas institucionais em controles
-                técnicos executáveis, onde cada requisito relevante pode ser verificado, registrado e
-                rastreado — não para vigiar pessoas, mas para protegê-las.
-              </p>
-              <p>
-                Os agentes de inteligência artificial podem sugerir, organizar e antecipar — mas não
-                podem ser responsabilizados, premiados, corrigidos pela experiência de vida ou
-                registrados nos livros de história. Quem decide é o humano. Sempre. O que muda é que,
-                com o Govevia, essa decisão passa a ter contexto registrado, motivação documentada e
-                evidência consistente — pronta para controle interno, auditoria e prestação de contas.
-              </p>
-              <p>
-                O Govevia não &ldquo;decide por você&rdquo; — estrutura o ambiente para que a sua decisão seja
-                defensável. A responsabilidade permanece com o agente público; o sistema elimina as
-                lacunas que hoje dependem de memória e boa vontade. Profissionais com décadas de
-                experiência não são substituídos — são o coração do sistema, pois são eles que sabem
-                onde estão os erros que nenhum agente de IA conseguiria encontrar sozinho.
-              </p>
-              <p className="font-semibold text-institutional-navy text-xl">
-                Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser
-                documentada para ser executada — e onde cada pessoa que conhece o seu trabalho de
-                verdade encontra o lugar que sempre mereceu.
-              </p>
-            </div>
           </motion.div>
         </div>
       </div>

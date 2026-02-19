@@ -7,6 +7,7 @@
  *   determinístico | verificável | auditável | mensurável | com evidência | com evidências
  *
  * Escaneia: docs/governance/**, docs/architecture/**, docs/PROMPT-00.md
+ * Captura: automático, automática, automáticos, automáticas, automaticamente (e variantes)
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
@@ -22,7 +23,7 @@ const SCAN_FILES = [
   'docs/PROMPT-00.md',
 ]
 
-const AUTO_PATTERN = /automátic[ao]s?/i
+const AUTO_PATTERN = /autom[aá]tic/i
 const QUALIFIER_PATTERN = /determinístic[ao]|verificável|auditável|mensurável|com evidência/i
 
 function walk(dir) {
@@ -49,9 +50,19 @@ const allFiles = [
   }),
 ]
 
+// Arquivos que definem a própria regra são excluídos do scan (meta-docs)
+const SELF_EXCLUDED = new Set([
+  'POL-NO-AUTO-01.md',
+])
+
 for (const file of allFiles) {
+  const basename = file.split(/[\\/]/).at(-1) ?? ''
+  if (SELF_EXCLUDED.has(basename)) {
+    console.log(`[SKIP] no-auto-language: ${relative(ROOT, file)} (arquivo de definição da regra, excluído)`)
+    continue
+  }
   const content = readFileSync(file, 'utf8')
-  const paragraphs = content.split(/\n{2,}/)
+  const paragraphs = content.replace(/\r\n/g, '\n').split(/\n{2,}/)
   for (const para of paragraphs) {
     if (AUTO_PATTERN.test(para) && !QUALIFIER_PATTERN.test(para)) {
       const rel = relative(ROOT, file)
