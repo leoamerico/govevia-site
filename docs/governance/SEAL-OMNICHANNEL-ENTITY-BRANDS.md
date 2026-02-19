@@ -75,5 +75,5 @@ entity (id, razao_social, cnpj, active)
 ## Referências
 
 - POL-LEGAL-CONTRACTING-ENTITY — quem assina, quem responde
-- ADR-005 — EnvLive tenancy elevation
+- ADR-005 — Env Live tenancy elevation
 - REGISTRY-GOVERNANCE-EVENTS — eventos append-only

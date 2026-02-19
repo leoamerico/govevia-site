@@ -1,4 +1,4 @@
-# ADR-005 — EnvLive: Single-Tenant Elevável sem Migração Destrutiva
+# ADR-005 — Env Live: Single-Tenant Elevável sem Migração Destrutiva
 
 **Tipo:** Architecture Decision Record  
 **ID:** ADR-005  
@@ -14,11 +14,11 @@
 
 A Govevia opera em modelo multi-tenant compartilhado (shared schema + RLS).
 Para clientes com requisitos elevados de isolamento — governos estaduais,
-grandes municípios, órgãos federais ("EnvLive") — existe a necessidade de
+grandes municípios, órgãos federais ("Env Live") — existe a necessidade de
 oferecer garantias de single-tenant **sem exigir uma migração de dados
 destrutiva ou um contrato completamente novo**.
 
-**EnvLive** é o nome comercial do tier dedicado: ambiente isolado com banco
+**Env Live** é o nome comercial do tier dedicado: ambiente isolado com banco
 de dados exclusivo, compute dedicado, e SLA diferenciado.
 
 O problema a resolver: como elevar um tenant do tier compartilhado para
@@ -108,7 +108,7 @@ tenant), acessíveis apenas via ceo-console.
 
 ## Reversibilidade
 
-A reversão (downgrade de EnvLive para multi-tenant) segue o processo inverso
+A reversão (downgrade de Env Live para multi-tenant) segue o processo inverso
 e DEVE ser solicitada formalmente pelo tenant com antecedência mínima de 30 dias.
 Reversão não está disponível se houver dados criados no ambiente dedicado após
 o período de 30 dias do cutover (pois o multi-tenant terá sido limpo).
@@ -118,7 +118,7 @@ o período de 30 dias do cutover (pois o multi-tenant terá sido limpo).
 ## Consequências
 
 **Positivas:**
-- Cliente pode contratar EnvLive após validação do produto no tier compartilhado
+- Cliente pode contratar Env Live após validação do produto no tier compartilhado
 - Sem migração manual de dados pelo cliente
 - Rollback contratualmente seguro até o cutover
 - Auditabilidade completa via `governance_events`

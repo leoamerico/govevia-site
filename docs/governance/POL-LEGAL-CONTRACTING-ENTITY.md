@@ -23,8 +23,8 @@ Ausência de clareza neste ponto é fonte de passivo jurídico e risco regulató
 
 | Campo | Valor |
 |---|---|
-| Razão Social | **[RAZÃO SOCIAL DA ENTIDADE OPERADORA]** |
-| CNPJ | **[CNPJ]** |
+| Razão Social | **ENV NEO LTDA** |
+| CNPJ | **36.207.211/0001-47** |
 | Sede | **[ENDEREÇO COMPLETO]** |
 | Inscrição Estadual | **[IE ou ISENTO]** |
 | Regime Tributário | **[Simples / Lucro Presumido / Lucro Real]** |
@@ -93,7 +93,7 @@ A entidade contratante responde solidariamente por:
 ## 5. Marcas e Entidade
 
 Contratos são sempre celebrados pela entidade jurídica (CNPJ), nunca pela marca.
-A marca (ex.: "Govevia", "EnvLive") é nome comercial, sem personalidade jurídica.
+A marca (ex.: "Govevia", "Env Live") é nome comercial, sem personalidade jurídica.
 Ver SEAL-OMNICHANNEL-ENTITY-BRANDS para regras de apresentação.
 
 ---

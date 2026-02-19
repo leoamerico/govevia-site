@@ -156,7 +156,7 @@ A elevação DEVE gerar evento `tenant.elevated` em `governance_events`.
 - `infra/migrations/20260216_122_compliance_shield_rls.sql`
 - `infra/migrations/20260216_123_audit_events_hashchain.sql`
 - `apps/shared/middleware/tenant_rls.py`
-- ADR-005 — EnvLive Tenancy Elevation
+- ADR-005 — Env Live Tenancy Elevation
 - REGISTRY-GOVERNANCE-EVENTS
 - POL-AUDIT-INTEGRITY
 - `tools/policy-gates/run-all.mjs`
