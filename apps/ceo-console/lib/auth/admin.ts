@@ -1,11 +1,12 @@
 /**
  * lib/auth/admin.ts — Utilitários de autenticação do CEO Console
- * Cookie: __Host-gv_admin (httpOnly, secure em prod, sameSite=lax, path=/)
+ * Cookie: varia por ambiente (ver constants.ts)
  * JWT: HS256, issuer=govevia-ceo, audience=govevia-ceo-ui
  */
 import { SignJWT, jwtVerify } from 'jose'
+import { ADMIN_COOKIE_NAME } from './constants'
 
-export const COOKIE_NAME = '__Host-gv_admin'
+export { ADMIN_COOKIE_NAME as COOKIE_NAME } from './constants'
 export const ISSUER = 'govevia-ceo'
 export const AUDIENCE = 'govevia-ceo-ui'
 
@@ -52,7 +53,7 @@ export async function verifyAdminToken(token: string): Promise<boolean> {
 
 export function cookieOptions(ttlSeconds: number) {
   return {
-    name: COOKIE_NAME,
+    name: ADMIN_COOKIE_NAME,
     httpOnly: true,
     sameSite: 'lax' as const,
     secure: process.env.NODE_ENV === 'production',
