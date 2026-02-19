@@ -1,0 +1,92 @@
+# connection-catalog.yaml — EnvNeo Control Plane: Catálogo de Conectividade
+# Fonte única de verdade para portas, protocolos, auth refs e dependências de serviços.
+#
+# REGRAS INVIOLÁVEIS:
+#   - PROIBIDO: qualquer valor que seja segredo em texto puro.
+#     Use secret:// para referências (ex: details_ref: "secret://ADMIN_JWT_SECRET")
+#   - base_url_ref usa variáveis de ambiente: ${ENV_VAR_NAME}
+#   - Este arquivo é validado por gate-control-plane-no-secrets.mjs
+#
+# Serviços:
+#   site_public        — Portal público Govevia (Next.js / Vercel Edge)
+#   ceo_console        — Console executivo EnvNeo (Next.js / Node, porta 3001 dev)
+#   envneo_core_stub   — EnvNeo Core API (stub — a implementar)
+#   govevia_api_future — API Govevia multi-tenant (a implementar)
+
+_version: "1.0.0"
+_updated: "2026-02-19"
+
+services:
+
+  site_public:
+    description: "Portal público Govevia (Next.js / Vercel Edge)"
+    inbound:
+      - protocol: https
+        port: 443
+        path_prefix: /
+    outbound:
+      - target_service_id: ceo_console
+        protocol: https
+        base_url_ref: "${NEXT_PUBLIC_CEO_CONSOLE_URL}"
+    auth:
+      mode: none
+    env_refs:
+      - NEXT_PUBLIC_SITE_URL
+      - DATABASE_URL
+      - NEXT_PUBLIC_CEO_CONSOLE_URL
+    secret_refs:
+      - "secret://ADMIN_SESSION_SECRET"
+
+  ceo_console:
+    description: "Console executivo EnvNeo (Next.js / Node, porta 3001 dev)"
+    inbound:
+      - protocol: https
+        port: 443
+        path_prefix: /admin
+    outbound:
+      - target_service_id: envneo_core_stub
+        protocol: https
+        base_url_ref: "${ENVNEO_CORE_URL}"
+    auth:
+      mode: oidc
+      details_ref: "secret://ADMIN_JWT_SECRET"
+    env_refs:
+      - ADMIN_USERNAME
+      - ADMIN_JWT_SECRET
+      - ADMIN_SESSION_SECRET
+      - ENVNEO_CORE_URL
+    secret_refs:
+      - "secret://ADMIN_PASSWORD_HASH"
+      - "secret://ADMIN_JWT_SECRET"
+      - "secret://ADMIN_SESSION_SECRET"
+
+  envneo_core_stub:
+    description: "EnvNeo Core — stub (catálogo de serviços internos, a implementar)"
+    inbound:
+      - protocol: https
+        port: 443
+        path_prefix: /api/v1
+    outbound: []
+    auth:
+      mode: api_key_ref
+      details_ref: "secret://ENVNEO_CORE_API_KEY"
+    env_refs:
+      - ENVNEO_CORE_URL
+      - ENVNEO_CORE_API_KEY
+    secret_refs:
+      - "secret://ENVNEO_CORE_API_KEY"
+
+  govevia_api_future:
+    description: "API pública Govevia multi-tenant (a implementar — mTLS)"
+    inbound:
+      - protocol: https
+        port: 443
+        path_prefix: /api
+    outbound: []
+    auth:
+      mode: mtls
+    env_refs:
+      - GOVEVIA_API_URL
+    secret_refs:
+      - "secret://GOVEVIA_MTLS_CERT"
+      - "secret://GOVEVIA_MTLS_KEY"

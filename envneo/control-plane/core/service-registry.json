@@ -57,6 +57,8 @@
     "tree": "envneo/strategy/TREE-REVENUE.yaml"
   },
 
+  "connections_ref": "envneo/control-plane/core/connection-catalog.yaml",
+
   "policy_gates": [
     "gate-tenant-auth-policy-no-hardcode",
     "gate-cybersecure-no-pii",
@@ -64,6 +66,11 @@
     "gate-procuracao-require-evidence",
     "gate-wip-one",
     "gate-registry-append-only",
-    "gate-no-admin-in-site-public"
+    "gate-no-admin-in-site-public",
+    "gate-rules-have-impl",
+    "gate-impl-registered",
+    "gate-no-envneo-shortname",
+    "gate-control-plane-no-secrets",
+    "gate-no-hardcoded-endpoints"
   ]
 }
