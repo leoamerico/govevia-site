@@ -34,21 +34,21 @@ interface PIRegistro {
 // ─── Constantes de UI ─────────────────────────────────────────────────────────
 
 const TIPO_LABELS: Record<TipoPI, string> = {
-  software: 'Programa de Computador',
-  marca: 'Marca',
-  patente: 'Patente de Invenção',
-  direito_autoral: 'Direito Autoral',
-  design_industrial: 'Desenho Industrial',
-  segredo_industrial: 'Segredo Industrial',
+  software:           'Programa de Computador (Software)',
+  marca:              'Marca — nome, logo ou slogan',
+  patente:            'Patente de Invenção',
+  direito_autoral:    'Direito Autoral — obra intelectual',
+  design_industrial:  'Desenho Industrial',
+  segredo_industrial: 'Segredo de Negócio',
 }
 
 const STATUS_LABELS: Record<StatusPI, string> = {
-  documentando: 'Documentando',
-  em_pedido: 'Pedido Protocolado',
-  em_exame: 'Em Exame',
-  registrado: 'Registrado ✓',
-  expirado: 'Expirado',
-  arquivado: 'Arquivado',
+  documentando: 'Reunindo documentação',
+  em_pedido:    'Pedido protocolado no órgão',
+  em_exame:     'Em análise pelo órgão',
+  registrado:   'Registrado e protegido ✓',
+  expirado:     'Proteção expirada',
+  arquivado:    'Arquivado / Abandonado',
 }
 
 const STATUS_COLORS: Record<StatusPI, { bg: string; color: string; border: string }> = {
@@ -292,14 +292,14 @@ function PIForm({
   return (
     <div>
       {/* Identificação */}
-      <p style={s.section}>Identificação da Obra / Criação</p>
+      <p style={s.section}>O que está sendo registrado?</p>
       <div style={s.field}>
-        <label style={s.label}>Título *</label>
-        <input style={s.input} value={form.titulo} onChange={(e) => set('titulo', e.target.value)} placeholder="Nome da criação, software, marca…" />
+        <label style={s.label}>Nome da criação *</label>
+        <input style={s.input} value={form.titulo} onChange={(e) => set('titulo', e.target.value)} placeholder="Ex: Govevia, módulo de auditoria, logotipo Env Neo…" />
       </div>
       <div style={s.grid2}>
         <div style={s.field}>
-          <label style={s.label}>Tipo de PI *</label>
+          <label style={s.label}>Qual é o tipo desta propriedade intelectual? *</label>
           <select style={s.select} value={form.tipo} onChange={(e) => set('tipo', e.target.value as TipoPI)}>
             {(Object.entries(TIPO_LABELS) as [TipoPI, string][]).map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
@@ -307,54 +307,54 @@ function PIForm({
           </select>
         </div>
         <div style={s.field}>
-          <label style={s.label}>Data de Criação</label>
+          <label style={s.label}>Quando foi criada?</label>
           <input style={s.input} type="date" value={form.data_criacao} onChange={(e) => set('data_criacao', e.target.value)} />
         </div>
       </div>
       <div style={s.field}>
-        <label style={s.label}>Descrição</label>
-        <textarea style={s.textarea} rows={3} value={form.descricao} onChange={(e) => set('descricao', e.target.value)} placeholder="Descrição técnica e/ou resumo da criação…" />
+        <label style={s.label}>Descrição da criação</label>
+        <textarea style={s.textarea} rows={3} value={form.descricao} onChange={(e) => set('descricao', e.target.value)} placeholder="Descreva o que foi criado, sua finalidade e o que o distingue de outras obras ou produtos." />
       </div>
 
       <hr style={s.divider} />
 
       {/* Titular */}
-      <p style={s.section}>Titular dos Direitos</p>
+      <p style={s.section}>Quem é o titular desta criação?</p>
       <div style={s.grid2}>
         <div style={s.field}>
-          <label style={s.label}>Tipo do Titular</label>
+          <label style={s.label}>O titular é uma pessoa física ou empresa?</label>
           <select style={s.select} value={form.titular.tipo} onChange={(e) => setTitular('tipo', e.target.value as 'pessoa_fisica' | 'pessoa_juridica')}>
-            <option value="pessoa_fisica">Pessoa Física</option>
-            <option value="pessoa_juridica">Pessoa Jurídica</option>
+            <option value="pessoa_fisica">Pessoa física (CPF)</option>
+            <option value="pessoa_juridica">Empresa / Pessoa jurídica (CNPJ)</option>
           </select>
         </div>
         <div style={s.field}>
-          <label style={s.label}>Nome do Titular</label>
-          <input style={s.input} value={form.titular.nome} onChange={(e) => setTitular('nome', e.target.value)} placeholder="Nome completo…" />
+          <label style={s.label}>Nome completo do titular</label>
+          <input style={s.input} value={form.titular.nome} onChange={(e) => setTitular('nome', e.target.value)} placeholder="Nome exatamente como consta no documento" />
         </div>
       </div>
       <div style={s.grid2}>
         <div style={s.field}>
-          <label style={s.label}>{form.titular.tipo === 'pessoa_fisica' ? 'CPF' : 'CNPJ'}</label>
+          <label style={s.label}>{form.titular.tipo === 'pessoa_fisica' ? 'CPF do titular' : 'CNPJ da empresa'}</label>
           <input style={s.input} value={form.titular.documento} onChange={(e) => setTitular('documento', e.target.value)} placeholder={form.titular.tipo === 'pessoa_fisica' ? '000.000.000-00' : '00.000.000/0001-00'} />
         </div>
         <div style={s.field}>
-          <label style={s.label}>Qualificação</label>
-          <input style={s.input} value={form.titular.qualificacao ?? ''} onChange={(e) => setTitular('qualificacao', e.target.value)} placeholder="Desenvolvedor, inventor, autor…" />
+          <label style={s.label}>Papel do titular nesta criação</label>
+          <input style={s.input} value={form.titular.qualificacao ?? ''} onChange={(e) => setTitular('qualificacao', e.target.value)} placeholder="Ex: desenvolvedor, inventor, autor da obra…" />
         </div>
       </div>
 
       <hr style={s.divider} />
 
       {/* Registro */}
-      <p style={s.section}>Processo de Registro</p>
+      <p style={s.section}>Situação junto ao órgão competente</p>
       <div style={s.grid2}>
         <div style={s.field}>
-          <label style={s.label}>Órgão</label>
-          <input style={s.input} value={form.orgao} onChange={(e) => set('orgao', e.target.value)} placeholder="INPI, EDA, outro…" />
+          <label style={s.label}>Órgão responsável pelo registro</label>
+          <input style={s.input} value={form.orgao} onChange={(e) => set('orgao', e.target.value)} placeholder="Ex: INPI, EDA, Receita Federal…" />
         </div>
         <div style={s.field}>
-          <label style={s.label}>Status</label>
+          <label style={s.label}>Em que fase está o processo?</label>
           <select style={s.select} value={form.status} onChange={(e) => set('status', e.target.value as StatusPI)}>
             {(Object.entries(STATUS_LABELS) as [StatusPI, string][]).map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
@@ -364,31 +364,31 @@ function PIForm({
       </div>
       <div style={s.grid2}>
         <div style={s.field}>
-          <label style={s.label}>Nº do Pedido</label>
-          <input style={s.input} value={form.numero_pedido} onChange={(e) => set('numero_pedido', e.target.value)} placeholder="Protocolo INPI…" />
+          <label style={s.label}>Número do pedido (protocolo)</label>
+          <input style={s.input} value={form.numero_pedido} onChange={(e) => set('numero_pedido', e.target.value)} placeholder="Número gerado pelo órgão ao receber o pedido" />
         </div>
         <div style={s.field}>
-          <label style={s.label}>Nº de Registro</label>
-          <input style={s.input} value={form.numero_registro} onChange={(e) => set('numero_registro', e.target.value)} placeholder="Após concessão…" />
+          <label style={s.label}>Número de registro oficial</label>
+          <input style={s.input} value={form.numero_registro} onChange={(e) => set('numero_registro', e.target.value)} placeholder="Preenchido após a concessão do registro" />
         </div>
       </div>
       <div style={s.field}>
-        <label style={s.label}>Classe / Classificação</label>
-        <input style={s.input} value={form.classe} onChange={(e) => set('classe', e.target.value)} placeholder="Nice (marcas), CPC/IPC (patentes), NCL (software)…" />
+        <label style={s.label}>Classificação da criação</label>
+        <input style={s.input} value={form.classe} onChange={(e) => set('classe', e.target.value)} placeholder="Ex: Classe 42 Nice (marcas), CPC G06 (software/patentes)" />
       </div>
 
       <hr style={s.divider} />
 
       {/* Observações */}
       <div style={s.field}>
-        <label style={s.label}>Observações / Notas Internas</label>
-        <textarea style={s.textarea} rows={3} value={form.observacoes} onChange={(e) => set('observacoes', e.target.value)} placeholder="Histórico, advogado responsável, próximos passos…" />
+        <label style={s.label}>Anotações e próximos passos</label>
+        <textarea style={s.textarea} rows={3} value={form.observacoes} onChange={(e) => set('observacoes', e.target.value)} placeholder="Ex: advogado responsável, histórico de despachos, prazos importantes, custos envolvidos…" />
       </div>
 
       {/* Ações */}
       <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '1.25rem' }}>
         <button style={s.btnSecondary} type="button" onClick={onCancel} disabled={saving}>
-          Cancelar
+          Voltar sem salvar
         </button>
         <button
           style={{ ...s.btnPrimary, opacity: saving ? 0.6 : 1 }}
@@ -396,7 +396,7 @@ function PIForm({
           onClick={() => onSave(form)}
           disabled={saving || !form.titulo.trim()}
         >
-          {saving ? 'Salvando…' : 'Salvar Registro'}
+          {saving ? 'Salvando…' : 'Salvar'}
         </button>
       </div>
     </div>
@@ -439,19 +439,20 @@ function RegistroCard({
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem', fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>
             <span>
               <strong style={{ color: '#334155' }}>Titular:</strong>{' '}
-              {registro.titular.nome} ({registro.titular.tipo === 'pessoa_fisica' ? 'PF' : 'PJ'})
+              {registro.titular.nome}{' '}
+              <span style={{ color: '#94a3b8' }}>({registro.titular.tipo === 'pessoa_fisica' ? 'pessoa física' : 'pessoa jurídica'})</span>
             </span>
             {registro.orgao && (
               <span><strong style={{ color: '#334155' }}>Órgão:</strong> {registro.orgao}</span>
             )}
             {registro.numero_pedido && (
-              <span><strong style={{ color: '#334155' }}>Pedido:</strong> <code>{registro.numero_pedido}</code></span>
+              <span><strong style={{ color: '#334155' }}>Nº do pedido:</strong> <code>{registro.numero_pedido}</code></span>
             )}
             {registro.numero_registro && (
-              <span><strong style={{ color: '#334155' }}>Registro:</strong> <code>{registro.numero_registro}</code></span>
+              <span><strong style={{ color: '#334155' }}>Nº de registro:</strong> <code>{registro.numero_registro}</code></span>
             )}
             {registro.data_criacao && (
-              <span><strong style={{ color: '#334155' }}>Criado em:</strong> {registro.data_criacao}</span>
+              <span><strong style={{ color: '#334155' }}>Data de criação:</strong> {registro.data_criacao}</span>
             )}
           </div>
         </div>
@@ -462,7 +463,7 @@ function RegistroCard({
             Editar
           </button>
           <button style={s.btnDanger} onClick={() => onDelete(registro)} type="button">
-            Excluir
+            Remover
           </button>
         </div>
       </div>
@@ -485,7 +486,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
 
   const showToast = (msg: string, type: 'ok' | 'err' = 'ok') => {
     setToast({ msg, type })
-    setTimeout(() => setToast(null), 3500)
+    setTimeout(() => setToast(null), 4000)
   }
 
   const refresh = useCallback(async () => {
@@ -505,9 +506,9 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       if (!res.ok) throw new Error()
       await refresh()
       setModal(null)
-      showToast('Registro criado com sucesso.')
+      showToast('Criação registrada com sucesso!')
     } catch {
-      showToast('Erro ao criar registro.', 'err')
+      showToast('Não foi possível salvar o registro. Tente novamente.', 'err')
     } finally {
       setSaving(false)
     }
@@ -526,9 +527,9 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       if (!res.ok) throw new Error()
       await refresh()
       setModal(null)
-      showToast('Registro atualizado.')
+      showToast('Alterações salvas com sucesso!')
     } catch {
-      showToast('Erro ao atualizar registro.', 'err')
+      showToast('Não foi possível salvar as alterações. Tente novamente.', 'err')
     } finally {
       setSaving(false)
     }
@@ -547,9 +548,9 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       if (!res.ok) throw new Error()
       await refresh()
       setModal(null)
-      showToast('Registro excluído.')
+      showToast('Registro removido.')
     } catch {
-      showToast('Erro ao excluir.', 'err')
+      showToast('Não foi possível remover o registro. Tente novamente.', 'err')
     } finally {
       setSaving(false)
     }
@@ -571,20 +572,20 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
         <div>
           <h1 style={s.title}>Propriedade Intelectual</h1>
           <p style={s.subtitle}>
-            Env Neo Ltda. — Gestão de registros de PI (software, marcas, patentes, direitos autorais)
+            Registre e acompanhe as criações intelectuais da empresa — software, marcas, patentes, direitos autorais e segredos de negócio.
           </p>
         </div>
         <button style={s.btnPrimary} onClick={() => setModal({ mode: 'create' })}>
-          + Novo Registro
+          + Registrar nova criação
         </button>
       </div>
 
       {/* Filtros */}
       <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>Status:</span>
+          <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>Situação:</span>
           <select style={{ ...s.select, width: 'auto' }} value={filterStatus} onChange={(e) => setFilterStatus(e.target.value as StatusPI | 'todos')}>
-            <option value="todos">Todos</option>
+            <option value="todos">Todas as situações</option>
             {(Object.entries(STATUS_LABELS) as [StatusPI, string][]).map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
             ))}
@@ -593,7 +594,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>Tipo:</span>
           <select style={{ ...s.select, width: 'auto' }} value={filterTipo} onChange={(e) => setFilterTipo(e.target.value as TipoPI | 'todos')}>
-            <option value="todos">Todos</option>
+            <option value="todos">Todos os tipos</option>
             {(Object.entries(TIPO_LABELS) as [TipoPI, string][]).map(([v, l]) => (
               <option key={v} value={v}>{l}</option>
             ))}
@@ -608,8 +609,8 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       {filtered.length === 0 ? (
         <div style={s.emptyState}>
           {registros.length === 0
-            ? 'Nenhum registro de PI cadastrado. Clique em "Novo Registro" para começar.'
-            : 'Nenhum registro corresponde aos filtros selecionados.'}
+            ? 'Nenhuma criação cadastrada ainda. Clique em "+ Registrar nova criação" para começar.'
+            : 'Nenhum resultado para os filtros aplicados. Tente ampliar a busca.'}
         </div>
       ) : (
         filtered.map((r) => (
@@ -640,7 +641,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
         <div style={s.overlay} onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}>
           <div style={s.modal}>
             <h2 style={s.modalTitle}>
-              {modal.mode === 'create' ? 'Novo Registro de PI' : `Editar — ${(modal as { mode: 'edit'; registro: PIRegistro }).registro.id}`}
+              {modal.mode === 'create' ? 'Registrar nova criação intelectual' : `Editar registro ${(modal as { mode: 'edit'; registro: PIRegistro }).registro.id}`}
             </h2>
             <PIForm
               initial={
@@ -663,25 +664,25 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       {modal?.mode === 'delete' && (
         <div style={s.overlay} onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}>
           <div style={{ ...s.modal, maxWidth: 440 }}>
-            <h2 style={{ ...s.modalTitle, color: '#991b1b' }}>Confirmar Exclusão</h2>
-            <p style={{ fontSize: '0.88rem', color: '#475569', marginBottom: '1rem' }}>
-              Tem certeza que deseja excluir o registro{' '}
+            <h2 style={{ ...s.modalTitle, color: '#991b1b' }}>Remover este registro?</h2>
+            <p style={{ fontSize: '0.88rem', color: '#475569', marginBottom: '0.6rem' }}>
+              Você está prestes a remover o registro{' '}
               <strong>{(modal as { mode: 'delete'; registro: PIRegistro }).registro.id}</strong>
-              {' — '}<em>{(modal as { mode: 'delete'; registro: PIRegistro }).registro.titulo}</em>?
+              {' '}(<em>{(modal as { mode: 'delete'; registro: PIRegistro }).registro.titulo}</em>).
             </p>
-            <p style={{ fontSize: '0.78rem', color: '#94a3b8', marginBottom: '1.5rem' }}>
-              Esta ação não pode ser desfeita.
+            <p style={{ fontSize: '0.81rem', color: '#64748b', marginBottom: '1.5rem' }}>
+              Esta ação é permanente e não pode ser desfeita. Certifique-se de que os documentos físicos ou digitais desta criação estejam salvos em outro lugar antes de continuar.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
               <button style={s.btnSecondary} onClick={() => setModal(null)} disabled={saving}>
-                Cancelar
+                Não, manter o registro
               </button>
               <button
                 style={{ ...s.btnDanger, padding: '0.5rem 1rem', fontSize: '0.82rem', opacity: saving ? 0.6 : 1 }}
                 onClick={handleDelete}
                 disabled={saving}
               >
-                {saving ? 'Excluindo…' : 'Excluir definitivamente'}
+                {saving ? 'Removendo…' : 'Sim, remover'}
               </button>
             </div>
           </div>
