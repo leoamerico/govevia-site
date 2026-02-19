@@ -39,11 +39,11 @@ function getBase(): string {
 }
 
 async function acquireToken(base: string): Promise<string> {
-  const email = process.env.GOVEVIA_BACKEND_SERVICE_EMAIL
-  const password = process.env.GOVEVIA_BACKEND_SERVICE_PASSWORD
+  const email = process.env.CEO_SERVICE_EMAIL
+  const password = process.env.CEO_SERVICE_PASSWORD
   if (!email || !password) {
     throw new KernelUnavailableError(
-      'GOVEVIA_BACKEND_SERVICE_EMAIL / GOVEVIA_BACKEND_SERVICE_PASSWORD não configurados'
+      'CEO_SERVICE_EMAIL / CEO_SERVICE_PASSWORD não configurados'
     )
   }
 
@@ -128,4 +128,31 @@ export async function fetchNormasFromBackend(): Promise<NormaLegalBackend[]> {
   if (!res.ok) throw new KernelUnavailableError(`normas-legais retornou HTTP ${res.status}`)
   const data = (await res.json()) as { total: number; items: NormaLegalBackend[] }
   return data.items
+}
+
+// ─── Task polling ─────────────────────────────────────────────────────────────
+
+export type TaskStatus = 'pending' | 'running' | 'success' | 'failed'
+
+export interface TaskState {
+  task_id: string
+  handler: string
+  status: TaskStatus
+  result?: unknown
+  error?: string | null
+  created_at: number
+  started_at?: number | null
+  finished_at?: number | null
+  elapsed_ms?: number | null
+}
+
+/**
+ * Consulta o estado de uma tarefa assíncrona pelo task_id.
+ * Retorna null se não encontrada (expirada ou inexistente).
+ */
+export async function getTaskState(taskId: string): Promise<TaskState | null> {
+  const res = await kernelFetch(`/api/v1/tasks/${encodeURIComponent(taskId)}`)
+  if (res.status === 404) return null
+  if (!res.ok) throw new KernelUnavailableError(`tasks/${taskId} retornou HTTP ${res.status}`)
+  return (await res.json()) as TaskState
 }
