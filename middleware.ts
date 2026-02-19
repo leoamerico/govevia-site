@@ -76,6 +76,14 @@ async function enforceAdminAuth(_request: NextRequest): Promise<NextResponse> {
   const request = _request
   const { pathname, search } = request.nextUrl
 
+  // Canonicalização: aceitar variações de casing (ex.: /admin/Login) e normalizar.
+  if (pathname.toLowerCase() === '/admin/login' && pathname !== '/admin/login') {
+    const res = NextResponse.redirect(new URL(`/admin/login${search}`, request.url), 307)
+    res.headers.set('cache-control', 'no-store')
+    res.headers.set('x-robots-tag', 'noindex, nofollow')
+    return res
+  }
+
   const hardHeaders = {
     'cache-control': 'no-store',
     'x-robots-tag': 'noindex, nofollow',

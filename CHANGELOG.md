@@ -13,6 +13,7 @@
 - Fix(build): removido `next/font/google` (evita fetch de woff2 em `fonts.gstatic.com` durante build no Vercel); fontes agora via stack local/system em CSS vars (`--font-plex-*`).
 - Enforcement: redirect de `/admin/login` no site público virou governado (pré-check em `/api/healthz` do CEO Console; se indisponível responde `503` com correlation id). Gate `gate-ceo-console-health` bloqueia deploy quando `CEO_CONSOLE_BASE_URL` está configurada mas inválida.
 - Fix: botão flutuante “Área administrativa” usa navegação por `href` (full load) para o entrypoint servido por middleware, evitando inconsistências de navegação client-side.
+- Fix: `/admin/Login` (ou outras variações de maiúsculas/minúsculas) agora é normalizado para `/admin/login` via redirect 307.
 
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 
