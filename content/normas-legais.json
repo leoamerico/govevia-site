@@ -1,0 +1,67 @@
+[
+  {
+    "id": "NRM-2026-001",
+    "titulo": "Constituição Federal — Princípios da Administração Pública",
+    "lei": "CF/88",
+    "artigo": "Art. 37",
+    "esfera_legal": "federal",
+    "vigencia_inicio": "1988-10-05",
+    "vigencia_fim": null,
+    "descricao": "Princípios da legalidade, impessoalidade, moralidade, publicidade e eficiência. Base obrigatória para qualquer ato administrativo (RN01 — legalidade estrita).",
+    "status": "ativa",
+    "created_at": "2026-02-19T00:00:00Z",
+    "updated_at": "2026-02-19T00:00:00Z"
+  },
+  {
+    "id": "NRM-2026-002",
+    "titulo": "Constituição Federal — Responsabilidade Solidária do Controle Interno",
+    "lei": "CF/88",
+    "artigo": "Art. 74, §1º",
+    "esfera_legal": "federal",
+    "vigencia_inicio": "1988-10-05",
+    "vigencia_fim": null,
+    "descricao": "Responsabilidade solidária dos órgãos de controle interno quando tomarem conhecimento de irregularidades e não as reportarem ao TCU (RN02 — responsabilidade solidária).",
+    "status": "ativa",
+    "created_at": "2026-02-19T00:00:00Z",
+    "updated_at": "2026-02-19T00:00:00Z"
+  },
+  {
+    "id": "NRM-2026-003",
+    "titulo": "Lei de Acesso à Informação — Procedimento de Acesso",
+    "lei": "Lei 12.527/2011 (LAI)",
+    "artigo": "Art. 11",
+    "esfera_legal": "federal",
+    "vigencia_inicio": "2012-05-16",
+    "vigencia_fim": null,
+    "descricao": "Prazo e procedimento para atendimento de pedidos de acesso à informação. Aplica-se ao UC05 (publicar transparência) e RN04 (mascaramento de dados pessoais).",
+    "status": "ativa",
+    "created_at": "2026-02-19T00:00:00Z",
+    "updated_at": "2026-02-19T00:00:00Z"
+  },
+  {
+    "id": "NRM-2026-004",
+    "titulo": "LGPD — Hipóteses de Tratamento de Dados Pessoais",
+    "lei": "Lei 13.709/2018 (LGPD)",
+    "artigo": "Art. 7º",
+    "esfera_legal": "federal",
+    "vigencia_inicio": "2020-09-18",
+    "vigencia_fim": null,
+    "descricao": "Hipóteses que autorizam o tratamento de dados pessoais. Exige mascaramento determinístico quando dados pessoais forem publicados (RN04).",
+    "status": "ativa",
+    "created_at": "2026-02-19T00:00:00Z",
+    "updated_at": "2026-02-19T00:00:00Z"
+  },
+  {
+    "id": "NRM-2026-005",
+    "titulo": "Lei de Responsabilidade Fiscal — Limite de Gasto com Pessoal",
+    "lei": "LC 101/2000 (LRF)",
+    "artigo": "Art. 19",
+    "esfera_legal": "federal",
+    "vigencia_inicio": "2000-05-05",
+    "vigencia_fim": null,
+    "descricao": "Limites percentuais de gasto com pessoal sobre a Receita Corrente Líquida. Acima de 60% da RCL aciona alerta prudencial (RN05).",
+    "status": "ativa",
+    "created_at": "2026-02-19T00:00:00Z",
+    "updated_at": "2026-02-19T00:00:00Z"
+  }
+]

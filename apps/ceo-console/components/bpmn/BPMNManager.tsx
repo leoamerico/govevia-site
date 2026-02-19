@@ -1,8 +1,17 @@
 'use client'
 
-import { useState, useCallback, useId } from 'react'
+import { useState, useCallback } from 'react'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
+
+/** Subconjunto de NormaLegal necessário para o picker — carregado SSR */
+interface NormaLegal {
+  id: string        // ex: NRM-2026-001 — é o base_normativa_id
+  titulo: string
+  lei: string
+  artigo: string
+  status: 'ativa' | 'revogada' | 'suspensa'
+}
 
 type TipoNo =
   | 'evento_inicio'
@@ -56,7 +65,8 @@ interface No {
   descricao: string
   ator: string
   prazo_dias_uteis: number
-  base_legal: string
+  base_normativa_id: string   // chave estruturada — NRM-YYYY-NNN do catálogo
+  base_legal: string          // texto livre complementar
   documentos_entrada: string[]
   documentos_saida: string[]
   comunicacao: Comunicacao | null
@@ -171,6 +181,7 @@ function noVazio(tipo: TipoNo, ordem: number): No {
     descricao: '',
     ator: '',
     prazo_dias_uteis: 0,
+    base_normativa_id: '',
     base_legal: '',
     documentos_entrada: [],
     documentos_saida: [],
@@ -249,10 +260,11 @@ function StatusBadge({ status }: { status: StatusProcesso }) {
 }
 
 // ─── Formulário de nó ──────────────────────────────────────────────────────────
-function NoForm({ no, atores, todos_nos, onChange, onClose }: {
+function NoForm({ no, atores, todos_nos, normas, onChange, onClose }: {
   no: No
   atores: string[]
   todos_nos: No[]
+  normas: NormaLegal[]
   onChange: (updated: No) => void
   onClose: () => void
 }) {
@@ -322,12 +334,42 @@ function NoForm({ no, atores, todos_nos, onChange, onClose }: {
         </div>
       )}
 
-      {/* Base legal */}
+      {/* Base legal — norma estruturada + texto livre */}
       {!['evento_inicio', 'gateway_paralelo'].includes(form.tipo) && (
-        <div style={s.field}>
-          <label style={s.label}>Fundamentação legal desta etapa</label>
-          <input style={s.input} value={form.base_legal} onChange={e => set('base_legal', e.target.value)} placeholder="Ex: Art. 49 da Lei 9.784/99 — prazo para decisão" />
-        </div>
+        <>
+          <div style={s.grid2}>
+            <div style={s.field}>
+              <label style={s.label}>Norma do catálogo (base_normativa_id)</label>
+              <select style={s.select} value={form.base_normativa_id} onChange={e => set('base_normativa_id', e.target.value)}>
+                <option value="">— nenhuma selecionada —</option>
+                {normas.filter(n => n.status === 'ativa').map(n => (
+                  <option key={n.id} value={n.id}>
+                    {n.id} · {n.lei} {n.artigo} — {n.titulo.length > 50 ? n.titulo.slice(0, 50) + '…' : n.titulo}
+                  </option>
+                ))}
+                {normas.filter(n => n.status !== 'ativa').length > 0 && (
+                  <optgroup label="── Revogadas / Suspensas ──">
+                    {normas.filter(n => n.status !== 'ativa').map(n => (
+                      <option key={n.id} value={n.id} style={{ color: '#94a3b8' }}>
+                        {n.id} · {n.lei} {n.artigo} [{n.status}]
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+              </select>
+              {form.base_normativa_id && (
+                <span style={{ fontSize: '0.68rem', color: '#0059B3', marginTop: '0.2rem', display: 'block' }}>
+                  ✓ Vinculado — RN01 (legalidade estrita) verificável pelo motor de regras
+                </span>
+              )}
+            </div>
+            <div style={s.field}>
+              <label style={s.label}>Descrição da fundamentação (texto livre)</label>
+              <input style={s.input} value={form.base_legal} onChange={e => set('base_legal', e.target.value)}
+                placeholder="Ex: Prazo de 30 dias para decisão administrativa" />
+            </div>
+          </div>
+        </>
       )}
 
       {/* Documentos */}
@@ -566,7 +608,12 @@ function NoCard({ no, idx, total, onEdit, onDelete, onMoveUp, onMoveDown, onAddA
             {/* Resumo */}
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: '0.73rem', color: '#64748b', marginTop: '0.2rem' }}>
               {no.ator && <span>👤 {no.ator}</span>}
-              {no.base_legal && <span>⚖ {no.base_legal.length > 55 ? no.base_legal.slice(0, 55) + '…' : no.base_legal}</span>}
+              {no.base_normativa_id && (
+                <span style={{ fontFamily: 'monospace', fontSize: '0.68rem', color: '#0059B3', background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 3, padding: '0 0.35rem' }}>
+                  ⚖ {no.base_normativa_id}
+                </span>
+              )}
+              {!no.base_normativa_id && no.base_legal && <span>⚖ {no.base_legal.length > 55 ? no.base_legal.slice(0, 55) + '…' : no.base_legal}</span>}
               {no.comunicacao && <span>✉ {COMUNICACAO_LABELS[no.comunicacao.tipo]}</span>}
               {no.documentos_entrada.length > 0 && <span>📥 {no.documentos_entrada.length} doc. entrada</span>}
               {no.documentos_saida.length > 0 && <span>📤 {no.documentos_saida.length} doc. saída</span>}
@@ -602,12 +649,14 @@ function NoCard({ no, idx, total, onEdit, onDelete, onMoveUp, onMoveDown, onAddA
 // ─── Editor de processo ────────────────────────────────────────────────────────
 function ProcessoEditor({
   processo,
+  normas,
   onSave,
   onDelete,
   onBack,
   saving,
 }: {
   processo: ProcessoBPMN
+  normas: NormaLegal[]
   onSave: (p: ProcessoBPMN) => void
   onDelete: () => void
   onBack: () => void
@@ -787,6 +836,7 @@ function ProcessoEditor({
               no={editingNo}
               atores={form.atores}
               todos_nos={form.nos}
+              normas={normas}
               onChange={updated => updateNo(updated)}
               onClose={() => setEditingNo(null)}
             />
@@ -834,7 +884,7 @@ function ProcessoCard({ processo, onEdit }: { processo: ProcessoBPMN; onEdit: ()
 }
 
 // ─── Componente raiz ──────────────────────────────────────────────────────────
-export default function BPMNManager({ initialProcessos }: { initialProcessos: ProcessoBPMN[] }) {
+export default function BPMNManager({ initialProcessos, normas }: { initialProcessos: ProcessoBPMN[]; normas: NormaLegal[] }) {
   const [processos, setProcessos] = useState<ProcessoBPMN[]>(initialProcessos)
   const [editando, setEditando] = useState<ProcessoBPMN | null>(null)
   const [saving, setSaving] = useState(false)
@@ -914,6 +964,7 @@ export default function BPMNManager({ initialProcessos }: { initialProcessos: Pr
       <>
         <ProcessoEditor
           processo={editando}
+          normas={normas}
           onSave={handleSave}
           onDelete={() => handleDelete(editando.id)}
           onBack={() => setEditando(null)}
