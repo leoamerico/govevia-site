@@ -27,7 +27,6 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
     { name: 'Início', href: '/' },
     { name: 'Plataforma', href: '/plataforma' },
     { name: 'Publicações', href: '/blog' },
-    { name: 'Histórico', href: '/historico' },
     { name: 'Sobre', href: '/sobre' },
   ]
 
