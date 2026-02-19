@@ -10,6 +10,9 @@ import time
 
 BASE = "http://localhost:8000"
 
+# Desabilita proxy de sistema (evita 307 redirect no Windows)
+_opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+
 
 def post_json(path, data):
     body = json.dumps(data).encode()
@@ -17,7 +20,7 @@ def post_json(path, data):
         f"{BASE}{path}", data=body,
         headers={"Content-Type": "application/json"}, method="POST"
     )
-    with urllib.request.urlopen(req, timeout=10) as r:
+    with _opener.open(req, timeout=10) as r:
         return json.loads(r.read())
 
 
@@ -25,7 +28,18 @@ def get_auth(path, token):
     req = urllib.request.Request(
         f"{BASE}{path}", headers={"Authorization": f"Bearer {token}"}
     )
-    with urllib.request.urlopen(req, timeout=10) as r:
+    with _opener.open(req, timeout=10) as r:
+        return json.loads(r.read())
+
+
+def post_json_auth(path, data, token):
+    body = json.dumps(data).encode()
+    req = urllib.request.Request(
+        f"{BASE}{path}", data=body,
+        headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"},
+        method="POST"
+    )
+    with _opener.open(req, timeout=12) as r:
         return json.loads(r.read())
 
 
@@ -79,7 +93,7 @@ def main():
         method="POST"
     )
     try:
-        with urllib.request.urlopen(req, timeout=15) as r:
+        with _opener.open(req, timeout=15) as r:
             upload = json.loads(r.read())
         job_id = upload["job_id"]
         print(f"[doc]    upload  job_id={job_id}  status={upload['status']}")
@@ -104,29 +118,22 @@ def main():
     print(f"[normas] total={normas.get('total', 0)}")
     assert normas.get("total", 0) > 0, "normas table empty"
 
-    # 7. Semantic search (Sprint D — POST /api/v1/search)
-    search_req = urllib.request.Request(
-        f"{BASE}/api/v1/search",
-        data=json.dumps({"query": "compliance governança", "limit": 3}).encode(),
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-        },
-        method="POST"
-    )
+    # 7. Semantic search — POST /api/v1/search/ (commit 2d28d372)
     try:
-        with urllib.request.urlopen(search_req, timeout=15) as r:
-            search_result = json.loads(r.read())
-        chunks = search_result.get("chunks", [])
-        kernel_available = search_result.get("kernel_available", True)
-        print(f"[search] OK  chunks={len(chunks)}  kernel_available={kernel_available}")
+        search_resp = post_json_auth(
+            "/api/v1/search/",
+            {"query": "compliance governança", "limit": 3},
+            token
+        )
+        chunks = search_resp.get("chunks", [])
+        kernel_available = search_resp.get("kernel_available", True)
+        print(f"[search] OK  kernel_available={kernel_available}  chunks={len(chunks)}")
+        assert "chunks" in search_resp, "search response missing 'chunks'"
+        assert "query" in search_resp, "search response missing 'query'"
         assert isinstance(chunks, list), "chunks deve ser lista"
-        if chunks:
-            assert all(k in chunks[0] for k in ("chunk_id", "document_id", "score", "excerpt")), \
-                f"ChunkResult faltando campos: {chunks[0].keys()}"
     except urllib.error.HTTPError as e:
         body_err = e.read().decode()
-        print(f"[search] HTTP {e.code} (aceitável se corpus vazio): {body_err[:120]}")
+        raise AssertionError(f"[search] FAIL HTTP {e.code}: {body_err[:200]}")
 
     print("\n=== ALL GREEN ===")
 
