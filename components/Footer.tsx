@@ -2,16 +2,10 @@ import Link from 'next/link'
 
 import { getPortalBrand } from '@/lib/core/portalBrand'
 import { getContent } from '@/lib/content/getContent'
+import { ENVNEO_BRAND, normalizeLegalEntityName } from '@/lib/brand/envneo'
 
 function isBlank(value: string | null | undefined): boolean {
   return !value || value.trim().length === 0
-}
-
-function normalizeLegalEntityName(value: string): string {
-  return value
-    .replace(/\bENV\s*-\s*NEO\s+LTDA\b/gi, 'Env Neo Ltda.')
-    .replace(/\bENV\s*-\s*NEO\b/gi, 'Env Neo')
-    .replace(/\bEnv\s*Neo\b/gi, 'Env Neo')
 }
 
 export default async function Footer() {
@@ -51,11 +45,10 @@ export default async function Footer() {
               </div>
             </div>
             <p className="text-gray-300 mb-4 leading-relaxed">
-              Governança Executável para Administração Pública
+              {ENVNEO_BRAND.tagline}
             </p>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Plataforma de governança para administração pública municipal onde regras institucionais
-              deixam de ser documentos e passam a ser código executável.
+              {ENVNEO_BRAND.description}
             </p>
           </div>
 
@@ -74,12 +67,12 @@ export default async function Footer() {
           <div>
             <h4 className="font-sans font-semibold mb-4 text-sm uppercase tracking-wider text-gray-300">Contato</h4>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li><a href="mailto:govevia@govevia.com.br" className="hover:text-primary-light transition-colors">govevia@govevia.com.br</a></li>
+              <li><a href={`mailto:${ENVNEO_BRAND.email}`} className="hover:text-primary-light transition-colors">{ENVNEO_BRAND.email}</a></li>
               <li className="pt-2">
                 <p className="text-xs text-gray-500">
-                  Av. Palmeira Imperial, 165 / 302<br />
-                  CEP: 38.406-582<br />
-                  Uberlândia-MG, Brasil
+                  {ENVNEO_BRAND.address.street}<br />
+                  CEP: {ENVNEO_BRAND.address.zip}<br />
+                  {ENVNEO_BRAND.address.city}, {ENVNEO_BRAND.address.country}
                 </p>
               </li>
             </ul>
@@ -90,8 +83,8 @@ export default async function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="text-sm text-gray-400">
               <p className="font-semibold text-gray-300 mb-2">{legalEntityNameNormalized}</p>
-              <p>CNPJ: 36.207.211/0001-47</p>
-              <p className="mt-2">Tecnologia para Governança Pública</p>
+              <p>CNPJ: {ENVNEO_BRAND.cnpj}</p>
+              <p className="mt-2">{ENVNEO_BRAND.segment}</p>
             </div>
             <div className="text-xs text-gray-500 md:text-right">
               <p className="mb-1">Conformidade Regulatória:</p>

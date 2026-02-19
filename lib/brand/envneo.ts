@@ -1,0 +1,71 @@
+/**
+ * lib/brand/envneo.ts
+ * ─────────────────────────────────────────────────────────
+ * SSOT — Identidade da marca Env Neo Ltda.
+ *
+ * Altere aqui. Reflete automaticamente em:
+ *   • lib/core/portalBrand.ts  (fallback quando core offline)
+ *   • lib/blog.ts              (autor padrão dos posts)
+ *   • components/Header.tsx    (normalizeLegalEntityName)
+ *   • components/Footer.tsx    (nome, CNPJ, endereço, e-mail, taglines)
+ *
+ * Regras:
+ *   - Sem CSS hex hardcoded (usa tokens Tailwind).
+ *   - Sem lógica de negócio aqui — só dados e funções puras.
+ * ─────────────────────────────────────────────────────────
+ */
+
+// ── Identidade legal ──────────────────────────────────────
+export const ENVNEO_LEGAL_ENTITY_NAME = 'Env Neo Ltda.'
+export const ENVNEO_CNPJ              = '36.207.211/0001-47'
+
+// ── Produto principal ─────────────────────────────────────
+export const GOVEVIA_PRODUCT_NAME   = 'Govevia'
+export const GOVEVIA_TAGLINE        = 'Governança Executável para Administração Pública'
+export const GOVEVIA_DESCRIPTION    =
+  'Plataforma de governança para administração pública municipal onde regras ' +
+  'institucionais deixam de ser documentos e passam a ser código executável.'
+
+// ── Contato ───────────────────────────────────────────────
+export const ENVNEO_EMAIL           = 'govevia@govevia.com.br'
+
+// ── Endereço ──────────────────────────────────────────────
+export const ENVNEO_ADDRESS = {
+  street:  'Av. Palmeira Imperial, 165 / 302',
+  zip:     '38.406-582',
+  city:    'Uberlândia-MG',
+  country: 'Brasil',
+} as const
+
+// ── Segmento ──────────────────────────────────────────────
+export const ENVNEO_SEGMENT = 'Tecnologia para Governança Pública'
+
+// ── URLs canônicas ────────────────────────────────────────
+export const ENVNEO_SITE_URL  = 'https://govevia.com.br'
+export const ENVNEO_WWW_URL   = 'https://www.govevia.com.br'
+
+// ── Normalização de nome da entidade legal ────────────────
+/**
+ * Corrige variações históricas do nome da empresa para o formato canônico.
+ * Usos: Header, Footer, qualquer consumidor de conteúdo externo.
+ */
+export function normalizeLegalEntityName(value: string): string {
+  return value
+    .replace(/\bENV\s*-\s*NEO\s+LTDA\b/gi, ENVNEO_LEGAL_ENTITY_NAME)
+    .replace(/\bENV\s*-\s*NEO\b/gi, 'Env Neo')
+    .replace(/\bEnv\s*Neo\b/gi, 'Env Neo')
+}
+
+// ── Objeto agregado (para uso compacto quando necessário) ─
+export const ENVNEO_BRAND = {
+  legalEntityName: ENVNEO_LEGAL_ENTITY_NAME,
+  cnpj:            ENVNEO_CNPJ,
+  productName:     GOVEVIA_PRODUCT_NAME,
+  tagline:         GOVEVIA_TAGLINE,
+  description:     GOVEVIA_DESCRIPTION,
+  email:           ENVNEO_EMAIL,
+  address:         ENVNEO_ADDRESS,
+  segment:         ENVNEO_SEGMENT,
+  siteUrl:         ENVNEO_SITE_URL,
+  wwwUrl:          ENVNEO_WWW_URL,
+} as const

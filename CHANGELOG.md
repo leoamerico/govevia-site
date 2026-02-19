@@ -1,5 +1,13 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Refactor: SSOT de marca Env Neo — fonte única implementada em todos os consumidores
+
+- `lib/brand/envneo.ts` (NOVO): fonte única da identidade Env Neo — nome legal, CNPJ, e-mail, endereço, tagline, descrição, segment, URLs. Exporta também `normalizeLegalEntityName()` (antes duplicada em Header e Footer).
+- `components/Header.tsx`: remove `normalizeLegalEntityName` local; importa do SSOT.
+- `components/Footer.tsx`: remove `normalizeLegalEntityName` local e strings hardcoded (e-mail, endereço, CNPJ, tagline, descrição); importa `ENVNEO_BRAND` do SSOT.
+- `lib/core/portalBrand.ts`: fallback local aponta para `ENVNEO_LEGAL_ENTITY_NAME` e `GOVEVIA_PRODUCT_NAME` do SSOT.
+- `lib/blog.ts`: autor padrão dos posts importa `ENVNEO_LEGAL_ENTITY_NAME` do SSOT.
+
 ## 2026-02-18 — Refactor: SSOT para módulos de enforcement da plataforma
 
 - `lib/plataforma/modules.ts` (NOVO): fonte única de verdade para os 6 módulos da plataforma (Processos, Urbanismo, Assinatura, Auditoria, LGPD, Transparência). Cada módulo expõe `functional`, `normative`, `enforcement`, `legalBasis`, `technicalFeatures` e `iconPaths`. Alterar aqui reflete automaticamente em qualquer consumidor do site.

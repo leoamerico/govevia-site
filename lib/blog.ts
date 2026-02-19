@@ -4,6 +4,7 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 import readingTime from 'reading-time'
+import { ENVNEO_LEGAL_ENTITY_NAME } from '@/lib/brand/envneo'
 
 const postsDirectory = path.join(process.cwd(), 'content/blog')
 
@@ -67,7 +68,7 @@ export function getPostMeta(slug: string): BlogPostMeta | null {
     date: data.date || '',
     lastModified,
     description: data.description || '',
-    author: data.author || 'Env Neo Ltda.',
+    author: data.author || ENVNEO_LEGAL_ENTITY_NAME,
     tags: data.tags || [],
     readingTime: stats.text.replace('min read', 'min de leitura'),
   }
@@ -107,7 +108,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     date: data.date || '',
     lastModified,
     description: data.description || '',
-    author: data.author || 'Env Neo Ltda.',
+    author: data.author || ENVNEO_LEGAL_ENTITY_NAME,
     tags: data.tags || [],
     readingTime: stats.text.replace('min read', 'min de leitura'),
     content: rendered,

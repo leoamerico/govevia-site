@@ -1,6 +1,7 @@
 import HeaderClient from '@/components/Header.client'
 import { getPortalBrand, sanitizeSvgAllowlist } from '@/lib/core/portalBrand'
 import { getContent } from '@/lib/content/getContent'
+import { normalizeLegalEntityName } from '@/lib/brand/envneo'
 
 function isBlank(value: string | null | undefined): boolean {
   return !value || value.trim().length === 0
@@ -11,13 +12,6 @@ function parseClasses(value: string): string[] {
     .split(/\r?\n/)
     .map((s) => s.trim())
     .filter(Boolean)
-}
-
-function normalizeLegalEntityName(value: string): string {
-  return value
-    .replace(/\bENV\s*-\s*NEO\s+LTDA\b/gi, 'Env Neo Ltda.')
-    .replace(/\bENV\s*-\s*NEO\b/gi, 'Env Neo')
-    .replace(/\bEnv\s*Neo\b/gi, 'Env Neo')
 }
 
 export default async function Header() {

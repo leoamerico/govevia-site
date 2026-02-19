@@ -2,6 +2,7 @@ import 'server-only'
 
 import { cache } from 'react'
 import { z } from 'zod'
+import { ENVNEO_LEGAL_ENTITY_NAME, GOVEVIA_PRODUCT_NAME } from '@/lib/brand/envneo'
 
 const InpiSchema = z
   .object({
@@ -163,9 +164,10 @@ export const getPortalBrand = cache(async (): Promise<PortalBrandV1> => {
   const core = await fetchPortalBrandFromCore()
   if (core) return core
 
+  // Fallback local — fonte única: lib/brand/envneo.ts
   return {
-    legal_entity_name: 'Env Neo Ltda.',
-    product_name: 'Govevia',
+    legal_entity_name: ENVNEO_LEGAL_ENTITY_NAME,
+    product_name: GOVEVIA_PRODUCT_NAME,
     logo_svg: null,
     logo_url: null,
     logo_sha256: 'local',
