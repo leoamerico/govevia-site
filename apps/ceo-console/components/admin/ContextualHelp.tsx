@@ -39,17 +39,19 @@ interface HelpContent {
 const HELP_MAP: Record<string, HelpContent> = {
   '/admin/rag': {
     title: 'RAG Demo — Busca com IA',
-    purpose: 'Permite enviar documentos ao kernel e fazer perguntas em linguagem natural sobre normas e processos institucionais.',
+    purpose: 'Permite enviar documentos ao kernel, fazer buscas semânticas e conversar em linguagem natural sobre normas e processos institucionais.',
     steps: [
       { n: 1, label: 'Selecione a aba "⬆  Upload PDF"', detail: 'Arraste ou clique para selecionar um PDF. O sistema extrai o texto e indexa automaticamente no kernel.' },
       { n: 2, label: 'Aguarde o retorno do kernel', detail: 'O indicador "Kernel" no topo muda de cinza para verde quando o documento estiver processado.' },
       { n: 3, label: 'Acesse "🔍  Busca Semântica"', detail: 'Digite uma pergunta em linguagem natural (ex: "qual é o prazo para impugnação de edital?") e clique em Buscar.' },
-      { n: 4, label: 'Analise os chunks retornados', detail: 'Cada resultado mostra a passagem relevante e a fonte. O score indica a confiança da correspondência.' },
-      { n: 5, label: 'Use "⚡  Tarefas Async"', detail: 'Para processar grandes volumes, dispare tarefas em lote. Acompanhe o status sem precisar aguardar na tela.' },
+      { n: 4, label: 'Use "💬  Chat RAG" para conversa contextual', detail: 'O chat mantém histórico da sessão. Faça perguntas de acompanhamento (ex: "E no caso de licitações dispensadas?"). Enter envia, Shift+Enter quebra linha.' },
+      { n: 5, label: 'Analise as fontes citadas', detail: 'Cada resposta do chat lista os documentos usados. Mostre ao usuário que o AI não "inventa" — cada afirmação tem fonte rastreável.' },
+      { n: 6, label: 'Use "⚡  Tarefas Async"', detail: 'Para processar grandes volumes, dispare tarefas em lote. Acompanhe o status sem precisar aguardar na tela.' },
     ],
     tips: [
-      { icon: '⚠️', text: 'Se o kernel estiver indisponível, os resultados são stub — marcados com banner laranja.' },
-      { icon: '💡', text: 'Treine usuários a formular perguntas completas, não palavras-chave isoladas.' },
+      { icon: '⚠️', text: 'Se o kernel estiver indisponível, chat e busca retornam stub — marcados com banner laranja.' },
+      { icon: '💡', text: 'Para treinamentos: demonstre primeiro a Busca (pontual), depois o Chat (conversacional). São complementares.' },
+      { icon: '🎯', text: 'O chat é ideal para usuários finais que preferem diálogo. A busca é melhor para equipes técnicas que precisam de chunks exatos.' },
       { icon: '🔒', text: 'Documentos enviados ficam restritos ao tenant — não são compartilhados entre órgãos.' },
     ],
   },

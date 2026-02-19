@@ -65,3 +65,17 @@ deliveries:
     notes: >
       GIFs gerados via `npm run demo:record && npm run demo:gif && npm run demo:publish`
       no commit 2c94a3a. Browser visível, slowMo=700ms, viewport 1280×800.
+
+  - sprint_id: CEO-CONSOLE-SPRINT-E-CHAT-RAG
+    date: "2026-02-19"
+    title: "Chat RAG — 4ª aba conversacional com histórico e fontes"
+    status: pending_recording
+    artifact_path: null
+    recorded_by: playwright-demo-spec
+    spec: apps/ceo-console/tests/e2e/demo.spec.ts
+    reviewed: false
+    notes: >
+      Sprint E: POST /api/admin/chat proxy → /api/v1/chat/; ChatTab.tsx;
+      RagDemoClient atualizado com 4ª aba '💬  Chat RAG'; ContextualHelp RAG
+      atualizado com passos de chat. Testes: api.spec.ts (+4), rag.spec.ts (+1),
+      demo.spec.ts (+1 cena).

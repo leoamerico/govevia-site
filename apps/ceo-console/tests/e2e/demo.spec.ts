@@ -106,8 +106,43 @@ test.describe('04 — RAG Demo: abas e busca semântica', () => {
   });
 });
 
-// ─── 5. Logout via painel ─────────────────────────────────────────────────────
-test.describe('05 — Logout', () => {
+// ─── 5. Chat RAG ──────────────────────────────────────────────────────────────
+test.describe('05 — Chat RAG: conversa contextual', () => {
+  test('abre aba Chat, envia pergunta e recebe resposta (real ou stub)', async ({ page }) => {
+    await page.goto('/admin/rag', { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(600);
+
+    // aba Chat RAG (label: '💬  Chat RAG')
+    const chatTab = page.locator('button').filter({ hasText: /Chat/i }).first();
+    await chatTab.waitFor({ state: 'visible', timeout: 20_000 });
+    await chatTab.click();
+    await page.waitForTimeout(600);
+
+    // input de chat
+    const chatInput = page.locator('[data-testid="chat-input"]');
+    await expect(chatInput).toBeVisible({ timeout: 5_000 });
+
+    // primeira pergunta
+    await chatInput.fill('O que é o princípio da legalidade administrativa?');
+    await page.waitForTimeout(500);
+    await page.locator('[data-testid="chat-send"]').click();
+
+    // aguarda resposta aparecer no histórico
+    await expect(
+      page.locator('[data-testid="chat-history"] div').filter({ hasText: /legalidade|stub|kernel|administrat/i }).first()
+    ).toBeVisible({ timeout: 15_000 });
+    await page.waitForTimeout(1000);
+
+    // pergunta de acompanhamento (demonstra histórico)
+    await chatInput.fill('E no caso de atos discricionários?');
+    await page.waitForTimeout(400);
+    await page.locator('[data-testid="chat-send"]').click();
+    await page.waitForTimeout(2000);
+  });
+});
+
+// ─── 6. Logout via painel ─────────────────────────────────────────────────────
+test.describe('06 — Logout', () => {
   test('chamada ao endpoint de logout limpa a sessão', async ({ page, request }) => {
     // confirma que está autenticado navegando para uma rota protegida
     await page.goto('/admin/rag');

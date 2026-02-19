@@ -94,3 +94,47 @@ test.describe('API — normas legais', () => {
     }
   })
 })
+
+test.describe('API — chat RAG', () => {
+  test('POST /api/admin/chat com message vazia retorna 400', async ({ request }) => {
+    const res = await request.post('/api/admin/chat', {
+      data: { message: '' },
+    })
+    expect(res.status()).toBe(400)
+  })
+
+  test('POST /api/admin/chat sem body retorna 400', async ({ request }) => {
+    const res = await request.post('/api/admin/chat', {
+      data: {},
+    })
+    expect(res.status()).toBe(400)
+  })
+
+  test('POST /api/admin/chat retorna answer e kernel_available', async ({ request }) => {
+    const res = await request.post('/api/admin/chat', {
+      data: { message: 'O que é o princípio da legalidade?' },
+    })
+    // 200 = resposta real ou stub; 4xx apenas se validação falhar
+    expect([200]).toContain(res.status())
+    const body = await res.json() as Record<string, unknown>
+    expect(typeof body.answer).toBe('string')
+    expect((body.answer as string).length).toBeGreaterThan(0)
+    expect(typeof body.kernel_available).toBe('boolean')
+    expect(Array.isArray(body.sources)).toBe(true)
+  })
+
+  test('POST /api/admin/chat aceita histórico de mensagens', async ({ request }) => {
+    const res = await request.post('/api/admin/chat', {
+      data: {
+        message: 'Pode repetir?',
+        history: [
+          { role: 'user', content: 'O que é licitação?' },
+          { role: 'assistant', content: 'Licitação é um procedimento administrativo...' },
+        ],
+      },
+    })
+    expect(res.status()).toBe(200)
+    const body = await res.json() as Record<string, unknown>
+    expect(typeof body.answer).toBe('string')
+  })
+})

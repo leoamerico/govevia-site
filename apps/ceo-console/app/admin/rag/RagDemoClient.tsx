@@ -502,13 +502,15 @@ function TasksTab() {
 }
 
 // ─── Main Export ─────────────────────────────────────────────────────────────
+import { ChatTab } from './ChatTab'
 
-type Tab = 'upload' | 'search' | 'tasks'
+type Tab = 'upload' | 'search' | 'tasks' | 'chat'
 
 const TAB_LABELS: Record<Tab, string> = {
   upload: '⬆  Upload PDF',
   search: '🔍  Busca Semântica',
   tasks:  '⚡  Tarefas Async',
+  chat:   '💬  Chat RAG',
 }
 
 export function RagDemoClient() {
@@ -517,7 +519,7 @@ export function RagDemoClient() {
   return (
     <div>
       <div style={S.tabs}>
-        {(['upload', 'search', 'tasks'] as Tab[]).map(t => (
+        {(['upload', 'search', 'tasks', 'chat'] as Tab[]).map(t => (
           <button key={t} type="button" style={S.tab(tab === t)} onClick={() => setTab(t)}>
             {TAB_LABELS[t]}
           </button>
@@ -527,6 +529,7 @@ export function RagDemoClient() {
         {tab === 'upload' && <UploadTab />}
         {tab === 'search' && <SearchTab />}
         {tab === 'tasks'  && <TasksTab />}
+        {tab === 'chat'   && <ChatTab />}
       </div>
     </div>
   )

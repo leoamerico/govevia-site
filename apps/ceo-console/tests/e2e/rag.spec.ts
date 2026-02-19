@@ -66,4 +66,23 @@ test.describe('RAG Demo — /admin/rag', () => {
     // Deve haver algum conteúdo na aba tasks
     await expect(page.locator('body')).not.toBeEmpty()
   })
+
+  test('aba Chat RAG — exibe input e envia mensagem', async ({ page }) => {
+    // Label: '💬  Chat RAG'
+    const chatTab = page.locator('button').filter({ hasText: /Chat/i }).first()
+    await chatTab.click()
+
+    // input de chat deve estar visível
+    const chatInput = page.locator('[data-testid="chat-input"]')
+    await expect(chatInput).toBeVisible({ timeout: 5000 })
+
+    // envia mensagem
+    await chatInput.fill('O que é o princípio da legalidade administrativa?')
+    await page.locator('[data-testid="chat-send"]').click()
+
+    // aguarda resposta (real ou stub)
+    await expect(
+      page.locator('[data-testid="chat-history"] div').filter({ hasText: /legalidade|stub|kernel/i }).first()
+    ).toBeVisible({ timeout: 15000 })
+  })
 })
