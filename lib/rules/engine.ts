@@ -187,7 +187,6 @@ function parseYaml(text: string): YamlRecord {
               ;(parent as YamlRecord)[key] = arr
             }
             stack.push({ indent: indent + 1, obj: arr })
-            const checkArr = arr
             if (Array.isArray(parent)) {
               // attached to a list container — merge into last obj
               const last = (parent as YamlNode[])[parent.length - 1]
@@ -211,23 +210,23 @@ function parseYaml(text: string): YamlRecord {
               } else break
             }
             const scalarVal = foldScalar(foldLines, childIndent)
-            assignToParent(parent, stack, key, scalarVal, indent)
+            assignToParent(parent, stack, key, scalarVal)
             i = j
             continue
           }
         }
         // Empty value
         const newObj: YamlRecord = {}
-        assignToParent(parent, stack, key, newObj as unknown as YamlNode, indent)
+        assignToParent(parent, stack, key, newObj as unknown as YamlNode)
         stack.push({ indent: indent + 1, obj: newObj })
         i++
         continue
       } else if (val.startsWith('[')) {
-        assignToParent(parent, stack, key, parseInlineArray(val) as unknown as YamlNode, indent)
+        assignToParent(parent, stack, key, parseInlineArray(val) as unknown as YamlNode)
         i++
         continue
       } else {
-        assignToParent(parent, stack, key, parseScalar(val), indent)
+        assignToParent(parent, stack, key, parseScalar(val))
         i++
         continue
       }
@@ -242,8 +241,7 @@ function assignToParent(
   parent: YamlRecord | YamlNode[],
   stack: Array<{ indent: number; obj: YamlRecord | YamlNode[] }>,
   key: string,
-  value: YamlNode,
-  indent: number
+  value: YamlNode
 ): void {
   if (Array.isArray(parent)) {
     // attach to last object in the array

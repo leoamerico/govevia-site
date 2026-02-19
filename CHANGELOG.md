@@ -1,5 +1,12 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-19 — SPRINT-PRESENT-01 — Apresentação executável (Docs + CEO Console)
+
+- Docs: padronização de display name **"Env Live"** (sem "EnvLive") e preenchimento explícito da entidade contratante **ENV NEO LTDA** + **CNPJ: 36.207.211/0001-47** em políticas.
+- CEO Console: identidade corporativa padronizada e sem shortname proibido; cockpit `/admin/ops` ajustado para não exibir “EnvNeo” como nome.
+- Enforcement: novo gate `gate-docs-brand-legal` impede regressão (proíbe "EnvLive" em `docs/` e placeholders `[CNPJ]`/`[RAZÃO SOCIAL]`).
+- Build: correção de lint (variáveis não usadas) em `lib/rules/engine.ts` para liberar `next build`.
+
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 
 - `docs/PROMPT-00.md` (NOVO): documento canônico de governança operacional — Modelo de Excelência da EnvNeo Ltda. Define: regra de ouro, fronteiras do ecossistema (EnvNeo / Govevia / Identity / CyberSecure / govevia-site), unicidade de tecnologias e protocolos, multi-tenant, proibição de hardcode, evidência-by-design, enforcement mensurável, LGPD, formato de entrega obrigatório (Implementação Concluída), proibição de overengineering e DoD (Definition of Done).
