@@ -100,6 +100,12 @@ export default function Company() {
                     <p className="text-2xl font-serif font-bold mb-2">
                       Leonardo Américo José Ribeiro
                     </p>
+                    <a
+                      href="mailto:leonardo@govevia.com.br"
+                      className="text-primary-light hover:text-white transition-colors text-sm"
+                    >
+                      leonardo@govevia.com.br
+                    </a>
                   </div>
                 </div>
               </div>
