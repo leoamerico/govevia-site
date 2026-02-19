@@ -2,7 +2,6 @@
  * Admin section layout — adiciona barra de navegação interna ao /admin/*.
  * Identidade corporativa lida do SSOT jurídico (org-identity.json).
  */
-import Link from 'next/link'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
@@ -11,14 +10,7 @@ import { ContextualHelp } from '@/components/admin/ContextualHelp'
 import { LogoutButton } from '@/components/admin/LogoutButton'
 import { NavWrapper } from '@/components/admin/NavWrapper'
 import { FontSizeControl } from '@/components/admin/FontSizeControl'
-
-const navLinks = [
-  { href: '/admin/pi', label: 'PI' },
-  { href: '/admin/bpmn', label: 'Processos' },
-  { href: '/admin/legislacao', label: 'Legislação' },
-  { href: '/admin/ops', label: 'Ops' },
-  { href: '/admin/rules', label: 'Regras' },
-]
+import { NavLinks } from '@/components/admin/NavLinks'
 
 function loadCorporateIdentity(): { legalName: string; cnpj: string } {
   try {
@@ -61,15 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             Env Neo
           </span>
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              style={{ color: '#94a3b8', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none' }}
-            >
-              {l.label}
-            </Link>
-          ))}
+          <NavLinks />
         </div>
 
         {/* Right: font size + kernel status + corporate identity + logout */}

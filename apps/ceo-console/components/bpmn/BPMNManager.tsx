@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -666,6 +666,16 @@ function ProcessoEditor({
   const [editingNo, setEditingNo] = useState<No | null>(null)
   const [addAfterIdx, setAddAfterIdx] = useState<number | null>(null)
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (editingNo) { setEditingNo(null); return }
+      if (addAfterIdx !== null) setAddAfterIdx(null)
+    }
+    if (editingNo || addAfterIdx !== null) { document.addEventListener('keydown', handler) }
+    return () => document.removeEventListener('keydown', handler)
+  }, [editingNo, addAfterIdx])
+
   const setField = <K extends keyof ProcessoBPMN>(k: K, v: ProcessoBPMN[K]) =>
     setForm(f => ({ ...f, [k]: v }))
 
@@ -799,7 +809,7 @@ function ProcessoEditor({
 
       {/* Modal: selecionar tipo para nova etapa */}
       {addAfterIdx !== null && (
-        <div style={s.overlay} onClick={e => { if (e.target === e.currentTarget) setAddAfterIdx(null) }}>
+        <div role="dialog" aria-modal="true" style={s.overlay} onClick={e => { if (e.target === e.currentTarget) setAddAfterIdx(null) }}>
           <div style={{ ...s.modal, maxWidth: 520 }}>
             <h2 style={s.modalTitle}>Que tipo de etapa quer inserir?</h2>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
@@ -827,7 +837,7 @@ function ProcessoEditor({
 
       {/* Modal: editar nó */}
       {editingNo && (
-        <div style={s.overlay} onClick={e => { if (e.target === e.currentTarget) setEditingNo(null) }}>
+        <div role="dialog" aria-modal="true" style={s.overlay} onClick={e => { if (e.target === e.currentTarget) setEditingNo(null) }}>
           <div style={s.modal}>
             <h2 style={s.modalTitle}>
               {TIPO_NO_ICONES[editingNo.tipo]} Editar etapa: {editingNo.nome || TIPO_NO_LABELS[editingNo.tipo]}
@@ -894,6 +904,12 @@ export default function BPMNManager({ initialProcessos, normas }: { initialProce
     setToast({ msg, type })
     setTimeout(() => setToast(null), 4000)
   }
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') setEditando(null) }
+    if (editando) { document.addEventListener('keydown', handler) }
+    return () => document.removeEventListener('keydown', handler)
+  }, [editando])
 
   const refresh = useCallback(async () => {
     const res = await fetch('/api/admin/bpmn', { cache: 'no-store' })

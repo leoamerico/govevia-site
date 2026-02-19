@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 // ─── Tipos (espelho do route.ts) ──────────────────────────────────────────────
 
@@ -489,6 +489,12 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
     setTimeout(() => setToast(null), 4000)
   }
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') setModal(null) }
+    if (modal) { document.addEventListener('keydown', handler) }
+    return () => document.removeEventListener('keydown', handler)
+  }, [modal])
+
   const refresh = useCallback(async () => {
     const res = await fetch('/api/admin/pi', { cache: 'no-store' })
     if (res.ok) setRegistros(await res.json() as PIRegistro[])
@@ -638,7 +644,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
 
       {/* Modal Criar / Editar */}
       {(modal?.mode === 'create' || modal?.mode === 'edit') && (
-        <div style={s.overlay} onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}>
+        <div role="dialog" aria-modal="true" style={s.overlay} onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}>
           <div style={s.modal}>
             <h2 style={s.modalTitle}>
               {modal.mode === 'create' ? 'Registrar nova criação intelectual' : `Editar registro ${(modal as { mode: 'edit'; registro: PIRegistro }).registro.id}`}
@@ -662,7 +668,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
 
       {/* Modal Confirmação Exclusão */}
       {modal?.mode === 'delete' && (
-        <div style={s.overlay} onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}>
+        <div role="dialog" aria-modal="true" style={s.overlay} onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}>
           <div style={{ ...s.modal, maxWidth: 440 }}>
             <h2 style={{ ...s.modalTitle, color: '#991b1b' }}>Remover este registro?</h2>
             <p style={{ fontSize: '0.88rem', color: '#475569', marginBottom: '0.6rem' }}>

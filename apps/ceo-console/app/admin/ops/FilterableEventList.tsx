@@ -82,7 +82,7 @@ export function FilterableEventList({ events }: { events: RegistryEventClient[] 
             <option key={t} value={t}>{t}</option>
           ))}
         </select>
-        <span style={{ ...S.mono, color: '#334155' }}>
+        <span style={{ ...S.mono, color: '#94a3b8' }}>
           {displayed.length} evento(s)
           {simCount > 0 && filter === 'TODOS' && (
             <span style={{ ...S.simBadge, marginLeft: 6 }}>{simCount} SIMULATION</span>

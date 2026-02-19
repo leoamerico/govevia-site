@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -253,6 +253,12 @@ export default function LegislacaoManager({ initialNormas }: { initialNormas: No
     setError('')
   }, [])
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal() }
+    if (modal) { document.addEventListener('keydown', handler) }
+    return () => document.removeEventListener('keydown', handler)
+  }, [modal, closeModal])
+
   const handleSalvar = useCallback(async () => {
     setError('')
     if (!form.titulo.trim()) { setError('Título é obrigatório'); return }
@@ -395,7 +401,7 @@ export default function LegislacaoManager({ initialNormas }: { initialNormas: No
 
       {/* Modal Criar/Editar */}
       {modal && (
-        <div style={s.modal} onClick={(e) => { if (e.target === e.currentTarget) closeModal() }}>
+        <div role="dialog" aria-modal="true" style={s.modal} onClick={(e) => { if (e.target === e.currentTarget) closeModal() }}>
           <div style={s.modalBox}>
             <h2 style={{ ...s.title, fontSize: '1.1rem', marginBottom: '1rem' }}>
               {modal === 'criar' ? 'Nova Norma Legal' : `Editar — ${editing?.id}`}
