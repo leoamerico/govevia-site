@@ -77,9 +77,10 @@ export async function POST(req: NextRequest) {
     const kernelRes = await kernelFetch('/api/v1/chat/', {
       method: 'POST',
       body: JSON.stringify({
-        message: body.message.trim(),
-        history: body.history ?? [],
-        session_id: body.session_id ?? null,
+        // Backend ChatRequest usa "question", não "message"
+        question: body.message.trim(),
+        session_id: body.session_id ?? undefined,
+        // history não é suportado pelo backend atual (conversation via session_id)
       }),
     })
 
