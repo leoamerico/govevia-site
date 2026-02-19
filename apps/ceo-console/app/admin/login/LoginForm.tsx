@@ -3,7 +3,12 @@
 import { useState } from 'react'
 import { EnvNeoLogo } from '@/components/brand/EnvNeoLogo'
 
-export function LoginForm() {
+export interface LoginFormProps {
+  orgName: string
+  cnpj: string
+}
+
+export function LoginForm({ orgName, cnpj }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -39,10 +44,10 @@ export function LoginForm() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.75rem', gap: '0.5rem' }}>
           <EnvNeoLogo className="h-10 w-auto" />
           <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#f8fafc', marginTop: '0.25rem' }}>
-            Env Neo Ltda.
+            {orgName}
           </span>
           <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontFamily: 'monospace' }}>
-            CNPJ: 36.207.211/0001-47
+            CNPJ: {cnpj}
           </span>
         </div>
 
