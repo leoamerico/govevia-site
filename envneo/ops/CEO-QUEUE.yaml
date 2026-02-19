@@ -1,0 +1,57 @@
+# CEO-QUEUE — Fila de Trabalho do CEO
+# WIP MÁXIMO: 1 item. Gate bloqueante no build.
+# Cada item: { id, org_unit, title, priority, actor, created_at, due_date?, notes? }
+# org_unit ∈ [ENVNEO, GOVEVIA, ENVLIVE]
+# priority ∈ [P1, P2, P3]  (P1 = crítico / contratual, P2 = importante, P3 = nice-to-have)
+
+backlog:
+  - id: Q-002
+    org_unit: GOVEVIA
+    title: "Definir SLA de suporte para clientes EnvLive (tier enterprise)"
+    priority: P1
+    actor: Leo
+    created_at: "2026-02-19T00:00:00Z"
+    notes: "Ref ADR-005. Necessário antes de fechar primeiro contrato enterprise."
+
+  - id: Q-003
+    org_unit: ENVNEO
+    title: "Preencher POL-LEGAL-CONTRACTING-ENTITY com dados reais (CNPJ, representantes)"
+    priority: P1
+    actor: Leo
+    created_at: "2026-02-19T00:00:00Z"
+    notes: "Ref POL-LEGAL-CONTRACTING-ENTITY. Campos [RAZÃO SOCIAL], [CNPJ], [NOME] pendentes."
+
+  - id: Q-004
+    org_unit: ENVLIVE
+    title: "Criar runbook de elevação de tenant (Fase 1→4 do ADR-005)"
+    priority: P2
+    actor: Leo
+    created_at: "2026-02-19T00:00:00Z"
+    notes: "Ref ADR-005 §Arquitetura da Elevação. Runbook não existe ainda."
+
+  - id: Q-005
+    org_unit: GOVEVIA
+    title: "Implementar emitGovernanceEvent() e tabela governance_events no Supabase"
+    priority: P2
+    actor: Leo
+    created_at: "2026-02-19T00:00:00Z"
+    notes: "Ref REGISTRY-GOVERNANCE-EVENTS. Schema definido, implementação pendente."
+
+wip:
+  - id: Q-001
+    org_unit: ENVNEO
+    title: "Cockpit operacional /admin/ops no ceo-console (SPRINT-OPS-01)"
+    priority: P1
+    actor: Leo
+    created_at: "2026-02-19T00:00:00Z"
+    notes: "Em execução. UI + gates WIP=1 e append-only."
+
+done:
+  - id: Q-000
+    org_unit: ENVNEO
+    title: "Estrutura base do ceo-console (auth, login, cookie, secrets, brand)"
+    priority: P1
+    actor: Leo
+    created_at: "2026-02-01T00:00:00Z"
+    completed_at: "2026-02-19T00:00:00Z"
+    notes: "Sprint 01-03 + SPRINT-LOGO-01 concluídos."

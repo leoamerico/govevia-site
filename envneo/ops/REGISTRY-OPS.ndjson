@@ -1,0 +1,5 @@
+{"ts":"2026-02-19T00:00:00Z","org_unit":"ENVNEO","type":"DECISION","ref":"REGISTRY-OPS-v1","summary":"Registry de operações criado. Fonte de verdade: envneo/ops/REGISTRY-OPS.ndjson. Append-only.","actor":"Leo"}
+{"ts":"2026-02-19T00:01:00Z","org_unit":"ENVNEO","type":"DECISION","ref":"CEO-QUEUE-v1","summary":"Fila CEO criada em envneo/ops/CEO-QUEUE.yaml. WIP máximo: 1 item simultâneo.","actor":"Leo"}
+{"ts":"2026-02-19T00:02:00Z","org_unit":"ENVNEO","type":"DECISION","ref":"ORGUNITS-v1","summary":"OrgUnits definidas: ENVNEO (prefeitura), GOVEVIA (subprefeitura produto), ENVLIVE (subprefeitura enterprise).","actor":"Leo"}
+{"ts":"2026-02-19T00:03:00Z","org_unit":"ENVNEO","type":"GATE","ref":"GATE-WIP-1","summary":"Gate bloqueante WIP=1 definido. Build falha se wip[] tiver mais de 1 item em CEO-QUEUE.yaml.","actor":"Leo"}
+{"ts":"2026-02-19T00:04:00Z","org_unit":"ENVNEO","type":"GATE","ref":"GATE-APPEND-ONLY","summary":"Gate bloqueante append-only definido. Build falha se linhas existentes do REGISTRY-OPS.ndjson forem modificadas ou removidas.","actor":"Leo"}
