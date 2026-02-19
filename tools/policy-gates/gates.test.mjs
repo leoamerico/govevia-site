@@ -648,6 +648,147 @@ console.log('\n── Test: gate-no-envneo-shortname (shortname + integridade br
   }
 }
 
+// ─── Test 11: gate-control-plane-no-secrets ──────────────────────────────────
+{
+  console.log('\n── Test: gate-control-plane-no-secrets (campo secreto em texto + ref secret://)')
+
+  function makeCatalogDir(dir, yamlContent) {
+    mkdirSync(join(dir, 'envneo', 'control-plane', 'core'), { recursive: true })
+    writeFileSync(join(dir, 'envneo', 'control-plane', 'core', 'connection-catalog.yaml'), yamlContent)
+  }
+
+  // Cenário A: client_secret com valor em texto → FAIL
+  {
+    const dir = tempDir('cp-secrets-fail-plaintext')
+    makeCatalogDir(dir, [
+      '_version: "1.0.0"',
+      '_updated: "2026-02-19"',
+      'services:',
+      '  svc:',
+      '    description: test',
+      '    inbound: []',
+      '    outbound: []',
+      '    auth:',
+      '      mode: none',
+      '    env_refs: []',
+      '    secret_refs: []',
+      '    client_secret: abc123plaintext',
+    ].join('\n'))
+    const r = runGateWithFixture('gate-control-plane-no-secrets.mjs', dir, 1)
+    assert('"client_secret: abc123plaintext" → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: details_ref: secret:// → PASS (campo _ref com valor secret://)
+  {
+    const dir = tempDir('cp-secrets-pass-ref')
+    makeCatalogDir(dir, [
+      '_version: "1.0.0"',
+      '_updated: "2026-02-19"',
+      'services:',
+      '  svc:',
+      '    description: test',
+      '    inbound: []',
+      '    outbound: []',
+      '    auth:',
+      '      mode: oidc',
+      '      details_ref: "secret://MY_JWT_SECRET"',
+      '    env_refs: []',
+      '    secret_refs:',
+      '      - "secret://MY_JWT_SECRET"',
+    ].join('\n'))
+    const r = runGateWithFixture('gate-control-plane-no-secrets.mjs', dir, 0)
+    assert('"details_ref: secret://MY_JWT_SECRET" → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário C: password com valor em texto → FAIL
+  {
+    const dir = tempDir('cp-secrets-fail-password')
+    makeCatalogDir(dir, [
+      '_version: "1.0.0"',
+      '_updated: "2026-02-19"',
+      'services:',
+      '  svc:',
+      '    password: hunter2',
+    ].join('\n'))
+    const r = runGateWithFixture('gate-control-plane-no-secrets.mjs', dir, 1)
+    assert('"password: hunter2" → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário D: mode: api_key_ref (enum) → PASS (campo "mode" não é campo secreto)
+  {
+    const dir = tempDir('cp-secrets-pass-enum')
+    makeCatalogDir(dir, [
+      '_version: "1.0.0"',
+      '_updated: "2026-02-19"',
+      'services:',
+      '  svc:',
+      '    description: test',
+      '    inbound: []',
+      '    outbound: []',
+      '    auth:',
+      '      mode: api_key_ref',
+      '      details_ref: "secret://MY_API_KEY"',
+      '    env_refs: []',
+      '    secret_refs: ["secret://MY_API_KEY"]',
+    ].join('\n'))
+    const r = runGateWithFixture('gate-control-plane-no-secrets.mjs', dir, 0)
+    assert('"mode: api_key_ref" (enum) → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
+// ─── Test 12: gate-no-hardcoded-endpoints ────────────────────────────────────
+{
+  console.log('\n── Test: gate-no-hardcoded-endpoints (URL hardcoded + process.env)')
+
+  // Cenário A: URL https:// em string literal → FAIL
+  {
+    const dir = tempDir('endpoints-fail-url')
+    mkdirSync(join(dir, 'apps', 'myapp'), { recursive: true })
+    writeFileSync(join(dir, 'apps', 'myapp', 'service.ts'),
+      `const url = 'https://api.example.com/v1'\nexport default url\n`)
+    const r = runGateWithFixture('gate-no-hardcoded-endpoints.mjs', dir, 1)
+    assert('"https://api.example.com" hardcoded → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário B: process.env.API_BASE_URL → PASS
+  {
+    const dir = tempDir('endpoints-pass-env')
+    mkdirSync(join(dir, 'apps', 'myapp'), { recursive: true })
+    writeFileSync(join(dir, 'apps', 'myapp', 'service.ts'),
+      `const url = process.env.API_BASE_URL\nexport default url\n`)
+    const r = runGateWithFixture('gate-no-hardcoded-endpoints.mjs', dir, 0)
+    assert('process.env.API_BASE_URL → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário C: localhost:3001 em string literal → FAIL
+  {
+    const dir = tempDir('endpoints-fail-localhost')
+    mkdirSync(join(dir, 'apps', 'myapp'), { recursive: true })
+    writeFileSync(join(dir, 'apps', 'myapp', 'client.ts'),
+      `const base = 'http://localhost:3001/admin'\nexport default base\n`)
+    const r = runGateWithFixture('gate-no-hardcoded-endpoints.mjs', dir, 1)
+    assert('"http://localhost:3001" hardcoded → exit 1 (FAIL)', r.exitCode === 1, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+
+  // Cenário D: loadConnectionCatalog() → PASS
+  {
+    const dir = tempDir('endpoints-pass-catalog')
+    mkdirSync(join(dir, 'lib', 'mylib'), { recursive: true })
+    writeFileSync(join(dir, 'lib', 'mylib', 'resolver.ts'),
+      `import { loadConnectionCatalog } from '@/lib/control-plane'\nconst cat = loadConnectionCatalog()\nexport default cat\n`)
+    const r = runGateWithFixture('gate-no-hardcoded-endpoints.mjs', dir, 0)
+    assert('loadConnectionCatalog() → exit 0 (PASS)', r.exitCode === 0, `exit ${r.exitCode}`)
+    cleanup(dir)
+  }
+}
+
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {
   console.error('[TEST FAILED] Um ou mais testes de fixture falharam.')
