@@ -50,6 +50,37 @@ Este índice organiza o **payload de conhecimento** do repositório por função
 
 ---
 
+## Governança (EnvNeo / Govevia / Env Live)
+
+### Operating Model (SSOT)
+
+- `docs/PROMPT-00.md` — Modelo de Excelência (regras hard, fronteiras, enforcement, DoD)
+- `docs/GOVERNANCE-MANIFEST.yaml` — manifesto canônico do payload de governança
+
+### Normas (Governança)
+
+- `docs/governance/POL-LEGAL-CONTRACTING-ENTITY.md` — entidade contratante (ENV NEO LTDA) + CNPJ
+- `docs/governance/SEAL-OMNICHANNEL-ENTITY-BRANDS.md` — regras de naming (Env Neo / Govevia / Env Live)
+- `docs/governance/POL-GOVEVIA-AUDIT-MULTITENANT.md` — auditabilidade multi-tenant (RLS + trilha)
+- `docs/governance/POL-IDENTITY-TENANT-NO-HARDCODE.md` — proibição de hardcode de identidade
+- `docs/governance/POL-SUBCONTRACTORS-PJ-EVIDENCE.md` — evidência de PJ/subcontratados
+- `docs/governance/POL-SEC-CYBERSECURE-NO-PII.md` — cibersegurança (sem PII em claims/spec)
+- `docs/governance/REGISTRY-GOVERNANCE-EVENTS.md` — registry de eventos de governança (schema)
+
+### Decisões (ADRs)
+
+- `docs/architecture/decisions/ADR-003-REGIME-PROCURACAO-ATOS.md`
+- `docs/architecture/decisions/ADR-004-SECRETS-REGIME-CEO-CONSOLE.md`
+- `docs/architecture/decisions/ADR-005-ENVLIVE-TENANCY-ELEVATION.md`
+- `docs/architecture/decisions/ADR-VIEW-SELECTION-PERSONAS.md`
+
+### Apresentação / Demo
+
+- `docs/present/PRESENT-CEO-CONSOLE.md` — roteiro de apresentação executável (gates/smokes)
+- `docs/demo/RUN-DEMO-CEO-CONSOLE.md` — runbook de demo (comandos PASS/FAIL)
+
+---
+
 ## Repo Hygiene (Lab)
 
 ### Evidência pública (auditável) (Repo)

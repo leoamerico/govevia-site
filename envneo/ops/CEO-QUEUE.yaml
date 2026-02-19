@@ -13,14 +13,6 @@ backlog:
     created_at: "2026-02-19T00:00:00Z"
     notes: "Ref ADR-005. Necessário antes de fechar primeiro contrato enterprise."
 
-  - id: Q-003
-    org_unit: ENVNEO
-    title: "Preencher POL-LEGAL-CONTRACTING-ENTITY com dados reais (CNPJ, representantes)"
-    priority: P1
-    actor: Leo
-    created_at: "2026-02-19T00:00:00Z"
-    notes: "Ref POL-LEGAL-CONTRACTING-ENTITY. Campos [RAZÃO SOCIAL], [CNPJ], [NOME] pendentes."
-
   - id: Q-004
     org_unit: ENVLIVE
     title: "Criar runbook de elevação de tenant (Fase 1→4 do ADR-005)"
@@ -38,15 +30,27 @@ backlog:
     notes: "Ref REGISTRY-GOVERNANCE-EVENTS. Schema definido, implementação pendente."
 
 wip:
+  []
+
+done:
+  - id: Q-003
+    org_unit: ENVNEO
+    title: "Preencher POL-LEGAL-CONTRACTING-ENTITY com dados reais (CNPJ, representantes)"
+    priority: P1
+    actor: Leo
+    created_at: "2026-02-19T00:00:00Z"
+    completed_at: "2026-02-19T00:00:00Z"
+    notes: "Concluído: POL-LEGAL-CONTRACTING-ENTITY preenchido para ENV NEO LTDA (CNPJ 36.207.211/0001-47)."
+
   - id: Q-001
     org_unit: ENVNEO
     title: "Cockpit operacional /admin/ops no ceo-console (SPRINT-OPS-01)"
     priority: P1
     actor: Leo
     created_at: "2026-02-19T00:00:00Z"
-    notes: "Em execução. UI + gates WIP=1 e append-only."
+    completed_at: "2026-02-19T00:00:00Z"
+    notes: "Concluído: UI + gates (WIP=1 e append-only) e evidência executável."
 
-done:
   - id: Q-000
     org_unit: ENVNEO
     title: "Estrutura base do ceo-console (auth, login, cookie, secrets, brand)"

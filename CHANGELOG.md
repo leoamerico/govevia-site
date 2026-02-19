@@ -7,6 +7,7 @@
 - Enforcement: novo gate `gate-docs-brand-legal` impede regressão (proíbe "EnvLive" em `docs/` e placeholders `[CNPJ]`/`[RAZÃO SOCIAL]`).
 - Build: correção de lint (variáveis não usadas) em `lib/rules/engine.ts` para liberar `next build`.
 - Conteúdo: correção de frontmatter YAML inválido em `content/blog/ia-em-governo-nao-pode-ser-caixa-preta.mdx` (linhas coladas `author`/`draft`/`tags`).
+- Refinamento: `envneo/ops/CEO-QUEUE.yaml` atualizado (itens concluídos movidos para `done`; WIP limpo) e índice/status em `docs/INDEX.md` + `docs/STATUS.md` alinhados ao payload atual.
 
 ## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
 

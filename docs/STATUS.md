@@ -23,4 +23,4 @@ Atualize este arquivo + `CHANGELOG.md` ao fechar uma etapa.
 - Aguardar Core estabilizar `test:unit` e expor READ APIs (para então implementar BFF no site sem abrir CSP).
 
 ## Último commit relevante
-- `chore(site-governance): add SSOT + registries + content/scope gates`
+- `a134c9d` — `fix(content): frontmatter YAML + changelog` (produção Vercel em 2026-02-19)
