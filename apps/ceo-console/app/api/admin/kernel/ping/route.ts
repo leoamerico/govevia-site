@@ -4,6 +4,9 @@
  * Testa conectividade com o backend FastAPI (GOVEVIA_KERNEL_BASE_URL).
  * Usado pelo widget KernelStatus no layout /admin.
  *
+ * Chama GET /api/v1/health — endpoint público (sem auth) do FastAPI.
+ * NÃO usa /api/v1/system/metrics — requer Bearer superuser.
+ *
  * Resposta:
  *   {ok: true,  latency_ms, version?, mode: 'live'}   — backend respondeu
  *   {ok: false, error, mode: 'stub'}                   — conexão falhou
@@ -27,7 +30,7 @@ export async function GET() {
 
   const start = Date.now()
   try {
-    const res = await fetch(`${base}/api/v1/system/metrics`, {
+    const res = await fetch(`${base}/api/v1/health`, {
       method: 'GET',
       // Timeout agressivo — fail-fast
       signal: AbortSignal.timeout(4000),

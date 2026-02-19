@@ -2,8 +2,8 @@
 
 **Data de emissão:** 19 de fevereiro de 2026  
 **Branch:** `main`  
-**Commit HEAD:** `487b508`  
-**Total de commits:** 180
+**Commit HEAD:** `80baf40` (atualizado em 19/02/2026)
+**Total de commits:** 182
 
 ---
 
@@ -244,16 +244,24 @@ Diretório: `tests/hardening/test_hardening_smoke.py`
 
 ## 6. Pendências e próximos passos
 
+### 6.1 Divergências de rota BFF × Backend
+
+| # | Divergência | Correção aplicada | Status |
+|---|-------------|-------------------|--------|
+| D1 | BFF `ping` chamava `/api/v1/system/metrics` (requer Bearer superuser, sem auth na chamada) | `ping/route.ts` → `GET /api/v1/health` (endpoint open) | ✅ corrigido |
+| D2 | BFF `search` chama `/api/v1/search` (não implementado no backend) | Stub automático mantido; comentário na rota atualizado | ⏳ backend Sprint E+ |
+| D3 | `client.ts` usava `/api/v1/documentos/upload` | Já corrigido: `client.ts` usa `/api/v1/documents/upload` | ✅ OK |
+| D4 | BFF legislação usava `/api/v1/normas` | Já corrigido: todas as rotas usam `/api/v1/normas-legais/` | ✅ OK |
+
+### 6.2 Itens pendentes
+
 | # | Área | Item | Prioridade |
 |---|------|------|-----------|
-| 1 | Backend | ⚠️ Adicionar rota `GET /api/v1/ping` ou redirecionar BFF para `/health` | Alta |
-| 2 | Backend | ⚠️ Adicionar rota `POST /api/v1/search` (busca semântica) ou expor via `/api/v1/chat/` | Alta |
-| 3 | Backend | ⚠️ Confirmar se BFF já normaliza `/documentos/upload` → `/documents/upload` internamente | Alta |
-| 4 | Backend | ⚠️ Confirmar se BFF já normaliza `/normas` → `/normas-legais/` internamente | Alta |
-| 5 | QA | Executar `tests/hardening/test_hardening_smoke.py` e registrar resultados | Alta |
-| 6 | Frontend | Sprint E *(a definir)* — Chat RAG UI, painel de métricas | — |
-| 7 | Infra | Validar pipeline CI/CD para deploy do `ceo-console` | Média |
-| 8 | Docs | Atualizar `CHANGELOG.md` com entregas dos sprints A–D | Baixa |
+| 1 | Backend | Implementar `POST /api/v1/search` — retornar `{ chunks: ChunkResult[] }` | Alta |
+| 2 | QA | Executar `tests/hardening/test_hardening_smoke.py` e registrar resultados | Alta |
+| 3 | Frontend | Sprint E — Chat RAG UI (`POST /api/v1/chat/`), painel de métricas (`GET /api/v1/system/metrics`) | Média |
+| 4 | Infra | Validar pipeline CI/CD para deploy do `ceo-console` | Média |
+| 5 | Docs | Atualizar `CHANGELOG.md` com entregas dos sprints A–D | Baixa |
 
 ---
 

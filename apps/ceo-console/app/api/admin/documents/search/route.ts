@@ -4,6 +4,11 @@
  * Proxy server-side para POST /api/v1/search no backend FastAPI.
  * Autenticado com Bearer JWT do service account.
  *
+ * NOTA: /api/v1/search ainda não implementado no backend (Sprint E+).
+ * Enquanto o endpoint não existir, toda chamada cai em stub automático.
+ * Quando implementado, o backend deve retornar { chunks: ChunkResult[] }.
+ * Alternativa futura: adaptar para POST /api/v1/chat/ com mapeamento de resposta.
+ *
  * Body: { query: string; top_k?: number }
  * Response 200: { chunks: ChunkResult[], kernelAvailable: true }
  * Response 200 (stub): { chunks: ChunkResult[], kernelAvailable: false, stub: true }
