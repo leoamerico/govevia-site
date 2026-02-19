@@ -1,5 +1,10 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-18 — Docs: PROMPT-00 — Modelo de Excelência EnvNeo Ltda.
+
+- `docs/PROMPT-00.md` (NOVO): documento canônico de governança operacional — Modelo de Excelência da EnvNeo Ltda. Define: regra de ouro, fronteiras do ecossistema (EnvNeo / Govevia / Identity / CyberSecure / govevia-site), unicidade de tecnologias e protocolos, multi-tenant, proibição de hardcode, evidência-by-design, enforcement mensurável, LGPD, formato de entrega obrigatório (Implementação Concluída), proibição de overengineering e DoD (Definition of Done).
+- `docs/GOVERNANCE-MANIFEST.yaml`: registrado como `operating_model`.
+
 ## 2026-02-18 — Feat: nav dinâmico — itens sem conteúdo publicado não são exibidos
 
 - `lib/blog.ts`: adicionado campo `draft: boolean` em `BlogPost` e `BlogPostMeta`; `getAllPosts()` aceita `{ includeDrafts }` e filtra rascunhos por padrão.

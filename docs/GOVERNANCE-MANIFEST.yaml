@@ -162,3 +162,6 @@ artifacts:
     path: package.json
   - kind: portal_inventory_evidence
     path: docs/public/evidence/frontend/REPORT-INVENTORY-PORTAL.md
+
+  - kind: operating_model
+    path: docs/PROMPT-00.md
