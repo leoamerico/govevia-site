@@ -8,6 +8,9 @@ import { join } from 'node:path'
 import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
 import { KernelStatus } from '@/components/admin/KernelStatus'
 import { ContextualHelp } from '@/components/admin/ContextualHelp'
+import { LogoutButton } from '@/components/admin/LogoutButton'
+import { NavWrapper } from '@/components/admin/NavWrapper'
+import { FontSizeControl } from '@/components/admin/FontSizeControl'
 
 const navLinks = [
   { href: '/admin/pi', label: 'PI' },
@@ -31,6 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const { legalName, cnpj } = loadCorporateIdentity()
   return (
     <>
+      <NavWrapper>
       <nav
         style={{
           background: '#1e293b',
@@ -68,14 +72,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </div>
 
-        {/* Right: kernel status + corporate identity */}
+        {/* Right: font size + kernel status + corporate identity + logout */}
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <FontSizeControl />
           <KernelStatus />
           <CorporateIdentity legalName={legalName} cnpj={cnpj} align="right" />
+          <LogoutButton />
         </div>
       </nav>
+      </NavWrapper>
       {children}
-      <ContextualHelp />
+      <NavWrapper>
+        <ContextualHelp />
+      </NavWrapper>
     </>
   )
 }
