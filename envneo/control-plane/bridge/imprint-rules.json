@@ -49,15 +49,39 @@
     },
     {
       "context": "login_screen",
-      "display_field": "nome_comercial",
-      "example": "Env Neo Ltda.",
-      "rationale": "Tela de login usa nome comercial. CNPJ exibido como informação secundária."
+      "display_field": "legal_name_upper",
+      "example": "ENV NEO LTDA",
+      "source": "brand-registry.json#ENVNEO_LTDA.legal_name_upper",
+      "rationale": "Tela de login corporativo usa razão social em uppercase + CNPJ. Proibido logo e slogan. Proibido 'Env Neo' isolado."
     },
     {
       "context": "report_header",
       "display_field": "razao_social",
       "example": "ENV NEO LTDA",
       "rationale": "Relatórios formais (PDF, auditoria) usam razão social."
+    }
+  ],
+
+  "brand_invariants": [
+    {
+      "entity": "ENVNEO_LTDA",
+      "logo": "MUST_NOT",
+      "slogan": "MUST_NOT",
+      "display_format": "legal_name_upper + cnpj",
+      "shortname_policy": "PROIBIDO usar 'Env Neo' isolado. Único formato permitido: 'ENV NEO LTDA' (uppercase) ou 'Env Neo Ltda.' em contexto legal explícito.",
+      "rationale": "ENV NEO LTDA é entidade empresarial, não produto/marca. Sem identidade visual."
+    },
+    {
+      "entity": "GOVEVIA",
+      "logo": "MUST",
+      "slogan": "MUST",
+      "rationale": "GOVEVIA é produto/marca com identidade visual própria."
+    },
+    {
+      "entity": "ENVLIVE",
+      "logo": "MUST",
+      "slogan": "MUST",
+      "rationale": "ENVLIVE é produto/marca com identidade visual própria."
     }
   ],
 

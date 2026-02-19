@@ -1,0 +1,28 @@
+{
+  "_comment": "ENVNEO-BRIDGE — Registro canônico de identidade de marca. Fonte única de verdade para UI corporativa e policy gates.",
+  "_version": "1.0.0",
+  "_updated": "2026-02-19",
+
+  "ENVNEO_LTDA": {
+    "legal_name_upper": "ENV NEO LTDA",
+    "cnpj": "36.207.211/0001-47",
+    "display_name": "ENV NEO LTDA",
+    "logo": null,
+    "slogan": null,
+    "_invariant": "ENV NEO LTDA (entidade empresarial) NÃO tem logo nem slogan. Exibe exclusivamente razão social + CNPJ. Proibido usar 'Env Neo' isolado em qualquer UI corporativa."
+  },
+
+  "GOVEVIA": {
+    "display_name": "Govevia",
+    "logo": "/brand/govevia/logo.svg",
+    "slogan": "Governança Executável para Administração Pública",
+    "_invariant": "GOVEVIA MUST ter logo + slogan."
+  },
+
+  "ENVLIVE": {
+    "display_name": "Env Live",
+    "logo": "/brand/envlive/logo.svg",
+    "slogan": "[PLACEHOLDER — slogan Env Live não definido]",
+    "_invariant": "ENVLIVE MUST ter logo + slogan."
+  }
+}
