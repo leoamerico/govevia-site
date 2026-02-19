@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "SPEC-TENANT-AUTH-POLICY-V1",
+  "version": "1.0.0",
+  "description": "Especificação de política de autenticação por tenant — parâmetros permitidos e proibidos em arquivos de configuração.",
+  "status": "active",
+  "created": "2026-02-16",
+  "gate": "gate-tenant-auth-policy-no-hardcode",
+  "policy_reference": "docs/governance/POL-IDENTITY-TENANT-NO-HARDCODE.md",
+
+  "forbidden_fields": [
+    "issuer",
+    "endpoints",
+    "redirect_uris",
+    "client_secret",
+    "token_url",
+    "authorization_url",
+    "jwks_uri"
+  ],
+  "rationale": "Parâmetros de autenticação não devem ser hardcoded em specs de integração. Devem ser injetados via variável de ambiente ou segredo gerenciado.",
+
+  "allowed_in_specs": [
+    "algorithm",
+    "token_type",
+    "scope_required",
+    "audience_pattern",
+    "expiry_seconds_max"
+  ],
+
+  "enforcement": {
+    "mode": "blocking",
+    "runs_on": ["pull_request", "push"],
+    "gate_command": "node tools/policy-gates/gate-tenant-auth-policy-no-hardcode.mjs"
+  }
+}

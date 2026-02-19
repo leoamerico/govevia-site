@@ -1,0 +1,50 @@
+# SPEC-CYBERSECURE-EVALUATE-V1
+# Especificação de avaliação de postura de cibersegurança
+# Versão: 1.0.0 | Status: active | Criado: 2026-02-16
+# Gate: gate-cybersecure-no-pii
+# Policy: docs/governance/POL-SEC-CYBERSECURE-NO-PII.md
+
+spec_id: SPEC-CYBERSECURE-EVALUATE-V1
+scope: Avaliação de controles de segurança em integrações de sistema
+purpose: Verificar postura de segurança sem processar ou armazenar PII
+
+# Domínios de Avaliação (sem campos PII)
+domains:
+  - id: access_control
+    description: Controles de acesso e autenticação
+    metrics:
+      - mfa_enforced
+      - session_expiry_seconds
+      - role_isolation_verified
+
+  - id: audit_trail
+    description: Trilha de auditoria e rastreabilidade
+    metrics:
+      - events_immutable
+      - hash_chain_verified
+      - retention_days
+
+  - id: data_minimization
+    description: Minimização e proteção de dados
+    metrics:
+      - fields_exposed_count
+      - encryption_at_rest
+      - encryption_in_transit
+
+  - id: boundary_enforcement
+    description: Isolamento de tenants e fronteiras de sistema
+    metrics:
+      - rls_enforced
+      - cross_tenant_leakage_risk
+      - network_segment_isolated
+
+# Outputs Permitidos (sem PII)
+allowed_outputs:
+  - risk_score
+  - control_status
+  - gap_count
+  - finding_severity
+
+# PROIBIDO incluir neste spec:
+# cpf, rg, name, email, phone, address, nome, telefone, endereço
+# (verificado por gate-cybersecure-no-pii)

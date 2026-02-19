@@ -1,0 +1,31 @@
+name: policy-gates
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  policy-gates:
+    name: Policy Gates (bloqueantes)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all policy gates
+        run: node tools/policy-gates/run-all.mjs
+
+      - name: Gate summary
+        if: failure()
+        run: |
+          echo "::error::Policy gates falharam. Revise os outputs acima e corrija antes de fazer merge."
