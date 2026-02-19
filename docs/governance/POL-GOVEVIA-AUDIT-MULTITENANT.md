@@ -90,7 +90,7 @@ node tools/policy-gates/run-all.mjs
 |---|---|---|
 | `gate-tenant-auth-policy-no-hardcode` | Credenciais hardcoded em specs | SIM |
 | `gate-cybersecure-no-pii` | PII em arquivos de spec/config | SIM |
-| `gate-no-auto-language` | Linguagem "automático" sem qualificador | SIM |
+| `gate-no-auto-language` | Linguagem proibida por POL-NO-AUTO-01 (sem qualificador de evidência) | SIM |
 | `gate-procuracao-require-evidence` | Handlers de procurador sem log de evidência | SIM (WARN se sem handlers) |
 
 Gates são executados como pré-requisito do build (`prebuild` no `package.json`).
