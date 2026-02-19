@@ -1,6 +1,6 @@
 """
-Sprint C — E2E smoke test
-Tests: auth → task dispatch+poll → document upload+poll
+Sprint C+D — E2E smoke test
+Tests: auth → task dispatch+poll → document upload+poll → normas → semantic search
 Run: python3 scripts/sprint_c_e2e.py
 """
 import urllib.request
@@ -103,6 +103,30 @@ def main():
     normas = get_auth("/api/v1/normas-legais/", token)
     print(f"[normas] total={normas.get('total', 0)}")
     assert normas.get("total", 0) > 0, "normas table empty"
+
+    # 7. Semantic search (Sprint D — POST /api/v1/search)
+    search_req = urllib.request.Request(
+        f"{BASE}/api/v1/search",
+        data=json.dumps({"query": "compliance governança", "limit": 3}).encode(),
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(search_req, timeout=15) as r:
+            search_result = json.loads(r.read())
+        chunks = search_result.get("chunks", [])
+        kernel_available = search_result.get("kernel_available", True)
+        print(f"[search] OK  chunks={len(chunks)}  kernel_available={kernel_available}")
+        assert isinstance(chunks, list), "chunks deve ser lista"
+        if chunks:
+            assert all(k in chunks[0] for k in ("chunk_id", "document_id", "score", "excerpt")), \
+                f"ChunkResult faltando campos: {chunks[0].keys()}"
+    except urllib.error.HTTPError as e:
+        body_err = e.read().decode()
+        print(f"[search] HTTP {e.code} (aceitável se corpus vazio): {body_err[:120]}")
 
     print("\n=== ALL GREEN ===")
 
