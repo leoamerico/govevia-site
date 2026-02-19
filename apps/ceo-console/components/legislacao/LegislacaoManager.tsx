@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import { tokens } from '@/components/ui'
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -333,12 +334,12 @@ export default function LegislacaoManager({ initialNormas }: { initialNormas: No
   )
 
   return (
-    <div style={s.page}>
+    <div style={tokens.page}>
       {/* Header */}
-      <div style={s.header}>
+      <div style={tokens.header}>
         <div>
-          <h1 style={s.title}>Catálogo de Normas Legais</h1>
-          <p style={s.subtitle}>
+          <h1 style={tokens.title}>Catálogo de Normas Legais</h1>
+          <p style={tokens.subtitle}>
             Fonte dos valores válidos para <code>base_normativa_id</code> — referenciado por RN01–RN05 e pelos processos BPMN.
           </p>
         </div>
@@ -370,7 +371,7 @@ export default function LegislacaoManager({ initialNormas }: { initialNormas: No
       )}
 
       {normasFiltradas.map((norma) => (
-        <div key={norma.id} style={s.card}>
+        <div key={norma.id} style={tokens.card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.75rem' }}>
             {/* Info principal */}
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -401,9 +402,9 @@ export default function LegislacaoManager({ initialNormas }: { initialNormas: No
 
       {/* Modal Criar/Editar */}
       {modal && (
-        <div role="dialog" aria-modal="true" style={s.modal} onClick={(e) => { if (e.target === e.currentTarget) closeModal() }}>
-          <div style={s.modalBox}>
-            <h2 style={{ ...s.title, fontSize: '1.1rem', marginBottom: '1rem' }}>
+        <div role="dialog" aria-modal="true" style={tokens.overlay} onClick={(e) => { if (e.target === e.currentTarget) closeModal() }}>
+          <div style={{ ...tokens.modal, maxWidth: 560 }}>
+            <h2 style={{ ...tokens.title, fontSize: '1.1rem', marginBottom: '1rem' }}>
               {modal === 'criar' ? 'Nova Norma Legal' : `Editar — ${editing?.id}`}
             </h2>
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import { tokens as s, Toast } from '@/components/ui'
 
 // ─── Tipos (espelho do route.ts) ──────────────────────────────────────────────
 
@@ -81,176 +82,7 @@ const EMPTY_FORM: Omit<PIRegistro, 'id' | 'created_at' | 'updated_at'> = {
   observacoes: '',
 }
 
-// ─── Estilos inline reutilizáveis ──────────────────────────────────────────────
 
-const s = {
-  page: {
-    padding: '2rem',
-    fontFamily: "'Open Sans', sans-serif",
-    maxWidth: 1100,
-    margin: '0 auto',
-  } as React.CSSProperties,
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '1.5rem',
-  } as React.CSSProperties,
-  title: {
-    fontSize: '1.4rem',
-    fontWeight: 700,
-    color: '#f1f5f9',
-    fontFamily: 'Georgia, serif',
-    margin: 0,
-  } as React.CSSProperties,
-  subtitle: {
-    fontSize: '0.8rem',
-    color: '#94a3b8',
-    marginTop: '0.2rem',
-  } as React.CSSProperties,
-  btnPrimary: {
-    background: '#0059B3',
-    color: '#fff',
-    border: 'none',
-    borderRadius: 6,
-    padding: '0.55rem 1.1rem',
-    fontSize: '0.82rem',
-    fontWeight: 600,
-    cursor: 'pointer',
-  } as React.CSSProperties,
-  btnSecondary: {
-    background: '#f1f5f9',
-    color: '#334155',
-    border: '1px solid #e2e8f0',
-    borderRadius: 6,
-    padding: '0.45rem 0.9rem',
-    fontSize: '0.78rem',
-    fontWeight: 500,
-    cursor: 'pointer',
-  } as React.CSSProperties,
-  btnDanger: {
-    background: '#fee2e2',
-    color: '#991b1b',
-    border: '1px solid #fca5a5',
-    borderRadius: 6,
-    padding: '0.35rem 0.7rem',
-    fontSize: '0.75rem',
-    fontWeight: 500,
-    cursor: 'pointer',
-  } as React.CSSProperties,
-  card: {
-    background: '#fff',
-    border: '1px solid #e2e8f0',
-    borderRadius: 10,
-    padding: '1.25rem 1.5rem',
-    marginBottom: '0.75rem',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-  } as React.CSSProperties,
-  label: {
-    display: 'block',
-    fontSize: '0.75rem',
-    fontWeight: 600,
-    color: '#475569',
-    marginBottom: '0.3rem',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.04em',
-  } as React.CSSProperties,
-  input: {
-    width: '100%',
-    border: '1px solid #cbd5e1',
-    borderRadius: 5,
-    padding: '0.4rem 0.65rem',
-    fontSize: '0.83rem',
-    color: '#1e293b',
-    background: '#fff',
-    boxSizing: 'border-box' as const,
-  } as React.CSSProperties,
-  select: {
-    width: '100%',
-    border: '1px solid #cbd5e1',
-    borderRadius: 5,
-    padding: '0.4rem 0.65rem',
-    fontSize: '0.83rem',
-    color: '#1e293b',
-    background: '#fff',
-    boxSizing: 'border-box' as const,
-  } as React.CSSProperties,
-  textarea: {
-    width: '100%',
-    border: '1px solid #cbd5e1',
-    borderRadius: 5,
-    padding: '0.4rem 0.65rem',
-    fontSize: '0.83rem',
-    color: '#1e293b',
-    background: '#fff',
-    boxSizing: 'border-box' as const,
-    resize: 'vertical' as const,
-  } as React.CSSProperties,
-  field: {
-    marginBottom: '0.9rem',
-  } as React.CSSProperties,
-  grid2: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '0.75rem',
-  } as React.CSSProperties,
-  divider: {
-    border: 'none',
-    borderTop: '1px solid #f1f5f9',
-    margin: '1.25rem 0',
-  } as React.CSSProperties,
-  section: {
-    fontSize: '0.7rem',
-    fontWeight: 700,
-    color: '#94a3b8',
-    textTransform: 'uppercase' as const,
-    letterSpacing: '0.08em',
-    marginBottom: '0.75rem',
-  } as React.CSSProperties,
-  overlay: {
-    position: 'fixed' as const,
-    inset: 0,
-    background: 'rgba(0,0,0,0.45)',
-    zIndex: 50,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '1rem',
-  } as React.CSSProperties,
-  modal: {
-    background: '#fff',
-    borderRadius: 12,
-    width: '100%',
-    maxWidth: 680,
-    maxHeight: '90vh',
-    overflowY: 'auto' as const,
-    padding: '2rem',
-    boxShadow: '0 20px 50px rgba(0,0,0,0.25)',
-  } as React.CSSProperties,
-  modalTitle: {
-    fontSize: '1.15rem',
-    fontWeight: 700,
-    color: '#1e293b',
-    fontFamily: 'Georgia, serif',
-    margin: '0 0 1.5rem 0',
-  } as React.CSSProperties,
-  emptyState: {
-    textAlign: 'center' as const,
-    padding: '3rem',
-    color: '#94a3b8',
-    fontSize: '0.9rem',
-  } as React.CSSProperties,
-  idBadge: {
-    fontFamily: 'monospace',
-    fontSize: '0.72rem',
-    color: '#0059B3',
-    background: '#eff6ff',
-    border: '1px solid #bfdbfe',
-    borderRadius: 4,
-    padding: '0.1rem 0.45rem',
-    marginRight: '0.5rem',
-  } as React.CSSProperties,
-}
 
 // ─── Status Badge ──────────────────────────────────────────────────────────────
 
@@ -292,7 +124,7 @@ function PIForm({
   return (
     <div>
       {/* Identificação */}
-      <p style={s.section}>O que está sendo registrado?</p>
+      <p style={s.sectionLabel}>O que está sendo registrado?</p>
       <div style={s.field}>
         <label style={s.label}>Nome da criação *</label>
         <input style={s.input} value={form.titulo} onChange={(e) => set('titulo', e.target.value)} placeholder="Ex: Govevia, módulo de auditoria, logotipo Env Neo…" />
@@ -319,7 +151,7 @@ function PIForm({
       <hr style={s.divider} />
 
       {/* Titular */}
-      <p style={s.section}>Quem é o titular desta criação?</p>
+      <p style={s.sectionLabel}>Quem é o titular desta criação?</p>
       <div style={s.grid2}>
         <div style={s.field}>
           <label style={s.label}>O titular é uma pessoa física ou empresa?</label>
@@ -347,7 +179,7 @@ function PIForm({
       <hr style={s.divider} />
 
       {/* Registro */}
-      <p style={s.section}>Situação junto ao órgão competente</p>
+      <p style={s.sectionLabel}>Situação junto ao órgão competente</p>
       <div style={s.grid2}>
         <div style={s.field}>
           <label style={s.label}>Órgão responsável pelo registro</label>
@@ -630,17 +462,7 @@ export default function PIManager({ initialRegistros }: { initialRegistros: PIRe
       )}
 
       {/* Toast */}
-      {toast && (
-        <div style={{
-          position: 'fixed', bottom: '1.5rem', right: '1.5rem',
-          background: toast.type === 'ok' ? '#166534' : '#991b1b',
-          color: '#fff', borderRadius: 8, padding: '0.75rem 1.25rem',
-          fontSize: '0.82rem', fontWeight: 600, zIndex: 100,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-        }}>
-          {toast.msg}
-        </div>
-      )}
+      {toast && <Toast msg={toast.msg} type={toast.type} />}
 
       {/* Modal Criar / Editar */}
       {(modal?.mode === 'create' || modal?.mode === 'edit') && (
