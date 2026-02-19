@@ -211,6 +211,80 @@ console.log('\n── Test: gate-no-auto-language (fixture violadora)')
     `resultado foi ${checkParagraph(noAuto)} (esperado PASS)`)
 }
 
+// ─── Test 4: gate-procuracao-require-evidence ─────────────────────────────────
+console.log('\n── Test: gate-procuracao-require-evidence')
+
+{
+  const GATE = join(GATES_DIR, 'gate-procuracao-require-evidence.mjs')
+
+  // Helper: run gate with a fixture dir as GATE_FIXTURE_ROOT
+  function runProcGate(fixtureDir) {
+    return spawnSync(process.execPath, [GATE], {
+      stdio: 'pipe',
+      env: { ...process.env, GATE_FIXTURE_ROOT: fixtureDir },
+    })
+  }
+
+  // ── Cenário A: nenhum handler → WARN (exit 0) ──────────────────────────────
+  {
+    const dir = tempDir('proc-no-handlers')
+    mkdirSync(join(dir, 'app'), { recursive: true })
+    writeFileSync(join(dir, 'app', 'page.tsx'), `
+export default function Page() { return <div>Home</div> }
+`)
+    const r = runProcGate(dir)
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('nenhum handler → exit 0 (WARN)', r.status === 0,
+      `exit code foi ${r.status} (esperado 0)`)
+    assert('nenhum handler → mensagem [WARN] no output', out.includes('[WARN]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário B: handler com retorno permissivo SEM evidência → FAIL ──────────
+  {
+    const dir = tempDir('proc-missing-evidence')
+    mkdirSync(join(dir, 'lib'), { recursive: true })
+    writeFileSync(join(dir, 'lib', 'procurador-check.ts'), `
+// ProcuradorHandler — verifica atos delegados
+export function checkAto(req: Request) {
+  const ok = validateDelegation(req)
+  if (ok) return true  // retorno permissivo SEM log
+  return false
+}
+`)
+    const r = runProcGate(dir)
+    assert('handler sem evidência → exit 1 (FAIL)', r.status === 1,
+      `exit code foi ${r.status} (esperado 1)`)
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('handler sem evidência → mensagem [FAIL] no output', out.includes('[FAIL]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+
+  // ── Cenário C: handler com evidência de log → PASS ─────────────────────────
+  {
+    const dir = tempDir('proc-with-evidence')
+    mkdirSync(join(dir, 'lib'), { recursive: true })
+    writeFileSync(join(dir, 'lib', 'procurador-check.ts'), `
+// Procurador ato check
+export async function checkAto(req: Request) {
+  const result = validateDelegation(req)
+  await ProcuracaoCheckLog({ atoId: req.atoId, result })
+  if (result.ok) return true
+  return false
+}
+`)
+    const r = runProcGate(dir)
+    assert('handler com evidence log → exit 0 (PASS)', r.status === 0,
+      `exit code foi ${r.status} (esperado 0)`)
+    const out = (r.stdout?.toString() ?? '') + (r.stderr?.toString() ?? '')
+    assert('handler com evidence log → mensagem [PASS] no output', out.includes('[PASS]'),
+      `output: ${out.trim()}`)
+    cleanup(dir)
+  }
+}
+
 // ─── Resumo ──────────────────────────────────────────────────────────────────
 console.log('\n' + '═'.repeat(50))
 if (testsFailed) {

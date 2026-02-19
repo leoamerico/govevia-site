@@ -122,16 +122,20 @@ auditoria.
 
 ---
 
-## Requisito de Enforcement no CI/CD — PENDENTE
+## Enforcement no CI/CD — IMPLEMENTADO
 
-O gate CI/CD de verificação estrutural desta regra ainda não está implementado.
+Gate implementado em `tools/policy-gates/gate-procuracao-require-evidence.mjs`.
 
-**Requisito (não implementado):** Um gate deve verificar que:
-1. Nenhum código-fonte retorna `PERMITIDO` para papel `PROCURADOR` sem consultar
-   `buscar_procuracao_vigente` ou `buscar_waiver_vigente`.
-2. Nenhuma entrada em `TIPOS_COM_WAIVER` existe sem `authorization_evidence_hash`.
+**Comportamento:**
 
-Até a implementação do gate, a conformidade depende de revisão humana no pull request.
+| Situação | Resultado |
+|---|---|
+| Nenhum arquivo com padrão `PROCURADOR`/`Procurador`/`Attorney` encontrado | `[WARN]` exit 0 — gate não verificável |
+| Handler encontrado + retorno permissivo **sem** `ProcuracaoCheckLog` / `check_log` / `WAIVER_ACTIVE` | `[FAIL]` exit 1 |
+| Handler encontrado + evidência de log presente | `[PASS]` exit 0 |
+
+O gate é executado a cada `npm run policy:gates` (integrado no `prebuild`).  
+WARN não bloqueia o build mas é reportado pelo orquestrador (`run-all.mjs`).
 
 ---
 
