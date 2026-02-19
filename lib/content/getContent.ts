@@ -1,13 +1,15 @@
 import 'server-only'
 
 import { cache } from 'react'
+import { readFileSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
 
 import { dbTransaction } from '@/lib/db/postgres'
 
 export type GetContentResult = {
   value: string
   format: 'text'
-  source: 'db' | 'fallback'
+  source: 'db' | 'overrides' | 'fallback'
 }
 
 type Args = {
@@ -18,6 +20,23 @@ type Args = {
   view?: string | null
 }
 
+// ── Overrides locais (content/site-overrides.json) ─────────────
+function loadOverrides(): Record<string, string> {
+  const p = join(process.cwd(), 'content', 'site-overrides.json')
+  if (!existsSync(p)) return {}
+  try {
+    return JSON.parse(readFileSync(p, 'utf-8')) as Record<string, string>
+  } catch {
+    return {}
+  }
+}
+
+// Recarrega a cada request (sem cache), pois o CEO Console pode alterar em runtime
+function getOverrideValue(key: string): string | null {
+  const overrides = loadOverrides()
+  return overrides[key] ?? null
+}
+
 async function getContentUncached(args: Args): Promise<GetContentResult> {
   const key = args.key
   const fallback = args.fallback
@@ -26,6 +45,8 @@ async function getContentUncached(args: Args): Promise<GetContentResult> {
   const view = args.view ?? null
 
   if (!process.env.DATABASE_URL) {
+    const override = getOverrideValue(key)
+    if (override !== null) return { value: override, format: 'text', source: 'overrides' }
     return { value: fallback, format: 'text', source: 'fallback' }
   }
 
@@ -56,11 +77,15 @@ async function getContentUncached(args: Args): Promise<GetContentResult> {
     })
 
     if (!row) {
+      const override = getOverrideValue(key)
+      if (override !== null) return { value: override, format: 'text', source: 'overrides' }
       return { value: fallback, format: 'text', source: 'fallback' }
     }
 
     return { value: row.value, format: row.format, source: 'db' }
   } catch {
+    const override = getOverrideValue(key)
+    if (override !== null) return { value: override, format: 'text', source: 'overrides' }
     return { value: fallback, format: 'text', source: 'fallback' }
   }
 }

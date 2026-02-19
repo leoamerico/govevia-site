@@ -8,9 +8,12 @@ import { join } from 'node:path'
 import { CorporateIdentity } from '@/components/identity/CorporateIdentity'
 
 const navLinks = [
+  { href: '/admin/site', label: 'Site' },
   { href: '/admin/ops', label: 'Ops' },
   { href: '/admin/rules', label: 'Regras' },
 ]
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 
 function loadCorporateIdentity(): { legalName: string; cnpj: string } {
   try {
@@ -52,6 +55,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             CEO Console
           </span>
+          <a
+            href={SITE_URL}
+            style={{ color: '#64748b', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none', marginRight: '0.25rem' }}
+            title="Voltar ao site público"
+          >
+            ← Site
+          </a>
           {navLinks.map((l) => (
             <Link
               key={l.href}

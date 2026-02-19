@@ -9,6 +9,7 @@ import Contact from '@/components/home/Contact'
 import { getContent } from '@/lib/content/getContent'
 
 export default async function Home() {
+  const siteMode = await getContent({ key: 'site.mode', fallback: 'under_construction' })
   const [
     heroKicker,
     heroTitle,
@@ -268,7 +269,7 @@ export default async function Home() {
     { law: compliance06Law, title: compliance06Title, body: compliance06Body },
   ]
 
-  const isUnderConstruction = true
+  const isUnderConstruction = siteMode.value !== 'live'
 
   return (
     <>

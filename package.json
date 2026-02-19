@@ -27,6 +27,7 @@
     "tokens:contrast": "node scripts/verify-contrast.mjs",
     "a11y:contrast": "node scripts/verify-contrast.mjs",
     "hygiene:audit": "node script/lab-hygiene-audit.mjs",
+    "setup:local": "node scripts/setup-local-dev.mjs",
     "validate:claims": "node scripts/validate-claims.mjs",
     "validate:web-claims-registry": "node scripts/validate-web-claims-registry.mjs",
     "security:csp": "node scripts/verify-csp-allowlist.mjs",
