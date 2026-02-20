@@ -28,7 +28,8 @@
     "validate:web-claims-registry": "node scripts/validate-web-claims-registry.mjs",
     "security:csp": "node scripts/verify-csp-allowlist.mjs",
     "security:verify": "npm run security:csp && npm run build",
-    "policy:gates": "node tools/policy-gates/run-all.mjs"
+    "policy:gates": "node tools/policy-gates/run-all.mjs",
+    "governance:check": "node scripts/governance-check.mjs"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.0",

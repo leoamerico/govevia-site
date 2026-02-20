@@ -1,0 +1,101 @@
+#!/usr/bin/env node
+/**
+ * governance-check.mjs
+ * Gate G2: verifica existência dos artefatos obrigatórios de plataforma,
+ * integridade de links internos e consistência da estrutura de documentação.
+ *
+ * Retorna exit 0 (PASS) ou exit 1 (FAIL) — utilizável direto em CI.
+ */
+
+import { existsSync, readFileSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, '..');
+
+// ─── Artefatos obrigatórios ───────────────────────────────────────────────────
+// Caminho relativo à raiz do repositório → descrição legível
+const REQUIRED_FILES = {
+  'docs/platform/appendix-architecture.mdx':
+    'Master do Apêndice Técnico de Arquitetura',
+  'docs/platform/adr/ADR-001-canonicalizacao-payload.md':
+    'ADR-001 — Canonicalização de Payload',
+  'docs/platform/PLANO-OPERACIONAL.md':
+    'Plano Operacional do Site Govevia',
+  'CHANGELOG.md':
+    'Changelog (obrigatório pelo history:check)',
+};
+
+// ─── Referências cruzadas obrigatórias ───────────────────────────────────────
+// [arquivo que deve conter a referência, string que deve estar presente]
+const REQUIRED_REFS = [
+  [
+    'docs/platform/PLANO-OPERACIONAL.md',
+    'docs/platform/appendix-architecture.mdx',
+    'PLANO-OPERACIONAL deve referenciar o caminho correto do master MDX',
+  ],
+  [
+    'docs/platform/adr/ADR-001-canonicalizacao-payload.md',
+    'GATE-R4',
+    'ADR-001 deve referenciar o GATE-R4',
+  ],
+  [
+    'docs/platform/appendix-architecture.mdx',
+    'GATE-R4',
+    'Apêndice Técnico deve referenciar o GATE-R4',
+  ],
+];
+
+// ─── Runner ───────────────────────────────────────────────────────────────────
+let failures = 0;
+
+function pass(msg) {
+  console.log(`  ✓  ${msg}`);
+}
+
+function fail(msg) {
+  console.error(`  ✗  ${msg}`);
+  failures++;
+}
+
+console.log('\n[governance-check] Verificando artefatos obrigatórios...\n');
+
+// 1. Existência de arquivos
+for (const [relPath, label] of Object.entries(REQUIRED_FILES)) {
+  const abs = resolve(ROOT, relPath);
+  if (existsSync(abs)) {
+    pass(`${label}\n       → ${relPath}`);
+  } else {
+    fail(`AUSENTE: ${label}\n       → ${relPath}`);
+  }
+}
+
+// 2. Referências cruzadas
+console.log('\n[governance-check] Verificando referências cruzadas...\n');
+
+for (const [file, needle, description] of REQUIRED_REFS) {
+  const abs = resolve(ROOT, file);
+  if (!existsSync(abs)) {
+    fail(`Arquivo não encontrado para verificar referência: ${file}`);
+    continue;
+  }
+  const content = readFileSync(abs, 'utf8');
+  if (content.includes(needle)) {
+    pass(description);
+  } else {
+    fail(`${description}\n       → '${needle}' não encontrado em ${file}`);
+  }
+}
+
+// ─── Resultado ────────────────────────────────────────────────────────────────
+console.log('');
+if (failures === 0) {
+  console.log('[governance-check] G2 PASS — todos os artefatos verificados.\n');
+  process.exit(0);
+} else {
+  console.error(
+    `[governance-check] G2 FAIL — ${failures} problema(s) encontrado(s). Corrija antes de prosseguir para o próximo Lote.\n`
+  );
+  process.exit(1);
+}
