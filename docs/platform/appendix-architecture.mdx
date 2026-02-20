@@ -1,0 +1,270 @@
+# Apêndice Técnico de Arquitetura
+
+**Govevia – Camada de Governança, Risco e Conformidade**  
+Versão Final Definitiva | Fevereiro 2026 | Confidencial
+
+<Callout type="info">
+**Nota de abertura**  
+Apenas decisões tomadas, justificativas, trade-offs rejeitados e gates binários.  
+Qualquer desvio = FAIL imediato e bloqueio de fase.
+</Callout>
+
+---
+
+## 1. Implementação do Audit Trail Imutável
+
+<DecisionBadge>DECISÃO ARQUITETURAL</DecisionBadge>
+
+Event store append-only em PostgreSQL (uma tabela por domínio de risco). Hash chain calculado no servidor. Fonte probatória única: event store + object storage com Object Lock + âncora temporal RFC 3161.
+
+### 1.1 Canonicalização Recursiva (obrigatória)
+
+Toda canonicalização é executada no **event-writer** (serviço dedicado em TypeScript) antes do cálculo do hash e da inserção. O SQL é apenas referência conceitual para o job de verificação diária — a implementação real e única fica no event-writer.
+
+```typescript
+function canonicalize(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(canonicalize);
+  }
+  if (value !== null && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([k, v]) => [k, canonicalize(v)])
+    );
+  }
+  return value;
+}
+```
+
+O payload canonicalizado é convertido para string UTF-8 determinística e usado no hash:
+
+```sql
+hash = sha256(
+  prev_hash     ||
+  tenant_id     ||
+  aggregate_id  ||
+  sequence      ||
+  event_type    ||
+  schema_version||
+  created_at    ||
+  canonical_payload_utf8
+)
+```
+
+Atomicidade da sequence garantida por tabela `aggregate_sequence` + `SELECT ... FOR UPDATE` na mesma transação + constraint `UNIQUE (tenant_id, aggregate_id, sequence)`.
+
+### 1.2 Mitigação Completa contra Acesso Privilegiado
+
+- Role do serviço event-writer: **apenas INSERT**.
+- Job diário de verificação de integridade da cadeia (usa a mesma função `canonicalize`).
+- Replicação para object storage com **Object Lock** habilitado.
+- **Âncora temporal obrigatória**: Merkle root diário por tenant/domínio → carimbo via RFC 3161 TSA (serviço público brasileiro ou equivalente). Receipt persistido como evento `TimestampAnchorRegistered`.
+
+Kafka é apenas canal de transporte (retenção 30 dias, compactação desabilitada, ACL estrito).  
+**Kafka nunca é considerado evidência primária.**
+
+---
+
+## 2. Modelo de Dados Central — Agregados Principais
+
+<DecisionBadge>DECISÃO ARQUITETURAL</DecisionBadge>
+
+Event sourcing puro. O estado atual é sempre projeção sobre a sequência de eventos. Revisões, revogações ou anulamentos são novos eventos — nunca UPDATE em registro existente.
+
+### 2.1 Agregado Contrato
+
+| Campo | Tipo | Observação |
+|---|---|---|
+| id | UUID | Gerado localmente |
+| processo_sei_id | TEXT | Chave de correlação SEI |
+| contratosgovbr_id | TEXT | NULL quando não integrado |
+| objeto_resumido | TEXT | Exibição; não duplica objeto completo |
+| valor_global | NUMERIC(15,2) | Base para cálculo de multas |
+| data_inicio / data_fim | DATE | Fonte dos alertas de vigência |
+| unidade_gestora_id | UUID | Define trilhas de aprovação |
+| fiscal_contrato_id[] | UUID[] | Evento FiscalDesignado por designação |
+| matriz_risco_versao_id | UUID | Versão ativa; congelada por evento |
+
+**Eventos:** `ContratoRegistrado`, `FiscalDesignado`, `VigenciaProrrogada`, `MatrizRiscoAtualizada`, `ContratoEncerrado`, `ContratoRescindido`
+
+### 2.2 Agregado Ocorrência
+
+| Campo | Tipo | Observação |
+|---|---|---|
+| id | UUID | |
+| contrato_id | UUID | FK Contrato; obrigatório |
+| tipo_ocorrencia | TEXT (enum) | INADIMPLEMENTO_PARCIAL, INADIMPLEMENTO_TOTAL, ATRASO, NAO_CONFORMIDADE_QUALIDADE, OUTRO |
+| descricao_estruturada | JSONB | Campos 6W; validado por schema |
+| impacto_financeiro_estimado | NUMERIC(15,2) | Base para cálculo de multa |
+| impacto_servico | TEXT (enum) | CRITICO, ALTO, MEDIO, BAIXO |
+| autor_id | UUID | Agente público que registrou |
+| evidencias[] | UUID[] | IDs de artefatos de evidência |
+
+**Eventos:** `OcorrenciaRegistrada`, `EvidenciaAnexada`, `OcorrenciaClassificada`, `OcorrenciaVinculadaADecisao`, `OcorrenciaArquivada`
+
+### 2.3 Agregado Decisão
+
+<Callout type="decision">
+Nenhum campo mutável. Qualquer status é projeção calculada sobre a sequência de eventos. Revisões são novos eventos (`DecisaoRevista`), nunca updates.
+</Callout>
+
+| Campo | Tipo | Observação |
+|---|---|---|
+| id | UUID | |
+| tipo_decisao | TEXT (enum) | APLICACAO_MULTA, ADVERTENCIA, SUSPENSAO, RESCISAO, ACEITE_ETAPA, ARQUIVAMENTO, EXCECAO_JUSTIFICADA |
+| contrato_id | UUID | |
+| ocorrencia_ids[] | UUID[] | Ocorrências que fundamentam |
+| tomador_decisao_id | UUID | Competência validada antes do registro |
+| fundamentacao_texto | TEXT | Rascunho IA + confirmação humana |
+| dispositivos_normativos | JSONB[] | `{norma_id, artigo, inciso, alinea}` |
+| resultado_calculado | JSONB | `{percentual_multa, valor_multa, base_calculo}` |
+| versao_regra_dosimetria_id | UUID | Imutável após registro |
+| versao_matriz_risco_id | UUID | Imutável após registro |
+| prazo_recursal_ate | DATE | Calculado pelo motor de prazos |
+| ia_model_id | TEXT | Proveniência da IA |
+| ia_prompt_template_version | TEXT | |
+| ia_input_fingerprint | TEXT | SHA-256 dos insumos |
+| ia_output_fingerprint | TEXT | SHA-256 do rascunho gerado |
+| human_confirmed_by | UUID | |
+| human_confirmed_at | TIMESTAMPTZ | |
+
+**Eventos:** `DecisaoRegistrada`, `DecisaoNotificada`, `RecursoRecebido`, `DecisaoRevista`, `DecisaoRevogada`, `DecisaoCumprida`
+
+---
+
+## 3. Versionamento de Regras GRC
+
+<DecisionBadge>DECISÃO ARQUITETURAL</DecisionBadge>
+
+Regras (matrizes de risco, critérios de dosimetria, checklists) são entidades versionadas imutavelmente. Decisões históricas permanecem vinculadas à versão vigente na data — nunca à versão atual.
+
+**Estrutura:** `id_regra` (UUID pai), `versao` (integer), `vigente_de` (DATE), `vigente_ate` (DATE, NULL = vigente), `payload_regra` (JSONB), `criado_por`
+
+**Mecanismo de consulta por data (obrigatório):**
+
+```sql
+SELECT * FROM regras_versionadas
+WHERE id_regra = ?
+  AND vigente_de <= data_decisao
+  AND (vigente_ate IS NULL OR vigente_ate >= data_decisao)
+ORDER BY versao DESC
+LIMIT 1;
+```
+
+A decisão registra o ID exato da versão no evento `DecisaoRegistrada`. Nunca altera versão retroativamente.
+
+---
+
+## 4. Modelo de Multi-Tenancy
+
+<DecisionBadge>DECISÃO ARQUITETURAL</DecisionBadge>
+
+| Camada | Mecanismo | Papel |
+|---|---|---|
+| Isolamento primário | schema-per-tenant | Um schema PostgreSQL por órgão |
+| Defense-in-depth | Row-Level Security | Obrigatório em event store, evidências e auditoria |
+| Descartado | database-per-tenant | Overhead operacional injustificável para MVP |
+| Descartado | RLS como isolamento primário | Falha única no middleware expõe todos os tenants |
+
+**Catálogo global** (schema public): tabela `tenants` com `id`, `slug`, `cnpj`, `nome_orgao`, `schema_name`.
+
+**Resolução:** middleware extrai `tenant_id` do JWT → lookup cacheado (Redis, TTL 5 min) → executa `SET search_path`.
+
+**Onboarding automatizado:** job cria schema + executa migrations + seed de normas federais (Lei 14.133, decretos, matriz padrão).
+
+**Criptografia:** chave lógica por tenant via Vault/KMS. Payloads sensíveis criptografados antes da escrita.
+
+---
+
+## 5. Modelo de Autorização
+
+<DecisionBadge>DECISÃO ARQUITETURAL</DecisionBadge>
+
+RBAC hierárquico com segregação de funções (SoD) embutida no **motor de workflow** — não apenas na UI. Violações bloqueiam a transação e geram evento de auditoria `TentativaDeAtoForaDeAlcada`.
+
+| Role | Capacidades |
+|---|---|
+| FISCAL_CONTRATO | Registra ocorrência, anexa evidência, propõe sanção |
+| GESTOR_CONTRATO | Decide dentro da alçada, assina aceites |
+| CONTROLE_INTERNO | Leitura total + export; sem escrita em fluxos contratuais |
+| JURIDICO | Emite parecer; sem registrar ocorrência ou aplicar sanção |
+| SECRETARIO | Dashboard de risco; aprovação acima do teto |
+
+**Regras de SoD validadas antes de cada transição de estado:**
+- Quem abriu a ocorrência não pode decidir a multa derivada.
+- O mesmo agente não pode ser fiscal e gestor do mesmo contrato.
+- Decisões acima de determinado valor exigem aprovação de role superior (alçada configurável).
+
+---
+
+## 6. Inteligência Artificial
+
+<DecisionBadge>DECISÃO ARQUITETURAL</DecisionBadge>
+
+IA restrita exclusivamente a **assistência de redação de rascunho de fundamentação**. Nunca decide, classifica infração, calcula dosimetria ou seleciona norma.
+
+**Fluxo único:**  
+Agente seleciona dispositivos → motor calcula resultado → IA gera rascunho → agente revisa e confirma explicitamente.
+
+**Metadados obrigatórios no evento `DecisaoRegistrada`:**
+
+| Campo | Tipo | Descrição |
+|---|---|---|
+| ia_model_id | TEXT | Ex.: `claude-sonnet-4-6` |
+| ia_prompt_template_version | TEXT | Versão do template usado |
+| ia_input_fingerprint | TEXT | SHA-256 dos insumos estruturados |
+| ia_output_fingerprint | TEXT | SHA-256 do rascunho gerado |
+| human_confirmed_by | UUID | Agente que confirmou |
+| human_confirmed_at | TIMESTAMPTZ | Momento da confirmação |
+
+Banner obrigatório na UI: **"Rascunho gerado por IA — revisão obrigatória antes de confirmar"**.
+
+---
+
+## 7. SLA, Durabilidade e Estratégia de Egress
+
+| Componente | SLA | RTO | RPO | Mecanismo |
+|---|---|---|---|---|
+| Interface operacional | 99,5% mensal | 4 h | — | Multi-AZ, auto-scaling |
+| Event store | 99,9% mensal | 1 h | 5 min | Streaming replication, failover automático |
+| Audit trail (object lock + RFC 3161) | 99,99% durabilidade | Imediato | 0 | Object Lock, replicação, integridade diária |
+| Motor de prazos | 99,5% mensal | 2 h | 15 min | Job redundante com deduplicação via fila |
+
+<Callout type="info">
+O SLA de interface operacional e o contrato de durabilidade do audit trail são **contratos distintos**. Indisponibilidade da interface não implica indisponibilidade da evidência.
+</Callout>
+
+**Egress:** self-service via API `/tenants/{id}/export/{dominio}`. Formato NDJSON + evidências. Especificação de schema documentada, estável e versionada semanticamente (deprecation period mínimo de 12 meses). Garantia contratual de portabilidade.
+
+---
+
+## 8. Roadmap Técnico — Fases com Gates de Pronto
+
+| Fase | Gates obrigatórios (todos devem PASS) |
+|---|---|
+| F1 (MVP) | GATE-R1, GATE-R4, schema-per-tenant + RLS, agregados completos, motor de prazos, fluxo ocorrência+multa, RBAC com SoD, IA com proveniência completa, export self-service |
+| F2 | Data warehouse + relatórios TCU/CGE/TCE, motor de competência em tempo real, criptografia per-tenant, integração Contratos.gov.br |
+| F3 | Camada semântica (Norma/Artigo/Dispositivo), analytics de risco e reincidência de fornecedores |
+
+### 8.1 Riscos Residuais e Mitigações
+
+- **Contention em aggregates de alta frequência:** em contratos com volume intenso de ocorrências simultâneas, a sequência por `aggregate_id` com `FOR UPDATE` pode virar hotspot. Será monitorado via métricas de lock wait em produção. Mitigação com sharding por tenant será avaliada no F2 caso necessário.
+- **Aceitação do RFC 3161 por auditores:** risco regulatório, não técnico. Exportação da cadeia completa com verificação manual estará disponível para auditores que solicitarem.
+- **Indisponibilidade do TSA:** retry com backoff exponencial + fila garantida. Se TSA primário falhar por mais de 5 minutos, job registra evento `TimestampAnchorPending` e tenta TSA secundário. Receipt aceito como definitivo apenas após confirmação.
+
+---
+
+## 9. Gates do Revisor (binários — sem discussão)
+
+| Gate | Critério de PASS | FAIL implica |
+|---|---|---|
+| **GATE-R1** Timestamping | Merkle root diário + receipt RFC 3161 verificável existir e cadeia ser revalidável | Bloqueio de F1 |
+| **GATE-R2** Scale | (a) Teste de onboarding automatizado em CI + (b) benchmark semanal com ≥ 50 tenants com métricas de performance | Bloqueio de F2 |
+| **GATE-R3** IA Proveniência | Os 6 metadados presentes em todo evento `DecisaoRegistrada` | Bloqueio de F1 |
+| **GATE-R4** Hash Canônico | Verificação de integridade rejeitar qualquer payload que não passe pela canonicalização recursiva do event-writer | Bloqueio de F1 |
+
+---
+
+*Fim do documento.*  
+*Govevia — Apêndice Técnico de Arquitetura | Fevereiro 2026*
