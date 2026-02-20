@@ -62,7 +62,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="group bg-white/5 p-6 rounded-lg hover:bg-white/10 transition-all duration-300 border-l-4 border-primary"
+                className="bg-white/5 p-6 rounded-lg hover:bg-white/10 transition-all duration-300 border-l-4 border-primary"
               >
                 <div className="flex items-start mb-4">
                   <div className="flex-shrink-0 text-primary mr-3 mt-1">
@@ -82,7 +82,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
                   </div>
                 </div>
                 {reg.body.length > 0 ? (
-                  <p className="text-sm text-gray-300 leading-relaxed font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{reg.body}</p>
+                  <p className="text-sm text-gray-300 leading-relaxed font-sans">{reg.body}</p>
                 ) : null}
               </motion.div>
             ))}
