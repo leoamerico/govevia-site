@@ -56,3 +56,24 @@ PASS se: G5 PASS.
 
 ### Lote 5 — Release
 PASS se: G1–G6 todos PASS em CI.
+
+---
+
+## Regras de manutenção (leitura obrigatória antes do primeiro commit)
+
+### Regra 1 — Sincronização MDX → DOCX
+
+Qualquer commit que modifica `docs/platform/appendix-architecture.mdx` **deve** ser acompanhado de um dos dois:
+
+1. Um segundo commit depositando o DOCX atualizado em `public/assets/appendix-architecture-vX.Y.docx` (incrementando a versão conforme ADR-002), **ou**
+2. Uma linha explícita na mensagem do commit no formato: `TODO(docx): regenerar vX.Y — <motivo do adiamento>`
+
+O Gate G3 verifica existência do arquivo mas não detecta divergência de conteúdo com o MDX. Sem essa convenção, o documento entregue a revisores externos fica desatualizado silenciosamente — passando em todos os gates.
+
+### Regra 2 — ADRs acompanham decisões
+
+Qualquer mudança arquitetural no apêndice que reverta ou modifique uma decisão registrada em ADR **deve** criar um novo ADR (não editar o existente). ADRs são imutáveis após status `Aceito`.
+
+### Regra 3 — Gates como contrato
+
+Os scripts `governance:check`, `governance:g3`, `governance:g4` são a definição executável do que "pronto" significa. Se um gate precisa ser suprimido para um commit passar, o gate está errado ou o commit está errado — documentar qual dos dois antes de prosseguir.
