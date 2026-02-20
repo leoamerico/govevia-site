@@ -56,7 +56,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white/5 p-8 rounded-lg hover:bg-white/10 transition-all duration-300 border border-white/10"
+              className="group bg-white/5 p-8 rounded-lg hover:bg-white/10 transition-all duration-300 border border-white/10"
             >
               <div className="text-primary mb-4">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
                 <h3 className="font-serif font-semibold text-xl text-white mb-4">{capability.title}</h3>
               ) : null}
               {capability.description ? (
-                <p className="text-gray-300 leading-relaxed font-sans text-sm">{capability.description}</p>
+                <p className="text-gray-300 leading-relaxed font-sans text-sm overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{capability.description}</p>
               ) : null}
             </motion.div>
           ))}

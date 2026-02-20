@@ -81,14 +81,14 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
                       viewport={{ once: true }}
                       className="relative"
                     >
-                      <div className="bg-white/10 p-6 rounded-lg border border-primary/30 hover:border-primary-light transition-colors duration-300">
+                      <div className="group bg-white/10 p-6 rounded-lg border border-primary/30 hover:border-primary-light transition-colors duration-300">
                         {item.label.length > 0 ? (
                           <div className="text-accent-gold font-sans font-semibold text-sm mb-2">{item.label}</div>
                         ) : null}
                         {item.value.length > 0 ? (
                           <div className="font-semibold text-white mb-2 text-sm font-sans">{item.value}</div>
                         ) : null}
-                        {item.body.length > 0 ? <div className="text-xs text-gray-400 font-sans">{item.body}</div> : null}
+                        {item.body.length > 0 ? <div className="text-xs text-gray-400 font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</div> : null}
                       </div>
                       {index < visibleTrailItems.length - 1 ? (
                         <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
@@ -131,7 +131,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
         >
           {visibleFeatures.map((item, idx) => (
-            <div key={`${idx}-${item.title}`} className="text-center">
+            <div key={`${idx}-${item.title}`} className="group text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
                 <svg className="w-8 h-8 text-primary-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
@@ -143,7 +143,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
                 </svg>
               </div>
               {item.title.length > 0 ? <h4 className="font-serif font-semibold text-lg mb-2">{item.title}</h4> : null}
-              {item.body.length > 0 ? <p className="text-gray-400 text-sm font-sans">{item.body}</p> : null}
+              {item.body.length > 0 ? <p className="text-gray-400 text-sm font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</p> : null}
             </div>
           ))}
         </motion.div>

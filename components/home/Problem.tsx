@@ -41,7 +41,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white/5 p-8 rounded-lg border-l-4 border-primary hover:bg-white/10 transition-all duration-300"
+              className="group bg-white/5 p-8 rounded-lg border-l-4 border-primary hover:bg-white/10 transition-all duration-300"
             >
               <div className="flex items-start">
                 <div className="flex-shrink-0 mr-4">
@@ -54,7 +54,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
                     {problem.title}
                   </h3>
                   {problem.description.trim().length > 0 ? (
-                    <p className="text-gray-300 leading-relaxed font-sans">{problem.description}</p>
+                    <p className="text-gray-300 leading-relaxed font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{problem.description}</p>
                   ) : null}
                 </div>
               </div>
