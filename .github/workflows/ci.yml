@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  gates:
+    name: Gates G1–G4
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # G2 — artefatos obrigatórios e referências cruzadas
+      - name: G2 — governance-check
+        run: npm run governance:check
+
+      # G4 — rastreabilidade da página /arquitetura → master MDX
+      - name: G4 — gate-g4
+        run: npm run governance:g4
+
+      # G1 — build Next.js (inclui prebuild: policy:gates + history:check)
+      - name: G1 — build
+        run: npm run build
+
+      - name: Gate summary
+        if: failure()
+        run: |
+          echo "::error::Um ou mais gates falharam. Revise os outputs acima."
+          echo "::error::G4 pendente de runtime check — adicionar step curl após npm start quando disponível."
