@@ -7,6 +7,10 @@ import Footer from '@/components/Footer';
 import { Callout } from '@/components/ui/Callout';
 import { DecisionBadge } from '@/components/ui/DecisionBadge';
 
+// Garante runtime Node.js — readFileSync não funciona em Edge Runtime.
+// Nunca remover sem migrar a leitura do MDX para fetch/import estático.
+export const runtime = 'nodejs';
+
 export const metadata: Metadata = {
   title: 'Arquitetura Técnica | Govevia',
   description:

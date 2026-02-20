@@ -48,6 +48,17 @@ pageContent.includes('docs/platform/appendix-architecture.mdx')
   ? pass('page.tsx referencia o caminho correto do master MDX')
   : fail('page.tsx NÃO referencia docs/platform/appendix-architecture.mdx');
 
+// 2b. Path usa process.cwd() — seguro em Next.js Server Components
+// (resolve relativo a raiz do projeto em build e runtime Node.js)
+pageContent.includes('process.cwd()')
+  ? pass('page.tsx usa process.cwd() para resolução de caminho (CI-safe)')
+  : fail('page.tsx NÃO usa process.cwd() — risco de path relativo quebrando em CI ou runtime');
+
+// 2c. runtime = nodejs declarado explicitamente
+pageContent.includes("runtime = 'nodejs'")
+  ? pass("page.tsx declara export const runtime = 'nodejs' (proteção contra Edge Runtime)")
+  : fail("page.tsx NÃO declara runtime = 'nodejs' — readFileSync pode falhar silenciosamente em Edge");
+
 // 3. Componentes customizados registrados na página
 for (const comp of ['Callout', 'DecisionBadge']) {
   pageContent.includes(comp)
