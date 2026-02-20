@@ -8,7 +8,7 @@ on:
 
 jobs:
   gates:
-    name: Gates G1–G4
+    name: Gates G1–G4 + G3
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,10 @@ jobs:
       - name: G4 — gate-g4
         run: npm run governance:g4
 
+      # G3 — Biblioteca de Evidências (DOCX presente e não-vazio)
+      - name: G3 — gate-g3
+        run: npm run governance:g3
+
       # G1 — build Next.js (inclui prebuild: policy:gates + history:check)
       - name: G1 — build
         run: npm run build
@@ -39,4 +43,4 @@ jobs:
         if: failure()
         run: |
           echo "::error::Um ou mais gates falharam. Revise os outputs acima."
-          echo "::error::G4 pendente de runtime check — adicionar step curl após npm start quando disponível."
+          echo "::error::G4 runtime check (curl /arquitetura) pendente — adicionar step após npm start quando preview deploy disponível."
