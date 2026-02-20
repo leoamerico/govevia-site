@@ -28,10 +28,19 @@ export const GOVEVIA_DESCRIPTION    =
 
 // ── Contato ───────────────────────────────────────────────
 export const ENVNEO_EMAIL           = 'govevia@govevia.com.br'
+export const ENVNEO_PHONE           = '+55 (34) 9 8422-8457'
+
+// ── Liderança ─────────────────────────────────────────────
+export const ENVNEO_FOUNDER = {
+  name:  'Leonardo Américo José Ribeiro',
+  role:  'CEO & Founder',
+  email: 'leonardo@govevia.com.br',
+  phone: '+55 (34) 9 8422-8457',
+} as const
 
 // ── Endereço ──────────────────────────────────────────────
 export const ENVNEO_ADDRESS = {
-  street:  'Av. Palmeira Imperial, 165 / 302',
+  street:  'Avenida Palmeira Imperial, 165 / 302',
   zip:     '38.406-582',
   city:    'Uberlândia-MG',
   country: 'Brasil',
@@ -64,6 +73,8 @@ export const ENVNEO_BRAND = {
   tagline:         GOVEVIA_TAGLINE,
   description:     GOVEVIA_DESCRIPTION,
   email:           ENVNEO_EMAIL,
+  phone:           ENVNEO_PHONE,
+  founder:         ENVNEO_FOUNDER,
   address:         ENVNEO_ADDRESS,
   segment:         ENVNEO_SEGMENT,
   siteUrl:         ENVNEO_SITE_URL,
