@@ -14,6 +14,17 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 
+// ─── Escopo deste script ──────────────────────────────────────────────────────
+// Este script cobre APENAS o Gate G2 (existência de artefatos + referências).
+//
+// Gates NÃO cobertos aqui:
+//   G1 — coberto por `npm run build` (Next.js)
+//   G4 — diff entre `/arquitetura` renderizado e docs/platform/appendix-architecture.mdx
+//        → requer a página app/arquitetura/page.mdx existir (Lote 2)
+//        → implementar como step separado em .github/workflows/ci.yml após Lote 2
+//   G5 — coberto por testes de integração da API /api/contact (Lote 4)
+//   G6 — coberto por healthcheck da rota /api/healthz (Lote 4)
+
 // ─── Artefatos obrigatórios ───────────────────────────────────────────────────
 // Caminho relativo à raiz do repositório → descrição legível
 const REQUIRED_FILES = {
