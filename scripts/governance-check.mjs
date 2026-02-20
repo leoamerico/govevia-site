@@ -32,6 +32,8 @@ const REQUIRED_FILES = {
     'Master do Apêndice Técnico de Arquitetura',
   'docs/platform/adr/ADR-001-canonicalizacao-payload.md':
     'ADR-001 — Canonicalização de Payload',
+  'docs/platform/adr/ADR-002-artefatos-evidencia.md':
+    'ADR-002 — Estratégia de Artefatos de Evidência',
   'docs/platform/PLANO-OPERACIONAL.md':
     'Plano Operacional do Site Govevia',
   'CHANGELOG.md':
