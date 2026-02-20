@@ -30,7 +30,8 @@
     "security:verify": "npm run security:csp && npm run build",
     "policy:gates": "node tools/policy-gates/run-all.mjs",
     "governance:check": "node scripts/governance-check.mjs",
-    "governance:g4": "node scripts/gate-g4.mjs"
+    "governance:g4": "node scripts/gate-g4.mjs",
+    "governance:g3": "node scripts/gate-g3.mjs"
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.0",

@@ -67,6 +67,17 @@ O Apêndice Técnico é entregue a revisores externos de alto nível (arquitetos
 
 ---
 
+## Convenção de versionamento do DOCX
+
+O arquivo segue versionamento semântico no nome: `appendix-architecture-vX.Y.docx`.
+
+- **`v1.x`** — correções e adições que não mudam decisões arquiteturais (texto, tabelas, exemplos).
+- **`vX.0` (X ≥ 2)** — mudança de decisão arquitetural ou adição de seção principal.
+
+A fricção de atualizar Gate G3 e `governance-check` a cada nova versão é intencional: impede atualização silenciosa do DOCX sem registro rastreável. Qualquer commit de novo DOCX deve incluir incremento de versão no nome do arquivo e atualização dos scripts de gate.
+
+---
+
 ## Critério de revisão
 
 Esta decisão deve ser reavaliada se:
