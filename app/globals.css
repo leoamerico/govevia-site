@@ -16,7 +16,7 @@
   }
   
   body {
-    @apply font-sans text-institutional-graphite antialiased;
+    @apply font-sans text-white bg-[#080c14] antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -44,11 +44,11 @@
   }
   
   .section-title {
-    @apply text-4xl md:text-5xl font-sans font-bold text-institutional-navy mb-6;
+    @apply text-4xl md:text-5xl font-sans font-bold text-white mb-6;
   }
   
   .section-subtitle {
-    @apply text-xl md:text-2xl text-institutional-slate max-w-3xl;
+    @apply text-xl md:text-2xl text-gray-300 max-w-3xl;
   }
 }
 

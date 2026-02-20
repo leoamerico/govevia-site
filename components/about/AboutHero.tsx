@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function AboutHero() {
   return (
-    <section className="relative pt-32 pb-20 bg-gradient-to-br from-white via-slate-50 to-institutional-offwhite">
+    <section className="relative pt-32 pb-20 bg-[#080c14]">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -12,10 +12,10 @@ export default function AboutHero() {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-institutional-navy mb-6">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
             Sobre a Govevia
           </h1>
-          <p className="text-xl md:text-2xl text-institutional-slate leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
             Desenvolvemos tecnologia para que a governança pública deixe de ser discurso 
             e passe a ser código executável com enforcement técnico verificável.
           </p>

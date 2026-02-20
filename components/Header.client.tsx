@@ -31,8 +31,8 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/98 backdrop-blur-md shadow-[0_1px_0_0_rgba(16,110,253,0.15),0_4px_24px_0_rgba(0,0,0,0.07)]'
-          : 'bg-white/90 backdrop-blur-sm'
+          ? 'bg-[#080c14]/98 backdrop-blur-md shadow-[0_1px_0_0_rgba(16,110,253,0.25),0_4px_24px_0_rgba(0,0,0,0.4)]'
+          : 'bg-[#080c14]/90 backdrop-blur-sm'
       }`}
     >
       <nav className="container-custom" aria-label="Navegação principal">
@@ -45,7 +45,7 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
                   style={{ width: '32px', height: '32px', display: 'inline-flex', alignItems: 'center' }}
                   dangerouslySetInnerHTML={{ __html: goveviaLogoSvg }}
                 />
-                <span className="font-bold text-[1.15rem] tracking-tight text-institutional-navy leading-none">
+                <span className="font-bold text-[1.15rem] tracking-tight text-white leading-none">
                   {productName}
                 </span>
               </span>
@@ -63,7 +63,7 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
             {legalEntityName.trim().length > 0 ? (
               <>
                 <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
-                <span className="hidden sm:inline text-xs font-sans font-semibold text-institutional-slate tracking-wide">
+                <span className="hidden sm:inline text-xs font-sans font-semibold text-gray-400 tracking-wide">
                   {legalEntityName}
                 </span>
               </>
@@ -75,7 +75,7 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-institutional-graphite hover:text-primary font-medium text-sm relative transition-colors duration-200 after:absolute after:bottom-[-3px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300 after:content-['']"
+                className="text-gray-300 hover:text-primary-light font-medium text-sm relative transition-colors duration-200 after:absolute after:bottom-[-3px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300 after:content-['']"
               >
                 {item.name}
               </Link>
@@ -88,7 +88,7 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
 
           <button
             type="button"
-            className="md:hidden p-2 rounded-md text-institutional-graphite hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+            className="md:hidden p-2 rounded-md text-gray-300 hover:text-primary-light focus:outline-none focus:ring-2 focus:ring-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Abrir menu de navegação"
             aria-expanded={isMobileMenuOpen}
@@ -104,13 +104,13 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
         </div>
 
         {isMobileMenuOpen ? (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="md:hidden py-4 border-t border-white/10">
             <div className="flex flex-col space-y-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-institutional-graphite hover:text-primary font-medium transition-colors duration-200 py-2"
+                  className="text-gray-300 hover:text-primary-light font-medium transition-colors duration-200 py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

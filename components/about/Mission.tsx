@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function Mission() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[#080c14]">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -14,11 +14,11 @@ export default function Mission() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-institutional-navy mb-8">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-8">
               Nossa Missão
             </h2>
-            <div className="bg-gradient-to-br from-primary/10 to-slate-50 p-12 rounded-2xl border-l-4 border-primary">
-              <p className="text-2xl font-serif font-semibold text-institutional-navy leading-relaxed">
+              <div className="bg-primary/10 border border-primary/20 p-12 rounded-2xl border-l-4">
+              <p className="text-2xl font-serif font-semibold text-white leading-relaxed">
                 Tornar a governança pública tecnicamente executável
               </p>
             </div>
@@ -31,7 +31,7 @@ export default function Mission() {
             viewport={{ once: true }}
             className="prose prose-lg max-w-none"
           >
-            <div className="text-institutional-slate leading-relaxed space-y-6">
+            <div className="text-gray-300 leading-relaxed space-y-6">
               <p>
                 Há milhares de servidores públicos no Brasil que conhecem o seu trabalho de dentro
                 para fora — cada prazo que não pode falhar, cada ato que precisa de motivação, cada
@@ -69,7 +69,7 @@ export default function Mission() {
                 experiência não são substituídos — são o coração do sistema, pois são eles que sabem
                 onde estão os erros que nenhum agente de IA conseguiria encontrar sozinho.
               </p>
-              <p className="font-semibold text-institutional-navy text-xl">
+              <p className="font-semibold text-white text-xl">
                 Govevia é o resultado dessa visão: uma plataforma onde a governança deixa de ser
                 documentada para ser executada — e onde cada pessoa que conhece o seu trabalho de
                 verdade encontra o lugar que sempre mereceu.

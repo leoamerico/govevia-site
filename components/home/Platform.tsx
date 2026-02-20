@@ -33,7 +33,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-50 to-white" id="plataforma">
+    <section className="py-24 bg-[#080c14]" id="plataforma">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+              className="bg-white/5 p-8 rounded-lg hover:bg-white/10 transition-all duration-300 border border-white/10"
             >
               <div className="text-primary mb-4">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,10 +64,10 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
                 </svg>
               </div>
               {capability.title ? (
-                <h3 className="font-serif font-semibold text-xl text-institutional-navy mb-4">{capability.title}</h3>
+                <h3 className="font-serif font-semibold text-xl text-white mb-4">{capability.title}</h3>
               ) : null}
               {capability.description ? (
-                <p className="text-institutional-slate leading-relaxed font-sans text-sm">{capability.description}</p>
+                <p className="text-gray-300 leading-relaxed font-sans text-sm">{capability.description}</p>
               ) : null}
             </motion.div>
           ))}

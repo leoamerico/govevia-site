@@ -18,7 +18,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
   }
 
   return (
-    <section className="py-24 bg-white" id="problema">
+    <section className="py-24 bg-[#080c14]" id="problema">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,7 +41,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-institutional-offwhite p-8 rounded-lg border-l-4 border-primary hover:shadow-lg transition-shadow duration-300"
+              className="bg-white/5 p-8 rounded-lg border-l-4 border-primary hover:bg-white/10 transition-all duration-300"
             >
               <div className="flex items-start">
                 <div className="flex-shrink-0 mr-4">
@@ -50,11 +50,11 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-serif font-semibold text-lg text-institutional-navy mb-3">
+                  <h3 className="font-serif font-semibold text-lg text-white mb-3">
                     {problem.title}
                   </h3>
                   {problem.description.trim().length > 0 ? (
-                    <p className="text-institutional-slate leading-relaxed font-sans">{problem.description}</p>
+                    <p className="text-gray-300 leading-relaxed font-sans">{problem.description}</p>
                   ) : null}
                 </div>
               </div>
@@ -70,7 +70,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
           className="mt-12 text-center"
         >
           {quote.title.trim().length > 0 || quote.body.trim().length > 0 ? (
-            <div className="inline-block bg-institutional-navy text-white px-8 py-4 rounded-lg">
+            <div className="inline-block bg-white/10 border border-white/10 text-white px-8 py-4 rounded-lg">
               {quote.title.trim().length > 0 ? <p className="font-serif font-semibold text-lg">{quote.title}</p> : null}
               {quote.body.trim().length > 0 ? (
                 <p className="mt-2 text-sm text-gray-300 font-sans">{quote.body}</p>

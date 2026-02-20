@@ -41,20 +41,20 @@ export default function ContatoPage({ searchParams }: Props) {
     <>
       <Header />
       <main>
-        <section className="pt-32 pb-8 bg-gradient-to-b from-institutional-offwhite to-white">
+        <section className="pt-32 pb-8 bg-zinc-950">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto">
               {contactTitle.trim().length > 0 ? (
-                <h1 className="text-3xl md:text-5xl font-serif font-bold text-institutional-navy mb-4 leading-tight">
+                <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-4 leading-tight">
                   {contactTitle}
                 </h1>
               ) : null}
               {contactSubtitle.trim().length > 0 ? (
-                <p className="text-institutional-slate font-sans leading-relaxed">{contactSubtitle}</p>
+                <p className="text-gray-300 font-sans leading-relaxed">{contactSubtitle}</p>
               ) : null}
 
               {context ? (
-                <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm text-institutional-graphite">
+                <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm text-gray-300">
                   <span className="font-mono">{context}</span>
                 </div>
               ) : null}

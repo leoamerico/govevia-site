@@ -20,13 +20,13 @@ export default function BlogPage() {
     <>
       <Header />
       <main>
-        <section className="relative pt-32 pb-16 bg-gradient-to-b from-institutional-offwhite via-white to-slate-50">
+        <section className="relative pt-32 pb-16 bg-zinc-950">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-serif font-bold text-institutional-navy mb-6">
+              <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
                 Publicações
               </h1>
-              <p className="text-xl text-institutional-slate font-sans leading-relaxed max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 font-sans leading-relaxed max-w-3xl mx-auto">
                 Artigos técnicos sobre governança digital, enforcement normativo e conformidade
                 regulatória para administração pública municipal.
               </p>
@@ -34,12 +34,12 @@ export default function BlogPage() {
           </div>
         </section>
 
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-zinc-950">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto">
               {posts.length === 0 ? (
                 <div className="text-center py-16">
-                  <p className="text-institutional-slate font-sans text-lg">
+                  <p className="text-gray-300 font-sans text-lg">
                     Não há publicações disponíveis no momento.
                   </p>
                 </div>
@@ -48,7 +48,7 @@ export default function BlogPage() {
                   {posts.map((post) => (
                     <article
                       key={post.slug}
-                      className="border-b border-gray-200 pb-8 last:border-b-0"
+                      className="border-b border-white/10 pb-8 last:border-b-0"
                     >
                       <Link href={`/blog/${post.slug}`} className="group block">
                         <div className="flex flex-wrap gap-2 mb-3">
@@ -62,15 +62,15 @@ export default function BlogPage() {
                           ))}
                         </div>
 
-                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-institutional-navy group-hover:text-primary transition-colors duration-200 mb-3">
+                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-white group-hover:text-primary transition-colors duration-200 mb-3">
                           {post.title}
                         </h2>
 
-                        <p className="text-institutional-slate font-sans leading-relaxed mb-4">
+                        <p className="text-gray-300 font-sans leading-relaxed mb-4">
                           {post.description}
                         </p>
 
-                        <div className="flex items-center gap-4 text-sm text-institutional-silver font-sans">
+                        <div className="flex items-center gap-4 text-sm text-gray-400 font-sans">
                           <time dateTime={post.date}>
                             {new Date(post.date).toLocaleDateString('pt-BR', {
                               year: 'numeric', month: 'long', day: 'numeric',

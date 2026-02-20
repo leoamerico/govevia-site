@@ -25,20 +25,11 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center bg-[#080c14] overflow-hidden pt-20">
       {/* Atmospheric gradient blobs */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div style={{ position: 'absolute', top: '-10%', right: '-8%', width: '55vw', maxWidth: '680px', height: '55vw', maxHeight: '680px', borderRadius: '50%', background: 'radial-gradient(circle at 60% 40%, rgba(16,110,253,0.08) 0%, rgba(56,182,255,0.03) 45%, transparent 70%)' }} />
         <div style={{ position: 'absolute', bottom: '-5%', left: '-5%', width: '38vw', maxWidth: '480px', height: '38vw', maxHeight: '480px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(92,225,230,0.06) 0%, transparent 70%)' }} />
-      </div>
-      {/* Decorative brand mark — watermark via multiply blend */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-[38vw] max-w-[520px]"
-        style={{ opacity: 0.055, mixBlendMode: 'multiply' }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/brand/govevia-mark-on-white.png" alt="" className="w-full h-auto" />
       </div>
 
       <div className="container-custom relative z-10 py-20">
@@ -56,7 +47,7 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             transition={{ duration: 0.8 }}
           >
             {hasTitle ? (
-              <h1 className="text-hero-mobile md:text-hero font-serif font-bold text-institutional-navy mb-8 text-balance">
+              <h1 className="text-hero-mobile md:text-hero font-serif font-bold text-white mb-8 text-balance">
                 {title}
               </h1>
             ) : null}
@@ -68,7 +59,7 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {subtitle.trim().length > 0 ? (
-              <p className="text-xl md:text-2xl text-institutional-slate mb-12 max-w-4xl mx-auto leading-relaxed font-sans">{subtitle}</p>
+              <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed font-sans">{subtitle}</p>
             ) : null}
           </motion.div>
 
@@ -95,17 +86,17 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-16 pt-12 border-t border-gray-200"
+            className="mt-16 pt-12 border-t border-white/10"
           >
             {legal.title.trim().length > 0 ? (
-              <p className="text-xs text-institutional-silver font-mono uppercase tracking-widest mb-4">{legal.title}</p>
+              <p className="text-xs text-gray-500 font-mono uppercase tracking-widest mb-4">{legal.title}</p>
             ) : null}
             {legalItems.length > 0 ? (
               <div className="flex flex-wrap justify-center gap-2">
                 {legalItems.map((item, idx) => (
                   <span
                     key={`${idx}-${item}`}
-                    className="inline-flex items-center px-3 py-1 rounded-md bg-institutional-offwhite border border-institutional-lightgray text-xs text-institutional-slate font-mono tracking-tight"
+                    className="inline-flex items-center px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-400 font-mono tracking-tight"
                   >
                     {item}
                   </span>
@@ -125,7 +116,7 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
       >
         <div className="flex flex-col items-center">
           {scrollLabel.trim().length > 0 ? (
-            <span className="text-xs text-institutional-silver mb-2 font-sans">{scrollLabel}</span>
+            <span className="text-xs text-gray-500 mb-2 font-sans">{scrollLabel}</span>
           ) : null}
           <svg className="w-5 h-5 text-primary animate-bounce" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>

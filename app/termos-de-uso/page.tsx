@@ -15,19 +15,19 @@ export default function TermsOfUsePage() {
   return (
     <>
       <Header />
-      <main className="pt-32 pb-24 bg-white">
+      <main className="pt-32 pb-24 bg-zinc-950">
         <div className="container-custom max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-institutional-navy mb-8">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-8">
             Termos de Uso
           </h1>
 
-          <div className="prose prose-lg max-w-none text-institutional-slate">
-            <p className="text-sm text-institutional-lightgray mb-8">
+          <div className="prose prose-lg max-w-none text-gray-300">
+            <p className="text-sm text-gray-500 mb-8">
               Última atualização: 19 de fevereiro de 2026
             </p>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 1. Aceitação dos Termos
               </h2>
               <p className="leading-relaxed mb-4">
@@ -43,7 +43,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibent text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibent text-white mb-4">
                 2. Descrição do Serviço
               </h2>
               <p className="leading-relaxed mb-4">
@@ -59,7 +59,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 3. Uso Permitido
               </h2>
               <p className="leading-relaxed mb-4">
@@ -76,7 +76,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 4. Propriedade Intelectual
               </h2>
               <p className="leading-relaxed mb-4">
@@ -93,7 +93,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 5. Isenção de Responsabilidade
               </h2>
               <p className="leading-relaxed mb-4">
@@ -110,7 +110,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 6. Links Externos
               </h2>
               <p className="leading-relaxed">
@@ -121,7 +121,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 7. Privacidade
               </h2>
               <p className="leading-relaxed">
@@ -135,7 +135,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 8. Modificações dos Termos
               </h2>
               <p className="leading-relaxed">
@@ -147,7 +147,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 9. Lei Aplicável e Foro
               </h2>
               <p className="leading-relaxed">
@@ -158,14 +158,14 @@ export default function TermsOfUsePage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 10. Contato
               </h2>
               <p className="leading-relaxed mb-4">
                 Para dúvidas sobre estes Termos de Uso:
               </p>
-              <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-primary">
-                <p className="font-semibold text-institutional-navy mb-2">Env Neo Ltda.</p>
+              <div className="bg-zinc-900 p-6 rounded-lg border-l-4 border-primary">
+                <p className="font-semibold text-white mb-2">Env Neo Ltda.</p>
                 <p className="mb-1">
                   E-mail:{' '}
                   <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">
@@ -177,8 +177,8 @@ export default function TermsOfUsePage() {
               </div>
             </section>
 
-            <div className="mt-16 pt-8 border-t border-gray-200">
-              <p className="text-sm text-institutional-lightgray text-center">
+            <div className="mt-16 pt-8 border-t border-white/10">
+              <p className="text-sm text-gray-500 text-center">
                 Estes Termos de Uso são regidos pela legislação brasileira — Lei nº 12.965/2014 (Marco Civil da Internet)
               </p>
             </div>

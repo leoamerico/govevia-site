@@ -28,7 +28,7 @@ export default function PersonaSelector({ activePersonaId, helperText, ariaLabel
   return (
     <div>
       {helperText.trim().length > 0 ? (
-        <div className="text-xs font-mono text-institutional-silver mb-3">
+        <div className="text-xs font-mono text-gray-500 mb-3">
           {helperText}
         </div>
       ) : null}
@@ -44,13 +44,13 @@ export default function PersonaSelector({ activePersonaId, helperText, ariaLabel
               aria-pressed={isActive}
               className={
                 isActive
-                  ? 'rounded-md border border-primary bg-primary/5 px-4 py-2 text-sm font-sans font-semibold text-institutional-navy focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
-                  : 'rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-sans font-semibold text-institutional-graphite hover:border-primary/50 hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+                  ? 'rounded-md border border-primary bg-primary/20 px-4 py-2 text-sm font-sans font-semibold text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+                  : 'rounded-md border border-white/20 bg-white/5 px-4 py-2 text-sm font-sans font-semibold text-gray-200 hover:border-primary/50 hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
               }
             >
               {persona.label}
               {persona.role.trim().length > 0 ? (
-                <span className="ml-2 text-xs font-mono text-institutional-slate">{persona.role}</span>
+                <span className="ml-2 text-xs font-mono text-gray-400">{persona.role}</span>
               ) : null}
             </button>
           )

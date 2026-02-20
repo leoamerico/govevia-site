@@ -40,7 +40,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-50 to-institutional-offwhite">
+    <section className="py-24 bg-gradient-to-b from-gray-900 to-[#080c14]">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -62,7 +62,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="bg-white p-6 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-primary"
+                className="bg-white/5 p-6 rounded-lg hover:bg-white/10 transition-all duration-300 border-l-4 border-primary"
               >
                 <div className="flex items-start mb-4">
                   <div className="flex-shrink-0 text-primary mr-3 mt-1">
@@ -77,12 +77,12 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
                       </div>
                     ) : null}
                     {reg.title.length > 0 ? (
-                      <h3 className="font-serif font-semibold text-lg text-institutional-navy mb-2">{reg.title}</h3>
+                      <h3 className="font-serif font-semibold text-lg text-white mb-2">{reg.title}</h3>
                     ) : null}
                   </div>
                 </div>
                 {reg.body.length > 0 ? (
-                  <p className="text-sm text-institutional-slate leading-relaxed font-sans">{reg.body}</p>
+                  <p className="text-sm text-gray-300 leading-relaxed font-sans">{reg.body}</p>
                 ) : null}
               </motion.div>
             ))}
@@ -97,7 +97,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
           className="mt-16 max-w-4xl mx-auto text-center"
         >
           {closing.title.trim().length > 0 || closing.body.trim().length > 0 ? (
-            <div className="bg-institutional-navy text-white p-8 rounded-lg">
+            <div className="bg-white/5 border border-white/10 text-white p-8 rounded-lg">
               {closing.title.trim().length > 0 ? (
                 <h3 className="font-serif font-semibold text-xl mb-4">{closing.title}</h3>
               ) : null}

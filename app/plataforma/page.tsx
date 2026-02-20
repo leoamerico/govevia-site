@@ -57,7 +57,7 @@ function ModuleIcon({ paths }: { paths: string[] }) {
 
 function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
   return (
-    <article className="group relative flex flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-7 transition-all duration-300 hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.08)]">
+    <article className="group relative flex flex-col gap-5 rounded-2xl border border-white/10 bg-zinc-900 p-7 transition-all duration-300 hover:border-amber-400/50 hover:shadow-[0_8px_30px_rgba(245,158,11,0.08)]">
       {/* accent line on hover */}
       <div className="absolute top-0 left-7 right-7 h-px bg-gradient-to-r from-transparent via-amber-400/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -66,16 +66,16 @@ function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
           <ModuleIcon paths={mod.iconPaths} />
         </div>
         <div>
-          <h3 className="font-serif font-bold text-slate-900 text-base leading-snug">{mod.title}</h3>
+          <h3 className="font-serif font-bold text-white text-base leading-snug">{mod.title}</h3>
           <p className="text-xs font-mono text-amber-600 mt-0.5 uppercase tracking-wide">{mod.subtitle}</p>
         </div>
       </div>
 
-      <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">{mod.functional}</p>
+      <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">{mod.functional}</p>
 
       <ul className="space-y-1.5">
         {mod.technicalFeatures.slice(0, 3).map((feat, i) => (
-          <li key={i} className="flex items-start gap-2 text-xs text-slate-500">
+          <li key={i} className="flex items-start gap-2 text-xs text-gray-400">
             <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold text-[9px]">
               ✓
             </span>
@@ -84,12 +84,12 @@ function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
         ))}
       </ul>
 
-      <div className="pt-1 border-t border-slate-100">
+      <div className="pt-1 border-t border-white/10">
         <div className="flex flex-wrap gap-1.5">
           {mod.legalBasis.slice(0, 2).map((basis, i) => (
             <span
               key={i}
-              className="text-[10px] font-mono text-slate-400 bg-slate-50 border border-slate-200 rounded px-1.5 py-0.5 leading-tight"
+              className="text-[10px] font-mono text-gray-500 bg-white/5 border border-white/10 rounded px-1.5 py-0.5 leading-tight"
             >
               {basis.split(' - ')[0]}
             </span>
@@ -158,7 +158,7 @@ export default function PlatformPage({ searchParams }: Props) {
               </div>
 
               {/* Legal anchors */}
-              <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono text-slate-500">
+              <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono text-gray-400">
                 {['MP 2.200-2/2001', 'Lei 14.063/2020', 'Lei 9.784/99', 'Lei 12.527/2011 (LAI)', 'LGPD'].map((law) => (
                   <span key={law}>{law}</span>
                 ))}
@@ -187,14 +187,14 @@ export default function PlatformPage({ searchParams }: Props) {
         </section>
 
         {/* ── MÓDULOS ──────────────────────────────────────────────────────── */}
-        <section className="py-24 bg-slate-50" id="modulos">
+        <section className="py-24 bg-zinc-950" id="modulos">
           <div className="container-custom">
             <div className="max-w-2xl mb-14">
               <p className="text-xs font-mono uppercase tracking-widest text-amber-600 mb-3">Módulos</p>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-4 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">
                 Cobertura completa do ciclo administrativo
               </h2>
-              <p className="text-slate-500 leading-relaxed font-sans">
+              <p className="text-gray-400 leading-relaxed font-sans">
                 Cada módulo implementa controles técnicos alinhados a requisitos normativos,
                 produz evidência verificável e se integra aos demais — sem silos.
               </p>
@@ -212,7 +212,7 @@ export default function PlatformPage({ searchParams }: Props) {
         <Suspense
           fallback={
             <div className="py-24 bg-slate-950 text-center">
-              <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">
+              <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">
                 Carregando…
               </span>
             </div>
@@ -222,14 +222,14 @@ export default function PlatformPage({ searchParams }: Props) {
         </Suspense>
 
         {/* ── DIFERENCIAIS ─────────────────────────────────────────────────── */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-zinc-950">
           <div className="container-custom">
             <div className="max-w-2xl mx-auto text-center mb-16">
               <p className="text-xs font-mono uppercase tracking-widest text-amber-600 mb-3">Diferenciais</p>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
                 O que torna a Govevia diferente
               </h2>
-              <p className="text-slate-500 leading-relaxed font-sans">
+              <p className="text-gray-400 leading-relaxed font-sans">
                 Não vendemos software de workflow. Vendemos infraestrutura de responsabilização.
               </p>
             </div>
@@ -254,11 +254,11 @@ export default function PlatformPage({ searchParams }: Props) {
               ].map(({ icon, title, body }) => (
                 <div
                   key={title}
-                  className="flex flex-col gap-4 p-8 rounded-2xl border border-slate-100 bg-slate-50 hover:border-amber-200 transition-colors"
+                  className="flex flex-col gap-4 p-8 rounded-2xl border border-white/10 bg-zinc-900 hover:border-amber-400/40 transition-colors"
                 >
                   <div className="text-2xl font-mono text-amber-500 select-none">{icon}</div>
-                  <h3 className="font-serif font-bold text-slate-900 text-lg">{title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed font-sans">{body}</p>
+                  <h3 className="font-serif font-bold text-white text-lg">{title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed font-sans">{body}</p>
                 </div>
               ))}
             </div>

@@ -15,19 +15,19 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <Header />
-      <main className="pt-32 pb-24 bg-white">
+      <main className="pt-32 pb-24 bg-zinc-950">
         <div className="container-custom max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-institutional-navy mb-8">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-8">
             Política de Privacidade
           </h1>
           
-          <div className="prose prose-lg max-w-none text-institutional-slate">
-            <p className="text-sm text-institutional-lightgray mb-8">
+          <div className="prose prose-lg max-w-none text-gray-300">
+            <p className="text-sm text-gray-500 mb-8">
               Última atualização: 13 de fevereiro de 2026
             </p>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 1. Informações Gerais
               </h2>
               <p className="leading-relaxed mb-4">
@@ -43,7 +43,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 2. Dados Coletados
               </h2>
               <p className="leading-relaxed mb-4">
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 3. Finalidade do Tratamento
               </h2>
               <p className="leading-relaxed mb-4">
@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 4. Base Legal
               </h2>
               <p className="leading-relaxed">
@@ -88,7 +88,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 5. Compartilhamento de Dados
               </h2>
               <p className="leading-relaxed mb-4">
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 6. Armazenamento e Segurança
               </h2>
               <p className="leading-relaxed mb-4">
@@ -120,7 +120,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 7. Direitos do Titular
               </h2>
               <p className="leading-relaxed mb-4">
@@ -145,7 +145,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 8. Cookies e Tecnologias Similares
               </h2>
               <p className="leading-relaxed">
@@ -156,7 +156,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 9. Alterações nesta Política
               </h2>
               <p className="leading-relaxed">
@@ -166,22 +166,22 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-12">
-              <h2 className="text-2xl font-display font-semibold text-institutional-navy mb-4">
+              <h2 className="text-2xl font-display font-semibold text-white mb-4">
                 10. Contato
               </h2>
               <p className="leading-relaxed mb-4">
                 Para dúvidas sobre esta Política de Privacidade ou sobre o tratamento de dados pessoais:
               </p>
-              <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-primary">
-                <p className="font-semibold text-institutional-navy mb-2">Env Neo Ltda.</p>
+              <div className="bg-zinc-900 p-6 rounded-lg border-l-4 border-primary">
+                <p className="font-semibold text-white mb-2">Env Neo Ltda.</p>
                 <p className="mb-1">E-mail: <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">govevia@govevia.com.br</a></p>
                 <p className="mb-1">CNPJ: 36.207.211/0001-47</p>
                 <p>Endereço: Av. Palmeira Imperial, 165 / 302, CEP 38.406-582, Uberlândia-MG</p>
               </div>
             </section>
 
-            <div className="mt-16 pt-8 border-t border-gray-200">
-              <p className="text-sm text-institutional-lightgray text-center">
+            <div className="mt-16 pt-8 border-t border-white/10">
+              <p className="text-sm text-gray-500 text-center">
                 Esta Política de Privacidade está em conformidade com a Lei 13.709/2018 (LGPD)
               </p>
             </div>
