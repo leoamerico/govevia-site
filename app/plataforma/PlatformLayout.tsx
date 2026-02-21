@@ -114,12 +114,6 @@ export function PlatformLayout({ initialView }: { initialView: PersonaId | null 
                                 Solicitar demonstração
                                 <span aria-hidden="true">→</span>
                             </Link>
-                            <Link
-                                href="/sobre"
-                                className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10 hover:border-white/30"
-                            >
-                                Sobre a Govevia
-                            </Link>
                         </div>
 
                         {/* Legal anchors */}

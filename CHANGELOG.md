@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(plataforma): remoção do botão "Sobre a Govevia" redundante
+
+- `app/plataforma/PlatformLayout.tsx`: botão secundário `/sobre` removido da seção hero da plataforma — link já disponível no menu de navegação.
+
 ## 2026-02-21 — fix(contact): caixas "Implantação consultiva" e CEO unificadas
 
 - `components/home/Contact.tsx`: dois cards separados da coluna esquerda fundidos em um único `bg-white/5 rounded-lg border`, com `<hr className="border-white/10">` como divisor interno.
