@@ -1,5 +1,13 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — feat(site): badges regulatórios linkados a legal-references
+
+- Criado `lib/legal/legal-references.ts` — SSOT com 9 referências legais (slug, short_name, full_name, official_url, category).
+- Compliance badges (6): agora são links clicáveis com `target="_blank"`, `aria-label`, ícone externo ↗, hover state.
+- Hero badges (6): convertidos de `string[]` para `Array<{ label, url }>` — mesmo padrão de links.
+- Footer "Conformidade Regulatória": 6 URLs hardcoded substituídas por lookup em `LEGAL_REFERENCES` via `FOOTER_SLUGS`.
+- Todas as URLs agora apontam para fontes oficiais (planalto.gov.br) em vez de PDFs/sites secundários.
+
 ## 2026-02-21 — fix(build): ENVNEO_TRADE_NAME derivado (gate shortname)
 
 - Fix(build): `ENVNEO_TRADE_NAME` era literal `'Env Neo'` — violava gate `gate-no-envneo-shortname`. Agora derivado de `ENVNEO_LEGAL_ENTITY_NAME.replace(' Ltda.', '').trim()`.

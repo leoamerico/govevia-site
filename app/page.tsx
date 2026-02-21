@@ -14,6 +14,7 @@ import {
   ENVNEO_WHATSAPP_URL,
   GOVEVIA_PRODUCT_NAME,
 } from '@/lib/brand/envneo'
+import { findRef, refUrl } from '@/lib/legal/legal-references'
 
 export default function Home() {
   return (
@@ -31,12 +32,12 @@ export default function Home() {
           legal={{
             title: 'Aderência ao marco regulatório brasileiro',
             items: [
-              'LGPD — Lei nº 13.709/18',
-              'LAI — Lei nº 12.527/11',
-              'LRF — LC 101/00',
-              'Lei 14.129/21 — Gov Digital',
-              'CF/88 — Art. 37',
-              'TCU / CGU / Tribunais de Contas',
+              { label: 'LGPD — Lei nº 13.709/18', url: refUrl('lgpd') },
+              { label: 'LAI — Lei nº 12.527/11', url: refUrl('lai') },
+              { label: 'LRF — LC 101/00', url: refUrl('lrf') },
+              { label: 'Lei 14.129/21 — Gov Digital', url: refUrl('lei-14129') },
+              { label: 'CF/88 — Art. 37', url: refUrl('cf88-art37') },
+              { label: 'TCU / CGU / Tribunais de Contas', url: refUrl('tcu-cgu-tce') },
             ],
           }}
           scrollLabel="Conheça mais"
@@ -189,12 +190,12 @@ export default function Home() {
           title="Marco regulatório coberto"
           subtitle="O Govevia é construído sobre o arcabouço normativo da administração pública brasileira — não adaptado depois, projetado desde o início para conformidade."
           items={[
-            { law: 'LGPD — Lei nº 13.709/18', title: 'Proteção de Dados Pessoais', body: 'Tratamento de dados de cidadãos com base legal explícita, minimização de dados, logs de acesso e suporte a requisições de titulares.' },
-            { law: 'LAI — Lei nº 12.527/11', title: 'Acesso à Informação', body: 'Prazos de resposta monitorados, trilha de tratamento de pedidos de acesso e geração de relatórios para o portal de transparência.' },
-            { law: 'LRF — LC nº 101/00', title: 'Responsabilidade Fiscal', body: 'Controles de comprometimento orçamentário, limites de despesa com pessoal e alertas de risco fiscal antes da violação de limites legais.' },
-            { law: 'Lei 14.129/21', title: 'Governo Digital', body: 'Processos administrativos eletrônicos com assinatura digital, interoperabilidade com ConectaGov e plataformas federais de identidade.' },
-            { law: 'CF/88 — Art. 37', title: 'Princípios Constitucionais', body: 'Legalidade, impessoalidade, moralidade, publicidade e eficiência embutidos como regras de validação nos fluxos de cada ato administrativo.' },
-            { law: 'TCU / CGU / TCE', title: 'Controle Externo', body: 'Evidências, relatórios e trilhas exportáveis nos formatos exigidos pelo controle externo federal e estadual, reduzindo tempo de resposta a diligências.' },
+            { law: 'LGPD — Lei nº 13.709/18', title: 'Proteção de Dados Pessoais', body: 'Tratamento de dados de cidadãos com base legal explícita, minimização de dados, logs de acesso e suporte a requisições de titulares.', url: refUrl('lgpd'), lawFullName: findRef('lgpd')?.full_name },
+            { law: 'LAI — Lei nº 12.527/11', title: 'Acesso à Informação', body: 'Prazos de resposta monitorados, trilha de tratamento de pedidos de acesso e geração de relatórios para o portal de transparência.', url: refUrl('lai'), lawFullName: findRef('lai')?.full_name },
+            { law: 'LRF — LC nº 101/00', title: 'Responsabilidade Fiscal', body: 'Controles de comprometimento orçamentário, limites de despesa com pessoal e alertas de risco fiscal antes da violação de limites legais.', url: refUrl('lrf'), lawFullName: findRef('lrf')?.full_name },
+            { law: 'Lei 14.129/21', title: 'Governo Digital', body: 'Processos administrativos eletrônicos com assinatura digital, interoperabilidade com ConectaGov e plataformas federais de identidade.', url: refUrl('lei-14129'), lawFullName: findRef('lei-14129')?.full_name },
+            { law: 'CF/88 — Art. 37', title: 'Princípios Constitucionais', body: 'Legalidade, impessoalidade, moralidade, publicidade e eficiência embutidos como regras de validação nos fluxos de cada ato administrativo.', url: refUrl('cf88-art37'), lawFullName: findRef('cf88-art37')?.full_name },
+            { law: 'TCU / CGU / TCE', title: 'Controle Externo', body: 'Evidências, relatórios e trilhas exportáveis nos formatos exigidos pelo controle externo federal e estadual, reduzindo tempo de resposta a diligências.', url: refUrl('tcu-cgu-tce'), lawFullName: findRef('tcu-cgu-tce')?.full_name },
           ]}
           closing={{ title: 'Conformidade não é feature — é a fundação.', body: 'Cada módulo do Govevia foi projetado com o marco regulatório como requisito, não como checklist posterior.' }}
         />

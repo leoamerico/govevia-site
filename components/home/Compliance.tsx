@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 type Props = {
   title: string
   subtitle: string
-  items: Array<{ law: string; title: string; body: string }>
+  items: Array<{ law: string; title: string; body: string; url?: string; lawFullName?: string }>
   closing: { title: string; body: string }
 }
 
@@ -24,6 +24,8 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
       law: i.law.trim(),
       title: i.title.trim(),
       body: i.body.trim(),
+      url: i.url,
+      lawFullName: i.lawFullName,
       icon: ICONS[idx] ?? ICONS[0],
     }))
     .filter((i) => i.law.length > 0 || i.title.length > 0 || i.body.length > 0)
@@ -72,9 +74,22 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
                   </div>
                   <div>
                     {reg.law.length > 0 ? (
-                      <div className="inline-block bg-primary/10 px-3 py-1 rounded-md mb-2">
-                        <span className="text-xs font-bold text-primary font-sans tracking-wide">{reg.law}</span>
-                      </div>
+                      reg.url ? (
+                        <a
+                          href={reg.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={reg.lawFullName ?? reg.law}
+                          className="inline-flex items-center gap-1 bg-primary/10 px-3 py-1 rounded-md mb-2 hover:bg-primary/20 transition-colors group"
+                        >
+                          <span className="text-xs font-bold text-primary font-sans tracking-wide">{reg.law}</span>
+                          <svg className="w-3 h-3 text-primary opacity-60 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        </a>
+                      ) : (
+                        <div className="inline-block bg-primary/10 px-3 py-1 rounded-md mb-2">
+                          <span className="text-xs font-bold text-primary font-sans tracking-wide">{reg.law}</span>
+                        </div>
+                      )
                     ) : null}
                     {reg.title.length > 0 ? (
                       <h3 className="font-serif font-semibold text-lg text-white mb-2">{reg.title}</h3>

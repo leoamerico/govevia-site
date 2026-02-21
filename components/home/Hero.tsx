@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+type LegalItem = { label: string; url?: string }
+
 type Props = {
   kicker: string
   title: string
@@ -11,14 +13,14 @@ type Props = {
     primary: { href: string; label: string }
     secondary: { href: string; label: string }
   }
-  legal: { title: string; items: string[] }
+  legal: { title: string; items: LegalItem[] }
   scrollLabel: string
 }
 
 export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel }: Props) {
   const hasTitle = title.trim().length > 0
   const hasCtas = ctas.primary.label.trim().length > 0 || ctas.secondary.label.trim().length > 0
-  const legalItems = legal.items.map((s) => s.trim()).filter(Boolean)
+  const legalItems = legal.items.filter((i) => i.label.trim().length > 0)
 
   if (!kicker.trim() && !hasTitle && !subtitle.trim() && !hasCtas && !legal.title.trim() && legalItems.length === 0) {
     return null
@@ -94,12 +96,26 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             {legalItems.length > 0 ? (
               <div className="flex flex-wrap justify-center gap-2">
                 {legalItems.map((item, idx) => (
-                  <span
-                    key={`${idx}-${item}`}
-                    className="inline-flex items-center px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono tracking-tight"
-                  >
-                    {item}
-                  </span>
+                  item.url ? (
+                    <a
+                      key={`${idx}-${item.label}`}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.label}
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono tracking-tight hover:border-white/20 hover:text-gray-200 transition-colors"
+                    >
+                      {item.label}
+                      <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                    </a>
+                  ) : (
+                    <span
+                      key={`${idx}-${item.label}`}
+                      className="inline-flex items-center px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono tracking-tight"
+                    >
+                      {item.label}
+                    </span>
+                  )
                 ))}
               </div>
             ) : null}
