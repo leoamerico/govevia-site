@@ -37,8 +37,9 @@ const SKIP_DIRS  = ['node_modules', '.next', 'dist', 'public', '.turbo']
 
 // Arquivos allowlistados — endpoints legítimos não relacionados a conectividade
 const SKIP_FILES_RELATIVE = [
-  'lib/brand/envneo.ts',                                 // constantes de marca pública (govevia.com.br)
-  'tools/policy-gates/gate-no-hardcoded-endpoints.mjs',  // o próprio gate
+  'lib/brand/envneo.ts',
+  'lib/legal/legal-references.ts',
+  'tools/policy-gates/gate-no-hardcoded-endpoints.mjs',
 ]
 
 // ─── Padrões ──────────────────────────────────────────────────────────────────

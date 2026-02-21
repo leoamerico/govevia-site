@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(build): allowlist legal-references no gate-no-hardcoded-endpoints
+
+- `lib/legal/legal-references.ts` adicionado ao allowlist do gate `gate-no-hardcoded-endpoints` — URLs de legislação oficial (planalto.gov.br) são dados públicos estáticos, não endpoints de conectividade.
+
 ## 2026-02-21 — feat(site): badges regulatórios linkados a legal-references
 
 - Criado `lib/legal/legal-references.ts` — SSOT com 9 referências legais (slug, short_name, full_name, official_url, category).
