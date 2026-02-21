@@ -1,0 +1,16 @@
+{
+  "name": "@govevia/org-profile",
+  "version": "1.0.0",
+  "description": "GATE-R5 — OrgProfile enforcement middleware for Govevia platform",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["govevia", "gate-r5", "org-profile", "tenant"],
+  "license": "UNLICENSED",
+  "private": true
+}
