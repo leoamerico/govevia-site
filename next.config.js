@@ -1,13 +1,18 @@
 /** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === 'development'
+const isPreview = process.env.VERCEL_ENV === 'preview'
 
 function buildCspValue() {
+  // Vercel Live toolbar injects scripts/frames/connections in preview deployments.
+  const vercelLive = isDev || isPreview
+
   const scriptSrc = [
     "'self'",
     "'unsafe-inline'",
     ...(isDev ? ["'unsafe-eval'"] : []),
     'https://www.googletagmanager.com',
     'https://www.google-analytics.com',
+    ...(vercelLive ? ['https://vercel.live'] : []),
   ].join(' ')
 
   return [
@@ -16,9 +21,9 @@ function buildCspValue() {
     "style-src 'self' 'unsafe-inline'",
     "font-src 'self'",
     "img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com",
-    "connect-src 'self' https://www.google-analytics.com",
+    `connect-src 'self' https://www.google-analytics.com${vercelLive ? ' https://vercel.live wss://ws-us3.pusher.com' : ''}`,
     "object-src 'none'",
-    "frame-ancestors 'self'",
+    `frame-ancestors 'self'`,
     "base-uri 'self'",
     "form-action 'self'",
   ].join('; ')
