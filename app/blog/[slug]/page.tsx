@@ -5,6 +5,7 @@ import Header from '@/components/Header'
 import { getPostBySlug, getAllPosts } from '@/lib/blog'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Suspense } from 'react'
+import { GOVEVIA_PRODUCT_NAME, ENVNEO_SITE_URL } from '@/lib/brand/envneo'
 
 interface Props {
   params: { slug: string }
@@ -50,16 +51,16 @@ export default async function BlogPostPage({ params }: Props) {
     author: {
       '@type': 'Organization',
       name: post.author,
-      url: 'https://govevia.com.br',
+      url: ENVNEO_SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Govevia',
-      url: 'https://govevia.com.br',
+      name: GOVEVIA_PRODUCT_NAME,
+      url: ENVNEO_SITE_URL,
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://govevia.com.br/blog/${post.slug}`,
+      '@id': `${ENVNEO_SITE_URL}/blog/${post.slug}`,
     },
     keywords: post.tags.join(', '),
   }

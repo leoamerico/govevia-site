@@ -1,9 +1,10 @@
 import { ImageResponse } from 'next/og'
 import { TOKENS_RUNTIME } from '@/packages/design-tokens/dist/tokens.runtime'
+import { GOVEVIA_PRODUCT_NAME, GOVEVIA_TAGLINE, ENVNEO_SITE_URL } from '@/lib/brand/envneo'
 
 export const runtime = 'edge'
 
-export const alt = 'Govevia — Governança Executável para Administração Pública'
+export const alt = `${GOVEVIA_PRODUCT_NAME} — ${GOVEVIA_TAGLINE}`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -81,7 +82,7 @@ export default async function Image() {
                 textTransform: 'uppercase' as const,
               }}
             >
-              por Govevia
+              por {GOVEVIA_PRODUCT_NAME}
             </div>
             <div style={{ width: 40, height: 1, background: 'rgba(255,255,255,0.3)' }} />
           </div>
@@ -105,7 +106,7 @@ export default async function Image() {
               letterSpacing: '0.5px',
             }}
           >
-            Governança Executável para Administração Pública
+            {GOVEVIA_TAGLINE}
           </div>
 
           <div
@@ -137,7 +138,7 @@ export default async function Image() {
               letterSpacing: '1px',
             }}
           >
-            Govevia · govevia.com.br
+            {GOVEVIA_PRODUCT_NAME} · {new URL(ENVNEO_SITE_URL).hostname}
           </div>
         </div>
       </div>

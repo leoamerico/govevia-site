@@ -9,6 +9,8 @@ import {
   ENVNEO_ADDRESS,
   ENVNEO_SEGMENT,
   GOVEVIA_PRODUCT_NAME,
+  GOVEVIA_TAGLINE,
+  GOVEVIA_DESCRIPTION,
   ENVNEO_SITE_URL,
 } from '@/lib/brand/envneo'
 
@@ -32,9 +34,9 @@ export const metadata: Metadata = {
     'ICP-Brasil',
     'tribunais de contas'
   ],
-  authors: [{ name: 'Govevia', url: 'https://govevia.com.br' }],
-  creator: 'Govevia',
-  publisher: 'Govevia',
+  authors: [{ name: GOVEVIA_PRODUCT_NAME, url: ENVNEO_SITE_URL }],
+  creator: GOVEVIA_PRODUCT_NAME,
+  publisher: GOVEVIA_PRODUCT_NAME,
   robots: {
     index: true,
     follow: true,
@@ -49,15 +51,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://govevia.com.br',
-    title: 'Govevia | Governança Executável para Administração Pública',
-    description: 'Plataforma de governança para administração pública municipal com foco em controles técnicos, rastreabilidade e evidência operacional.',
-    siteName: 'Govevia',
+    url: ENVNEO_SITE_URL,
+    title: `${GOVEVIA_PRODUCT_NAME} | ${GOVEVIA_TAGLINE}`,
+    description: GOVEVIA_DESCRIPTION,
+    siteName: GOVEVIA_PRODUCT_NAME,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Govevia | Governança Executável para Administração Pública',
-    description: 'Plataforma de governança para administração pública municipal com foco em controles técnicos e rastreabilidade.',
+    title: `${GOVEVIA_PRODUCT_NAME} | ${GOVEVIA_TAGLINE}`,
+    description: GOVEVIA_DESCRIPTION,
   },
 }
 
@@ -66,7 +68,7 @@ const schemaOrg = {
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://govevia.com.br/#organization',
+      '@id': `${ENVNEO_SITE_URL}/#organization`,
       name: GOVEVIA_PRODUCT_NAME,
       url: ENVNEO_SITE_URL,
       logo: `${ENVNEO_SITE_URL}/brand/govevia-mark-on-white.png`,
@@ -83,12 +85,12 @@ const schemaOrg = {
     },
     {
       '@type': 'SoftwareApplication',
-      '@id': 'https://govevia.com.br/#software',
-      name: 'Govevia',
+      '@id': `${ENVNEO_SITE_URL}/#software`,
+      name: GOVEVIA_PRODUCT_NAME,
       applicationCategory: 'GovernmentApplication',
       operatingSystem: 'Web',
-      description: 'Plataforma de governança para administração pública municipal com foco em controles técnicos, rastreabilidade e evidência operacional.',
-      author: { '@id': 'https://govevia.com.br/#organization' },
+      description: GOVEVIA_DESCRIPTION,
+      author: { '@id': `${ENVNEO_SITE_URL}/#organization` },
       offers: {
         '@type': 'Offer',
         category: 'Government Software',
@@ -96,10 +98,10 @@ const schemaOrg = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://govevia.com.br/#website',
-      url: 'https://govevia.com.br',
-      name: 'Govevia',
-      publisher: { '@id': 'https://govevia.com.br/#organization' },
+      '@id': `${ENVNEO_SITE_URL}/#website`,
+      url: ENVNEO_SITE_URL,
+      name: GOVEVIA_PRODUCT_NAME,
+      publisher: { '@id': `${ENVNEO_SITE_URL}/#organization` },
       inLanguage: 'pt-BR',
     },
   ],
