@@ -1,10 +1,17 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import {
+  ENVNEO_LEGAL_ENTITY_NAME,
+  ENVNEO_CNPJ,
+  ENVNEO_EMAIL,
+  ENVNEO_ADDRESS,
+  ENVNEO_ADDRESS_INLINE,
+} from '@/lib/brand/envneo'
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade | Govevia',
-  description: 'Política de Privacidade da Env Neo Ltda. e Govevia em conformidade com a Lei Geral de Proteção de Dados (LGPD).',
+  description: `Política de Privacidade da ${ENVNEO_LEGAL_ENTITY_NAME} e Govevia em conformidade com a Lei Geral de Proteção de Dados (LGPD).`,
   robots: {
     index: true,
     follow: true,
@@ -31,8 +38,8 @@ export default function PrivacyPolicyPage() {
                 1. Informações Gerais
               </h2>
               <p className="leading-relaxed mb-4">
-                A Env Neo Ltda., inscrita no CNPJ 36.207.211/0001-47, com sede na Avenida Palmeira Imperial,
-                165 / 302, CEP 38.406-582, Uberlândia-MG, é a controladora dos dados pessoais coletados 
+                A {ENVNEO_LEGAL_ENTITY_NAME}, inscrita no CNPJ {ENVNEO_CNPJ}, com sede na {ENVNEO_ADDRESS.street},
+                CEP {ENVNEO_ADDRESS.zip}, {ENVNEO_ADDRESS.city}, é a controladora dos dados pessoais coletados 
                 através do site govevia.com.br.
               </p>
               <p className="leading-relaxed">
@@ -137,8 +144,8 @@ export default function PrivacyPolicyPage() {
               </ul>
               <p className="leading-relaxed">
                 Para exercer seus direitos, entre em contato através do e-mail{' '}
-                <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">
-                  govevia@govevia.com.br
+                <a href={`mailto:${ENVNEO_EMAIL}`} className="text-primary hover:underline">
+                  {ENVNEO_EMAIL}
                 </a>
                 {' '}com o assunto &ldquo;LGPD - Direitos do Titular&rdquo;.
               </p>
@@ -173,10 +180,10 @@ export default function PrivacyPolicyPage() {
                 Para dúvidas sobre esta Política de Privacidade ou sobre o tratamento de dados pessoais:
               </p>
               <div className="bg-zinc-900 p-6 rounded-lg border-l-4 border-primary">
-                <p className="font-semibold text-white mb-2">Env Neo Ltda.</p>
-                <p className="mb-1">E-mail: <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">govevia@govevia.com.br</a></p>
-                <p className="mb-1">CNPJ: 36.207.211/0001-47</p>
-                <p>Endereço: Av. Palmeira Imperial, 165 / 302, CEP 38.406-582, Uberlândia-MG</p>
+                <p className="font-semibold text-white mb-2">{ENVNEO_LEGAL_ENTITY_NAME}</p>
+                <p className="mb-1">E-mail: <a href={`mailto:${ENVNEO_EMAIL}`} className="text-primary hover:underline">{ENVNEO_EMAIL}</a></p>
+                <p className="mb-1">CNPJ: {ENVNEO_CNPJ}</p>
+                <p>Endereço: {ENVNEO_ADDRESS_INLINE}</p>
               </div>
             </section>
 

@@ -3,6 +3,13 @@ import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Contact from '@/components/home/Contact'
+import {
+  ENVNEO_EMAIL,
+  ENVNEO_CNPJ,
+  ENVNEO_ADDRESS_MULTILINE,
+  ENVNEO_FOUNDER,
+  GOVEVIA_PRODUCT_NAME,
+} from '@/lib/brand/envneo'
 
 export const metadata: Metadata = {
   title: 'Contato',
@@ -14,14 +21,14 @@ const contactSubtitle = 'Estamos em fase de implantação com municípios parcei
 const contactNoticeTitle = 'Implantação consultiva'
 const contactNoticeBody = 'O processo de implantação do Govevia é conduzido de forma consultiva, com mapeamento dos fluxos institucionais existentes antes de qualquer configuração técnica.'
 const contactEmailLabel = 'E-mail institucional'
-const contactEmailValue = 'govevia@govevia.com.br'
+const contactEmailValue = ENVNEO_EMAIL
 const contactInfoTitle = 'Dados institucionais'
 const contactAddressLabel = 'Endereço'
-const contactAddressValue = 'Av. Palmeira Imperial, 165 / 302\nCEP: 38.406-582 — Uberlândia MG\nBrasil'
-const contactCompanyTitle = 'Govevia'
-const contactCompanyBody = 'CNPJ: 36.207.211/0001-47'
+const contactAddressValue = ENVNEO_ADDRESS_MULTILINE
+const contactCompanyTitle = GOVEVIA_PRODUCT_NAME
+const contactCompanyBody = `CNPJ: ${ENVNEO_CNPJ}`
 const contactCeoLabel = 'Responsável técnico e comercial'
-const contactCeoName = 'Leonardo Américo'
+const contactCeoName = ENVNEO_FOUNDER.name.split(' ').slice(0, 2).join(' ')
 
 type Props = {
   searchParams?: Record<string, string | string[] | undefined>

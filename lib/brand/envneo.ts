@@ -49,6 +49,13 @@ export const ENVNEO_ADDRESS = {
 // ── Segmento ──────────────────────────────────────────────
 export const ENVNEO_SEGMENT = 'Tecnologia para Governança Pública'
 
+// ── Derivados de endereço e telefone ──────────────────────
+export const ENVNEO_ADDRESS_INLINE = `${ENVNEO_ADDRESS.street}, CEP ${ENVNEO_ADDRESS.zip}, ${ENVNEO_ADDRESS.city}`
+export const ENVNEO_ADDRESS_MULTILINE = `${ENVNEO_ADDRESS.street}\nCEP: ${ENVNEO_ADDRESS.zip} — ${ENVNEO_ADDRESS.city}\n${ENVNEO_ADDRESS.country}`
+export const ENVNEO_PHONE_RAW      = '5534984228457'
+export const ENVNEO_WHATSAPP_URL   = `https://wa.me/${ENVNEO_PHONE_RAW}`
+export const ENVNEO_PHONE_TEL      = `tel:+${ENVNEO_PHONE_RAW}`
+
 // ── URLs canônicas ────────────────────────────────────────
 export const ENVNEO_SITE_URL  = 'https://govevia.com.br'
 export const ENVNEO_WWW_URL   = 'https://www.govevia.com.br'
@@ -79,4 +86,9 @@ export const ENVNEO_BRAND = {
   segment:         ENVNEO_SEGMENT,
   siteUrl:         ENVNEO_SITE_URL,
   wwwUrl:          ENVNEO_WWW_URL,
+  addressInline:   ENVNEO_ADDRESS_INLINE,
+  addressMultiline: ENVNEO_ADDRESS_MULTILINE,
+  phoneRaw:        ENVNEO_PHONE_RAW,
+  whatsappUrl:     ENVNEO_WHATSAPP_URL,
+  phoneTel:        ENVNEO_PHONE_TEL,
 } as const

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { TOKENS_RUNTIME } from '@/packages/design-tokens/dist/tokens.runtime'
+import { ENVNEO_EMAIL } from '@/lib/brand/envneo'
 
 // ============================================================
 // SEGURANÇA: Sanitização de HTML para prevenir XSS em e-mails
@@ -258,7 +259,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: `"Govevia - Formulário de Contato" <${process.env.SMTP_USER}>`,
-      to: 'govevia@govevia.com.br',
+      to: ENVNEO_EMAIL,
       subject: `[Govevia] Nova mensagem de ${safe.name} - ${safe.entity}`,
       html: `
         <!DOCTYPE html>

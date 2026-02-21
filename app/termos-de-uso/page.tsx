@@ -1,10 +1,17 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import {
+  ENVNEO_LEGAL_ENTITY_NAME,
+  ENVNEO_CNPJ,
+  ENVNEO_EMAIL,
+  ENVNEO_ADDRESS,
+  ENVNEO_ADDRESS_INLINE,
+} from '@/lib/brand/envneo'
 
 export const metadata: Metadata = {
   title: 'Termos de Uso | Govevia',
-  description: 'Termos e condições de uso do site govevia.com.br e da plataforma Govevia, operada pela Env Neo Ltda.',
+  description: `Termos e condições de uso do site govevia.com.br e da plataforma Govevia, operada pela ${ENVNEO_LEGAL_ENTITY_NAME}`,
   robots: {
     index: true,
     follow: true,
@@ -37,8 +44,8 @@ export default function TermsOfUsePage() {
               </p>
               <p className="leading-relaxed">
                 Estes Termos regem o acesso ao site público da plataforma Govevia, operado pela
-                <strong> Env Neo Ltda.</strong>, inscrita no CNPJ 36.207.211/0001-47, com sede na
-                Avenida Palmeira Imperial, 165 / 302, CEP 38.406-582, Uberlândia-MG.
+                <strong> {ENVNEO_LEGAL_ENTITY_NAME}</strong>, inscrita no CNPJ {ENVNEO_CNPJ}, com sede na
+                {ENVNEO_ADDRESS.street}, CEP {ENVNEO_ADDRESS.zip}, {ENVNEO_ADDRESS.city}.
               </p>
             </section>
 
@@ -49,12 +56,12 @@ export default function TermsOfUsePage() {
               <p className="leading-relaxed mb-4">
                 O site govevia.com.br é um canal institucional de divulgação da plataforma Govevia —
                 solução de governança executável para a administração pública municipal. Por meio
-                deste site, a Env Neo Ltda. apresenta informações sobre a plataforma, suas
+                deste site, a {ENVNEO_LEGAL_ENTITY_NAME} apresenta informações sobre a plataforma, suas
                 funcionalidades e formas de contato.
               </p>
               <p className="leading-relaxed">
                 O acesso à plataforma Govevia em si é regido por contrato específico celebrado entre
-                a Env Neo Ltda. e o ente público contratante.
+                a {ENVNEO_LEGAL_ENTITY_NAME} e o ente público contratante.
               </p>
             </section>
 
@@ -82,12 +89,12 @@ export default function TermsOfUsePage() {
               <p className="leading-relaxed mb-4">
                 Todo o conteúdo disponível neste site — incluindo textos, imagens, logotipo,
                 identidade visual, arquitetura da informação e código-fonte — é de propriedade da
-                Env Neo Ltda. ou está licenciado para seu uso, sendo protegido pela legislação de
+                {ENVNEO_LEGAL_ENTITY_NAME} ou está licenciado para seu uso, sendo protegido pela legislação de
                 propriedade intelectual aplicável.
               </p>
               <p className="leading-relaxed">
                 A marca <strong>Govevia</strong> e o nome <strong>Env Neo</strong> são ativos da
-                Env Neo Ltda., com registro e uso reservados. Qualquer reprodução, uso ou
+                {ENVNEO_LEGAL_ENTITY_NAME}, com registro e uso reservados. Qualquer reprodução, uso ou
                 referência à marca sem autorização expressa é proibida.
               </p>
             </section>
@@ -97,7 +104,7 @@ export default function TermsOfUsePage() {
                 5. Isenção de Responsabilidade
               </h2>
               <p className="leading-relaxed mb-4">
-                O site é fornecido &ldquo;no estado em que se encontra&rdquo;. A Env Neo Ltda. não
+                O site é fornecido &ldquo;no estado em que se encontra&rdquo;. A {ENVNEO_LEGAL_ENTITY_NAME} não
                 garante que o site estará disponível ininterruptamente ou isento de erros, e se
                 reserva o direito de modificar, suspender ou descontinuar qualquer parte do site a
                 qualquer momento, sem aviso prévio.
@@ -115,7 +122,7 @@ export default function TermsOfUsePage() {
               </h2>
               <p className="leading-relaxed">
                 Este site pode conter links para sites de terceiros inseridos apenas como referência.
-                A Env Neo Ltda. não controla o conteúdo desses sites e não assume responsabilidade
+                A {ENVNEO_LEGAL_ENTITY_NAME} não controla o conteúdo desses sites e não assume responsabilidade
                 por seu conteúdo, políticas ou práticas.
               </p>
             </section>
@@ -139,7 +146,7 @@ export default function TermsOfUsePage() {
                 8. Modificações dos Termos
               </h2>
               <p className="leading-relaxed">
-                A Env Neo Ltda. pode atualizar estes Termos de Uso a qualquer momento. Alterações
+                A {ENVNEO_LEGAL_ENTITY_NAME} pode atualizar estes Termos de Uso a qualquer momento. Alterações
                 significativas serão indicadas pela data de &ldquo;Última atualização&rdquo; no
                 início deste documento. O uso continuado do site após alterações constitui aceite
                 dos novos Termos.
@@ -165,15 +172,15 @@ export default function TermsOfUsePage() {
                 Para dúvidas sobre estes Termos de Uso:
               </p>
               <div className="bg-zinc-900 p-6 rounded-lg border-l-4 border-primary">
-                <p className="font-semibold text-white mb-2">Env Neo Ltda.</p>
+                <p className="font-semibold text-white mb-2">{ENVNEO_LEGAL_ENTITY_NAME}</p>
                 <p className="mb-1">
                   E-mail:{' '}
-                  <a href="mailto:govevia@govevia.com.br" className="text-primary hover:underline">
-                    govevia@govevia.com.br
+                  <a href={`mailto:${ENVNEO_EMAIL}`} className="text-primary hover:underline">
+                    {ENVNEO_EMAIL}
                   </a>
                 </p>
-                <p className="mb-1">CNPJ: 36.207.211/0001-47</p>
-                <p>Endereço: Av. Palmeira Imperial, 165 / 302, CEP 38.406-582, Uberlândia-MG</p>
+                <p className="mb-1">CNPJ: {ENVNEO_CNPJ}</p>
+                <p>Endereço: {ENVNEO_ADDRESS_INLINE}</p>
               </div>
             </section>
 

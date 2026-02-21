@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import './globals.css'
 import CookieConsent from '@/components/CookieConsent'
 import AdminAccessButton from '@/components/AdminAccessButton'
+import {
+  ENVNEO_CNPJ,
+  ENVNEO_ADDRESS,
+  ENVNEO_SEGMENT,
+  GOVEVIA_PRODUCT_NAME,
+  ENVNEO_SITE_URL,
+} from '@/lib/brand/envneo'
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://govevia.com.br'),
@@ -58,19 +65,19 @@ const schemaOrg = {
     {
       '@type': 'Organization',
       '@id': 'https://govevia.com.br/#organization',
-      name: 'Govevia',
-      url: 'https://govevia.com.br',
-      logo: 'https://govevia.com.br/brand/govevia-mark-on-white.png',
-      description: 'Tecnologia para Governança Pública',
+      name: GOVEVIA_PRODUCT_NAME,
+      url: ENVNEO_SITE_URL,
+      logo: `${ENVNEO_SITE_URL}/brand/govevia-mark-on-white.png`,
+      description: ENVNEO_SEGMENT,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'Avenida Palmeira Imperial, 165 / 302',
-        addressLocality: 'Uberlândia',
-        addressRegion: 'MG',
-        postalCode: '38406-582',
+        streetAddress: ENVNEO_ADDRESS.street,
+        addressLocality: ENVNEO_ADDRESS.city.split('-')[0],
+        addressRegion: ENVNEO_ADDRESS.city.split('-')[1],
+        postalCode: ENVNEO_ADDRESS.zip.replace(/\./g, ''),
         addressCountry: 'BR',
       },
-      taxID: '36.207.211/0001-47',
+      taxID: ENVNEO_CNPJ,
     },
     {
       '@type': 'SoftwareApplication',

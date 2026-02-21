@@ -6,6 +6,13 @@ import Platform from '@/components/home/Platform'
 import Defensibility from '@/components/home/Defensibility'
 import Compliance from '@/components/home/Compliance'
 import Contact from '@/components/home/Contact'
+import {
+  ENVNEO_EMAIL,
+  ENVNEO_CNPJ,
+  ENVNEO_ADDRESS_MULTILINE,
+  ENVNEO_FOUNDER,
+  GOVEVIA_PRODUCT_NAME,
+} from '@/lib/brand/envneo'
 
 export default function Home() {
   return (
@@ -194,11 +201,11 @@ export default function Home() {
           title="Fale com a Govevia"
           subtitle="Estamos em fase de implantação com municípios parceiros. Entre em contato para entender como o Govevia pode ser adaptado à realidade da sua instituição."
           notice={{ title: 'Implantação consultiva', body: 'O processo de implantação do Govevia é conduzido de forma consultiva, com mapeamento dos fluxos institucionais existentes antes de qualquer configuração técnica.' }}
-          email={{ label: 'E-mail institucional', value: 'govevia@govevia.com.br' }}
+          email={{ label: 'E-mail institucional', value: ENVNEO_EMAIL }}
           infoTitle="Dados institucionais"
-          address={{ label: 'Endereço', value: 'Av. Palmeira Imperial, 165 / 302\nCEP: 38.406-582 — Uberlândia MG\nBrasil' }}
-          company={{ title: 'Govevia', body: 'CNPJ: 36.207.211/0001-47' }}
-          ceo={{ label: 'Responsável técnico e comercial', name: 'Leonardo Américo' }}
+          address={{ label: 'Endereço', value: ENVNEO_ADDRESS_MULTILINE }}
+          company={{ title: GOVEVIA_PRODUCT_NAME, body: `CNPJ: ${ENVNEO_CNPJ}` }}
+          ceo={{ label: 'Responsável técnico e comercial', name: ENVNEO_FOUNDER.name.split(' ').slice(0, 2).join(' ') }}
         />
       </main>
       <Footer />
