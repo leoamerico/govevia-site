@@ -17,10 +17,9 @@ export default function Footer() {
             />
 
             <div className="container-custom py-12">
-                {/* ── 3-column grid ─────────────────────────────── */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
-                    {/* COLUNA 1 — Marca + Navegação */}
+                    {/* COLUNA 1 — Logo + Navegação */}
                     <div>
                         <div className="flex items-center gap-2.5 mb-3">
                             <GoveviaMarkSvg size={24} />
@@ -42,43 +41,7 @@ export default function Footer() {
                         </nav>
                     </div>
 
-                    {/* COLUNA 2 — Contato resumido */}
-                    <div>
-                        <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-                            Fale conosco
-                        </h3>
-
-                        <a
-                            href={`mailto:${b.email}`}
-                            className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors mb-2"
-                        >
-                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            {b.email}
-                        </a>
-                        <a
-                            href={b.phoneTel}
-                            className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors mb-6"
-                        >
-                            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                            {b.phone}
-                        </a>
-
-                        <Link
-                            href="#contato"
-                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-primary/40 hover:border-primary text-sm text-primary hover:text-white transition-colors"
-                        >
-                            Entre em contato
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </Link>
-                    </div>
-
-                    {/* COLUNA 3 — Conformidade */}
+                    {/* COLUNA 2 — Marco Regulatório */}
                     <div>
                         <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
                             Marco Regulatório
@@ -105,14 +68,27 @@ export default function Footer() {
                             })}
                         </div>
                     </div>
-                </div>
 
-                {/* ── Rodapé final — 1 linha ───────────────────── */}
-                <div className="border-t border-white/10 mt-10 pt-6 text-center text-xs text-gray-500">
-                    <p>
-                        {b.legalEntityName} · CNPJ {b.cnpj} · © {currentYear} {b.productName}. Todos os direitos reservados.
-                    </p>
+                    {/* COLUNA 3 — CTA para contato */}
+                    <div className="flex flex-col justify-between">
+                        <Link
+                            href="#contato"
+                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-primary/40 hover:border-primary text-sm text-primary hover:text-white transition-colors self-start"
+                        >
+                            Falar com a Govevia
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </Link>
+                    </div>
                 </div>
+            </div>
+
+            {/* Copyright */}
+            <div className="border-t border-white/10 py-6 text-center text-xs text-gray-500">
+                <p>
+                    {b.legalEntityName} · CNPJ {b.cnpj} · © {currentYear} {b.productName}. Todos os direitos reservados.
+                </p>
             </div>
         </footer>
     )
