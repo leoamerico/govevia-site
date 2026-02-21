@@ -25,7 +25,7 @@ type Props = {
 
 function parseInitialView(value: unknown): PersonaId | null {
   if (typeof value !== 'string') return null
-  const valid: PersonaId[] = ['prefeito', 'procurador', 'auditor', 'secretario']
+  const valid: PersonaId[] = ['prefeito', 'procurador', 'auditor', 'secretario', 'cidadao', 'controlador']
   return valid.includes(value as PersonaId) ? (value as PersonaId) : null
 }
 

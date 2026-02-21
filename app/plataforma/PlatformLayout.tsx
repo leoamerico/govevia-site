@@ -133,7 +133,7 @@ export function PlatformLayout({ initialView }: { initialView: PersonaId | null 
                         {[
                             { value: '6', label: 'Módulos integrados' },
                             { value: '5', label: 'Capacidades canônicas' },
-                            { value: '4', label: 'Personas atendidas' },
+                            { value: '6', label: 'Personas atendidas' },
                             { value: '100%', label: 'Trilha auditável' },
                         ].map(({ value, label }) => (
                             <div key={label} className="px-6 py-5 text-center">

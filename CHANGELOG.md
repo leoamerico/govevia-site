@@ -16,10 +16,12 @@
 - `components/Footer.tsx` — adicionado link "Base Legal" ao bloco de navegação institucional.
 
 **Variáveis de ambiente necessárias (Vercel):**
+
 - `KERNEL_API_URL` — URL base do kernel Java (ex: `https://api.govevia.com.br`)
 - `KERNEL_SERVICE_TOKEN` — JWT de serviço para autenticar a chamada server-side
 
 **Nota para o kernel:** Para consumo em produção, adicionar:
+
 1. `GET /public/v1/portal/legislation` em `PortalPublicController` servindo `LegalDeviceResponse[]`
 2. `.requestMatchers("/public/**").permitAll()` em `SecurityConfig`
 3. `govevia.com.br` e `*.vercel.app` nos `allowedOrigins` do CORS
@@ -81,7 +83,11 @@
 ## 2026-02-21 — feat(plataforma): Persona-specific SEO Media & Navigation Fixes
 
 - **SEO Media**: Criados `opengraph-image.tsx` e `twitter-image.tsx` dedicados em `app/plataforma/[persona]/`. Agora cada persona gera cards sociais dinâmicos com seu próprio título e subtítulo.
+- **Ecossistema de Personas**: Expandido de 4 para 6 perfis. Adicionados **Cidadão** (foco em transparência e controle social) e **Controlador Interno** (foco em governança preventiva e mitigação de riscos). Auditor Externo renomeado para maior clareza.
+- **Material Editorial**: Criados novos artigos de blog (`.mdx`) específicos para as novas personas, fornecendo profundidade narrativa e autoridade técnica para os perfis de Cidadão e Controlador Interno.
+- **Sitemap**: `app/sitemap.ts` atualizado para incluir dinamicamente todas as rotas de persona, melhorando a indexação granular por perfil.
 - **UX**: `app/plataforma/page.tsx` agora redireciona para `/plataforma/prefeito` por padrão, garantindo que o usuário sempre caia em uma rota de persona indexável e com metadados completos.
+- **Analytics**: Integrado `@vercel/analytics` em `PlataformaView.client.tsx` para rastrear acessos diretos e trocas de persona, possibilitando segmentação de interesse por perfil.
 - **Navegação**: Refatorada lógica de `setView` em `PlataformaView.client.tsx` para garantir transições suaves entre rotas dedicadas e estados de ativação consistentes.
 
 ## 2026-02-21 — feat(plataforma): rotas dedicadas por persona e SEO (Phase 2)

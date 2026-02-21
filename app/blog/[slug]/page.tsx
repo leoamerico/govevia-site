@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params, searchParams }: Props) {
   const post = await getPostBySlug(params.slug)
   if (!post || post.draft) notFound()
 
@@ -63,6 +63,26 @@ export default async function BlogPostPage({ params }: Props) {
       '@id': `${ENVNEO_SITE_URL}/blog/${post.slug}`,
     },
     keywords: post.tags.join(', '),
+  }
+
+  const currentView = searchParams?.view
+  const currentCtx = searchParams?.ctx
+
+  const components = {
+    ViewBlock: ({ children, view, ctx }: { children: React.ReactNode; view?: string; ctx?: string }) => {
+      // canonical block
+      if (!view && !ctx) return <>{children}</>
+
+      // filtration
+      const matchView = view === currentView
+      const matchCtx = !ctx || ctx === currentCtx
+
+      if (matchView && matchCtx) {
+        return <div className="mt-8 pt-8 border-t border-white/10">{children}</div>
+      }
+
+      return null
+    },
   }
 
   return (
@@ -140,7 +160,7 @@ export default async function BlogPostPage({ params }: Props) {
             >
               {post.format === 'mdx' ? (
                 <Suspense fallback={null}>
-                  <MDXRemote source={post.content} />
+                  <MDXRemote source={post.content} components={components} />
                 </Suspense>
               ) : (
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />

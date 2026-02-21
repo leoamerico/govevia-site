@@ -1,4 +1,4 @@
-export type PersonaId = 'prefeito' | 'procurador' | 'auditor' | 'secretario'
+export type PersonaId = 'prefeito' | 'procurador' | 'auditor' | 'secretario' | 'cidadao' | 'controlador'
 
 export type CapabilityId = 'assinatura' | 'versionamento' | 'alertas' | 'trilha' | 'exportacao'
 
@@ -26,7 +26,7 @@ export const CAPABILITIES: Array<{
       subtitle: 'Evolução governada para ICP-Brasil',
       icon: '✦',
       axes: ['Gestao', 'Assinatura', 'Auditoria', 'Governanca'],
-      personas: ['procurador', 'auditor', 'prefeito'],
+      personas: ['procurador', 'auditor', 'prefeito', 'controlador'],
       description:
         'Fluxo de assinatura com rastreabilidade completa, evolução progressiva de padrão (simples → avançado → ICP-Brasil) e registro de eventos para auditoria.',
     },
@@ -36,7 +36,7 @@ export const CAPABILITIES: Array<{
       subtitle: 'Histórico temporal com verificação criptográfica',
       icon: '⊞',
       axes: ['Gestao', 'Planejamento', 'Assinatura', 'Auditoria', 'Governanca', 'Transparencia'],
-      personas: ['auditor', 'procurador', 'secretario'],
+      personas: ['auditor', 'procurador', 'secretario', 'controlador', 'cidadao'],
       description:
         'Cada versão recebe hash e referência à versão anterior, permitindo detecção de adulteração e reconstrução do contexto de decisão.',
     },
@@ -46,7 +46,7 @@ export const CAPABILITIES: Array<{
       subtitle: 'Prazos automáticos com hierarquia definida',
       icon: '◈',
       axes: ['Gestao', 'Planejamento', 'Auditoria', 'Governanca'],
-      personas: ['secretario', 'prefeito', 'procurador'],
+      personas: ['secretario', 'prefeito', 'procurador', 'controlador'],
       description:
         'Regras de antecedência e escalonamento para chefia em caso de inação, com registro de notificações e evidência de cumprimento de SLA.',
     },
@@ -56,7 +56,7 @@ export const CAPABILITIES: Array<{
       subtitle: 'Registro auditável de cada evento do processo',
       icon: '⊸',
       axes: ['Gestao', 'Auditoria', 'Governanca', 'Transparencia'],
-      personas: ['auditor', 'procurador', 'prefeito'],
+      personas: ['auditor', 'procurador', 'prefeito', 'controlador', 'cidadao'],
       description:
         'Cada ação gera evento com ator e timestamp, preservando a trilha auditável do processo e suportando defensibilidade institucional.',
     },
@@ -66,7 +66,7 @@ export const CAPABILITIES: Array<{
       subtitle: 'Pacote auditável para TCE, MP e arquivamento',
       icon: '⟳',
       axes: ['Gestao', 'Auditoria', 'Governanca', 'Transparencia'],
-      personas: ['auditor', 'procurador', 'prefeito'],
+      personas: ['auditor', 'procurador', 'prefeito', 'controlador', 'cidadao'],
       description:
         'Geração de pacote de evidências contendo documentos, metadados e registros necessários para auditoria e instrução, conforme configuração.',
     },
@@ -129,9 +129,28 @@ export const PERSONAS: Record<PersonaId, {
       text: 'Solicite um pacote de conformidade com matriz de evidências e limites/condições aplicáveis ao seu cenário.',
     },
   },
+  controlador: {
+    id: 'controlador',
+    label: 'Controlador Interno',
+    role: 'Governança Preventiva',
+    icon: 'M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z',
+    subtitle: 'Mitigação de riscos e conformidade nativa',
+    dor: 'Falhas em processos que geram apontamentos do TCE.',
+    risco: 'Improbidade administrativa, sanções e multas.',
+    resultado: 'Mitigação de riscos e processos blindados por design.',
+    seoTitle: 'Govevia para Controladores Internos | Governança Preventiva',
+    seoDescription: 'Blinde a gestão pública contra apontamentos e sanções. Ferramentas de controle interno para conformidade nativa e mitigação de riscos administrativos.',
+    evidencias: ['trilha', 'versionamento', 'alertas', 'exportacao'],
+    order: ['trilha', 'versionamento', 'alertas', 'exportacao', 'assinatura'],
+    cta: {
+      label: 'Solicitar diagnóstico de risco',
+      href: '/contato?context=controlador',
+      text: 'Solicite um diagnóstico de risco processual e veja como a plataforma automatiza pontos de controle.',
+    },
+  },
   auditor: {
     id: 'auditor',
-    label: 'Controlador / Auditor',
+    label: 'Auditor Externo / TCE',
     role: 'Evidência contínua',
     icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
     subtitle: 'Trilha auditável e evidência contínua',
@@ -165,6 +184,25 @@ export const PERSONAS: Record<PersonaId, {
       label: 'Agendar avaliação operacional',
       href: '/contato?context=secretario',
       text: 'Agende uma avaliação operacional com foco em SLA, alertas, fluxo e evidência mínima para operação do órgão.',
+    },
+  },
+  cidadao: {
+    id: 'cidadao',
+    label: 'Cidadão',
+    role: 'Controle Social',
+    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+    subtitle: 'Participação ativa e transparência real',
+    dor: 'Falta de transparência e dificuldade em fiscalizar a gestão.',
+    risco: 'Desinformação e distanciamento entre governo e sociedade.',
+    resultado: 'Participação democrática e confiança na gestão pública.',
+    seoTitle: 'Govevia para o Cidadão | Transparência e Controle Social',
+    seoDescription: 'Exerça seu papel de cidadão com transparência real. Acompanhe processos, obras e investimentos municipais com dados abertos e verificáveis.',
+    evidencias: ['trilha', 'versionamento', 'exportacao'],
+    order: ['trilha', 'versionamento', 'exportacao', 'alertas', 'assinatura'],
+    cta: {
+      label: 'Acessar portal da transparência',
+      href: '/blog?context=cidadao',
+      text: 'Veja como a Govevia transforma dados frios em informações úteis para o controle social.',
     },
   },
 }
