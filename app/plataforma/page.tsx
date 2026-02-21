@@ -185,6 +185,19 @@ export default function PlatformPage({ searchParams }: Props) {
           </div>
         </section>
 
+        {/* ── PERSONAS + CAPACIDADES (client, above fold) ──────────────────── */}
+        <Suspense
+          fallback={
+            <div className="py-16 bg-slate-950 text-center">
+              <span className="text-xs font-mono text-gray-300 uppercase tracking-widest">
+                Carregando…
+              </span>
+            </div>
+          }
+        >
+          <PlataformaView initialView={initialView} />
+        </Suspense>
+
         {/* ── MÓDULOS ──────────────────────────────────────────────────────── */}
         <section className="py-24 bg-zinc-950" id="modulos">
           <div className="container-custom">
@@ -207,18 +220,6 @@ export default function PlatformPage({ searchParams }: Props) {
           </div>
         </section>
 
-        {/* ── CAPACIDADES + PERSONAS (client) ──────────────────────────────── */}
-        <Suspense
-          fallback={
-            <div className="py-24 bg-slate-950 text-center">
-              <span className="text-xs font-mono text-gray-300 uppercase tracking-widest">
-                Carregando…
-              </span>
-            </div>
-          }
-        >
-          <PlataformaView initialView={initialView} />
-        </Suspense>
 
         {/* ── ANATOMIA DE UMA DECISÃO DEFENSÁVEL ───────────────────────────── */}
         <section className="py-24 bg-zinc-950 border-t border-white/5" id="anatomia">
