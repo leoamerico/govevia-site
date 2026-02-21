@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — feat(brand): favicon dinâmico com marca Govevia
+
+- Substituído `app/icon.png` (estático, fundo branco) por `app/icon.tsx` (gerado via `ImageResponse`). Favicon agora renderiza a marca G com sparks sobre fundo `#080C14` (deep-navy), com cantos arredondados 14px. Funciona em tabs claras e escuras.
+
 ## 2026-02-21 — fix(build): allowlist legal-references no gate-no-hardcoded-endpoints
 
 - `lib/legal/legal-references.ts` adicionado ao allowlist do gate `gate-no-hardcoded-endpoints` — URLs de legislação oficial (planalto.gov.br) são dados públicos estáticos, não endpoints de conectividade.
