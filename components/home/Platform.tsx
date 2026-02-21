@@ -90,7 +90,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={capability.icon} />
                 </svg>
                 {capability.detail ? (
-                  <span className="text-xs text-primary/60 font-sans border border-primary/20 rounded px-2 py-0.5">Clique para ler</span>
+                  <span className="text-xs text-blue-400 hover:text-blue-300 font-sans font-medium border border-blue-400/40 hover:border-blue-300/60 rounded px-2.5 py-0.5 transition-colors duration-200">Clique para ler</span>
                 ) : null}
               </div>
               {capability.title ? (
