@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
 import AdminAccessButton from '@/components/AdminAccessButton'
@@ -122,6 +123,7 @@ export default function RootLayout({
         <Footer />
         <CookieConsent />
         <AdminAccessButton />
+        <Analytics />
       </body>
     </html>
   )
