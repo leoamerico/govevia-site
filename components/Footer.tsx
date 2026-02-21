@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { ENVNEO_BRAND } from '@/lib/brand/envneo'
+import GoveviaMarkSvg from '@/components/brand/GoveviaMarkSvg'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -14,10 +15,13 @@ export default function Footer() {
         style={{ height: '3px', background: 'linear-gradient(90deg, #106efd 0%, #38b6ff 43%, #5ce1e6 72%, #ff751f 100%)' }}
       />
       <div className="container-custom py-16">
-        {/* Title */}
-        <h2 className="text-3xl md:text-4xl font-serif font-bold text-center text-white mb-12 tracking-tight">
-          {productName}
-        </h2>
+        {/* Brand mark + Title */}
+        <div className="flex items-center justify-center gap-3 mb-12">
+          <GoveviaMarkSvg size={28} />
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-white tracking-tight">
+            {productName}
+          </h2>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* ── Contato Institucional ─────────────────────── */}

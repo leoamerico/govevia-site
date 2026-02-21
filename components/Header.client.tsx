@@ -1,19 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import GoveviaMarkSvg from '@/components/brand/GoveviaMarkSvg'
 
 type Props = {
   productName: string
-  legalEntityName: string
-  goveviaLogoSvg: string | null
-  inpiStatus: string
   /** Itens de navegação filtrados pelo servidor: apenas o que tem conteúdo real. */
   navigation: Array<{ name: string; href: string }>
 }
 
-export default function HeaderClient({ productName, legalEntityName, goveviaLogoSvg, inpiStatus, navigation }: Props) {
+export default function HeaderClient({ productName, navigation }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -25,8 +22,6 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const logoAriaLabel = `${productName}${inpiStatus.trim() ? ` (${inpiStatus.trim()})` : ''}`
-
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
@@ -37,37 +32,11 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
     >
       <nav className="container-custom" aria-label="Navegação principal">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center">
-            {goveviaLogoSvg ? (
-              <span className="flex items-center gap-2.5" role="img" aria-label={logoAriaLabel}>
-                <span
-                  className="flex-shrink-0"
-                  style={{ width: '32px', height: '32px', display: 'inline-flex', alignItems: 'center' }}
-                  dangerouslySetInnerHTML={{ __html: goveviaLogoSvg }}
-                />
-                <span className="font-bold text-[1.15rem] tracking-tight text-white leading-none">
-                  {productName}
-                </span>
-              </span>
-            ) : (
-              <Image
-                src="/brand/govevia-lockup-on-white.png"
-                alt={productName}
-                width={400}
-                height={120}
-                className="h-8 w-auto"
-                priority
-              />
-            )}
-
-            {legalEntityName.trim().length > 0 ? (
-              <>
-                <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
-                <span className="hidden sm:inline text-xs font-sans font-semibold text-gray-300 tracking-wide">
-                  {legalEntityName}
-                </span>
-              </>
-            ) : null}
+          <Link href="/" className="flex items-center gap-2.5" aria-label={productName}>
+            <GoveviaMarkSvg size={32} className="flex-shrink-0" />
+            <span className="font-bold text-[1.15rem] tracking-tight text-white leading-none">
+              {productName}
+            </span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
