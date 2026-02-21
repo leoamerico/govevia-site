@@ -1,50 +1,39 @@
 # Contributing — Govevia Site
 
-## Antes do primeiro commit
+> Para o contexto completo do projeto (arquitetura, SSOTs, convenções), leia **[docs/AGENT-CONTEXT.md](docs/AGENT-CONTEXT.md)**.
 
-Leia **[docs/platform/PLANO-OPERACIONAL.md](docs/platform/PLANO-OPERACIONAL.md)** — especificamente a seção "Regras de manutenção". É curta e contém as três regras que evitam a categoria mais comum de retrabalho neste repositório.
-
-## Verificações locais obrigatórias antes de abrir PR
+## Verificações obrigatórias antes de PR
 
 ```bash
 npm run governance:check   # Gate G2 — artefatos e referências
-npm run governance:g4      # Gate G4 — rastreabilidade da página /arquitetura
-npm run governance:g3      # Gate G3 — Biblioteca de Evidências (requer DOCX depositado)
+npm run governance:g4      # Gate G4 — rastreabilidade /arquitetura
+npm run governance:g3      # Gate G3 — Biblioteca de Evidências
 npm run build              # Gate G1 — build Next.js
 ```
 
 Todos devem retornar exit 0. PR com qualquer gate em FAIL não será revisado.
 
-## Estrutura de documentação
+## Regras essenciais
+
+1. **Footer** vive no `layout.tsx` — nunca importar em páginas individuais.
+2. **Dados institucionais** vêm de `lib/brand/envneo.ts` — nunca hardcodar.
+3. **Referências legais** vêm de `lib/legal/legal-references.ts`.
+4. **ZERO HEX hardcoded** — usar tokens Tailwind.
+5. **ADRs** em `docs/platform/adr/` são imutáveis após aceitos. Mudança = novo ADR.
+6. **CHANGELOG.md** deve ser atualizado em toda mudança.
+
+## Convenção de commit
 
 ```
-docs/platform/
-├── appendix-architecture.mdx   ← MASTER — editar apenas aqui
-├── PLANO-OPERACIONAL.md
-└── adr/
-    ├── ADR-001-canonicalizacao-payload.md
-    └── ADR-002-artefatos-evidencia.md
+tipo(escopo): descrição em português
 ```
 
-ADRs são imutáveis após status `Aceito`. Mudança de decisão = novo ADR.
+Tipos: `feat`, `fix`, `refactor`, `docs`, `chore`, `style`, `test`
 
-## Convenção de commit para o apêndice técnico
+## Documentação
 
-Qualquer commit que modifica `docs/platform/appendix-architecture.mdx` deve incluir
-ou um DOCX atualizado em `public/assets/` ou a linha:
-
-```
-TODO(docx): regenerar vX.Y — <motivo>
-```
-
-Ver detalhes em [docs/platform/PLANO-OPERACIONAL.md](docs/platform/PLANO-OPERACIONAL.md) → Regra 1.
-
-## Scripts relevantes
-
-| Comando | Descrição |
+| Documento | Propósito |
 |---|---|
-| `npm run governance:check` | Gate G2 — artefatos obrigatórios |
-| `npm run governance:g3` | Gate G3 — Biblioteca de Evidências |
-| `npm run governance:g4` | Gate G4 — rastreabilidade /arquitetura |
-| `npm run test:e2e` | Playwright E2E (31 testes) |
-| `npm run build` | Build Next.js (inclui policy gates) |
+| [docs/AGENT-CONTEXT.md](docs/AGENT-CONTEXT.md) | Contexto completo para agentes de IA |
+| [docs/MASTER-PROMPT-GOVEVIA.md](docs/MASTER-PROMPT-GOVEVIA.md) | Identidade do produto e matriz de relacionamento |
+| [docs/platform/PLANO-OPERACIONAL.md](docs/platform/PLANO-OPERACIONAL.md) | Regras de manutenção |
