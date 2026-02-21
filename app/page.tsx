@@ -166,23 +166,23 @@ export default function Home() {
           cta={{ href: '/plataforma', label: 'Ver detalhes da plataforma' }}
         />
         <Defensibility
-          title="Cada decisão, defensável"
-          subtitle="Do protocolo à conclusão do ato, toda a cadeia decisória é registrada em trilha auditável, encadeada criptograficamente e pronta para qualquer instância de controle."
+          title="Como seu processo é protegido do início ao fim"
+          subtitle="Cada etapa do seu pedido é registrada, verificada e guardada — para que você sempre saiba o que aconteceu, quem decidiu e por quê."
           trail={{
-            title: 'Fluxo de rastreabilidade',
+            title: 'Seu processo passo a passo',
             items: [
-              { label: '1. Protocolo', value: 'Entrada registrada', body: 'Timestamp imutável, origem e identificação do requerente.' },
-              { label: '2. Instrução', value: 'Competência verificada', body: 'Alçada, impedimentos e prazos checados antes de distribuir.' },
-              { label: '3. Motivação', value: 'Fundamentação técnica', body: 'Fundamento legal exigido e registrado estruturalmente.' },
-              { label: '4. Decisão', value: 'Ato do agente', body: 'Decisão final sempre do humano responsável — com evidência.' },
-              { label: '5. Evidência', value: 'Hash encadeado', body: 'Cadeia criptográfica verificável por auditores externos.' },
+              { label: '1. Chegada', value: 'Tudo começa aqui', body: 'Assim que seu documento ou pedido chega, registramos o dia, hora e quem enviou — como um carimbo oficial que ninguém pode apagar.' },
+              { label: '2. Verificação', value: 'Quem pode cuidar disso?', body: 'Conferimos se a pessoa ou setor certo recebeu o pedido e se está dentro do prazo. É como verificar se o ticket foi para a fila correta.' },
+              { label: '3. Explicação', value: 'Por que vamos decidir assim?', body: 'Todo servidor deve explicar com clareza qual lei ou regra está usando. É a parte onde ele justifica a decisão para você e para quem for fiscalizar depois.' },
+              { label: '4. Decisão', value: 'A palavra final', body: 'Só o servidor responsável pode dar a resposta definitiva. Ele assina e assume a decisão — sempre uma pessoa de verdade, nunca uma máquina sozinha.' },
+              { label: '5. Prova imutável', value: 'Tudo guardado para sempre', body: 'Cada passo recebe um selo digital (um código único). Se alguém tentar mudar qualquer coisa depois, o sistema avisa imediatamente.' },
             ],
           }}
           quote="Quem decide é o humano. Sempre. O sistema garante que essa decisão seja defensável."
           features={[
-            { title: 'Imutabilidade garantida', body: 'Registros encadeados por hash SHA-256. Qualquer adulteração é detectável matematicamente.' },
-            { title: 'Conformidade por design', body: 'Requisitos normativos embutidos nos fluxos — não verificados depois, impedidos antes.' },
-            { title: 'Pronto para controle externo', body: 'Trilha exportável nos formatos exigidos por TCU, CGU e Tribunais de Contas.' },
+            { title: 'Ninguém consegue alterar', body: 'Cada registro recebe um selo digital encadeado. Se qualquer informação for alterada, o sistema detecta automaticamente.' },
+            { title: 'As regras já estão dentro do sistema', body: 'As leis e normas são verificadas durante o processo — não depois. Erros são impedidos antes de acontecerem.' },
+            { title: 'Pronto para fiscalização', body: 'Toda a trilha pode ser exportada nos formatos exigidos pelos tribunais de contas e órgãos de controle.' },
           ]}
         />
         <Compliance
