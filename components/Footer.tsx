@@ -3,10 +3,12 @@ import Link from 'next/link'
 import { ENVNEO_BRAND } from '@/lib/brand/envneo'
 import { findRef, FOOTER_SLUGS } from '@/lib/legal/legal-references'
 import GoveviaMarkSvg from '@/components/brand/GoveviaMarkSvg'
+import { getAllPosts } from '@/lib/blog'
 
 export default function Footer() {
     const currentYear = new Date().getFullYear()
     const b = ENVNEO_BRAND
+    const publishedPostCount = getAllPosts().length
 
     return (
         <footer className="bg-institutional-navy text-white">
@@ -32,7 +34,9 @@ export default function Footer() {
                         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
                             <Link href="/" className="text-slate-200 hover:text-primary-light transition-colors">Início</Link>
                             <Link href="/plataforma" className="text-slate-200 hover:text-primary-light transition-colors">Plataforma</Link>
-                            <Link href="/blog" className="text-slate-200 hover:text-primary-light transition-colors">Publicações</Link>
+                            {publishedPostCount > 0 && (
+                                <Link href="/blog" className="text-slate-200 hover:text-primary-light transition-colors">Publicações</Link>
+                            )}
                             <Link href="/sobre" className="text-slate-200 hover:text-primary-light transition-colors">Sobre</Link>
                         </nav>
                         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm mt-2">
@@ -72,10 +76,10 @@ export default function Footer() {
                     {/* COLUNA 3 — CTA para contato */}
                     <div className="flex flex-col justify-between">
                         <Link
-                            href="#contato"
+                            href="/contato"
                             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-primary/40 hover:border-primary text-sm text-primary hover:text-white transition-colors self-start"
                         >
-                            Falar com a Govevia
+                            Fale com nossa equipe
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>

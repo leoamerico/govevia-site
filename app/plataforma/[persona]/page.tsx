@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 
 import Header from '@/components/Header'
-import PlataformaView from '@/components/plataforma/PlataformaView.client'
 import { PERSONAS, type PersonaId } from '@/lib/plataforma/ssot'
 import { PlatformLayout } from '../PlatformLayout'
 

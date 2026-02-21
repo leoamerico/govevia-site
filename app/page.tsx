@@ -28,8 +28,7 @@ export default function Home() {
             primary: { href: '#plataforma', label: 'Conheça a Plataforma' },
             secondary: { href: '#contato', label: 'Fale Conosco' },
           }}
-          legal={{
-            title: 'Aderência ao marco regulatório brasileiro',
+          legal={{            title: 'Aderência ao marco regulatório brasileiro',
             items: [
               { label: 'LGPD — Lei nº 13.709/18', url: refUrl('lgpd') },
               { label: 'LAI — Lei nº 12.527/11', url: refUrl('lai') },
@@ -39,7 +38,6 @@ export default function Home() {
               { label: 'TCU / CGU / Tribunais de Contas', url: refUrl('tcu-cgu-tce') },
             ],
           }}
-          scrollLabel="Conheça mais"
         />
         <Problem
           title="O problema que resolvemos"

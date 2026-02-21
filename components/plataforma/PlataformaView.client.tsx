@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import {
@@ -25,8 +25,6 @@ function reorderCapabilities(order: CapabilityId[]) {
 
 export default function PlataformaView({ initialView }: { initialView: PersonaId | null }) {
   const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   const [active, setActive] = useState<PersonaId | null>(initialView)
   const persona = active ? PERSONAS[active] : null

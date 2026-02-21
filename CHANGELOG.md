@@ -1,5 +1,17 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(hero): remoção do indicador de scroll (seta animada)
+
+- Removido bloco "Scroll Indicator" (`motion.div` com seta `animate-bounce` e âncora `#problema`) de `components/home/Hero.tsx`.
+- Removida prop `scrollLabel` do tipo `Props` e da assinatura do componente.
+- Removida prop `scrollLabel="Conheça mais"` da chamada em `app/page.tsx`.
+
+## 2026-02-21 — fix(nav): coesão entre menu superior e rodapé
+
+- `Footer.tsx`: navegação principal sincronizada com `Header.tsx` — "Publicações" agora renderiza condicionalmente, via `getAllPosts()`, idêntico ao comportamento do header.
+- CTA do rodapé: label unificado para "Fale com nossa equipe" (igualando o header); link corrigido de `#contato` para `/contato`.
+- `Header.client.tsx`: CTAs desktop e mobile corrigidos de `#contato` para `/contato`, garantindo roteamento correto em qualquer página.
+
 ## 2026-02-21 — feat(plataforma): rotas dedicadas por persona e SEO (Phase 2)
 
 - Implementadas rotas dinâmicas `/plataforma/[persona]` para Prefeito, Procurador, Auditor e Secretário.
