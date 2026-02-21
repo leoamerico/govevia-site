@@ -1,5 +1,4 @@
 import HeaderClient from '@/components/Header.client'
-import { GOVEVIA_PRODUCT_NAME } from '@/lib/brand/envneo'
 import { getAllPosts } from '@/lib/blog'
 
 export default function Header() {
@@ -14,7 +13,6 @@ export default function Header() {
 
   return (
     <HeaderClient
-      productName={GOVEVIA_PRODUCT_NAME}
       navigation={navigation}
     />
   )

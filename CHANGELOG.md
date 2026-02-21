@@ -1,5 +1,18 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — feat(brand): BrandWordmark — SSOT tipográfico do logotipo Govevia
+
+**Problema:** Header usava `font-sans text-[1.15rem]` e Footer usava `font-serif text-xl` — duas renderizações distintas do mesmo logotipo.
+
+**Solução:**
+- Criado `components/brand/BrandWordmark.tsx` como única fonte de verdade para o logotipo textual.
+- Tipografia canônica definida: `font-sans font-bold tracking-tight text-white leading-none` (IBM Plex Sans — alinhado a `section-title` e `h1-h6` do globals.css).
+- Variantes de tamanho: `sm` (footer, 20px ícone / text-lg) · `md` (header, 28px / text-xl) · `lg` (hero, 36px / text-2xl).
+- `Header.client.tsx`: wordmark inline substituído por `<BrandWordmark size="md" />`. Prop `productName` removida (desnecessária).
+- `Header.tsx`: prop `productName` removida. Import `GOVEVIA_PRODUCT_NAME` removido.
+- `Footer.tsx`: wordmark `font-serif` substituído por `<BrandWordmark size="sm" />`.
+- `GoveviaMarkSvg` agora é usado exclusivamente dentro de `BrandWordmark` — nunca diretamente em superfícies.
+
 ## 2026-02-21 — fix(nav): remoção do CTA "Fale com nossa equipe" do header e footer
 
 - `Header.client.tsx`: botão `btn-primary` desktop e mobile removidos — link `/contato` já está no menu de navegação como item "Contato" ou acessível via footer.

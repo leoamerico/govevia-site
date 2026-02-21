@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import { ENVNEO_BRAND } from '@/lib/brand/envneo'
 import { findRef, FOOTER_SLUGS } from '@/lib/legal/legal-references'
-import GoveviaMarkSvg from '@/components/brand/GoveviaMarkSvg'
+import BrandWordmark from '@/components/brand/BrandWordmark'
 import { getAllPosts } from '@/lib/blog'
 
 export default function Footer() {
@@ -23,11 +23,8 @@ export default function Footer() {
 
                     {/* COLUNA 1 — Logo + Navegação */}
                     <div>
-                        <div className="flex items-center gap-2.5 mb-3">
-                            <GoveviaMarkSvg size={24} />
-                            <span className="text-xl font-serif font-bold text-white tracking-tight">
-                                {b.productName}
-                            </span>
+                        <div className="mb-3">
+                            <BrandWordmark size="sm" />
                         </div>
                         <p className="text-sm text-slate-300 mb-6">{b.segment}</p>
 

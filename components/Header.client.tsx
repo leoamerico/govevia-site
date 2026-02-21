@@ -2,15 +2,14 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import GoveviaMarkSvg from '@/components/brand/GoveviaMarkSvg'
+import BrandWordmark from '@/components/brand/BrandWordmark'
 
 type Props = {
-  productName: string
   /** Itens de navegação filtrados pelo servidor: apenas o que tem conteúdo real. */
   navigation: Array<{ name: string; href: string }>
 }
 
-export default function HeaderClient({ productName, navigation }: Props) {
+export default function HeaderClient({ navigation }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -32,12 +31,7 @@ export default function HeaderClient({ productName, navigation }: Props) {
     >
       <nav className="container-custom" aria-label="Navegação principal">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-2.5" aria-label={productName}>
-            <GoveviaMarkSvg size={32} className="flex-shrink-0" />
-            <span className="font-bold text-[1.15rem] tracking-tight text-white leading-none">
-              {productName}
-            </span>
-          </Link>
+          <BrandWordmark size="md" />
 
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
