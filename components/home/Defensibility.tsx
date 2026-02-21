@@ -1,13 +1,14 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 type Props = {
   title: string
   subtitle: string
   trail: {
     title: string
-    items: Array<{ label: string; value: string; body: string }>
+    items: Array<{ label: string; value: string; body: string; technical?: string }>
   }
   quote: string
   features: Array<{ title: string; body: string }>
@@ -20,8 +21,10 @@ const FEATURE_ICONS = [
 ]
 
 export default function Defensibility({ title, subtitle, trail, quote, features }: Props) {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+
   const visibleTrailItems = trail.items
-    .map((i) => ({ label: i.label.trim(), value: i.value.trim(), body: i.body.trim() }))
+    .map((i) => ({ label: i.label.trim(), value: i.value.trim(), body: i.body.trim(), technical: i.technical?.trim() ?? '' }))
     .filter((i) => i.label.length > 0 || i.value.length > 0 || i.body.length > 0)
 
   const visibleFeatures = features
@@ -38,6 +41,10 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
 
   if (!hasAny) {
     return null
+  }
+
+  function handleToggle(index: number) {
+    setExpandedIndex((prev) => (prev === index ? null : index))
   }
 
   return (
@@ -66,43 +73,92 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
           className="max-w-5xl mx-auto"
         >
           {trail.title.trim().length > 0 || visibleTrailItems.length > 0 ? (
-            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/10">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/10">
               {trail.title.trim().length > 0 ? (
-                <h3 className="font-serif font-semibold text-2xl mb-8 text-center text-primary-light">{trail.title}</h3>
+                <h3 className="font-serif font-semibold text-2xl md:text-3xl mb-10 text-center text-primary-light">{trail.title}</h3>
               ) : null}
               {visibleTrailItems.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                  {visibleTrailItems.map((item, index) => (
-                    <motion.div
-                      key={`${index}-${item.label}-${item.value}`}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="relative"
-                    >
-                      <div className="group bg-white/10 p-6 rounded-lg border border-primary/30 hover:border-primary-light transition-colors duration-300">
-                        {item.label.length > 0 ? (
-                          <div className="text-accent-gold font-sans font-semibold text-sm mb-2">{item.label}</div>
-                        ) : null}
-                        {item.value.length > 0 ? (
-                          <div className="font-semibold text-white mb-2 text-sm font-sans">{item.value}</div>
-                        ) : null}
-                        {item.body.length > 0 ? <div className="text-xs text-gray-200 font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</div> : null}
-                      </div>
-                      {index < visibleTrailItems.length - 1 ? (
-                        <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
-                          <svg className="w-6 h-6 text-primary-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                            <path
-                              fillRule="evenodd"
-                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
+                  {visibleTrailItems.map((item, index) => {
+                    const isExpanded = expandedIndex === index
+                    const hasTechnical = item.technical.length > 0
+
+                    return (
+                      <motion.div
+                        key={`${index}-${item.label}-${item.value}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="relative"
+                      >
+                        <div
+                          role={hasTechnical ? 'button' : undefined}
+                          tabIndex={hasTechnical ? 0 : undefined}
+                          aria-expanded={hasTechnical ? isExpanded : undefined}
+                          onClick={hasTechnical ? () => handleToggle(index) : undefined}
+                          onKeyDown={hasTechnical ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleToggle(index) } } : undefined}
+                          className={`bg-white/10 p-6 rounded-xl border transition-all duration-300 ${isExpanded
+                              ? 'border-primary-light shadow-lg shadow-primary/10'
+                              : 'border-primary/30 hover:border-primary-light'
+                            } ${hasTechnical ? 'cursor-pointer' : ''}`}
+                        >
+                          <div className="flex justify-between items-start">
+                            <div>
+                              {item.label.length > 0 ? (
+                                <div className="text-accent-gold font-sans font-semibold text-sm mb-1">{item.label}</div>
+                              ) : null}
+                              {item.value.length > 0 ? (
+                                <div className="font-semibold text-white text-sm md:text-base font-sans">{item.value}</div>
+                              ) : null}
+                            </div>
+                            {hasTechnical ? (
+                              <span
+                                className={`text-primary-light text-xl font-bold transition-transform duration-300 flex-shrink-0 ml-2 ${isExpanded ? 'rotate-90' : 'rotate-0'
+                                  }`}
+                                aria-hidden="true"
+                              >
+                                ›
+                              </span>
+                            ) : null}
+                          </div>
+
+                          {item.body.length > 0 ? (
+                            <div className="text-xs text-gray-200 font-sans mt-3 leading-relaxed">{item.body}</div>
+                          ) : null}
+
+                          <AnimatePresence>
+                            {isExpanded && hasTechnical ? (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                className="overflow-hidden"
+                              >
+                                <div className="mt-4 pt-4 border-t border-white/10 text-sm text-gray-300 leading-relaxed">
+                                  <strong className="text-white text-xs uppercase tracking-wider">Técnico:</strong>
+                                  <p className="mt-1 text-xs">{item.technical}</p>
+                                </div>
+                              </motion.div>
+                            ) : null}
+                          </AnimatePresence>
                         </div>
-                      ) : null}
-                    </motion.div>
-                  ))}
+
+                        {index < visibleTrailItems.length - 1 ? (
+                          <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                            <svg className="w-6 h-6 text-primary-light" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                              <path
+                                fillRule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        ) : null}
+                      </motion.div>
+                    )
+                  })}
                 </div>
               ) : null}
             </div>
@@ -143,7 +199,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
                 </svg>
               </div>
               {item.title.length > 0 ? <h4 className="font-serif font-semibold text-lg mb-2">{item.title}</h4> : null}
-              {item.body.length > 0 ? <p className="text-gray-200 text-sm font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</p> : null}
+              {item.body.length > 0 ? <p className="text-gray-200 text-sm font-sans">{item.body}</p> : null}
             </div>
           ))}
         </motion.div>
