@@ -3,7 +3,6 @@ import { resolve } from 'path';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Callout } from '@/components/ui/Callout';
 import { DecisionBadge } from '@/components/ui/DecisionBadge';
 
@@ -32,7 +31,6 @@ export default function ArquiteturaPage() {
           <MDXRemote source={source} components={components} />
         </article>
       </main>
-      <Footer />
     </>
   );
 }

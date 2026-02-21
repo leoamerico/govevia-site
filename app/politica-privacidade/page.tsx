@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import {
   ENVNEO_LEGAL_ENTITY_NAME,
   ENVNEO_CNPJ,
@@ -27,7 +26,7 @@ export default function PrivacyPolicyPage() {
           <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-8">
             Política de Privacidade
           </h1>
-          
+
           <div className="prose prose-lg max-w-none text-gray-300">
             <p className="text-sm text-gray-400 mb-8">
               Última atualização: 13 de fevereiro de 2026
@@ -39,12 +38,12 @@ export default function PrivacyPolicyPage() {
               </h2>
               <p className="leading-relaxed mb-4">
                 A {ENVNEO_LEGAL_ENTITY_NAME}, inscrita no CNPJ {ENVNEO_CNPJ}, com sede na {ENVNEO_ADDRESS.street},
-                CEP {ENVNEO_ADDRESS.zip}, {ENVNEO_ADDRESS.city}, é a controladora dos dados pessoais coletados 
+                CEP {ENVNEO_ADDRESS.zip}, {ENVNEO_ADDRESS.city}, é a controladora dos dados pessoais coletados
                 através do site govevia.com.br.
               </p>
               <p className="leading-relaxed">
-                Esta Política de Privacidade está em conformidade com a Lei Geral de Proteção de Dados 
-                (Lei 13.709/2018 - LGPD) e descreve como coletamos, usamos, armazenamos e protegemos 
+                Esta Política de Privacidade está em conformidade com a Lei Geral de Proteção de Dados
+                (Lei 13.709/2018 - LGPD) e descreve como coletamos, usamos, armazenamos e protegemos
                 informações pessoais dos usuários deste site.
               </p>
             </section>
@@ -87,9 +86,9 @@ export default function PrivacyPolicyPage() {
                 4. Base Legal
               </h2>
               <p className="leading-relaxed">
-                O tratamento dos dados pessoais está fundamentado no <strong>legítimo interesse</strong> 
-                (Art. 7º, IX, LGPD) para atendimento de solicitações de contato relacionadas à plataforma 
-                Govevia, bem como no <strong>consentimento</strong> do titular ao preencher voluntariamente 
+                O tratamento dos dados pessoais está fundamentado no <strong>legítimo interesse</strong>
+                (Art. 7º, IX, LGPD) para atendimento de solicitações de contato relacionadas à plataforma
+                Govevia, bem como no <strong>consentimento</strong> do titular ao preencher voluntariamente
                 o formulário.
               </p>
             </section>
@@ -103,8 +102,8 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Quando exigido por lei ou determinação judicial</li>
-                <li>Com prestadores de serviço essenciais (hospedagem, e-mail) que atuam como 
-                    operadores de dados sob contratos de confidencialidade</li>
+                <li>Com prestadores de serviço essenciais (hospedagem, e-mail) que atuam como
+                  operadores de dados sob contratos de confidencialidade</li>
               </ul>
             </section>
 
@@ -156,8 +155,8 @@ export default function PrivacyPolicyPage() {
                 8. Cookies e Tecnologias Similares
               </h2>
               <p className="leading-relaxed">
-                Este site <strong>não utiliza cookies de terceiros</strong> para rastreamento ou publicidade. 
-                Cookies técnicos essenciais para funcionamento básico do site podem ser utilizados, mas 
+                Este site <strong>não utiliza cookies de terceiros</strong> para rastreamento ou publicidade.
+                Cookies técnicos essenciais para funcionamento básico do site podem ser utilizados, mas
                 não coletam dados pessoais identificáveis.
               </p>
             </section>
@@ -167,7 +166,7 @@ export default function PrivacyPolicyPage() {
                 9. Alterações nesta Política
               </h2>
               <p className="leading-relaxed">
-                Esta Política de Privacidade pode ser atualizada periodicamente. Alterações significativas 
+                Esta Política de Privacidade pode ser atualizada periodicamente. Alterações significativas
                 serão comunicadas através do próprio site, com indicação da data da última atualização.
               </p>
             </section>
@@ -195,7 +194,6 @@ export default function PrivacyPolicyPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   )
 }

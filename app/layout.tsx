@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Footer from '@/components/Footer'
 import CookieConsent from '@/components/CookieConsent'
 import AdminAccessButton from '@/components/AdminAccessButton'
 import {
@@ -118,6 +119,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <Footer />
         <CookieConsent />
         <AdminAccessButton />
       </body>

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { getChangelogHtml, getChangelogMeta } from '@/lib/changelog'
 
 export const metadata: Metadata = {
@@ -57,7 +56,6 @@ export default async function HistoricoPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

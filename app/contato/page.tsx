@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import Contact from '@/components/home/Contact'
 import {
   ENVNEO_EMAIL,
@@ -81,7 +80,6 @@ export default function ContatoPage({ searchParams }: Props) {
           ceo={{ label: contactCeoLabel, name: contactCeoName, role: ENVNEO_FOUNDER.role, email: ENVNEO_FOUNDER.email, whatsappUrl: ENVNEO_WHATSAPP_URL, phone: ENVNEO_FOUNDER.phone }}
         />
       </main>
-      <Footer />
     </>
   )
 }

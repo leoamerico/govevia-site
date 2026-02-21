@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import AboutHero from '@/components/about/AboutHero'
 import Mission from '@/components/about/Mission'
 import Principles from '@/components/about/Principles'
@@ -22,7 +21,6 @@ export default function AboutPage() {
         <Principles />
         <Company />
       </main>
-      <Footer />
     </>
   )
 }

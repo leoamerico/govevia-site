@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import PlataformaView from '@/components/plataforma/PlataformaView.client'
 import { MODULES } from '@/lib/plataforma/modules'
 import type { PersonaId } from '@/lib/plataforma/ssot'
@@ -466,7 +465,6 @@ export default function PlatformPage({ searchParams }: Props) {
         </section>
 
       </main>
-      <Footer />
     </>
   )
 }

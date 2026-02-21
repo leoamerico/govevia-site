@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import { getPostBySlug, getAllPosts } from '@/lib/blog'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Suspense } from 'react'
@@ -163,7 +162,6 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

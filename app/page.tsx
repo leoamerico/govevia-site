@@ -1,5 +1,4 @@
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
 import Hero from '@/components/home/Hero'
 import Problem from '@/components/home/Problem'
 import Platform from '@/components/home/Platform'
@@ -210,7 +209,6 @@ export default function Home() {
           ceo={{ label: 'Responsável técnico e comercial', name: ENVNEO_FOUNDER.nameShort, role: ENVNEO_FOUNDER.role, email: ENVNEO_FOUNDER.email, whatsappUrl: ENVNEO_WHATSAPP_URL, phone: ENVNEO_FOUNDER.phone }}
         />
       </main>
-      <Footer />
     </>
   )
 }
