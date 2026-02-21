@@ -22,7 +22,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero
-          kicker="Plataforma de Governança Pública"
+          kicker=""
           title="Governança executável para administração pública"
           subtitle="O Govevia transforma normas institucionais em controles técnicos verificáveis — cada requisito registrado, rastreado e defensável perante qualquer instância de controle."
           ctas={{
