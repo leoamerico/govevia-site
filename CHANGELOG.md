@@ -1,5 +1,10 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(problem): remoção do efeito hover-expand nos cards de problema
+
+- `components/home/Problem.tsx`: descrição de cada card passa a ser sempre visível — removidas classes `max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 overflow-hidden transition-all`.
+- Removidas classes `group` e `hover:bg-white/10 transition-all` do card (efeito de expansão eliminnado).
+
 ## 2026-02-21 — fix(hero): remoção do indicador de scroll (seta animada)
 
 - Removido bloco "Scroll Indicator" (`motion.div` com seta `animate-bounce` e âncora `#problema`) de `components/home/Hero.tsx`.
