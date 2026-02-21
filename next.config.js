@@ -33,6 +33,34 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+
+  // ── Redirects canônicos ───────────────────────────────────────────────────
+  // Garantem que qualquer domínio alternativo redireciona 301 para o canônico
+  // govevia.com.br. Evita cadeia, duplicidade de indexação e perda de PageRank.
+  redirects: async () => [
+    // govevia.com → govevia.com.br
+    {
+      source: '/:path*',
+      has: [{ type: 'host', value: 'govevia.com' }],
+      destination: 'https://govevia.com.br/:path*',
+      permanent: true,
+    },
+    // www.govevia.com → govevia.com.br
+    {
+      source: '/:path*',
+      has: [{ type: 'host', value: 'www.govevia.com' }],
+      destination: 'https://govevia.com.br/:path*',
+      permanent: true,
+    },
+    // govevia-site.vercel.app → govevia.com.br
+    {
+      source: '/:path*',
+      has: [{ type: 'host', value: 'govevia-site.vercel.app' }],
+      destination: 'https://govevia.com.br/:path*',
+      permanent: true,
+    },
+  ],
+
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

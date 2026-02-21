@@ -1,5 +1,14 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(seo): redirects 301 canônicos para govevia.com.br
+
+- `next.config.js`: adicionado `redirects()` com 3 regras `permanent: true` (301):
+  - `govevia.com/*` → `govevia.com.br/*`
+  - `www.govevia.com/*` → `govevia.com.br/*`
+  - `govevia-site.vercel.app/*` → `govevia.com.br/*`
+- Elimina cadeia de redirecionamento (`govevia.com` → `www.govevia.com` → ...) e o 307 temporário que prejudicava SEO.
+- Centraliza controle de canonical no código, independente de configuração manual no painel Vercel.
+
 ## 2026-02-21 — fix(problem): remoção do efeito hover-expand nos cards de problema
 
 - `components/home/Problem.tsx`: descrição de cada card passa a ser sempre visível — removidas classes `max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 overflow-hidden transition-all`.
