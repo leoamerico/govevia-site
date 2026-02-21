@@ -111,8 +111,7 @@ export const BADGE_SLUGS = [
   'lgpd', 'lai', 'lrf', 'lei-14129', 'cf88-art37', 'tcu-cgu-tce',
 ] as const
 
-/** Slugs do footer (Conformidade Regulatória) */
+/** Slugs do footer (Marco Regulatório — flat array para flex-wrap) */
 export const FOOTER_SLUGS = [
-  ['lei-9784', 'lei-14129', 'lgpd'],
-  ['lei-14133', 'lai', 'icp-brasil'],
+  'lgpd', 'lai', 'lrf', 'lei-14133', 'lei-14129', 'icp-brasil',
 ] as const

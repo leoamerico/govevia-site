@@ -1,5 +1,16 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — refactor(footer): simplificação estrutural — 3 colunas
+
+- Footer reestruturado de 4 blocos sobrecarregados para 3 colunas + rodapé final.
+- **Removidos**: bloco "Liderança" (CEO, cargo, WhatsApp), endereço completo, razão social duplicada, atividade.
+- **Coluna 1**: marca + tagline + navegação (Início, Plataforma, Publicações, Sobre, Política de Privacidade, Termos de Uso).
+- **Coluna 2**: contato resumido (e-mail clicável, telefone clicável) + botão "Entre em contato".
+- **Coluna 3**: badges de conformidade regulatória (LGPD, LAI, LRF, Lei 14.133, Lei 14.129, ICP-Brasil) — clicáveis, linkados a fontes oficiais.
+- **Rodapé final**: 1 linha centralizada com razão social + CNPJ + copyright.
+- `FOOTER_SLUGS` convertido de array 2D para flat array.
+- Zero strings hardcoded — tudo via `ENVNEO_BRAND` e `LEGAL_REFERENCES`.
+
 ## 2026-02-21 — feat(brand): favicon dinâmico com marca Govevia
 
 - Substituído `app/icon.png` (estático, fundo branco) por `app/icon.tsx` (gerado via `ImageResponse`). Favicon agora renderiza a marca G com sparks sobre fundo `#080C14` (deep-navy), com cantos arredondados 14px. Funciona em tabs claras e escuras.
