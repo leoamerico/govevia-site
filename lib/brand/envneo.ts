@@ -16,8 +16,8 @@
  */
 
 // ── Identidade legal ──────────────────────────────────────
-export const ENVNEO_TRADE_NAME        = 'Env Neo'
 export const ENVNEO_LEGAL_ENTITY_NAME = 'Env Neo Ltda.'
+export const ENVNEO_TRADE_NAME        = ENVNEO_LEGAL_ENTITY_NAME.replace(' Ltda.', '').trim()
 export const ENVNEO_CNPJ              = '36.207.211/0001-47'
 
 // ── Produto principal ─────────────────────────────────────

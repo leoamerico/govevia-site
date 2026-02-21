@@ -1,5 +1,9 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(build): ENVNEO_TRADE_NAME derivado (gate shortname)
+
+- Fix(build): `ENVNEO_TRADE_NAME` era literal `'Env Neo'` — violava gate `gate-no-envneo-shortname`. Agora derivado de `ENVNEO_LEGAL_ENTITY_NAME.replace(' Ltda.', '').trim()`.
+
 ## 2026-02-19 — SPRINT-PRESENT-01 — Apresentação executável (Docs + CEO Console)
 
 - Docs: padronização de display name **"Env Live"** (sem "EnvLive") e preenchimento explícito da entidade contratante **ENV NEO LTDA** + **CNPJ: 36.207.211/0001-47** em políticas.
