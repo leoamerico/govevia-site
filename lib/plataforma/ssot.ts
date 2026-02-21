@@ -81,6 +81,8 @@ export const PERSONAS: Record<PersonaId, {
   dor: string
   risco: string
   resultado: string
+  seoTitle: string
+  seoDescription: string
   evidencias: CapabilityId[]
   order: CapabilityId[]
   cta: {
@@ -98,6 +100,8 @@ export const PERSONAS: Record<PersonaId, {
     dor: 'Não virar manchete. Previsibilidade pública.',
     risco: 'Falhas de prazo, assinatura e evidência virando crise política.',
     resultado: 'Entrega pública com prestação de contas e redução de incidentes.',
+    seoTitle: 'Govevia para Prefeitos | Governança e Redução de Risco Institucional',
+    seoDescription: 'Ferramentas de governança executável para Prefeitos. Garanta previsibilidade pública, controle de prazos e defensibilidade política com evidência real.',
     evidencias: ['trilha', 'exportacao', 'versionamento', 'alertas'],
     order: ['alertas', 'trilha', 'exportacao', 'versionamento', 'assinatura'],
     cta: {
@@ -113,8 +117,10 @@ export const PERSONAS: Record<PersonaId, {
     icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3',
     subtitle: 'Defensibilidade jurídica e conformidade',
     dor: 'Responsabilização e contestação por MP, TCE e Judiciário.',
-    risco: 'Nulidade, fragilidade probatória e assinatura inadequada.',
+    risco: 'Nulidade, fragilidade probatória e assinatura adequada.',
     resultado: 'Defensibilidade em ação/TC e conformidade verificável.',
+    seoTitle: 'Govevia para Procuradores | Defensibilidade Jurídica e Conformidade',
+    seoDescription: 'Proteja a administração pública com evidência probatória robusta. Gestão de conformidade para Procuradores Municipais com foco em defensibilidade técnica.',
     evidencias: ['assinatura', 'versionamento', 'exportacao', 'trilha'],
     order: ['assinatura', 'versionamento', 'exportacao', 'trilha', 'alertas'],
     cta: {
@@ -132,6 +138,8 @@ export const PERSONAS: Record<PersonaId, {
     dor: 'Auditoria vira "caça ao papel". Dados sem integridade.',
     risco: 'Sem logs contínuos, sem reprodutibilidade, sem achado resolvido.',
     resultado: 'Auditoria contínua e redução de achados recorrentes.',
+    seoTitle: 'Govevia para Auditores | Trilha Auditável e Integridade de Dados',
+    seoDescription: 'Transforme auditoria em um processo contínuo e automatizado. Garanta integridade de dados e conformidade normativa com trilhas auditáveis nativas.',
     evidencias: ['trilha', 'versionamento', 'exportacao'],
     order: ['trilha', 'versionamento', 'exportacao', 'assinatura', 'alertas'],
     cta: {
@@ -149,6 +157,8 @@ export const PERSONAS: Record<PersonaId, {
     dor: 'Fila, atraso, retrabalho, baixa adesão e cobrança por prazo.',
     risco: 'Alertas falhando, fluxo quebrando e equipe abandonando o sistema.',
     resultado: 'Produtividade, redução de tramitação e previsibilidade.',
+    seoTitle: 'Govevia para Secretários | Eficiência Operacional e Gestão de Prazos',
+    seoDescription: 'Otimize a operação municipal com fluxos automatizados e alertas inteligentes. Reduza filas e aumente a produtividade da sua secretaria.',
     evidencias: ['alertas', 'trilha', 'versionamento'],
     order: ['alertas', 'versionamento', 'trilha', 'assinatura', 'exportacao'],
     cta: {

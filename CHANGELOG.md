@@ -1,5 +1,13 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — feat(plataforma): rotas dedicadas por persona e SEO (Phase 2)
+
+- Implementadas rotas dinâmicas `/plataforma/[persona]` para Prefeito, Procurador, Auditor e Secretário.
+- **SEO Percussivo**: Cada persona agora possui `<title>` e `<meta description>` únicos, derivados do SSOT, para melhor indexação e social sharing.
+- **Refatoração Estrutural**: Conteúdo da plataforma extraído para `PlatformLayout.tsx`, compartilhado entre a rota base e as rotas de persona.
+- **Navegação Fluida**: `PlataformaView.client.tsx` atualizado para usar `router.push('/plataforma/[persona]')` em vez de query params, proporcionando URLs limpas.
+- **Performance**: Uso de `generateStaticParams` para garantir que todas as 4 rotas de persona sejam geradas estaticamente em build time.
+
 ## 2026-02-21 — refactor(a11y): upgrade de contraste para WCAG AAA (compliance GovTech)
 
 - Implementada melhoria de acessibilidade visual em 21 arquivos através do upgrade sistemático de cores de texto.

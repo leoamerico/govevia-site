@@ -38,11 +38,16 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
 
   function setView(next: PersonaId | null) {
     setActive(next)
-    const p = new URLSearchParams(searchParams.toString())
-    if (next) p.set('view', next)
-    else p.delete('view')
-    const qs = p.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+
+    // If we're at /plataforma/[persona], clicking the SAME persona deselects it? 
+    // In the new architecture, maybe we redirect to base /plataforma.
+    if (!next) {
+      router.push('/plataforma', { scroll: false })
+      return
+    }
+
+    // Navigate to the dedicated persona route
+    router.push(`/plataforma/${next}`, { scroll: false })
   }
 
   return (
