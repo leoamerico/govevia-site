@@ -18,7 +18,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
   }
 
   return (
-    <section className="py-24 bg-[#080c14]" id="problema">
+    <section className="py-24 bg-deep-navy" id="problema">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

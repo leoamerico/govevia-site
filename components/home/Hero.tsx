@@ -25,7 +25,7 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-[#080c14] overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center bg-deep-navy overflow-hidden pt-20">
       {/* Atmospheric gradient blobs */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div style={{ position: 'absolute', top: '-10%', right: '-8%', width: '55vw', maxWidth: '680px', height: '55vw', maxHeight: '680px', borderRadius: '50%', background: 'radial-gradient(circle at 60% 40%, rgba(16,110,253,0.08) 0%, rgba(56,182,255,0.03) 45%, transparent 70%)' }} />

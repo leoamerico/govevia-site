@@ -57,7 +57,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
   }
 
   return (
-    <section className="py-24 bg-[#080c14]" id="plataforma">
+    <section className="py-24 bg-deep-navy" id="plataforma">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -16,6 +16,7 @@ export const TOKENS_RUNTIME = {
     },
     "institutional": {
       "navy": "#0C1B2E",
+      "deep-navy": "#080C14",
       "graphite": "#2D3748",
       "slate": "#475569",
       "silver": "#94A3B8",

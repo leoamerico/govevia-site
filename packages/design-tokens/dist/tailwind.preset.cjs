@@ -3,6 +3,7 @@ module.exports = {
   "theme": {
     "extend": {
       "colors": {
+        "deep-navy": "rgb(var(--brand-institutional-deep-navy-rgb) / <alpha-value>)",
         "primary": {
           "DEFAULT": "rgb(var(--brand-govevia-primary-700-rgb) / <alpha-value>)",
           "light": "rgb(var(--brand-govevia-primary-500-rgb) / <alpha-value>)",

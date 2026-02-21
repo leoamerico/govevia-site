@@ -56,7 +56,7 @@ export default function Contact({ title, subtitle, notice, email, infoTitle, add
   const mailtoHref = emailValue.length > 0 ? `mailto:${emailValue}` : ''
 
   return (
-    <section className="py-24 bg-[#080c14]" id="contato">
+    <section className="py-24 bg-deep-navy" id="contato">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

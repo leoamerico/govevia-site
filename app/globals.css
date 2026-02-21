@@ -16,7 +16,7 @@
   }
   
   body {
-    @apply font-sans text-white bg-[#080c14] antialiased;
+    @apply font-sans text-white bg-deep-navy antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {

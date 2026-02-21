@@ -40,7 +40,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-900 to-[#080c14]">
+    <section className="py-24 bg-gradient-to-b from-gray-900 to-deep-navy">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -26,8 +26,8 @@ export default function HeaderClient({ productName, navigation }: Props) {
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-[#080c14]/98 backdrop-blur-md shadow-[0_1px_0_0_rgba(16,110,253,0.25),0_4px_24px_0_rgba(0,0,0,0.4)]'
-          : 'bg-[#080c14]/90 backdrop-blur-sm'
+          ? 'bg-deep-navy/98 backdrop-blur-md shadow-[0_1px_0_0_rgba(16,110,253,0.25),0_4px_24px_0_rgba(0,0,0,0.4)]'
+          : 'bg-deep-navy/90 backdrop-blur-sm'
       }`}
     >
       <nav className="container-custom" aria-label="Navegação principal">

@@ -42,6 +42,10 @@
       "hex": "#0C2340",
       "rgb": "12 35 64"
     },
+    "color.brand.institutional.deep-navy": {
+      "hex": "#080C14",
+      "rgb": "8 12 20"
+    },
     "color.brand.institutional.graphite": {
       "hex": "#2D3748",
       "rgb": "45 55 72"
@@ -117,6 +121,7 @@
         "accent-gold": "color.brand.govevia.accent.gold",
         "accent-copper": "color.brand.govevia.accent.copper",
         "institutional-navy": "color.brand.institutional.navy",
+        "deep-navy": "color.brand.institutional.deep-navy",
         "institutional-graphite": "color.brand.institutional.graphite",
         "institutional-slate": "color.brand.institutional.slate",
         "institutional-silver": "color.brand.institutional.silver",

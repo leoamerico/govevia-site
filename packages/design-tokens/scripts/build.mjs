@@ -164,6 +164,8 @@ function main() {
     theme: {
       extend: {
         colors: {
+          // Top-level shorthand aliases
+          'deep-navy': tailwindColors['deep-navy'],
           // Back-compat: allow nested access for existing code (primary.light, institutional.navy)
           primary: {
             DEFAULT: tailwindColors.primary,
@@ -259,6 +261,7 @@ function main() {
       },
       institutional: {
         navy: getAt(data.tokens, 'color.brand.institutional.navy')?.hex,
+        'deep-navy': getAt(data.tokens, 'color.brand.institutional.deep-navy')?.hex,
         graphite: getAt(data.tokens, 'color.brand.institutional.graphite')?.hex,
         slate: getAt(data.tokens, 'color.brand.institutional.slate')?.hex,
         silver: getAt(data.tokens, 'color.brand.institutional.silver')?.hex,

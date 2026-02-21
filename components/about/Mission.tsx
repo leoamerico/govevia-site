@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function Mission() {
   return (
-    <section className="py-24 bg-[#080c14]">
+    <section className="py-24 bg-deep-navy">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           <motion.div

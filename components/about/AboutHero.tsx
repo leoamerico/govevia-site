@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function AboutHero() {
   return (
-    <section className="relative pt-32 pb-20 bg-[#080c14]">
+    <section className="relative pt-32 pb-20 bg-deep-navy">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

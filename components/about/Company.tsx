@@ -14,7 +14,7 @@ import {
 
 export default function Company() {
   return (
-    <section className="py-24 bg-[#080c14]">
+    <section className="py-24 bg-deep-navy">
       <div className="container-custom">
         <div className="max-w-5xl mx-auto">
           <motion.div
