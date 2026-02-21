@@ -1,5 +1,10 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(contact): caixas "Implantação consultiva" e CEO unificadas
+
+- `components/home/Contact.tsx`: dois cards separados da coluna esquerda fundidos em um único `bg-white/5 rounded-lg border`, com `<hr className="border-white/10">` como divisor interno.
+- Texto do WhatsApp corrigido de `text-gray-200` → `text-slate-200` (coesão de tokens).
+
 ## 2026-02-21 — fix(seo): redirects 301 canônicos para govevia.com.br
 
 - `next.config.js`: adicionado `redirects()` com 3 regras `permanent: true` (301):
