@@ -25,7 +25,7 @@ export default async function HistoricoPage() {
               <p className="text-xl text-gray-300 font-sans leading-relaxed">
                 Este histórico é gerado a partir do <span className="font-mono">CHANGELOG.md</span> versionado no repositório.
               </p>
-              <div className="mt-6 text-sm text-gray-400 font-mono">
+              <div className="mt-6 text-sm text-gray-300 font-mono">
                 {updatedAt ? (
                   <div className="mb-2">
                     Atualizado em (UTC): <span className="text-gray-300">{updatedAt}</span>

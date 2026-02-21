@@ -22,7 +22,7 @@ export default function TermsOfUsePage() {
           </h1>
 
           <div className="prose prose-lg max-w-none text-gray-300">
-            <p className="text-sm text-gray-500 mb-8">
+            <p className="text-sm text-gray-400 mb-8">
               Última atualização: 19 de fevereiro de 2026
             </p>
 
@@ -178,7 +178,7 @@ export default function TermsOfUsePage() {
             </section>
 
             <div className="mt-16 pt-8 border-t border-white/10">
-              <p className="text-sm text-gray-500 text-center">
+              <p className="text-sm text-gray-400 text-center">
                 Estes Termos de Uso são regidos pela legislação brasileira — Lei nº 12.965/2014 (Marco Civil da Internet)
               </p>
             </div>

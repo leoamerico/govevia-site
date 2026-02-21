@@ -70,7 +70,7 @@ export default function BlogPage() {
                           {post.description}
                         </p>
 
-                        <div className="flex items-center gap-4 text-sm text-gray-400 font-sans">
+                        <div className="flex items-center gap-4 text-sm text-gray-300 font-sans">
                           <time dateTime={post.date}>
                             {new Date(post.date).toLocaleDateString('pt-BR', {
                               year: 'numeric', month: 'long', day: 'numeric',

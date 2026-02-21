@@ -88,7 +88,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
                         {item.value.length > 0 ? (
                           <div className="font-semibold text-white mb-2 text-sm font-sans">{item.value}</div>
                         ) : null}
-                        {item.body.length > 0 ? <div className="text-xs text-gray-400 font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</div> : null}
+                        {item.body.length > 0 ? <div className="text-xs text-gray-200 font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</div> : null}
                       </div>
                       {index < visibleTrailItems.length - 1 ? (
                         <div className="hidden md:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
@@ -143,7 +143,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
                 </svg>
               </div>
               {item.title.length > 0 ? <h4 className="font-serif font-semibold text-lg mb-2">{item.title}</h4> : null}
-              {item.body.length > 0 ? <p className="text-gray-400 text-sm font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</p> : null}
+              {item.body.length > 0 ? <p className="text-gray-200 text-sm font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{item.body}</p> : null}
             </div>
           ))}
         </motion.div>

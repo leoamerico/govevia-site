@@ -63,7 +63,7 @@ export default function HeaderClient({ productName, legalEntityName, goveviaLogo
             {legalEntityName.trim().length > 0 ? (
               <>
                 <span className="mx-3 h-6 w-px bg-gray-200" aria-hidden="true" />
-                <span className="hidden sm:inline text-xs font-sans font-semibold text-gray-400 tracking-wide">
+                <span className="hidden sm:inline text-xs font-sans font-semibold text-gray-300 tracking-wide">
                   {legalEntityName}
                 </span>
               </>

@@ -29,7 +29,7 @@ export default function Footer() {
             {/* E-mail + Telefone row */}
             <div className="grid grid-cols-2 gap-4 mb-6">
               <div>
-                <p className="text-xs uppercase tracking-wider text-gray-400 mb-1">E-mail</p>
+                <p className="text-xs uppercase tracking-wider text-gray-300 mb-1">E-mail</p>
                 <a
                   href={`mailto:${ENVNEO_BRAND.email}`}
                   className="text-sm text-primary-light hover:text-white transition-colors"
@@ -38,7 +38,7 @@ export default function Footer() {
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wider text-gray-400 mb-1">Telefone</p>
+                <p className="text-xs uppercase tracking-wider text-gray-300 mb-1">Telefone</p>
                 <a
                   href={`tel:${ENVNEO_BRAND.phone.replace(/[\s()-]/g, '')}`}
                   className="text-sm text-gray-200 hover:text-white transition-colors"
@@ -51,41 +51,41 @@ export default function Footer() {
             {/* Details list */}
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-2.5">
-                <svg className="w-4 h-4 mt-0.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-4 h-4 mt-0.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
                 <div>
-                  <p className="text-gray-400 font-medium">Razão Social</p>
+                  <p className="text-gray-300 font-medium">Razão Social</p>
                   <p className="text-gray-200">{ENVNEO_BRAND.legalEntityName}</p>
                 </div>
               </li>
               <li className="flex items-start gap-2.5">
-                <svg className="w-4 h-4 mt-0.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-4 h-4 mt-0.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <div>
-                  <p className="text-gray-400 font-medium">CNPJ</p>
+                  <p className="text-gray-300 font-medium">CNPJ</p>
                   <p className="text-gray-200">{ENVNEO_BRAND.cnpj}</p>
                 </div>
               </li>
               <li className="flex items-start gap-2.5">
-                <svg className="w-4 h-4 mt-0.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-4 h-4 mt-0.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div>
-                  <p className="text-gray-400 font-medium">Endereço</p>
+                  <p className="text-gray-300 font-medium">Endereço</p>
                   <p className="text-gray-200">{ENVNEO_BRAND.address.street}</p>
                   <p className="text-gray-200">CEP: {ENVNEO_BRAND.address.zip}</p>
                   <p className="text-gray-200">{ENVNEO_BRAND.address.city}, {ENVNEO_BRAND.address.country}</p>
                 </div>
               </li>
               <li className="flex items-start gap-2.5">
-                <svg className="w-4 h-4 mt-0.5 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="w-4 h-4 mt-0.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 <div>
-                  <p className="text-gray-400 font-medium">Atividade</p>
+                  <p className="text-gray-300 font-medium">Atividade</p>
                   <p className="text-gray-200">{ENVNEO_BRAND.segment}</p>
                 </div>
               </li>
@@ -129,27 +129,27 @@ export default function Footer() {
 
         {/* ── Links institucionais ─────────────────────── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-8 border-t border-white/10">
-          <Link href="/" className="text-sm text-gray-400 hover:text-primary-light transition-colors">Início</Link>
-          <Link href="/plataforma" className="text-sm text-gray-400 hover:text-primary-light transition-colors">Plataforma</Link>
-          <Link href="/blog" className="text-sm text-gray-400 hover:text-primary-light transition-colors">Publicações</Link>
-          <Link href="/sobre" className="text-sm text-gray-400 hover:text-primary-light transition-colors">Sobre</Link>
-          <Link href="/politica-privacidade" className="text-sm text-gray-400 hover:text-primary-light transition-colors">Política de Privacidade</Link>
-          <Link href="/termos-de-uso" className="text-sm text-gray-400 hover:text-primary-light transition-colors">Termos de Uso</Link>
+          <Link href="/" className="text-sm text-gray-300 hover:text-primary-light transition-colors">Início</Link>
+          <Link href="/plataforma" className="text-sm text-gray-300 hover:text-primary-light transition-colors">Plataforma</Link>
+          <Link href="/blog" className="text-sm text-gray-300 hover:text-primary-light transition-colors">Publicações</Link>
+          <Link href="/sobre" className="text-sm text-gray-300 hover:text-primary-light transition-colors">Sobre</Link>
+          <Link href="/politica-privacidade" className="text-sm text-gray-300 hover:text-primary-light transition-colors">Política de Privacidade</Link>
+          <Link href="/termos-de-uso" className="text-sm text-gray-300 hover:text-primary-light transition-colors">Termos de Uso</Link>
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="text-sm">
               <p className="font-semibold text-gray-200 mb-1">{ENVNEO_BRAND.legalEntityName}</p>
-              <p className="text-xs text-gray-400">CNPJ: {ENVNEO_BRAND.cnpj}</p>
-              <p className="text-xs text-gray-500 mt-1">{ENVNEO_BRAND.segment}</p>
-              <address className="not-italic text-xs text-gray-600 mt-2 leading-relaxed">
+              <p className="text-xs text-gray-300">CNPJ: {ENVNEO_BRAND.cnpj}</p>
+              <p className="text-xs text-gray-400 mt-1">{ENVNEO_BRAND.segment}</p>
+              <address className="not-italic text-xs text-gray-500 mt-2 leading-relaxed">
                 {ENVNEO_BRAND.address.street}<br />
                 CEP {ENVNEO_BRAND.address.zip}<br />
                 {ENVNEO_BRAND.address.city}, {ENVNEO_BRAND.address.country}
               </address>
             </div>
-            <div className="text-xs text-gray-500 md:text-right">
+            <div className="text-xs text-gray-400 md:text-right">
               <p className="mb-1">Conformidade Regulatória:</p>
               <p>
                 <a
@@ -211,7 +211,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-500">
+        <div className="border-t border-white/10 mt-8 pt-8 text-center text-sm text-gray-400">
           <p>© {currentYear} {productName}. Todos os direitos reservados.</p>
         </div>
       </div>

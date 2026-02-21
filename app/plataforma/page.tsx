@@ -75,7 +75,7 @@ function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
 
       <ul className="space-y-1.5">
         {mod.technicalFeatures.slice(0, 3).map((feat, i) => (
-          <li key={i} className="flex items-start gap-2 text-xs text-gray-400">
+          <li key={i} className="flex items-start gap-2 text-xs text-gray-300">
             <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold text-[9px]">
               ✓
             </span>
@@ -89,7 +89,7 @@ function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
           {mod.legalBasis.slice(0, 2).map((basis, i) => (
             <span
               key={i}
-              className="text-[10px] font-mono text-gray-500 bg-white/5 border border-white/10 rounded px-1.5 py-0.5 leading-tight"
+              className="text-[10px] font-mono text-gray-400 bg-white/5 border border-white/10 rounded px-1.5 py-0.5 leading-tight"
             >
               {basis.split(' - ')[0]}
             </span>
@@ -158,7 +158,7 @@ export default function PlatformPage({ searchParams }: Props) {
               </div>
 
               {/* Legal anchors */}
-              <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono text-gray-400">
+              <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono text-gray-300">
                 {['MP 2.200-2/2001', 'Lei 14.063/2020', 'Lei 9.784/99', 'Lei 12.527/2011 (LAI)', 'LGPD'].map((law) => (
                   <span key={law}>{law}</span>
                 ))}
@@ -194,7 +194,7 @@ export default function PlatformPage({ searchParams }: Props) {
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">
                 Cobertura completa do ciclo administrativo
               </h2>
-              <p className="text-gray-400 leading-relaxed font-sans">
+              <p className="text-gray-200 leading-relaxed font-sans">
                 Cada módulo implementa controles técnicos alinhados a requisitos normativos,
                 produz evidência verificável e se integra aos demais — sem silos.
               </p>
@@ -212,7 +212,7 @@ export default function PlatformPage({ searchParams }: Props) {
         <Suspense
           fallback={
             <div className="py-24 bg-slate-950 text-center">
-              <span className="text-xs font-mono text-gray-400 uppercase tracking-widest">
+              <span className="text-xs font-mono text-gray-300 uppercase tracking-widest">
                 Carregando…
               </span>
             </div>
@@ -229,7 +229,7 @@ export default function PlatformPage({ searchParams }: Props) {
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
                 O que torna a Govevia diferente
               </h2>
-              <p className="text-gray-400 leading-relaxed font-sans">
+              <p className="text-gray-200 leading-relaxed font-sans">
                 Não vendemos software de workflow. Vendemos infraestrutura de responsabilização.
               </p>
             </div>
@@ -258,7 +258,7 @@ export default function PlatformPage({ searchParams }: Props) {
                 >
                   <div className="text-2xl font-mono text-amber-500 select-none">{icon}</div>
                   <h3 className="font-serif font-bold text-white text-lg">{title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed font-sans">{body}</p>
+                  <p className="text-sm text-gray-200 leading-relaxed font-sans">{body}</p>
                 </div>
               ))}
             </div>
@@ -286,7 +286,7 @@ export default function PlatformPage({ searchParams }: Props) {
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 max-w-3xl mx-auto leading-tight">
               Pronto para governança com evidência verificável?
             </h2>
-            <p className="text-slate-400 text-lg max-w-xl mx-auto mb-10 font-sans leading-relaxed">
+            <p className="text-slate-200 text-lg max-w-xl mx-auto mb-10 font-sans leading-relaxed">
               Agende uma demonstração técnica e veja como a plataforma atua
               no seu contexto institucional específico.
             </p>

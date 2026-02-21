@@ -89,14 +89,14 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             className="mt-16 pt-12 border-t border-white/10"
           >
             {legal.title.trim().length > 0 ? (
-              <p className="text-xs text-gray-500 font-mono uppercase tracking-widest mb-4">{legal.title}</p>
+              <p className="text-xs text-gray-300 font-mono uppercase tracking-widest mb-4">{legal.title}</p>
             ) : null}
             {legalItems.length > 0 ? (
               <div className="flex flex-wrap justify-center gap-2">
                 {legalItems.map((item, idx) => (
                   <span
                     key={`${idx}-${item}`}
-                    className="inline-flex items-center px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-400 font-mono tracking-tight"
+                    className="inline-flex items-center px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono tracking-tight"
                   >
                     {item}
                   </span>
@@ -124,7 +124,7 @@ export default function Hero({ kicker, title, subtitle, ctas, legal, scrollLabel
             aria-label="Ir para a próxima seção"
           >
             {scrollLabel.trim().length > 0 ? (
-              <span className="text-xs text-gray-500 mb-2 font-sans group-hover:text-gray-300 transition-colors">{scrollLabel}</span>
+              <span className="text-xs text-gray-300 mb-2 font-sans group-hover:text-white transition-colors">{scrollLabel}</span>
             ) : null}
             <svg className="w-5 h-5 text-primary animate-bounce group-hover:text-primary-light transition-colors" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
               <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>

@@ -132,7 +132,7 @@ export default function Contact({ title, subtitle, notice, email, infoTitle, add
             {ceo.label.trim().length > 0 || ceo.name.trim().length > 0 ? (
               <div className="bg-white/5 border border-white/10 text-white p-8 rounded-lg">
                 {ceo.label.trim().length > 0 ? (
-                  <h4 className="font-sans font-semibold text-sm uppercase tracking-wider text-gray-400 mb-3">{ceo.label}</h4>
+                  <h4 className="font-sans font-semibold text-sm uppercase tracking-wider text-gray-300 mb-3">{ceo.label}</h4>
                 ) : null}
                 {ceo.name.trim().length > 0 ? <p className="text-xl font-serif font-bold mb-2">{ceo.name}</p> : null}
               </div>

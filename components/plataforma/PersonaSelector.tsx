@@ -28,7 +28,7 @@ export default function PersonaSelector({ activePersonaId, helperText, ariaLabel
   return (
     <div>
       {helperText.trim().length > 0 ? (
-        <div className="text-xs font-mono text-gray-500 mb-3">
+        <div className="text-xs font-mono text-gray-300 mb-3">
           {helperText}
         </div>
       ) : null}
@@ -50,7 +50,7 @@ export default function PersonaSelector({ activePersonaId, helperText, ariaLabel
             >
               {persona.label}
               {persona.role.trim().length > 0 ? (
-                <span className="ml-2 text-xs font-mono text-gray-400">{persona.role}</span>
+                <span className="ml-2 text-xs font-mono text-gray-300">{persona.role}</span>
               ) : null}
             </button>
           )

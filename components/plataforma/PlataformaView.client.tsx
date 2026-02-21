@@ -56,7 +56,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">
               A plataforma fala a língua de quem decide
             </h2>
-            <p className="text-slate-400 font-sans leading-relaxed max-w-2xl">
+            <p className="text-slate-200 font-sans leading-relaxed max-w-2xl">
               Selecione um perfil para ver a visão reordenada por relevância,
               com dores, riscos e evidências exigidas em destaque.
               Link compartilhável via{' '}
@@ -125,7 +125,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
 
                 <div className="space-y-5">
                   <div>
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-slate-400 mb-3">
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-slate-300 mb-3">
                       Evidências exigidas
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -146,7 +146,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-white/10">
-                    <p className="text-xs text-slate-400 font-sans mb-4 leading-relaxed">
+                    <p className="text-xs text-slate-200 font-sans mb-4 leading-relaxed">
                       {persona.cta.text}
                     </p>
                     <Link
@@ -162,7 +162,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
             </div>
           ) : (
             <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-5">
-              <p className="text-sm text-slate-400 font-sans">
+              <p className="text-sm text-slate-300 font-sans">
                 Selecione uma persona acima para ver as evidências exigidas e
                 capacidades reordenadas por relevância.
               </p>
@@ -183,7 +183,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                 ? `Visão ordenada para ${persona.label}`
                 : 'Cinco capacidades canônicas'}
             </h2>
-            <p className="text-slate-400 font-sans leading-relaxed max-w-2xl">
+            <p className="text-slate-200 font-sans leading-relaxed max-w-2xl">
               {persona
                 ? `Cards reordenados por relevância. Evidências exigidas por ${persona.label} destacadas.`
                 : 'As primitivas técnicas que compõem a plataforma — transversais a todos os módulos.'}
@@ -237,7 +237,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                     </div>
                   </div>
 
-                  <p className="mt-4 text-sm text-slate-400 font-sans leading-relaxed">
+                  <p className="mt-4 text-sm text-slate-200 font-sans leading-relaxed">
                     {cap.description}
                   </p>
 
