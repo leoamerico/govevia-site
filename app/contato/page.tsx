@@ -8,6 +8,7 @@ import {
   ENVNEO_CNPJ,
   ENVNEO_ADDRESS_MULTILINE,
   ENVNEO_FOUNDER,
+  ENVNEO_WHATSAPP_URL,
   GOVEVIA_PRODUCT_NAME,
 } from '@/lib/brand/envneo'
 
@@ -28,7 +29,7 @@ const contactAddressValue = ENVNEO_ADDRESS_MULTILINE
 const contactCompanyTitle = GOVEVIA_PRODUCT_NAME
 const contactCompanyBody = `CNPJ: ${ENVNEO_CNPJ}`
 const contactCeoLabel = 'Responsável técnico e comercial'
-const contactCeoName = ENVNEO_FOUNDER.name.split(' ').slice(0, 2).join(' ')
+const contactCeoName = ENVNEO_FOUNDER.nameShort
 
 type Props = {
   searchParams?: Record<string, string | string[] | undefined>
@@ -77,7 +78,7 @@ export default function ContatoPage({ searchParams }: Props) {
           infoTitle={contactInfoTitle}
           address={{ label: contactAddressLabel, value: contactAddressValue }}
           company={{ title: contactCompanyTitle, body: contactCompanyBody }}
-          ceo={{ label: contactCeoLabel, name: contactCeoName }}
+          ceo={{ label: contactCeoLabel, name: contactCeoName, role: ENVNEO_FOUNDER.role, email: ENVNEO_FOUNDER.email, whatsappUrl: ENVNEO_WHATSAPP_URL, phone: ENVNEO_FOUNDER.phone }}
         />
       </main>
       <Footer />

@@ -36,7 +36,7 @@ export default function Footer() {
                 <p className="text-xs uppercase tracking-wider text-gray-300 mb-1">E-mail</p>
                 <a
                   href={`mailto:${ENVNEO_BRAND.email}`}
-                  className="text-sm text-primary-light hover:text-white transition-colors"
+                  className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
                 >
                   {ENVNEO_BRAND.email}
                 </a>
@@ -105,13 +105,16 @@ export default function Footer() {
             <p className="text-xs uppercase tracking-wider text-primary-light font-semibold mb-2">
               {ENVNEO_BRAND.founder.role}
             </p>
-            <p className="text-xl font-serif font-bold text-white mb-4">
+            <p className="text-xl font-serif font-bold text-white mb-1">
               {ENVNEO_BRAND.founder.name}
+            </p>
+            <p className="text-sm text-gray-300 mb-4">
+              Responsável por implantação e desenvolvimento
             </p>
 
             <a
               href={`mailto:${ENVNEO_BRAND.founder.email}`}
-              className="block text-sm text-primary-light hover:text-white transition-colors mb-3"
+              className="block text-sm text-blue-400 hover:text-blue-300 transition-colors mb-3"
             >
               {ENVNEO_BRAND.founder.email}
             </a>

@@ -16,6 +16,7 @@
  */
 
 // ── Identidade legal ──────────────────────────────────────
+export const ENVNEO_TRADE_NAME        = 'Env Neo'
 export const ENVNEO_LEGAL_ENTITY_NAME = 'Env Neo Ltda.'
 export const ENVNEO_CNPJ              = '36.207.211/0001-47'
 
@@ -31,8 +32,12 @@ export const ENVNEO_EMAIL           = 'govevia@govevia.com.br'
 export const ENVNEO_PHONE           = '+55 (34) 9 8422-8457'
 
 // ── Liderança ─────────────────────────────────────────────
+export const CEO_NAME_FULL  = 'Leonardo Américo José Ribeiro'
+export const CEO_NAME_SHORT = 'Leonardo Américo'
+
 export const ENVNEO_FOUNDER = {
-  name:  'Leonardo Américo José Ribeiro',
+  name:  CEO_NAME_FULL,
+  nameShort: CEO_NAME_SHORT,
   role:  'CEO & Founder',
   email: 'leonardo@govevia.com.br',
   phone: '+55 (34) 9 8422-8457',
@@ -74,6 +79,7 @@ export function normalizeLegalEntityName(value: string): string {
 
 // ── Objeto agregado (para uso compacto quando necessário) ─
 export const ENVNEO_BRAND = {
+  tradeName:       ENVNEO_TRADE_NAME,
   legalEntityName: ENVNEO_LEGAL_ENTITY_NAME,
   cnpj:            ENVNEO_CNPJ,
   productName:     GOVEVIA_PRODUCT_NAME,

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import {
+  ENVNEO_TRADE_NAME,
   ENVNEO_LEGAL_ENTITY_NAME,
   ENVNEO_CNPJ,
   ENVNEO_EMAIL,
@@ -93,7 +94,7 @@ export default function TermsOfUsePage() {
                 propriedade intelectual aplicável.
               </p>
               <p className="leading-relaxed">
-                A marca <strong>Govevia</strong> e o nome <strong>Env Neo</strong> são ativos da
+                A marca <strong>Govevia</strong> e o nome <strong>{ENVNEO_TRADE_NAME}</strong> são ativos da
                 {ENVNEO_LEGAL_ENTITY_NAME}, com registro e uso reservados. Qualquer reprodução, uso ou
                 referência à marca sem autorização expressa é proibida.
               </p>

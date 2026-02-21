@@ -11,6 +11,7 @@ import {
   ENVNEO_CNPJ,
   ENVNEO_ADDRESS_MULTILINE,
   ENVNEO_FOUNDER,
+  ENVNEO_WHATSAPP_URL,
   GOVEVIA_PRODUCT_NAME,
 } from '@/lib/brand/envneo'
 
@@ -205,7 +206,7 @@ export default function Home() {
           infoTitle="Dados institucionais"
           address={{ label: 'Endereço', value: ENVNEO_ADDRESS_MULTILINE }}
           company={{ title: GOVEVIA_PRODUCT_NAME, body: `CNPJ: ${ENVNEO_CNPJ}` }}
-          ceo={{ label: 'Responsável técnico e comercial', name: ENVNEO_FOUNDER.name.split(' ').slice(0, 2).join(' ') }}
+          ceo={{ label: 'Responsável técnico e comercial', name: ENVNEO_FOUNDER.nameShort, role: ENVNEO_FOUNDER.role, email: ENVNEO_FOUNDER.email, whatsappUrl: ENVNEO_WHATSAPP_URL, phone: ENVNEO_FOUNDER.phone }}
         />
       </main>
       <Footer />
