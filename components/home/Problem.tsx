@@ -54,7 +54,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
                     {problem.title}
                   </h3>
                   {problem.description.trim().length > 0 ? (
-                    <p className="text-gray-300 leading-relaxed font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{problem.description}</p>
+                    <p className="text-slate-200 leading-relaxed font-sans overflow-hidden max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">{problem.description}</p>
                   ) : null}
                 </div>
               </div>
@@ -73,7 +73,7 @@ export default function Problem({ title, subtitle, items, quote }: Props) {
             <div className="inline-block bg-white/10 border border-white/10 text-white px-8 py-4 rounded-lg">
               {quote.title.trim().length > 0 ? <p className="font-serif font-semibold text-lg">{quote.title}</p> : null}
               {quote.body.trim().length > 0 ? (
-                <p className="mt-2 text-sm text-gray-300 font-sans">{quote.body}</p>
+                <p className="mt-2 text-sm text-slate-200 font-sans">{quote.body}</p>
               ) : null}
             </div>
           ) : null}

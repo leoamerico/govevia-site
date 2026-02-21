@@ -78,7 +78,7 @@ export default function Contact({ title, subtitle, notice, email, infoTitle, add
                   <h3 className="font-serif font-semibold text-xl text-white mb-4">{notice.title}</h3>
                 ) : null}
                 {notice.body.trim().length > 0 ? (
-                  <p className="text-gray-300 text-sm leading-relaxed font-sans">{notice.body}</p>
+                  <p className="text-slate-200 text-sm leading-relaxed font-sans">{notice.body}</p>
                 ) : null}
               </div>
             ) : null}
@@ -86,7 +86,7 @@ export default function Contact({ title, subtitle, notice, email, infoTitle, add
             {ceo.label.trim().length > 0 || ceo.name.trim().length > 0 ? (
               <div className="bg-white/5 border border-white/10 text-white p-8 rounded-lg">
                 {ceo.label.trim().length > 0 ? (
-                  <h4 className="font-sans font-semibold text-sm uppercase tracking-wider text-gray-300 mb-3">{ceo.label}</h4>
+                  <h4 className="font-sans font-semibold text-sm uppercase tracking-wider text-slate-200 mb-3">{ceo.label}</h4>
                 ) : null}
                 {ceo.name.trim().length > 0 ? <p className="text-xl font-serif font-bold mb-2">{ceo.name}</p> : null}
                 {ceo.role ? (
@@ -143,7 +143,7 @@ export default function Contact({ title, subtitle, notice, email, infoTitle, add
                       <div>
                         {address.label.trim().length > 0 ? <p className="font-semibold text-white mb-1">{address.label}</p> : null}
                         {address.value.trim().length > 0 ? (
-                          <p className="text-gray-300 text-sm">{renderMultiline(address.value)}</p>
+                          <p className="text-slate-200 text-sm">{renderMultiline(address.value)}</p>
                         ) : null}
                       </div>
                     </div>

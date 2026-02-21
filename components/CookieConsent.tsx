@@ -33,7 +33,7 @@ export default function CookieConsent() {
       className="fixed bottom-0 left-0 right-0 z-50 bg-institutional-navy/95 backdrop-blur-sm border-t border-white/10 p-4 md:p-6"
     >
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-sm text-gray-300 leading-relaxed max-w-3xl">
+        <p className="text-sm text-slate-200 leading-relaxed max-w-3xl">
           Este site utiliza cookies estritamente necessários para funcionamento.
           Não utilizamos cookies de rastreamento ou publicidade.
           Seus dados são tratados conforme a{' '}
@@ -48,7 +48,7 @@ export default function CookieConsent() {
         <div className="flex items-center gap-3 flex-shrink-0">
           <button
             onClick={handleDecline}
-            className="text-sm text-gray-400 hover:text-white transition-colors px-4 py-2"
+            className="text-sm text-slate-300 hover:text-white transition-colors px-4 py-2"
           >
             Rejeitar
           </button>

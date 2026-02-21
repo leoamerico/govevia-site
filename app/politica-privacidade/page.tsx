@@ -27,8 +27,8 @@ export default function PrivacyPolicyPage() {
             Política de Privacidade
           </h1>
 
-          <div className="prose prose-lg max-w-none text-gray-300">
-            <p className="text-sm text-gray-400 mb-8">
+          <div className="prose prose-lg max-w-none text-slate-200">
+            <p className="text-sm text-slate-300 mb-8">
               Última atualização: 13 de fevereiro de 2026
             </p>
 
@@ -187,7 +187,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <div className="mt-16 pt-8 border-t border-white/10">
-              <p className="text-sm text-gray-400 text-center">
+              <p className="text-sm text-slate-300 text-center">
                 Esta Política de Privacidade está em conformidade com a Lei 13.709/2018 (LGPD)
               </p>
             </div>

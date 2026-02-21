@@ -97,7 +97,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
                 <h3 className="font-serif font-semibold text-xl text-white mb-4">{capability.title}</h3>
               ) : null}
               {capability.description ? (
-                <p className="text-gray-300 leading-relaxed font-sans text-sm">{capability.description}</p>
+                <p className="text-slate-200 leading-relaxed font-sans text-sm">{capability.description}</p>
               ) : null}
             </motion.div>
           ))}
@@ -156,7 +156,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
                   </div>
                   <button
                     onClick={() => setActiveIdx(null)}
-                    className="flex-shrink-0 text-gray-300 hover:text-white transition-colors p-1"
+                    className="flex-shrink-0 text-slate-200 hover:text-white transition-colors p-1"
                     aria-label="Fechar"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,15 +171,15 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
                     <p className="text-primary font-sans font-medium text-sm mb-6 leading-relaxed">{active.detail.tagline}</p>
 
                     <div className="mb-6">
-                      <h4 className="text-xs font-bold text-gray-300 uppercase tracking-widest font-sans mb-2">Descrição funcional</h4>
-                      <p className="text-gray-300 font-sans text-sm leading-relaxed">{active.detail.description}</p>
+                      <h4 className="text-xs font-bold text-slate-200 uppercase tracking-widest font-sans mb-2">Descrição funcional</h4>
+                      <p className="text-slate-200 font-sans text-sm leading-relaxed">{active.detail.description}</p>
                     </div>
 
                     <div className="mb-6">
-                      <h4 className="text-xs font-bold text-gray-300 uppercase tracking-widest font-sans mb-3">Funcionalidades</h4>
+                      <h4 className="text-xs font-bold text-slate-200 uppercase tracking-widest font-sans mb-3">Funcionalidades</h4>
                       <ul className="space-y-2">
                         {active.detail.features.map((f, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-gray-300 font-sans">
+                          <li key={i} className="flex items-start gap-2 text-sm text-slate-200 font-sans">
                             <span className="text-primary mt-1 flex-shrink-0">▸</span>
                             <span>{f}</span>
                           </li>
@@ -194,7 +194,7 @@ export default function Platform({ title, subtitle, items, cta }: Props) {
 
                     {active.detail.metrics && active.detail.metrics.length > 0 ? (
                       <div>
-                        <h4 className="text-xs font-bold text-gray-300 uppercase tracking-widest font-sans mb-2">Métricas de sucesso</h4>
+                        <h4 className="text-xs font-bold text-slate-200 uppercase tracking-widest font-sans mb-2">Métricas de sucesso</h4>
                         <ul className="space-y-1">
                           {active.detail.metrics.map((m, i) => (
                             <li key={i} className="text-sm text-gray-200 font-sans flex items-start gap-2">

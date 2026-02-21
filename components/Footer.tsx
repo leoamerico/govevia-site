@@ -27,17 +27,17 @@ export default function Footer() {
                                 {b.productName}
                             </span>
                         </div>
-                        <p className="text-sm text-gray-400 mb-6">{b.segment}</p>
+                        <p className="text-sm text-slate-300 mb-6">{b.segment}</p>
 
                         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                            <Link href="/" className="text-gray-300 hover:text-primary-light transition-colors">Início</Link>
-                            <Link href="/plataforma" className="text-gray-300 hover:text-primary-light transition-colors">Plataforma</Link>
-                            <Link href="/blog" className="text-gray-300 hover:text-primary-light transition-colors">Publicações</Link>
-                            <Link href="/sobre" className="text-gray-300 hover:text-primary-light transition-colors">Sobre</Link>
+                            <Link href="/" className="text-slate-200 hover:text-primary-light transition-colors">Início</Link>
+                            <Link href="/plataforma" className="text-slate-200 hover:text-primary-light transition-colors">Plataforma</Link>
+                            <Link href="/blog" className="text-slate-200 hover:text-primary-light transition-colors">Publicações</Link>
+                            <Link href="/sobre" className="text-slate-200 hover:text-primary-light transition-colors">Sobre</Link>
                         </nav>
                         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm mt-2">
-                            <Link href="/politica-privacidade" className="text-gray-300 hover:text-primary-light transition-colors">Política de Privacidade</Link>
-                            <Link href="/termos-de-uso" className="text-gray-300 hover:text-primary-light transition-colors">Termos de Uso</Link>
+                            <Link href="/politica-privacidade" className="text-slate-200 hover:text-primary-light transition-colors">Política de Privacidade</Link>
+                            <Link href="/termos-de-uso" className="text-slate-200 hover:text-primary-light transition-colors">Termos de Uso</Link>
                         </nav>
                     </div>
 
@@ -57,7 +57,7 @@ export default function Footer() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={ref.full_name}
-                                        className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-gray-300 font-mono tracking-tight hover:border-white/20 hover:text-gray-200 transition-colors"
+                                        className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-slate-200 font-mono tracking-tight hover:border-white/20 hover:text-gray-200 transition-colors"
                                     >
                                         {ref.short_name}
                                         <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

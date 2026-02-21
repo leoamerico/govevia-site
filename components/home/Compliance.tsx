@@ -97,7 +97,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
                   </div>
                 </div>
                 {reg.body.length > 0 ? (
-                  <p className="text-sm text-gray-300 leading-relaxed font-sans">{reg.body}</p>
+                  <p className="text-sm text-slate-200 leading-relaxed font-sans">{reg.body}</p>
                 ) : null}
               </motion.div>
             ))}
@@ -116,7 +116,7 @@ export default function Compliance({ title, subtitle, items, closing }: Props) {
               {closing.title.trim().length > 0 ? (
                 <h3 className="font-serif font-semibold text-xl mb-4">{closing.title}</h3>
               ) : null}
-              {closing.body.trim().length > 0 ? <p className="text-gray-300 leading-relaxed font-sans">{closing.body}</p> : null}
+              {closing.body.trim().length > 0 ? <p className="text-slate-200 leading-relaxed font-sans">{closing.body}</p> : null}
             </div>
           ) : null}
         </motion.div>

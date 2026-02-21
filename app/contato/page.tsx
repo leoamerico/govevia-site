@@ -57,11 +57,11 @@ export default function ContatoPage({ searchParams }: Props) {
                 </h1>
               ) : null}
               {contactSubtitle.trim().length > 0 ? (
-                <p className="text-gray-300 font-sans leading-relaxed">{contactSubtitle}</p>
+                <p className="text-slate-200 font-sans leading-relaxed">{contactSubtitle}</p>
               ) : null}
 
               {context ? (
-                <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm text-gray-300">
+                <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-4 text-sm text-slate-200">
                   <span className="font-mono">{context}</span>
                 </div>
               ) : null}

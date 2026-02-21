@@ -46,7 +46,7 @@ export default function Principles() {
           <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
             Nossos Princípios
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-200 max-w-3xl mx-auto">
             Fundamentos técnicos e institucionais que orientam o desenvolvimento de Govevia
           </p>
         </motion.div>
@@ -67,7 +67,7 @@ export default function Principles() {
               <h3 className="font-serif font-semibold text-xl mb-4 leading-tight">
                 {principle.title}
               </h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-slate-200 leading-relaxed">
                 {principle.description}
               </p>
             </motion.div>

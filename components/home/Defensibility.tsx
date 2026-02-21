@@ -61,7 +61,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">{title}</h2>
           ) : null}
           {subtitle.trim().length > 0 ? (
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-sans">{subtitle}</p>
+            <p className="text-xl md:text-2xl text-slate-200 max-w-4xl mx-auto leading-relaxed font-sans">{subtitle}</p>
           ) : null}
         </motion.div>
 
@@ -136,7 +136,7 @@ export default function Defensibility({ title, subtitle, trail, quote, features 
                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                                 className="overflow-hidden"
                               >
-                                <div className="mt-4 pt-4 border-t border-white/10 text-sm text-gray-300 leading-relaxed">
+                                <div className="mt-4 pt-4 border-t border-white/10 text-sm text-slate-200 leading-relaxed">
                                   <strong className="text-white text-xs uppercase tracking-wider">Técnico:</strong>
                                   <p className="mt-1 text-xs">{item.technical}</p>
                                 </div>

@@ -70,11 +70,11 @@ function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
         </div>
       </div>
 
-      <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">{mod.functional}</p>
+      <p className="text-sm text-slate-200 leading-relaxed line-clamp-3">{mod.functional}</p>
 
       <ul className="space-y-1.5">
         {mod.technicalFeatures.slice(0, 3).map((feat, i) => (
-          <li key={i} className="flex items-start gap-2 text-xs text-gray-300">
+          <li key={i} className="flex items-start gap-2 text-xs text-slate-200">
             <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold text-[9px]">
               ✓
             </span>
@@ -88,7 +88,7 @@ function ModuleCard({ mod }: { mod: (typeof MODULES)[number] }) {
           {mod.legalBasis.slice(0, 2).map((basis, i) => (
             <span
               key={i}
-              className="text-[10px] font-mono text-gray-400 bg-white/5 border border-white/10 rounded px-1.5 py-0.5 leading-tight"
+              className="text-[10px] font-mono text-slate-300 bg-white/5 border border-white/10 rounded px-1.5 py-0.5 leading-tight"
             >
               {basis.split(' - ')[0]}
             </span>
@@ -134,7 +134,7 @@ export default function PlatformPage({ searchParams }: Props) {
                 Governança executável,{' '}
                 <span className="text-amber-400">não apenas declarada.</span>
               </h1>
-              <p className="text-xl text-slate-300 leading-relaxed max-w-3xl mb-10 font-sans">
+              <p className="text-xl text-slate-200 leading-relaxed max-w-3xl mb-10 font-sans">
                 Seis módulos integrados que transformam regras em controles técnicos —
                 com evidência verificável, trilha auditável e defensibilidade institucional
                 desde o primeiro ato.
@@ -157,7 +157,7 @@ export default function PlatformPage({ searchParams }: Props) {
               </div>
 
               {/* Legal anchors */}
-              <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono text-gray-300">
+              <div className="mt-12 pt-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-[11px] font-mono text-slate-200">
                 {['MP 2.200-2/2001', 'Lei 14.063/2020', 'Lei 9.784/99', 'Lei 12.527/2011 (LAI)', 'LGPD'].map((law) => (
                   <span key={law}>{law}</span>
                 ))}
@@ -189,7 +189,7 @@ export default function PlatformPage({ searchParams }: Props) {
         <Suspense
           fallback={
             <div className="py-16 bg-slate-950 text-center">
-              <span className="text-xs font-mono text-gray-300 uppercase tracking-widest">
+              <span className="text-xs font-mono text-slate-200 uppercase tracking-widest">
                 Carregando…
               </span>
             </div>

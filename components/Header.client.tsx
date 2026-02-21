@@ -44,7 +44,7 @@ export default function HeaderClient({ productName, navigation }: Props) {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-300 hover:text-primary-light font-medium text-sm relative transition-colors duration-200 after:absolute after:bottom-[-3px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300 after:content-['']"
+                className="text-slate-200 hover:text-primary-light font-medium text-sm relative transition-colors duration-200 after:absolute after:bottom-[-3px] after:left-0 after:h-[2px] after:w-0 hover:after:w-full after:bg-primary after:transition-[width] after:duration-300 after:content-['']"
               >
                 {item.name}
               </Link>
@@ -57,7 +57,7 @@ export default function HeaderClient({ productName, navigation }: Props) {
 
           <button
             type="button"
-            className="md:hidden p-2 rounded-md text-gray-300 hover:text-primary-light focus:outline-none focus:ring-2 focus:ring-primary"
+            className="md:hidden p-2 rounded-md text-slate-200 hover:text-primary-light focus:outline-none focus:ring-2 focus:ring-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Abrir menu de navegação"
             aria-expanded={isMobileMenuOpen}
@@ -79,7 +79,7 @@ export default function HeaderClient({ productName, navigation }: Props) {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-gray-300 hover:text-primary-light font-medium transition-colors duration-200 py-2"
+                  className="text-slate-200 hover:text-primary-light font-medium transition-colors duration-200 py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}

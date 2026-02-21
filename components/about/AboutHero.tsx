@@ -15,7 +15,7 @@ export default function AboutHero() {
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
             Sobre a Govevia
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-200 leading-relaxed">
             Desenvolvemos tecnologia para que a governança pública deixe de ser discurso 
             e passe a ser código executável com enforcement técnico verificável.
           </p>

@@ -31,7 +31,7 @@ export default function Mission() {
             viewport={{ once: true }}
             className="prose prose-lg max-w-none"
           >
-            <div className="text-gray-300 leading-relaxed space-y-6">
+            <div className="text-slate-200 leading-relaxed space-y-6">
               <p>
                 Há milhares de servidores públicos no Brasil que conhecem o seu trabalho de dentro
                 para fora — cada prazo que não pode falhar, cada ato que precisa de motivação, cada

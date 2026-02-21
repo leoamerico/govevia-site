@@ -57,7 +57,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight">
               Veja o fluxo completo desde o primeiro clique
             </h2>
-            <p className="text-slate-300 font-sans leading-relaxed max-w-2xl mx-auto">
+            <p className="text-slate-200 font-sans leading-relaxed max-w-2xl mx-auto">
               Cada persona tem dores, riscos e evidências diferentes.
               Selecione a sua para ver a plataforma sob sua perspectiva.
             </p>
@@ -79,8 +79,8 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                   onClick={() => setView(isActive ? null : id)}
                   aria-pressed={isActive}
                   className={`group relative flex flex-col items-center text-center rounded-2xl p-6 md:p-8 transition-all duration-300 ${isActive
-                      ? 'bg-amber-400/10 border-2 border-amber-400 shadow-[0_0_30px_rgba(251,191,36,0.15)]'
-                      : 'bg-white/5 border border-white/10 hover:border-amber-400/40 hover:bg-white/[0.07]'
+                    ? 'bg-amber-400/10 border-2 border-amber-400 shadow-[0_0_30px_rgba(251,191,36,0.15)]'
+                    : 'bg-white/5 border border-white/10 hover:border-amber-400/40 hover:bg-white/[0.07]'
                     }`}
                 >
                   {/* Icon */}
@@ -109,7 +109,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                   <span className={`text-[10px] font-mono uppercase tracking-widest mb-3 ${isActive ? 'text-amber-300' : 'text-slate-500'}`}>
                     {p.role}
                   </span>
-                  <span className="text-xs text-slate-400 font-sans leading-relaxed">
+                  <span className="text-xs text-slate-300 font-sans leading-relaxed">
                     {p.subtitle}
                   </span>
 
@@ -202,7 +202,7 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                 animate={{ opacity: 1 }}
                 className="mt-8 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center"
               >
-                <p className="text-sm text-slate-400 font-sans">
+                <p className="text-sm text-slate-300 font-sans">
                   Selecione um perfil acima para ver as evidências exigidas e
                   capacidades reordenadas por relevância.
                 </p>
@@ -240,8 +240,8 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
                 <article
                   key={cap.id}
                   className={`relative rounded-2xl border p-6 transition-all duration-200 ${isEvidence
-                      ? 'border-amber-400/30 bg-amber-400/5 shadow-[inset_0_1px_0_rgba(251,191,36,0.1)]'
-                      : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/[0.07]'
+                    ? 'border-amber-400/30 bg-amber-400/5 shadow-[inset_0_1px_0_rgba(251,191,36,0.1)]'
+                    : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/[0.07]'
                     }`}
                 >
                   {/* Priority / Evidence badges */}

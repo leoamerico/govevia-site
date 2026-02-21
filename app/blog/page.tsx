@@ -25,7 +25,7 @@ export default function BlogPage() {
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
                 Publicações
               </h1>
-              <p className="text-xl text-gray-300 font-sans leading-relaxed max-w-3xl mx-auto">
+              <p className="text-xl text-slate-200 font-sans leading-relaxed max-w-3xl mx-auto">
                 Artigos técnicos sobre governança digital, enforcement normativo e conformidade
                 regulatória para administração pública municipal.
               </p>
@@ -38,7 +38,7 @@ export default function BlogPage() {
             <div className="max-w-4xl mx-auto">
               {posts.length === 0 ? (
                 <div className="text-center py-16">
-                  <p className="text-gray-300 font-sans text-lg">
+                  <p className="text-slate-200 font-sans text-lg">
                     Não há publicações disponíveis no momento.
                   </p>
                 </div>
@@ -65,11 +65,11 @@ export default function BlogPage() {
                           {post.title}
                         </h2>
 
-                        <p className="text-gray-300 font-sans leading-relaxed mb-4">
+                        <p className="text-slate-200 font-sans leading-relaxed mb-4">
                           {post.description}
                         </p>
 
-                        <div className="flex items-center gap-4 text-sm text-gray-300 font-sans">
+                        <div className="flex items-center gap-4 text-sm text-slate-200 font-sans">
                           <time dateTime={post.date}>
                             {new Date(post.date).toLocaleDateString('pt-BR', {
                               year: 'numeric', month: 'long', day: 'numeric',

@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="max-w-3xl mx-auto">
               <Link
                 href="/blog"
-                className="inline-flex items-center text-sm text-gray-300 hover:text-primary transition-colors font-sans mb-8"
+                className="inline-flex items-center text-sm text-slate-200 hover:text-primary transition-colors font-sans mb-8"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -103,11 +103,11 @@ export default async function BlogPostPage({ params }: Props) {
                 {post.title}
               </h1>
 
-              <p className="text-xl text-gray-300 font-sans leading-relaxed mb-8">
+              <p className="text-xl text-slate-200 font-sans leading-relaxed mb-8">
                 {post.description}
               </p>
 
-              <div className="flex items-center gap-4 text-sm text-gray-300 font-sans pb-8 border-b border-white/10">
+              <div className="flex items-center gap-4 text-sm text-slate-200 font-sans pb-8 border-b border-white/10">
                 <time dateTime={post.date}>
                   {new Date(post.date).toLocaleDateString('pt-BR', {
                     year: 'numeric', month: 'long', day: 'numeric',
@@ -130,8 +130,8 @@ export default async function BlogPostPage({ params }: Props) {
                   prose-headings:font-serif prose-headings:text-white prose-headings:font-bold
                   prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
                   prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                  prose-p:font-sans prose-p:text-gray-300 prose-p:leading-relaxed
-                  prose-li:font-sans prose-li:text-gray-300
+                  prose-p:font-sans prose-p:text-slate-200 prose-p:leading-relaxed
+                  prose-li:font-sans prose-li:text-slate-200
                   prose-strong:text-white
                   prose-a:text-primary prose-a:no-underline hover:prose-a:underline
                   prose-blockquote:border-primary prose-blockquote:bg-zinc-900 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-lg
@@ -153,7 +153,7 @@ export default async function BlogPostPage({ params }: Props) {
         <section className="py-16 bg-zinc-900">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-gray-300 font-sans mb-6">
+              <p className="text-slate-200 font-sans mb-6">
                 Tem dúvidas sobre conformidade digital na sua administração municipal?
               </p>
               <Link href="/#contato" className="btn-primary">

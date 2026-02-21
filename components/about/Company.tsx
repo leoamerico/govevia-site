@@ -42,7 +42,7 @@ export default function Company() {
                 <h3 className="font-serif font-semibold text-2xl text-white mb-6">
                   Dados Institucionais
                 </h3>
-                <div className="space-y-4 text-gray-300">
+                <div className="space-y-4 text-slate-200">
                   <div className="flex items-start">
                     <svg className="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -135,7 +135,7 @@ export default function Company() {
                 <h3 className="font-serif font-semibold text-2xl text-white mb-6">
                   Contato Institucional
                 </h3>
-                <div className="space-y-4 text-gray-300">
+                <div className="space-y-4 text-slate-200">
                   <div>
                     <p className="font-semibold text-white mb-2">E-mail Principal</p>
                     <a href={`mailto:${ENVNEO_EMAIL}`} className="text-primary hover:underline">
@@ -164,13 +164,13 @@ export default function Company() {
             <h3 className="font-serif font-semibold text-xl text-white mb-4">
               Nossa Trajetória
             </h3>
-            <p className="text-gray-300 leading-relaxed mb-4">
+            <p className="text-slate-200 leading-relaxed mb-4">
               A Govevia foi fundada com a convicção de que a transformação digital do setor público
               brasileiro não pode ser resolvida com adaptação de ferramentas corporativas. Governança
               pública opera sob regime jurídico próprio, com requisitos de evidência, conformidade e
               auditabilidade que não existem no setor privado.
             </p>
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-slate-200 leading-relaxed">
               Govevia nasceu dessa compreensão: não é um ERP adaptado, não é um sistema de protocolo
               rebatizado. É uma plataforma concebida desde o primeiro commit de código para transformar
               regras institucionais em restrições técnicas executáveis.

@@ -21,13 +21,13 @@ export default async function HistoricoPage() {
               <h1 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
                 Histórico de Atualizações
               </h1>
-              <p className="text-xl text-gray-300 font-sans leading-relaxed">
+              <p className="text-xl text-slate-200 font-sans leading-relaxed">
                 Este histórico é gerado a partir do <span className="font-mono">CHANGELOG.md</span> versionado no repositório.
               </p>
-              <div className="mt-6 text-sm text-gray-300 font-mono">
+              <div className="mt-6 text-sm text-slate-200 font-mono">
                 {updatedAt ? (
                   <div className="mb-2">
-                    Atualizado em (UTC): <span className="text-gray-300">{updatedAt}</span>
+                    Atualizado em (UTC): <span className="text-slate-200">{updatedAt}</span>
                   </div>
                 ) : null}
                 <a href="/api/version" className="hover:text-primary">
@@ -45,8 +45,8 @@ export default async function HistoricoPage() {
                 prose-headings:font-serif prose-headings:text-white prose-headings:font-bold
                 prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
                 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                prose-p:font-sans prose-p:text-gray-300 prose-p:leading-relaxed
-                prose-li:font-sans prose-li:text-gray-300
+                prose-p:font-sans prose-p:text-slate-200 prose-p:leading-relaxed
+                prose-li:font-sans prose-li:text-slate-200
                 prose-strong:text-white
                 prose-a:text-primary prose-a:no-underline hover:prose-a:underline
                 prose-code:text-primary prose-code:bg-primary/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
