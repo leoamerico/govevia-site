@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { track } from '@vercel/analytics'
 
 import {
   AXES_LABELS,
@@ -29,22 +30,33 @@ export default function PlataformaView({ initialView }: { initialView: PersonaId
   const [active, setActive] = useState<PersonaId | null>(initialView)
   const persona = active ? PERSONAS[active] : null
 
+  // Track initial view or direct route access
+  useEffect(() => {
+    if (initialView) {
+      track('Persona Context Access', {
+        persona: initialView,
+        entry: 'direct_route'
+      })
+    }
+  }, [initialView])
+
   const orderedCaps = useMemo(() => {
     if (!active) return CAPABILITIES
     return reorderCapabilities(PERSONAS[active].order)
   }, [active])
 
   function setView(next: PersonaId | null) {
-    setActive(next)
-
-    // If we're at /plataforma/[persona], clicking the SAME persona deselects it? 
-    // In the new architecture, maybe we redirect to base /plataforma.
     if (!next) {
+      setActive(null)
       router.push('/plataforma', { scroll: false })
       return
     }
 
-    // Navigate to the dedicated persona route
+    setActive(next)
+    track('Persona Switch', {
+      persona: next,
+      method: 'click_interaction'
+    })
     router.push(`/plataforma/${next}`, { scroll: false })
   }
 

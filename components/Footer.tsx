@@ -37,6 +37,7 @@ export default function Footer() {
                             <Link href="/sobre" className="text-slate-200 hover:text-primary-light transition-colors">Sobre</Link>
                         </nav>
                         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm mt-2">
+                            <Link href="/base-legal" className="text-slate-200 hover:text-primary-light transition-colors">Base Legal</Link>
                             <Link href="/politica-privacidade" className="text-slate-200 hover:text-primary-light transition-colors">Política de Privacidade</Link>
                             <Link href="/termos-de-uso" className="text-slate-200 hover:text-primary-light transition-colors">Termos de Uso</Link>
                         </nav>

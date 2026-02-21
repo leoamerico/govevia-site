@@ -1,10 +1,35 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — feat(legal): integração BFF + página Base Legal — consumo do domínio LegalDevice do kernel
+
+**Contexto:** O kernel Java (`govevia-kernel`) possui o domínio `LegalDevice` com dispositivos legais cadastrados no banco PostgreSQL. O site utilizava apenas referências estáticas em `lib/legal/legal-references.ts` e `content/normas-legais.json`.
+
+**Solução implementada (arquitetura kernel-first + fallback estático):**
+
+- `lib/kernel/types.ts` — tipos TypeScript que espelham o DTO Java `LegalDeviceResponse` (record: `id, label, content, urnLex, status, effectiveStart, effectiveEnd`). Inclui tipo normalizado `NormaLegal`, adaptadores `fromKernelDevice()` e `fromStaticNorma()` e payload `LegalDevicesPayload`.
+- `app/api/core/leis/route.ts` — BFF Route Handler `GET /api/core/leis` com:
+  - Tentativa primária: `GET ${KERNEL_API_URL}/public/v1/portal/legislation` com `Authorization: Bearer ${KERNEL_SERVICE_TOKEN}` (revalidate 1h).
+  - Fallback: `content/normas-legais.json` adaptado via `fromStaticNorma()`.
+  - Parâmetros de query: `esfera`, `status` (default `ativa`), `q` (busca textual).
+- `components/legal/LegalDevicesSection.client.tsx` — componente client que consome `/api/core/leis`, exibe grid de cartões com badge de esfera, filtros de esfera e busca textual.
+- `app/base-legal/page.tsx` — nova rota `/base-legal` com metadata SEO, hero e componente `LegalDevicesSection`.
+- `components/Footer.tsx` — adicionado link "Base Legal" ao bloco de navegação institucional.
+
+**Variáveis de ambiente necessárias (Vercel):**
+- `KERNEL_API_URL` — URL base do kernel Java (ex: `https://api.govevia.com.br`)
+- `KERNEL_SERVICE_TOKEN` — JWT de serviço para autenticar a chamada server-side
+
+**Nota para o kernel:** Para consumo em produção, adicionar:
+1. `GET /public/v1/portal/legislation` em `PortalPublicController` servindo `LegalDeviceResponse[]`
+2. `.requestMatchers("/public/**").permitAll()` em `SecurityConfig`
+3. `govevia.com.br` e `*.vercel.app` nos `allowedOrigins` do CORS
+
 ## 2026-02-21 — feat(brand): BrandWordmark — SSOT tipográfico do logotipo Govevia
 
 **Problema:** Header usava `font-sans text-[1.15rem]` e Footer usava `font-serif text-xl` — duas renderizações distintas do mesmo logotipo.
 
 **Solução:**
+
 - Criado `components/brand/BrandWordmark.tsx` como única fonte de verdade para o logotipo textual.
 - Tipografia canônica definida: `font-sans font-bold tracking-tight text-white leading-none` (IBM Plex Sans — alinhado a `section-title` e `h1-h6` do globals.css).
 - Variantes de tamanho: `sm` (footer, 20px ícone / text-lg) · `md` (header, 28px / text-xl) · `lg` (hero, 36px / text-2xl).
@@ -52,6 +77,12 @@
 - `Footer.tsx`: navegação principal sincronizada com `Header.tsx` — "Publicações" agora renderiza condicionalmente, via `getAllPosts()`, idêntico ao comportamento do header.
 - CTA do rodapé: label unificado para "Fale com nossa equipe" (igualando o header); link corrigido de `#contato` para `/contato`.
 - `Header.client.tsx`: CTAs desktop e mobile corrigidos de `#contato` para `/contato`, garantindo roteamento correto em qualquer página.
+
+## 2026-02-21 — feat(plataforma): Persona-specific SEO Media & Navigation Fixes
+
+- **SEO Media**: Criados `opengraph-image.tsx` e `twitter-image.tsx` dedicados em `app/plataforma/[persona]/`. Agora cada persona gera cards sociais dinâmicos com seu próprio título e subtítulo.
+- **UX**: `app/plataforma/page.tsx` agora redireciona para `/plataforma/prefeito` por padrão, garantindo que o usuário sempre caia em uma rota de persona indexável e com metadados completos.
+- **Navegação**: Refatorada lógica de `setView` em `PlataformaView.client.tsx` para garantir transições suaves entre rotas dedicadas e estados de ativação consistentes.
 
 ## 2026-02-21 — feat(plataforma): rotas dedicadas por persona e SEO (Phase 2)
 

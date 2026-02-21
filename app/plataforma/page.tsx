@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import type { PersonaId } from '@/lib/plataforma/ssot'
@@ -30,6 +31,11 @@ function parseInitialView(value: unknown): PersonaId | null {
 
 export default function PlatformPage({ searchParams }: Props) {
   const initialView = parseInitialView(searchParams?.view)
+
+  // Se não houver vista inicial, redireciona para o prefeito como padrão
+  if (!initialView) {
+    redirect('/plataforma/prefeito')
+  }
 
   return (
     <>
