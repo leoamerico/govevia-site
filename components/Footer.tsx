@@ -73,18 +73,8 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* COLUNA 3 — CTA para contato */}
-                    <div className="flex flex-col justify-between">
-                        <Link
-                            href="/contato"
-                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-primary/40 hover:border-primary text-sm text-primary hover:text-white transition-colors self-start"
-                        >
-                            Fale com nossa equipe
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </Link>
-                    </div>
+                    {/* COLUNA 3 — placeholder mantém grid 3 colunas */}
+                    <div />
                 </div>
             </div>
 

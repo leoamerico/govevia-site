@@ -49,10 +49,6 @@ export default function HeaderClient({ productName, navigation }: Props) {
                 {item.name}
               </Link>
             ))}
-            <Link href="/contato" className="btn-primary text-sm px-6 py-3 group">
-              Fale com nossa equipe
-              <span className="ml-2 transition-transform duration-200 group-hover:translate-x-0.5 inline-block" aria-hidden="true">→</span>
-            </Link>
           </div>
 
           <button
@@ -85,9 +81,6 @@ export default function HeaderClient({ productName, navigation }: Props) {
                   {item.name}
                 </Link>
               ))}
-              <Link href="/contato" className="btn-primary text-center" onClick={() => setIsMobileMenuOpen(false)}>
-                Fale com nossa equipe
-              </Link>
             </div>
           </div>
         ) : null}

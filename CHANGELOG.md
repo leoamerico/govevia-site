@@ -1,5 +1,10 @@
 # Govevia Site — v2.0.0
 
+## 2026-02-21 — fix(nav): remoção do CTA "Fale com nossa equipe" do header e footer
+
+- `Header.client.tsx`: botão `btn-primary` desktop e mobile removidos — link `/contato` já está no menu de navegação como item "Contato" ou acessível via footer.
+- `Footer.tsx`: CTA "Fale com nossa equipe" removido da coluna 3; coluna mantida como placeholder para preservar o grid de 3 colunas.
+
 ## 2026-02-21 — fix(plataforma): remoção do botão "Sobre a Govevia" redundante
 
 - `app/plataforma/PlatformLayout.tsx`: botão secundário `/sobre` removido da seção hero da plataforma — link já disponível no menu de navegação.
