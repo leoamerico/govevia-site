@@ -221,6 +221,156 @@ export default function PlatformPage({ searchParams }: Props) {
           <PlataformaView initialView={initialView} />
         </Suspense>
 
+        {/* ── ANATOMIA DE UMA DECISÃO DEFENSÁVEL ───────────────────────────── */}
+        <section className="py-24 bg-zinc-950 border-t border-white/5" id="anatomia">
+          <div className="container-custom">
+            <div className="max-w-3xl mx-auto text-center mb-16">
+              <p className="text-xs font-mono uppercase tracking-widest text-amber-600 mb-3">
+                Fluxo · Decisão Defensável
+              </p>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+                Anatomia de uma{' '}
+                <span className="text-amber-400">decisão defensável</span>
+              </h2>
+              <p className="text-slate-200 text-lg font-sans leading-relaxed max-w-2xl mx-auto">
+                Cada decisão administrativa percorre seis estágios com evidência verificável.
+                Nenhum estágio pode ser pulado — o sistema bloqueia, não apenas alerta.
+              </p>
+            </div>
+
+            {/* Timeline */}
+            <div className="relative max-w-4xl mx-auto">
+              {/* Vertical line (desktop) */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-400/0 via-amber-400/40 to-amber-400/0" />
+
+              {[
+                {
+                  step: '01',
+                  title: 'Registro da Ocorrência',
+                  body: 'Fiscal registra o fato com evidência — fotografia, geolocalização, data e hora. O evento é imutável desde a criação.',
+                  tech: 'Event sourcing · Payload canônico (ADR-001)',
+                  icon: 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z',
+                  promise: 'Memória institucional que sobrevive à rotatividade',
+                },
+                {
+                  step: '02',
+                  title: 'Enquadramento Normativo',
+                  body: 'O sistema localiza a norma vigente na data do fato — não a versão atual. Dosimetria e artigo são vinculados à versão temporal correta.',
+                  tech: 'regras_versionadas · vigente_de / vigente_ate · GATE-R3',
+                  icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+                  promise: 'Norma vigente na data do fato — não a atual',
+                },
+                {
+                  step: '03',
+                  title: 'Instrução e Completude',
+                  body: 'Documentos são anexados e a completude é verificada automaticamente. Se a ocorrência estiver parcial, a decisão é bloqueada — não apenas alertada.',
+                  tech: 'ComplementacaoRequerida · Bloqueio de ocorrência parcial',
+                  icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+                  promise: 'Processo completo antes da decisão',
+                },
+                {
+                  step: '04',
+                  title: 'Decisão com Segregação',
+                  body: 'A IA redige o rascunho de fundamentação. O gestor decide e assina. Quem registrou a ocorrência não pode decidir a multa — SoD validado no motor de workflow.',
+                  tech: '6 metadados de IA · SoD no backend · GATE-R3',
+                  icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+                  promise: 'A IA redige — você decide e assina',
+                },
+                {
+                  step: '05',
+                  title: 'Verificação Criptográfica',
+                  body: 'Cada evento recebe hash encadeado ao anterior. A âncora RFC 3161 torna a trilha verificável por qualquer auditor independente.',
+                  tech: 'Hash chain · Merkle root · RFC 3161 · GATE-R1 + GATE-R4',
+                  icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
+                  promise: 'Decisão defensável com trilha imutável',
+                },
+                {
+                  step: '06',
+                  title: 'Exportação de Evidências',
+                  body: 'Pacote de evidências exportado em formato aberto (NDJSON) para TCE, MP ou Judiciário. Dados do órgão, portabilidade garantida, sem vendor lock-in.',
+                  tech: 'Export self-service · NDJSON · GATE-R2',
+                  icon: 'M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4',
+                  promise: 'Seus dados, portabilidade garantida',
+                },
+              ].map(({ step, title, body, tech, icon, promise }, idx) => {
+                const isEven = idx % 2 === 0
+                return (
+                  <div
+                    key={step}
+                    className={`relative flex flex-col md:flex-row items-center md:items-start gap-6 mb-12 last:mb-0 ${
+                      isEven ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}
+                  >
+                    {/* Content card */}
+                    <div className={`flex-1 ${isEven ? 'md:text-right md:pr-12' : 'md:text-left md:pl-12'}`}>
+                      <div
+                        className={`inline-block rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-left transition-all hover:border-amber-400/30 hover:bg-white/[0.06] ${
+                          isEven ? 'md:ml-auto' : ''
+                        }`}
+                        style={{ maxWidth: '420px' }}
+                      >
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={icon} />
+                            </svg>
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest">
+                              Passo {step}
+                            </span>
+                            <h3 className="font-serif font-bold text-white text-base leading-snug">
+                              {title}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <p className="text-sm text-slate-200 font-sans leading-relaxed mb-3">
+                          {body}
+                        </p>
+
+                        <p className="text-[10px] font-mono text-amber-600 uppercase tracking-wide mb-2">
+                          {tech}
+                        </p>
+
+                        <div className="pt-2 border-t border-white/5">
+                          <p className="text-xs text-slate-400 font-sans italic">
+                            &ldquo;{promise}&rdquo;
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Center dot */}
+                    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-slate-950 border-2 border-amber-400/50 items-center justify-center z-10">
+                      <span className="text-[10px] font-mono font-bold text-amber-400">{step}</span>
+                    </div>
+
+                    {/* Spacer for the other side */}
+                    <div className="hidden md:block flex-1" />
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Bottom summary */}
+            <div className="mt-16 max-w-2xl mx-auto text-center">
+              <div className="inline-flex items-center gap-3 rounded-xl border border-amber-400/20 bg-amber-400/5 px-6 py-4">
+                <svg className="w-5 h-5 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <p className="text-sm text-slate-200 font-sans">
+                  Resultado: decisão com{' '}
+                  <strong className="text-amber-400">evidência verificável</strong>,{' '}
+                  <strong className="text-amber-400">norma correta</strong> e{' '}
+                  <strong className="text-amber-400">trilha imutável</strong>
+                  {' '}— pronta para auditoria do TCE, MP ou Judiciário.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── DIFERENCIAIS ─────────────────────────────────────────────────── */}
         <section className="py-24 bg-zinc-950">
           <div className="container-custom">
